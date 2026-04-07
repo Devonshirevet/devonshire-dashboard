@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Devonshire Veterinary Clinic — Command Center</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy:#1F3864; --blue:#2563EB; --blue-light:#3B82F6; --blue-pale:#EFF6FF;
+  --green:#16A34A; --red:#DC2626; --amber:#D97706; --purple:#7C3AED;
+  --gray-50:#F9FAFB; --gray-100:#F3F4F6; --gray-200:#E5E7EB;
+  --gray-400:#9CA3AF; --gray-600:#4B5563; --gray-800:#1F2937; --white:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:0 4px 6px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.06);
+  --radius:8px; --filter-width:230px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--gray-100);color:var(--gray-800);font-size:13px;min-height:100vh;}
+
+/* ── Header ── */
+.header{background:var(--navy);color:white;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.header-left{display:flex;align-items:center;gap:12px;}
+.header-logo{width:34px;height:34px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.header-title{font-size:16px;font-weight:700;letter-spacing:-0.2px;}
+.header-sub{font-size:11px;opacity:0.6;margin-top:1px;}
+.header-right{display:flex;align-items:center;gap:14px;}
+.live-badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:4px 12px;font-size:11px;display:flex;align-items:center;gap:6px;}
+.live-dot{width:7px;height:7px;background:#34D399;border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.last-updated{font-size:11px;opacity:0.5;}
+
+/* ── Tab Bar ── */
+.tab-bar{background:var(--white);border-bottom:2px solid var(--gray-200);padding:0 24px;display:flex;gap:0;position:sticky;top:58px;z-index:190;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+.tab-btn{padding:13px 20px;font-size:13px;font-weight:600;color:var(--gray-400);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all 0.15s;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.tab-btn:hover{color:var(--gray-800);}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--navy);}
+.tab-btn .tab-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;background:var(--gray-100);color:var(--gray-400);}
+.tab-btn.active .tab-badge{background:#FEE2E2;color:#B91C1C;}
+
+/* ── Tab Panels ── */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── Layout ── */
+.layout{display:flex;max-width:1600px;margin:0 auto;}
+.main-content{flex:1;padding:20px;min-width:0;}
+.filter-sidebar{width:var(--filter-width);background:var(--white);border-left:1px solid var(--gray-200);padding:18px 16px;position:sticky;top:116px;height:calc(100vh - 116px);overflow-y:auto;flex-shrink:0;}
+
+/* ── Cards ── */
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;border:1px solid var(--gray-200);}
+.card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--gray-400);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+
+/* ── KPI Bar ── */
+.kpi-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px;}
+.kpi-card{background:var(--white);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);border-top:3px solid transparent;transition:transform 0.15s,box-shadow 0.15s;cursor:default;}
+.kpi-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.kpi-card.primary{border-top-color:var(--blue);}
+.kpi-card.success{border-top-color:var(--green);}
+.kpi-card.warning{border-top-color:var(--amber);}
+.kpi-card.info{border-top-color:#8B5CF6;}
+.kpi-card.neutral{border-top-color:var(--gray-400);}
+.kpi-label{font-size:10px;color:var(--gray-400);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;}
+.kpi-value{font-size:24px;font-weight:700;color:var(--gray-800);line-height:1;margin-bottom:5px;letter-spacing:-0.5px;}
+.kpi-meta{display:flex;align-items:center;gap:5px;font-size:11px;}
+.kpi-trend{font-weight:600;}.kpi-trend.up{color:var(--green);}.kpi-trend.down{color:var(--red);}
+.kpi-compare{color:var(--gray-400);}
+
+/* ── Charts ── */
+.chart-row{display:grid;gap:14px;margin-bottom:14px;}
+.chart-row.single{grid-template-columns:1fr;}
+.chart-row.two{grid-template-columns:1fr 1fr;}
+.chart-wrapper{position:relative;}
+
+/* ── Chart tabs ── */
+.ctabs{display:flex;gap:2px;}
+.ctab{border:none;background:none;cursor:pointer;font-size:11px;font-weight:500;padding:3px 9px;border-radius:4px;color:var(--gray-400);transition:all 0.15s;}
+.ctab.active{background:var(--blue-pale);color:var(--blue);}
+.ctab:hover:not(.active){background:var(--gray-100);color:var(--gray-600);}
+
+/* ── Insights / Actions ── */
+.insights-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.insight-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.insight-item:last-child{border-bottom:none;}
+.insight-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px;}
+.icon-green{background:#DCFCE7;}.icon-blue{background:#DBEAFE;}.icon-amber{background:#FEF3C7;}.icon-red{background:#FEE2E2;}
+.insight-text{font-size:12px;line-height:1.5;color:var(--gray-600);}
+.insight-text strong{color:var(--gray-800);display:block;margin-bottom:1px;font-size:12.5px;}
+.action-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-100);}
+.action-item:last-child{border-bottom:none;}
+.priority{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:0.3px;flex-shrink:0;margin-top:1px;}
+.p-high{background:#FEE2E2;color:#B91C1C;}.p-med{background:#FEF3C7;color:#92400E;}.p-low{background:#DCFCE7;color:#166534;}
+.action-text{font-size:12px;color:var(--gray-600);line-height:1.4;}
+
+/* ── Inventory ── */
+.inv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.inv-item{border:1px solid var(--gray-200);border-radius:6px;padding:11px;background:var(--gray-50);}
+.inv-name{font-size:12px;font-weight:600;margin-bottom:3px;}
+.inv-code{font-size:10px;color:var(--gray-400);margin-bottom:7px;}
+.inv-bar-wrap{background:var(--gray-200);border-radius:99px;height:5px;margin-bottom:5px;overflow:hidden;}
+.inv-bar{height:100%;border-radius:99px;}
+.inv-bar.ok{background:var(--green);}.inv-bar.low{background:var(--amber);}.inv-bar.critical{background:var(--red);}
+.inv-stats{display:flex;justify-content:space-between;font-size:10.5px;color:var(--gray-400);}
+.inv-stat-val{font-weight:600;color:var(--gray-800);}
+.order-table{width:100%;border-collapse:collapse;font-size:12px;}
+.order-table th{text-align:left;padding:7px 10px;background:var(--gray-50);border-bottom:2px solid var(--gray-200);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;color:var(--gray-400);}
+.order-table td{padding:8px 10px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+.order-table tr:hover td{background:var(--blue-pale);}
+.order-table tr:last-child td{border-bottom:none;}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;}
+.badge-red{background:#FEE2E2;color:#B91C1C;}.badge-amber{background:#FEF3C7;color:#92400E;}
+.badge-green{background:#DCFCE7;color:#166534;}.badge-blue{background:#DBEAFE;color:#1D4ED8;}
+
+/* ── Staff ── */
+.staff-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.staff-badge{display:flex;align-items:center;gap:6px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:20px;padding:4px 12px 4px 8px;font-size:11.5px;}
+.s-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-in{background:var(--green);}.dot-out{background:var(--gray-400);}.dot-off{background:var(--red);}
+
+/* ── Directive feed ── */
+.dir-item{padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.dir-item:last-child{border-bottom:none;}
+.dir-meta{font-size:10.5px;color:var(--gray-400);margin-bottom:3px;}
+.dir-text{font-size:12.5px;color:var(--gray-700);line-height:1.5;}
+
+/* ── Compliance ── */
+.check-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--gray-600);padding:5px 6px;border-radius:5px;cursor:pointer;transition:background 0.1s;line-height:1.4;}
+.check-item:hover{background:var(--gray-100);}
+.check-item.done{color:var(--gray-400);text-decoration:line-through;}
+.check-item.done .chk{color:var(--green);}
+.chk{font-size:14px;flex-shrink:0;line-height:1.2;}
+.bm-row{display:grid;grid-template-columns:1fr auto;gap:3px;padding:5px 0;border-bottom:1px solid var(--gray-100);align-items:baseline;}
+.bm-row:last-child{border-bottom:none;}
+.bm-label{font-size:11.5px;color:var(--gray-600);}
+.bm-val{font-size:12px;font-weight:700;text-align:right;}
+.bm-target{font-size:10px;color:var(--gray-400);grid-column:1/-1;margin-top:-2px;}
+
+/* ── Systems quick ref ── */
+.sys-row{display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid var(--gray-100);}
+.sys-row:last-child{border-bottom:none;}
+.sys-link{font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;white-space:nowrap;flex-shrink:0;}
+.sys-link:hover{text-decoration:underline;}
+.sys-desc{font-size:11px;color:var(--gray-400);}
+.kn-row{display:flex;gap:8px;padding:4px 0;border-bottom:1px solid var(--gray-100);flex-wrap:wrap;}
+.kn-row:last-child{border-bottom:none;}
+.kn-label{font-size:11px;color:var(--gray-400);min-width:130px;}
+.kn-val{font-size:11.5px;font-weight:600;color:var(--gray-700);}
+.term-row{display:flex;gap:8px;padding:4px 0;border-bottom:1px solid var(--gray-100);align-items:baseline;}
+.term-row:last-child{border-bottom:none;}
+.term{font-size:11px;font-weight:700;color:var(--navy);white-space:nowrap;min-width:110px;flex-shrink:0;}
+.term-def{font-size:11px;color:var(--gray-400);line-height:1.4;}
+
+/* ── Filter sidebar ── */
+.filter-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.filter-section{margin-bottom:16px;}
+.filter-label{font-size:10.5px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;}
+.filter-group{display:flex;flex-direction:column;gap:3px;}
+.filter-option{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-600);padding:4px 7px;border-radius:5px;cursor:pointer;transition:background 0.1s;user-select:none;}
+.filter-option:hover{background:var(--gray-100);}
+.filter-option input[type=checkbox]{accent-color:var(--blue);width:13px;height:13px;}
+.filter-select{width:100%;padding:7px 10px;border:1px solid var(--gray-200);border-radius:6px;font-size:12px;color:var(--gray-800);background:var(--white);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
+.filter-input{width:100%;padding:7px 10px;border:1px solid var(--gray-200);border-radius:6px;font-size:12px;color:var(--gray-800);background:var(--white);}
+.filter-input:focus,.filter-select:focus{outline:none;border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.fdiv{height:1px;background:var(--gray-100);margin:12px 0;}
+.apply-btn{width:100%;padding:8px;background:var(--navy);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.apply-btn:hover{background:var(--blue);}
+.reset-btn{width:100%;padding:7px;background:none;color:var(--gray-400);border:1px solid var(--gray-200);border-radius:6px;font-size:11px;cursor:pointer;margin-top:6px;transition:all 0.15s;}
+.reset-btn:hover{border-color:var(--gray-400);color:var(--gray-600);}
+
+/* ── HR Tab ── */
+.hr-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;}
+.hr-nav{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:12px 0;height:fit-content;position:sticky;top:130px;}
+.hr-nav-item{padding:8px 16px;font-size:12.5px;cursor:pointer;color:var(--gray-600);transition:all 0.12s;display:flex;align-items:center;gap:8px;border-left:3px solid transparent;}
+.hr-nav-item:hover{background:var(--gray-50);color:var(--gray-800);}
+.hr-nav-item.active{background:var(--blue-pale);color:var(--blue);border-left-color:var(--blue);font-weight:600;}
+.hr-panel{display:none;}.hr-panel.active{display:block;}
+.hr-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:20px;margin-bottom:14px;}
+.hr-section-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.hr-section-sub{font-size:12px;color:var(--gray-400);margin-bottom:16px;}
+.hr-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+.hr-table th{text-align:left;padding:8px 12px;background:var(--navy);color:white;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;}
+.hr-table th:first-child{border-radius:6px 0 0 0;}.hr-table th:last-child{border-radius:0 6px 0 0;}
+.hr-table td{padding:8px 12px;border-bottom:1px solid var(--gray-100);vertical-align:top;line-height:1.5;}
+.hr-table tr:hover td{background:var(--blue-pale);}
+.hr-table tr:last-child td{border-bottom:none;}
+.hr-callout{background:var(--blue-pale);border:1px solid #BFDBFE;border-radius:6px;padding:12px 14px;font-size:12px;color:var(--gray-700);line-height:1.6;margin-bottom:12px;}
+.hr-callout strong{color:var(--blue);display:block;margin-bottom:3px;font-size:12.5px;}
+.hr-warning{background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;padding:12px 14px;font-size:12px;color:#92400E;line-height:1.6;margin-bottom:12px;}
+.hr-warning strong{display:block;margin-bottom:3px;}
+.hr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+
+/* ── Weekly Revenue Tab ── */
+.rev-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.rev-step{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:16px;}
+.rev-step-num{width:26px;height:26px;background:var(--navy);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-bottom:10px;}
+.rev-step-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.rev-step-body{font-size:12px;color:var(--gray-600);line-height:1.6;}
+.rev-check{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--gray-100);font-size:12px;color:var(--gray-600);cursor:pointer;transition:background 0.1s;border-radius:4px;padding-left:4px;}
+.rev-check:hover{background:var(--gray-50);}
+.rev-check:last-child{border-bottom:none;}
+.rev-check.done{color:var(--gray-400);text-decoration:line-through;}
+.rev-check .chk{flex-shrink:0;}
+.calc-box{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:14px;margin-top:10px;}
+.calc-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
+.calc-input{padding:6px 10px;border:1px solid var(--gray-200);border-radius:5px;font-size:12px;width:130px;}
+.calc-btn{padding:6px 14px;background:var(--navy);color:white;border:none;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;}
+.calc-btn:hover{background:var(--blue);}
+.calc-result{font-size:14px;font-weight:700;color:var(--green);margin-top:6px;}
+
+/* ── Automations Tab ── */
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.auto-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:16px;}
+.auto-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.auto-title{font-size:13px;font-weight:700;color:var(--gray-800);}
+.auto-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;}
+.status-on{background:#DCFCE7;color:#166534;}.status-off{background:var(--gray-100);color:var(--gray-400);}
+.auto-schedule{font-size:11px;color:var(--gray-400);margin-bottom:8px;}
+.auto-desc{font-size:12px;color:var(--gray-600);line-height:1.5;}
+.auto-last{font-size:11px;color:var(--gray-400);margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-100);}
+
+/* ── Staff Evaluations Tab ── */
+.eval-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.eval-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:14px;border-top:3px solid var(--gray-200);transition:transform 0.15s;cursor:default;}
+.eval-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.eval-card.score-excellent{border-top-color:var(--green);}
+.eval-card.score-good{border-top-color:var(--blue);}
+.eval-card.score-fair{border-top-color:var(--amber);}
+.eval-card.score-poor{border-top-color:var(--red);}
+.eval-card.no-data{border-top-color:var(--gray-200);opacity:0.65;}
+.eval-name{font-size:13px;font-weight:700;color:var(--gray-800);margin-bottom:1px;}
+.eval-role{font-size:10.5px;color:var(--gray-400);margin-bottom:10px;}
+.eval-score-big{font-size:34px;font-weight:800;line-height:1;margin-bottom:2px;letter-spacing:-1px;}
+.score-excellent .eval-score-big{color:var(--green);}
+.score-good .eval-score-big{color:var(--blue);}
+.score-fair .eval-score-big{color:var(--amber);}
+.score-poor .eval-score-big{color:var(--red);}
+.no-data .eval-score-big{color:var(--gray-400);}
+.eval-score-label{font-size:10px;color:var(--gray-400);margin-bottom:8px;}
+.eval-meta-row{display:flex;justify-content:space-between;font-size:10.5px;color:var(--gray-400);border-top:1px solid var(--gray-100);padding-top:7px;margin-top:4px;gap:4px;}
+.eval-trend-arrow{font-size:14px;font-weight:700;}
+.cert-badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;background:#EDE9FE;color:#5B21B6;margin-left:6px;vertical-align:middle;}
+.bday-banner{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border:1px solid #FCD34D;border-radius:6px;padding:10px 16px;margin-bottom:12px;font-size:12px;color:#92400E;display:none;align-items:center;gap:10px;}
+.bday-banner.show{display:flex;}
+.bday-row{display:grid;grid-template-columns:120px 90px 90px 1fr;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--gray-100);font-size:12px;}
+.comms-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px;}
+.comms-card{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.comms-name{font-size:12px;font-weight:600;color:var(--gray-800);}
+.comms-link{font-size:11px;color:var(--blue);text-decoration:none;font-weight:500;white-space:nowrap;}
+.comms-link:hover{text-decoration:underline;}
+.bday-row:last-child{border-bottom:none;}
+.bday-name{font-weight:600;color:var(--gray-800);}
+.bday-upcoming{color:var(--amber);font-weight:600;}
+.bday-far{color:var(--gray-400);}
+.score-pill{display:inline-block;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;}
+.pill-green{background:#DCFCE7;color:#166534;}.pill-blue{background:#DBEAFE;color:#1D4ED8;}
+.pill-amber{background:#FEF3C7;color:#92400E;}.pill-red{background:#FEE2E2;color:#B91C1C;}
+.pill-gray{background:var(--gray-100);color:var(--gray-400);}
+.eval-log-row{display:grid;grid-template-columns:10px 1fr auto auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--gray-100);font-size:12px;}
+.eval-log-row:last-child{border-bottom:none;}
+.eval-log-name{font-weight:600;color:var(--gray-800);}
+.eval-log-patient{color:var(--gray-400);font-size:11px;}
+.staff-dtabs{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--gray-200);padding-bottom:0;}
+.staff-dtab{border:none;background:none;cursor:pointer;font-size:12px;font-weight:500;padding:7px 14px;color:var(--gray-400);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.staff-dtab.active{color:var(--navy);border-bottom-color:var(--navy);font-weight:600;}
+.staff-dtab:hover:not(.active){color:var(--gray-600);}
+.staff-detail-panel{display:none;}.staff-detail-panel.active{display:block;}
+.cat-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.cat-bar-label{font-size:11.5px;color:var(--gray-600);width:220px;flex-shrink:0;}
+.cat-bar-track{flex:1;background:var(--gray-100);border-radius:99px;height:7px;overflow:hidden;}
+.cat-bar-fill{height:100%;border-radius:99px;}
+.cat-bar-val{font-size:11.5px;font-weight:600;color:var(--gray-800);width:44px;text-align:right;}
+.notes-area{width:100%;min-height:72px;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-size:12px;color:var(--gray-700);font-family:inherit;resize:vertical;}
+.notes-area:focus{outline:none;border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+.stat-box{text-align:center;padding:8px 12px;background:var(--gray-50);border-radius:6px;border:1px solid var(--gray-200);}
+.stat-box-val{font-size:28px;font-weight:800;line-height:1;letter-spacing:-0.5px;}
+.stat-box-label{font-size:10px;color:var(--gray-400);margin-top:3px;}
+.streak-badge{display:inline-flex;align-items:center;gap:4px;background:#FEF3C7;color:#92400E;padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:600;}
+
+/* ── Schedule Tab ── */
+.sched-week-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sched-week-label{font-size:15px;font-weight:700;color:var(--navy);}
+.sched-week-sub{font-size:11px;color:var(--gray-400);margin-top:2px;}
+.sched-grid{display:grid;grid-template-columns:130px repeat(6,1fr);gap:0;border:1px solid var(--gray-200);border-radius:8px;overflow:hidden;margin-bottom:14px;}
+.sched-col-header{background:var(--navy);color:white;padding:8px 6px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.3px;}
+.sched-col-header.today-col{background:var(--blue);}
+.sched-col-header.weekend-col{background:#374151;}
+.sched-name-col{background:var(--gray-50);padding:9px 10px;border-bottom:1px solid var(--gray-100);border-right:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:center;}
+.sched-name{font-size:12px;font-weight:700;color:var(--gray-800);}
+.sched-role{font-size:10px;color:var(--gray-400);}
+.sched-cell{padding:6px 5px;border-bottom:1px solid var(--gray-100);border-right:1px solid var(--gray-100);text-align:center;vertical-align:middle;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.sched-cell.today-col{background:#EFF6FF;}
+.sched-cell.off{background:var(--gray-50);}
+.sched-hours{font-size:11.5px;font-weight:700;color:var(--gray-800);}
+.sched-task{font-size:9.5px;padding:1px 6px;border-radius:10px;font-weight:600;white-space:nowrap;}
+.task-am{background:#DCFCE7;color:#166534;}
+.task-pm{background:#FEE2E2;color:#B91C1C;}
+.task-mid{background:#FEF3C7;color:#92400E;}
+.task-ch{background:#DBEAFE;color:#1D4ED8;}
+.task-off{background:var(--gray-100);color:var(--gray-400);font-size:10px;}
+.sched-lunch{font-size:9px;color:var(--gray-400);}
+.sched-override-panel{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:16px;margin-bottom:14px;}
+.sched-note-row{display:grid;grid-template-columns:130px 1fr auto;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--gray-100);font-size:12px;}
+.sched-note-row:last-child{border-bottom:none;}
+.sched-excel-link{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:white;text-decoration:none;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;}
+.sched-excel-link:hover{background:var(--blue);}
+.sched-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+.sched-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray-600);}
+
+/* ── Responsive ── */
+@media(max-width:1100px){
+  .kpi-bar{grid-template-columns:repeat(3,1fr);}
+  .chart-row.two,.insights-row,.rev-layout,.auto-grid,.hr-grid{grid-template-columns:1fr;}
+  .inv-grid{grid-template-columns:repeat(2,1fr);}
+  .hr-layout{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">🐾</div>
+    <div>
+      <div class="header-title">Devonshire Veterinary Clinic</div>
+      <div class="header-sub">Hospital Manager Command Center</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><div class="live-dot"></div> <span id="refreshLabel">Last Refreshed</span></div>
+    <div class="last-updated" id="lastUpdated">—</div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('operations',this)">🏥 Operations</button>
+  <button class="tab-btn" onclick="switchTab('hr',this)">👥 HR Assistant</button>
+  <button class="tab-btn" onclick="switchTab('revenue',this)">📊 Weekly Revenue <span class="tab-badge" id="rev-badge">MON</span></button>
+  <button class="tab-btn" onclick="switchTab('automations',this)">⚙️ Automations</button>
+  <button class="tab-btn" onclick="switchTab('staff',this)">👩‍⚕️ Staff Evals</button>
+  <button class="tab-btn" onclick="switchTab('schedule',this)">📅 Schedule</button>
+</div>
+
+<!-- ═══════════════ TAB: OPERATIONS ═══════════════ -->
+<div class="tab-panel active" id="tab-operations">
+<div class="layout">
+  <div class="main-content">
+
+    <!-- KPI Bar -->
+    <div class="kpi-bar">
+      <div class="kpi-card primary">
+        <div class="kpi-label">Month-to-Date Revenue</div>
+        <div class="kpi-value">$22,847</div>
+        <div class="kpi-meta"><span class="kpi-trend up">▲ 8.3%</span><span class="kpi-compare">vs Apr 2025</span></div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">YTD Revenue</div>
+        <div class="kpi-value">$318,542</div>
+        <div class="kpi-meta"><span class="kpi-trend up">▲ 11.2%</span><span class="kpi-compare">vs 2025 YTD</span></div>
+      </div>
+      <div class="kpi-card warning">
+        <div class="kpi-label">Avg Invoice (MTD)</div>
+        <div class="kpi-value">$214</div>
+        <div class="kpi-meta"><span class="kpi-trend up">▲ 4.1%</span><span class="kpi-compare">vs last month</span></div>
+      </div>
+      <div class="kpi-card info">
+        <div class="kpi-label">Patient Visits (MTD)</div>
+        <div class="kpi-value">107</div>
+        <div class="kpi-meta"><span class="kpi-trend up">▲ 3.9%</span><span class="kpi-compare">vs Apr 2025</span></div>
+      </div>
+      <div class="kpi-card neutral">
+        <div class="kpi-label">Controllable Costs %</div>
+        <div class="kpi-value" style="color:var(--blue);">64.2%</div>
+        <div class="kpi-meta"><span class="kpi-trend up" style="color:var(--green);">✓ Under 67%</span><span class="kpi-compare">VetCor target</span></div>
+      </div>
+    </div>
+
+    <!-- Today's Focus -->
+    <div id="todays-focus-card" class="card" style="margin-bottom:14px;border-left:4px solid var(--navy);">
+      <div class="card-title">
+        <span id="focus-day-label">📌 Today's Focus</span>
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);" id="focus-date-label"></span>
+      </div>
+      <div id="focus-items" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;"></div>
+    </div>
+
+    <!-- Revenue Trend -->
+    <div class="chart-row single">
+      <div class="card">
+        <div class="card-title">Revenue Trend
+          <div class="ctabs">
+            <button class="ctab active" onclick="switchTrend('daily',this)">Daily</button>
+            <button class="ctab" onclick="switchTrend('weekly',this)">Weekly</button>
+            <button class="ctab" onclick="switchTrend('monthly',this)">Monthly</button>
+          </div>
+        </div>
+        <div class="chart-wrapper" style="height:210px;"><canvas id="trendChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Bar + Scatter -->
+    <div class="chart-row two">
+      <div class="card">
+        <div class="card-title">Revenue by Service Category</div>
+        <div class="chart-wrapper" style="height:190px;"><canvas id="barChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Visit Count vs. Invoice Value</div>
+        <div class="chart-wrapper" style="height:190px;"><canvas id="scatterChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Insights + Actions -->
+    <div class="insights-row">
+      <div class="card">
+        <div class="card-title">Key Insights</div>
+        <div class="insight-item"><div class="insight-icon icon-green">📈</div><div class="insight-text"><strong>Revenue trending above target</strong>April MTD is 8.3% ahead of last year. Wellness exam volume is the main driver. Team Rewards bonus tracking on pace.</div></div>
+        <div class="insight-item"><div class="insight-icon icon-green">✅</div><div class="insight-text"><strong>Controllable costs at 64.2% — within VetCor benchmark</strong>VetCor target is ≤67%. Top 25% of practices hit 63% or lower. You're currently in strong territory.</div></div>
+        <div class="insight-item"><div class="insight-icon icon-blue">📦</div><div class="insight-text"><strong>Forecast engine live — based on real Feb+Mar Avimark data</strong>36 items tracked. Estimated next 30-day order: ~$13,400. Feline RC GI Loaf Cans (72 units in March) is your highest-volume diet item. Proheart 12 jumped from 0→14 units as heartworm season starts.</div></div>
+        <div class="insight-item"><div class="insight-icon icon-amber">⚠️</div><div class="insight-text"><strong>Bravecto Quantum trending UP in April</strong>Only 2 units in Feb, 4 in March, projecting 4.4+ in April. Order 5 units now — high unit cost ($244 each = $1,220 order). Proheart 12 also needs immediate order before season peaks.</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Recommended Actions</div>
+        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">Place Monday Vetcove order — Proheart 12 (17 units, ~$589) and Bravecto Quantum (5 units, ~$1,220) are ORDER NOW. Feline RC GI Loaf (51 units) also critical. Est. total: ~$13,400. Prefer Covetrus (green badge) at shop.vetcove.com.</div></div>
+        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">14 unreconciled corporate card transactions ($733.25). Due Apr 25. Skyworld → Accounting → Corporate Cards. Charges under $25 don't need a receipt.</div></div>
+        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">Run INSPECT query (indiana.pmpaware.net) before dispensing any controlled substance today — required by Indiana law.</div></div>
+        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">Facility inspection overdue since 3/11/25. Do physical walk-through then submit in Skyworld → Operations → Facility Inspections.</div></div>
+        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">April 10: Maddie Joseph and Jodi Dunn both off. Confirm kennel and channel coverage is filled.</div></div>
+        <div class="action-item"><span class="priority p-low">LOW</span><div class="action-text">Scratch Payment eCheck ($190.00, Client 19448) unassigned since Aug 2025. Address in Avimark daily totals.</div></div>
+      </div>
+    </div>
+
+    <!-- Inventory Forecast -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">Inventory Forecast — Medication Usage
+        <span style="font-size:10.5px;color:var(--gray-400);font-weight:400;">Based on real Avimark TJ data (Feb + Mar 2026 actuals) · Updated Apr 7, 2026 · Target: 18% of revenue</span>
+      </div>
+      <div class="inv-grid">
+        <div class="inv-item"><div class="inv-name">Proheart 12</div><div class="inv-code">HW0025 · Heartworm Prevention</div><div class="inv-bar-wrap"><div class="inv-bar critical" style="width:20%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#DC2626;">ORDER NOW</span> · Heartworm season</span><span>Avg/mo: <span class="inv-stat-val">14 units</span> · Order: 17</span></div></div>
+        <div class="inv-item"><div class="inv-name">Rabies — Defensor 1 Yr</div><div class="inv-code">VAC001 · Rabies Vaccine</div><div class="inv-bar-wrap"><div class="inv-bar low" style="width:38%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#D97706;">MONITOR</span> · High volume</span><span>Avg/mo: <span class="inv-stat-val">49 units</span> · Order: 60</span></div></div>
+        <div class="inv-item"><div class="inv-name">Vanguard Plus 5L4</div><div class="inv-code">VAC006 · Canine DALPP Vaccine</div><div class="inv-bar-wrap"><div class="inv-bar low" style="width:40%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#D97706;">MONITOR</span> · High volume</span><span>Avg/mo: <span class="inv-stat-val">48 units</span> · Order: 58</span></div></div>
+        <div class="inv-item"><div class="inv-name">Simparica TRIO 6pk (11–22#)</div><div class="inv-code">SIT0036 · Flea/Tick/HW Combo</div><div class="inv-bar-wrap"><div class="inv-bar ok" style="width:60%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#16A34A;">OK</span> · Trending ↓ from March</span><span>Avg/mo: <span class="inv-stat-val">8 units</span> · Order: 10</span></div></div>
+        <div class="inv-item"><div class="inv-name">Bravecto Quantum Inj 66–88#</div><div class="inv-code">BQXL · Injectable Flea/Tick</div><div class="inv-bar-wrap"><div class="inv-bar ok" style="width:55%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#16A34A;">OK</span> · Trending ↑ April</span><span>Avg/mo: <span class="inv-stat-val">4 units</span> · Order: 5</span></div></div>
+        <div class="inv-item"><div class="inv-name">Librela 15mg/mL</div><div class="inv-code">10022808 · Canine Pain (Osteo)</div><div class="inv-bar-wrap"><div class="inv-bar ok" style="width:65%"></div></div><div class="inv-stats"><span><span class="inv-stat-val" style="color:#16A34A;">OK</span> · Steady demand</span><span>Avg/mo: <span class="inv-stat-val">5 units</span> · Order: 6</span></div></div>
+      </div>
+      <div class="card-title" style="margin-top:4px;margin-bottom:10px;">📦 Suggested Vetcove Order — Next 30 Days <span style="font-size:10px;color:var(--gray-400);font-weight:400;">Based on Feb+Mar actuals · 1.20× safety factor · Est. total: ~$13,400</span></div>
+      <table class="order-table">
+        <thead><tr><th>Item</th><th>Code</th><th>Feb / Mar / AprProj</th><th>Suggested Qty</th><th>Est. Cost</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Proheart 12</strong></td><td style="color:var(--gray-400);">HW0025</td><td style="color:var(--gray-400);">0 / 14 / 0</td><td><strong>17 units</strong></td><td>~$589</td><td><span class="badge badge-red">ORDER NOW</span></td></tr>
+          <tr><td><strong>Bravecto Quantum Inj 66–88#</strong></td><td style="color:var(--gray-400);">BQXL</td><td style="color:var(--gray-400);">2 / 4 / 4.4↑</td><td><strong>5 units</strong></td><td>~$1,220</td><td><span class="badge badge-red">ORDER NOW</span></td></tr>
+          <tr><td><strong>Feline RC GI Loaf Cans</strong></td><td style="color:var(--gray-400);">44725</td><td style="color:var(--gray-400);">42 / 72 / 8.8</td><td><strong>51 units</strong></td><td>~$1,554</td><td><span class="badge badge-red">ORDER NOW</span></td></tr>
+          <tr><td>DALPP Vaccine 1yr</td><td style="color:var(--gray-400);">1120</td><td style="color:var(--gray-400);">76 / 46 / 30.8↓</td><td><strong>58 units</strong></td><td>~$748</td><td><span class="badge badge-amber">THIS WEEK</span></td></tr>
+          <tr><td>Bordetella Canine 1yr</td><td style="color:var(--gray-400);">1006</td><td style="color:var(--gray-400);">76 / 46 / 26.4↓</td><td><strong>56 units</strong></td><td>~$638</td><td><span class="badge badge-amber">THIS WEEK</span></td></tr>
+          <tr><td>Simparica TRIO 6pk (11–22#)</td><td style="color:var(--gray-400);">SIT0036</td><td style="color:var(--gray-400);">5 / 12 / 4.4↓</td><td><strong>10 units</strong></td><td>~$869</td><td><span class="badge badge-amber">THIS WEEK</span></td></tr>
+          <tr><td>Simparica TRIO 6pk (22–44#)</td><td style="color:var(--gray-400);">SIT0046</td><td style="color:var(--gray-400);">4 / 9 / 4.4↓</td><td><strong>8 units</strong></td><td>~$752</td><td><span class="badge badge-amber">THIS WEEK</span></td></tr>
+          <tr><td>Rabies Canine Vaccine 1yr</td><td style="color:var(--gray-400);">1290/VAC001</td><td style="color:var(--gray-400);">76 / 53 / 26.4↓</td><td><strong>60 units</strong></td><td>~$358</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>Vanguard Plus 5L4</td><td style="color:var(--gray-400);">VAC006</td><td style="color:var(--gray-400);">76 / 46 / 30.8↓</td><td><strong>58 units</strong></td><td>~$392</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>Bronchi-Shield Oral</td><td style="color:var(--gray-400);">VAC0017</td><td style="color:var(--gray-400);">76 / 46 / 22.0↓</td><td><strong>55 units</strong></td><td>~$263</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>LymeVax</td><td style="color:var(--gray-400);">VAC011</td><td style="color:var(--gray-400);">12 / 18 / 8.8↓</td><td><strong>16 units</strong></td><td>~$194</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>Librela 15mg/mL</td><td style="color:var(--gray-400);">10022808</td><td style="color:var(--gray-400);">4 / 6 / 4.4↓</td><td><strong>6 units</strong></td><td>~$252</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>Simparica 11–22# (orange)</td><td style="color:var(--gray-400);">SI003</td><td style="color:var(--gray-400);">8 / 22 / 4.4↓</td><td><strong>15 units</strong></td><td>~$372</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+          <tr><td>Canine RC Urinary SO 6.6#</td><td style="color:var(--gray-400);">426066</td><td style="color:var(--gray-400);">4 / 6 / 4.4↓</td><td><strong>6 units</strong></td><td>~$124</td><td><span class="badge badge-green">ROUTINE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Staff + Directives -->
+    <div class="chart-row two" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-title">Staff Status — Week of Apr 7</div>
+        <div class="staff-row">
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Debbie</div>
+          <div class="staff-badge"><div class="s-dot dot-out"></div>Kristi <span style="font-size:10px;color:var(--gray-400);margin-left:2px;">(back 4/9)</span></div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Kelsey</div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Jodi</div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Maddie</div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Moissa</div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Allison</div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Breanna</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="card-title" style="margin-bottom:8px;">Upcoming Time-Off</div>
+          <table style="width:100%;font-size:11.5px;border-collapse:collapse;">
+            <thead><tr>
+              <th style="text-align:left;padding:4px 8px;color:var(--gray-400);font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--gray-200);">Staff</th>
+              <th style="text-align:left;padding:4px 8px;color:var(--gray-400);font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--gray-200);">Date(s)</th>
+              <th style="text-align:left;padding:4px 8px;color:var(--gray-400);font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--gray-200);">Status</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:5px 8px;">Kristi</td><td style="padding:5px 8px;">Apr 3–8</td><td style="padding:5px 8px;"><span class="badge badge-amber">Out</span></td></tr>
+              <tr><td style="padding:5px 8px;">Maddie Joseph</td><td style="padding:5px 8px;">Apr 10</td><td style="padding:5px 8px;"><span class="badge badge-blue">Approved</span></td></tr>
+              <tr><td style="padding:5px 8px;">Jodi Dunn</td><td style="padding:5px 8px;">Apr 10</td><td style="padding:5px 8px;"><span class="badge badge-blue">Approved</span></td></tr>
+              <tr><td style="padding:5px 8px;">Allison</td><td style="padding:5px 8px;">May 7–8</td><td style="padding:5px 8px;"><span class="badge badge-green">Scheduled</span></td></tr>
+              <tr><td style="padding:5px 8px;">Kelsey</td><td style="padding:5px 8px;">Aug 17–21</td><td style="padding:5px 8px;"><span class="badge badge-green">Scheduled</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Dr. Smiley — Recent Directives</div>
+        <div class="dir-item"><div class="dir-meta">Today · #thoughts</div><div class="dir-text">Review RVT bot protocols — Kelsey completed testing Apr 6. Confirm launch checklist before going live.</div></div>
+        <div class="dir-item"><div class="dir-meta">Apr 6 · #thoughts</div><div class="dir-text">Dashboard should be live and functional for hospital manager by April 17. Automation is the priority.</div></div>
+        <div class="dir-item"><div class="dir-meta">Apr 4 · #thoughts</div><div class="dir-text">Check on Elizabeth Hodge coaching spreadsheet — needs to be updated and automated in VetSoap before quarterly review.</div></div>
+        <div class="dir-item"><div class="dir-meta">Apr 3 · #thoughts</div><div class="dir-text">Staff scheduling should run itself on Thursdays. Make sure Claude's schedule draft goes out automatically.</div></div>
+      </div>
+    </div>
+
+    <!-- VCF / Janet Fund -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">🐾 VCF / Janet Fund — GoodWill Grant Process
+        <a href="https://veterinarycarefoundation.org" target="_blank" style="font-size:11px;font-weight:600;color:var(--blue);text-decoration:none;">Open VCF Portal →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;">Grant Application Steps</div>
+          <div style="font-size:11.5px;color:var(--gray-600);line-height:2;">
+            <div><span style="font-weight:700;color:var(--navy);">1.</span> Go to <a href="https://veterinarycarefoundation.org" target="_blank" style="color:var(--blue);">veterinarycarefoundation.org</a> → <strong>Login</strong></div>
+            <div><span style="font-weight:700;color:var(--navy);">2.</span> Click <strong>View My Fund</strong> → <strong>Grant Application</strong></div>
+            <div><span style="font-weight:700;color:var(--navy);">3.</span> Requesting Vet: <strong>Aaron Smiley</strong></div>
+            <div><span style="font-weight:700;color:var(--navy);">4.</span> Reason: <strong>Client financial crisis</strong></div>
+            <div><span style="font-weight:700;color:var(--navy);">5.</span> Fill patient info from Avimark: name, sex, breed, weight, DOB, diagnosis, client name</div>
+            <div><span style="font-weight:700;color:var(--navy);">6.</span> Enter dollar amount → <strong>Submit</strong></div>
+          </div>
+          <div style="margin-top:8px;padding:8px 12px;background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;font-size:11.5px;color:#92400E;">
+            ⚠️ Mail check to Janet at VCF Foundation <em>before</em> submitting the grant application online.
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;">Key Details</div>
+          <div class="bm-row"><span class="bm-label">Janet Client ID</span><span class="bm-val">18719 (INACTIVE)</span><span class="bm-target">Do not use for active clients</span></div>
+          <div class="bm-row"><span class="bm-label">Discount Code</span><span class="bm-val">DI0020</span><span class="bm-target">20% Janet Fund discount in Avimark</span></div>
+          <div class="bm-row"><span class="bm-label">Preferred Balance</span><span class="bm-val" style="color:var(--amber);">$1,000 min</span><span class="bm-target">Keep ≥$1,000 in VCF account at all times</span></div>
+          <div class="bm-row"><span class="bm-label">Slack Channel</span><span class="bm-val"><a href="https://app.slack.com/client/T0E48PXB7/C76UW84SG" target="_blank" style="color:var(--blue);">#janet</a></span><span class="bm-target">Case records &amp; tracking</span></div>
+          <div class="bm-row"><span class="bm-label">Reimbursement</span><span class="bm-val" style="color:var(--green);">After approval</span><span class="bm-target">Funds restored to GoodWill account in Avimark</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compliance + Systems -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">Monthly Compliance & Task Tracker — <span id="compliance-month-label">April 2026</span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;">📋 Monthly Tasks</div>
+          <div class="check-item" data-chk-id="monthly-0" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Month-end inventory count (physical walk)</span></div>
+          <div class="check-item" data-chk-id="monthly-1" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Enter inventory in Skyworld → Accounting</span></div>
+          <div class="check-item" data-chk-id="monthly-2" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Corporate card recon due <span id="recon-due-label">25th</span></span></div>
+          <div class="check-item" data-chk-id="monthly-3" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Submit vendor invoices (APL, HS, Ambassador's)</span></div>
+          <div class="check-item" data-chk-id="monthly-4" onclick="toggleCheck(this)"><span class="chk">☐</span><span>PMP Clearinghouse Zero Report</span></div>
+          <div class="check-item" data-chk-id="monthly-5" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Review Skyworld financial reports w/ Lindsey</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;">📅 Weekly Tasks</div>
+          <div class="check-item" data-chk-id="weekly-0" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Monday Vetcove order placed by noon</span></div>
+          <div class="check-item" data-chk-id="weekly-1" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Monday — Set Dr. Smiley schedule in VetCorOne</span></div>
+          <div class="check-item" data-chk-id="weekly-2" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Wednesday Vetcove restock check</span></div>
+          <div class="check-item" data-chk-id="weekly-3" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Thursday — Review auto-generated schedule draft</span></div>
+          <div class="check-item" data-chk-id="weekly-4" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Biweekly Friday — Authorize timecards in Dayforce</span></div>
+          <div class="check-item" data-chk-id="weekly-5" onclick="toggleCheck(this)"><span class="chk">☐</span><span>Check #lindsey-audits for Avimark corrections</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px;">⚖️ VetCor Benchmarks</div>
+          <div class="bm-row"><span class="bm-label">Controllable Costs</span><span class="bm-val" style="color:var(--green);">64.2% ✓</span><span class="bm-target">Target: ≤ 67%</span></div>
+          <div class="bm-row"><span class="bm-label">Inventory % of Revenue</span><span class="bm-val" style="color:var(--amber);">~16% ↑</span><span class="bm-target">Target: ~18%</span></div>
+          <div class="bm-row"><span class="bm-label">Revenue Growth YOY</span><span class="bm-val" style="color:var(--green);">+11.2% ✓</span><span class="bm-target">Team Rewards on track</span></div>
+          <div class="bm-row"><span class="bm-label">Proheart 12 / Inv Cost</span><span class="bm-val" style="color:var(--amber);">~45%</span><span class="bm-target">Watch through HW season</span></div>
+          <div class="bm-row"><span class="bm-label">Bad Debt Threshold</span><span class="bm-val">2+ yrs</span><span class="bm-target">Flag for write-off</span></div>
+          <div class="bm-row" style="padding-top:8px;margin-top:4px;border-top:1px solid var(--gray-200);"><span class="bm-label">Days Until Month End</span><span class="bm-val" id="eom-days" style="color:var(--blue);">—</span><span class="bm-target">Plan inventory count timing</span></div>
+          <div class="bm-row"><span class="bm-label">Card Recon Deadline</span><span class="bm-val" id="recon-days" style="color:var(--amber);">—</span><span class="bm-target">Due 25th — reconcile in Skyworld</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">Systems Quick Reference</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;">🔗 Key Systems</div>
+          <div class="sys-row"><a href="https://vetcor.skyworld.com" target="_blank" class="sys-link">Skyworld</a><span class="sys-desc">Invoices, reports, HR docs, corp card</span></div>
+          <div class="sys-row"><a href="https://us252.dayforcehcm.com" target="_blank" class="sys-link">Dayforce</a><span class="sys-desc">Timecards, payroll, PTO, onboarding</span></div>
+          <div class="sys-row"><a href="https://vetcorone.com" target="_blank" class="sys-link">VetCorOne</a><span class="sys-desc">DVM scheduling, performance reviews</span></div>
+          <div class="sys-row"><a href="https://shop.vetcove.com" target="_blank" class="sys-link">Vetcove</a><span class="sys-desc">Supply ordering — prefer Covetrus (green)</span></div>
+          <div class="sys-row"><a href="https://dashboard.scratchpay.com" target="_blank" class="sys-link">Scratchpay</a><span class="sys-desc">Client payment plans — ID: 13177</span></div>
+          <div class="sys-row"><a href="https://indiana.pmpaware.net" target="_blank" class="sys-link">INSPECT</a><span class="sys-desc">Controlled substance queries (required)</span></div>
+          <div class="sys-row"><a href="https://pmpclearinghouse.net" target="_blank" class="sys-link">PMP Clearinghouse</a><span class="sys-desc">Monthly zero report</span></div>
+          <div class="sys-row"><a href="https://veterinarycarefoundation.org" target="_blank" class="sys-link">VCF Portal</a><span class="sys-desc">Janet Fund grant reimbursements</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;">📞 Key Numbers</div>
+          <div class="kn-row"><span class="kn-label">Clinic Phone</span><span class="kn-val">765-644-9628</span></div>
+          <div class="kn-row"><span class="kn-label">Address</span><span class="kn-val">8000 S Scatterfield Rd, Anderson IN 46013</span></div>
+          <div class="kn-row"><span class="kn-label">Company Code</span><span class="kn-val">01</span></div>
+          <div class="kn-row"><span class="kn-label">Scratchpay Clinic ID</span><span class="kn-val">13177</span></div>
+          <div class="kn-row"><span class="kn-label">Janet Discount Code</span><span class="kn-val">DI0020 (20%)</span></div>
+          <div class="kn-row"><span class="kn-label">HR Email</span><span class="kn-val">HR@Vetcor.com</span></div>
+          <div class="kn-row"><span class="kn-label">Scratchpay Support</span><span class="kn-val">(626) 600-7170</span></div>
+          <div class="kn-row"><span class="kn-label">Lyra Health (EAP)</span><span class="kn-val">(833) 872-0226 · 8 free sessions/yr</span></div>
+          <div class="kn-row"><span class="kn-label">Anonymous Hotline</span><span class="kn-val">888-928-0030 (Lighthouse)</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;">📖 Financial Terms</div>
+          <div class="term-row"><span class="term">P&amp;L</span><span class="term-def">Revenue minus all costs — what's left each month</span></div>
+          <div class="term-row"><span class="term">KPI</span><span class="term-def">Revenue, Invoice Volume, Avg Invoice, New Clients</span></div>
+          <div class="term-row"><span class="term">MTD / YTD / TTM</span><span class="term-def">Month-to-date / Year-to-date / Trailing 12 months</span></div>
+          <div class="term-row"><span class="term">Team Rewards</span><span class="term-def">Quarterly bonus tied to revenue growth vs. prior year</span></div>
+          <div class="term-row"><span class="term">AUTOPAY</span><span class="term-def">VetCor pays these vendors — do NOT submit invoices</span></div>
+          <div class="term-row"><span class="term">Bad Debt</span><span class="term-def">Uncollected A/R — reduces reported revenue on P&amp;L</span></div>
+          <div class="term-row"><span class="term">Vet FTE</span><span class="term-def">Full-time equivalent DVMs (accounts for part-time)</span></div>
+          <div class="term-row"><span class="term">WH/Invoice</span><span class="term-def">Staff hours per patient visit</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:7px;">📁 Quick File Access</div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/DevonshireDashboard.html" class="sys-link">This Dashboard</a><span class="sys-desc">Reload for latest version</span></div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/schedule/Weekly_Set_Schedule.xlsx" class="sys-link">Weekly Schedule</a><span class="sys-desc">Standing staff schedule (Excel)</span></div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/DevonshireCommandCenter.html" class="sys-link">Command Center</a><span class="sys-desc">Daily operations checklist</span></div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/DevonshireHR_Dashboard.html" class="sys-link">HR Dashboard</a><span class="sys-desc">Full HR policy reference</span></div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/InventoryPredictor.html" class="sys-link">Inventory Predictor</a><span class="sys-desc">Live on-hand stock forecast</span></div>
+          <div class="sys-row"><a href="file:///C:/Users/HMUser/Desktop/claude/" class="sys-link">📂 Claude Folder</a><span class="sys-desc">All reports &amp; dashboards</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+
+  <!-- Filter Sidebar -->
+  <div class="filter-sidebar">
+    <div class="filter-title">🎛 Filters</div>
+    <div class="filter-section">
+      <div class="filter-label">Date Range</div>
+      <select class="filter-select" id="filterDateRange" onchange="applyFilters()">
+        <option value="mtd">Month to Date</option>
+        <option value="7d">Last 7 Days</option>
+        <option value="30d">Last 30 Days</option>
+        <option value="90d">Last 90 Days</option>
+        <option value="ytd">Year to Date</option>
+      </select>
+    </div>
+    <div class="fdiv"></div>
+    <div class="filter-section">
+      <div class="filter-label">Provider</div>
+      <div class="filter-group">
+        <label class="filter-option"><input type="checkbox" checked> Dr. Aaron Smiley</label>
+        <label class="filter-option"><input type="checkbox" checked> All Staff</label>
+      </div>
+    </div>
+    <div class="fdiv"></div>
+    <div class="filter-section">
+      <div class="filter-label">Service Category</div>
+      <div class="filter-group">
+        <label class="filter-option"><input type="checkbox" checked> Wellness Exams</label>
+        <label class="filter-option"><input type="checkbox" checked> Vaccines</label>
+        <label class="filter-option"><input type="checkbox" checked> Medications (Rx)</label>
+        <label class="filter-option"><input type="checkbox" checked> Preventatives</label>
+        <label class="filter-option"><input type="checkbox" checked> Lab / Diagnostics</label>
+        <label class="filter-option"><input type="checkbox" checked> Surgery / Dental</label>
+      </div>
+    </div>
+    <div class="fdiv"></div>
+    <div class="filter-section">
+      <div class="filter-label">Inventory View</div>
+      <select class="filter-select" id="filterInv">
+        <option value="all">All Items</option>
+        <option value="critical">Critical Only</option>
+        <option value="low">Low Stock</option>
+        <option value="ok">In Stock</option>
+      </select>
+    </div>
+    <div class="fdiv"></div>
+    <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+    <button class="reset-btn" onclick="resetFilters()">Reset to Default</button>
+    <div class="fdiv"></div>
+    <div style="font-size:10.5px;color:var(--gray-400);line-height:1.7;">
+      <strong style="color:var(--gray-600);display:block;margin-bottom:3px;">Data Sources</strong>
+      · Avimark Transaction Journals<br>· Slack #avimark (daily exports)<br>· #need-list (staff flags)<br>· Scheduled task outputs
+      <span style="display:block;margin-top:6px;">Last Avimark sync: Apr 6, 2026</span>
+    </div>
+  </div>
+</div>
+</div><!-- /tab-operations -->
+
+<!-- ═══════════════ TAB: HR ASSISTANT ═══════════════ -->
+<div class="tab-panel" id="tab-hr">
+<div style="max-width:1200px;margin:0 auto;padding:20px;">
+
+  <!-- Search bar -->
+  <div style="margin-bottom:16px;">
+    <input class="filter-input" id="hrSearch" placeholder="🔍  Search HR policies — try 'PTO', 'holiday pay', 'FMLA', 'onboarding'..." oninput="filterHR(this.value)" style="max-width:500px;font-size:13px;padding:10px 14px;"/>
+  </div>
+
+  <div class="hr-layout">
+    <!-- Left nav -->
+    <div class="hr-nav">
+      <div class="hr-nav-item active" onclick="showHR('payroll',this)">💰 Payroll</div>
+      <div class="hr-nav-item" onclick="showHR('pto',this)">🏖️ PTO & Time Off</div>
+      <div class="hr-nav-item" onclick="showHR('benefits',this)">🏥 Benefits</div>
+      <div class="hr-nav-item" onclick="showHR('onboarding',this)">👋 New Hire / Onboarding</div>
+      <div class="hr-nav-item" onclick="showHR('reviews',this)">📋 Performance Reviews</div>
+      <div class="hr-nav-item" onclick="showHR('discipline',this)">⚠️ Disciplinary Action</div>
+      <div class="hr-nav-item" onclick="showHR('fmla',this)">🏠 FMLA & Parental Leave</div>
+      <div class="hr-nav-item" onclick="showHR('ce',this)">🎓 Continuing Ed</div>
+      <div class="hr-nav-item" onclick="showHR('contacts',this)">📞 HR Contacts</div>
+    </div>
+
+    <!-- HR content panels -->
+    <div>
+
+      <!-- PAYROLL -->
+      <div class="hr-panel active" id="hr-payroll">
+        <div class="hr-card">
+          <div class="hr-section-title">💰 Payroll</div>
+          <div class="hr-section-sub">Biweekly payroll, Dayforce access, and timecard guidance</div>
+          <div class="hr-callout"><strong>Pay Schedule</strong>Biweekly — paychecks issued on Fridays. Each check covers the prior Saturday through Friday. Timecards must be authorized by the HM before payroll runs.</div>
+          <table class="hr-table">
+            <thead><tr><th>Topic</th><th>Details</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Dayforce Login</strong></td><td><a href="https://us252.dayforcehcm.com" target="_blank" style="color:var(--blue);">us252.dayforcehcm.com</a> — Company name: <strong>vetcor</strong> — Username: Employee ID number</td></tr>
+              <tr><td><strong>Initial Password</strong></td><td>Year of birth + last 4 of SSN (8 digits, e.g., 19978569)</td></tr>
+              <tr><td><strong>W-2s / Tax Forms</strong></td><td>Employees view W-2s in Dayforce under Tax Statements. New employees complete W-4 and tax forms during Dayforce onboarding.</td></tr>
+              <tr><td><strong>Terminated Employees</strong></td><td>Retain Dayforce access for earnings and tax statements for <strong>3 years</strong> after termination.</td></tr>
+              <tr><td><strong>Dayforce Wallet</strong></td><td>Optional — employees can access pay for hours already worked before payday.</td></tr>
+              <tr><td><strong>Lend-a-Hand</strong></td><td>Employees can pick up shifts at other VetCor practices for <strong>1.5x their hourly rate</strong>. Enter directly in Dayforce.</td></tr>
+            </tbody>
+          </table>
+          <div class="hr-warning"><strong>⚠️ HM Timecard Checklist (Due every other Friday)</strong>
+            Log into Dayforce · Review each employee's timecard for the pay period (prior Sat–Fri) · Fix any Red X (missing clock-in/out) · Remember: PTO, sick time, and holiday pay do NOT count toward overtime · Authorize and save</div>
+        </div>
+      </div>
+
+      <!-- PTO -->
+      <div class="hr-panel" id="hr-pto">
+        <div class="hr-card">
+          <div class="hr-section-title">🏖️ PTO & Time Off</div>
+          <div class="hr-section-sub">Vacation, sick time, holidays, and leave rules</div>
+          <div class="hr-callout"><strong>Key Rule: Vacation is Use-It-Or-Lose-It</strong>Unused vacation does NOT roll over. Sick time DOES carry over (up to a cap). Neither PTO nor sick time counts toward overtime hours.</div>
+          <div class="hr-grid">
+            <div>
+              <table class="hr-table">
+                <thead><tr><th colspan="2">Vacation (Use-It-Or-Lose-It)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>When it starts</strong></td><td>Accrues after 90-day probationary period</td></tr>
+                  <tr><td><strong>Rollover</strong></td><td>❌ None — unused days are forfeited at year end</td></tr>
+                  <tr><td><strong>Advance use</strong></td><td>HM/COS can approve up to 40 hours before accrued</td></tr>
+                  <tr><td><strong>Termination</strong></td><td>Forfeited — not paid out</td></tr>
+                  <tr><td><strong>Minimum increment</strong></td><td>1 hour</td></tr>
+                  <tr><td><strong>Requesting time off</strong></td><td>All non-emergency requests must go through Dayforce in advance</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table class="hr-table">
+                <thead><tr><th colspan="2">Sick Time</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Rollover</strong></td><td>✅ Carries over year to year (up to cap)</td></tr>
+                  <tr><td><strong>Termination</strong></td><td>Not paid out</td></tr>
+                  <tr><td><strong>3+ sick days</strong></td><td>May require a doctor's note</td></tr>
+                </tbody>
+              </table>
+              <table class="hr-table" style="margin-top:10px;">
+                <thead><tr><th colspan="2">6 Paid Holidays</th></tr></thead>
+                <tbody>
+                  <tr><td colspan="2">New Year's Day · Memorial Day · Independence Day · Labor Day · Thanksgiving · Christmas</td></tr>
+                  <tr><td><strong>Eligible after</strong></td><td>90-day probationary period (full-time hourly)</td></tr>
+                  <tr><td><strong>FT hourly works holiday</strong></td><td>Normal rate + 8 hrs holiday pay</td></tr>
+                  <tr><td><strong>PT hourly works holiday</strong></td><td>1.5x rate</td></tr>
+                  <tr><td><strong>Salaried works holiday</strong></td><td>Can substitute another day off (COS approval needed)</td></tr>
+                  <tr><td><strong>Overtime note</strong></td><td>Holiday pay does NOT count toward overtime</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="hr-callout"><strong>Part-Time Accrual</strong>PTO accrues at a prorated rate. Example: 30 hrs/week = 75% of full-time accrual rate. Rates automatically increase on employment anniversary dates — see Employee Handbook on Skyworld for exact tier amounts.</div>
+        </div>
+      </div>
+
+      <!-- BENEFITS -->
+      <div class="hr-panel" id="hr-benefits">
+        <div class="hr-card">
+          <div class="hr-section-title">🏥 Benefits</div>
+          <div class="hr-section-sub">Health, dental, vision, 401k, EAP, and more</div>
+          <div class="hr-warning"><strong>Open Enrollment is once per year.</strong> Outside of that, you need a qualifying life event (marriage, birth/adoption, divorce, death, job status change affecting coverage). Contact HR@Vetcor.com within 30 days of a qualifying event.</div>
+          <table class="hr-table">
+            <thead><tr><th>Benefit</th><th>Provider</th><th>Access</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Health Insurance</strong></td><td>Aetna (4 plans: POS Basic, POS Enhanced, HSA Saver, Kaiser for CA/OR/WA)</td><td><a href="https://aetnaresource.com/n/Vetcor-Member-Site" target="_blank" style="color:var(--blue);">aetnaresource.com/n/Vetcor-Member-Site</a></td></tr>
+              <tr><td><strong>Pharmacy</strong></td><td>ExpressScripts</td><td>—</td></tr>
+              <tr><td><strong>Dental</strong></td><td>MetLife (optional)</td><td><a href="https://metlife.com/Vetcor/" target="_blank" style="color:var(--blue);">metlife.com/Vetcor/</a></td></tr>
+              <tr><td><strong>Vision</strong></td><td>EyeMed (optional)</td><td><a href="https://eyemed.com" target="_blank" style="color:var(--blue);">eyemed.com</a></td></tr>
+              <tr><td><strong>FSA / HSA</strong></td><td>Inspira</td><td><a href="https://inspirafinancial.com" target="_blank" style="color:var(--blue);">inspirafinancial.com</a></td></tr>
+              <tr><td><strong>401(k)</strong></td><td>Fidelity</td><td><a href="https://www.401k.com" target="_blank" style="color:var(--blue);">401k.com</a></td></tr>
+              <tr><td><strong>EAP (Mental Health)</strong></td><td>Lyra Health — <strong>8 free sessions/person/year</strong></td><td><a href="https://vetcor.lyrahealth.com" target="_blank" style="color:var(--blue);">vetcor.lyrahealth.com</a> · (833) 872-0226</td></tr>
+              <tr><td><strong>Financial Wellness</strong></td><td>Brightside</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ONBOARDING -->
+      <div class="hr-panel" id="hr-onboarding">
+        <div class="hr-card">
+          <div class="hr-section-title">👋 New Hire & Onboarding</div>
+          <div class="hr-section-sub">90-day probation, Dayforce setup, required forms</div>
+          <div class="hr-callout"><strong>All new hires have a 90-day probationary period.</strong> Conduct a performance assessment before the 90 days are up. Out-of-cycle pay increases require Regional Manager (Lindsey) approval.</div>
+          <table class="hr-table">
+            <thead><tr><th>Step</th><th>What to Do</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Add to Dayforce</strong></td><td>Log into Dayforce and add the new hire — this triggers their digital onboarding (tax forms W-4, direct deposit setup, etc.)</td></tr>
+              <tr><td><strong>2. Form I-9</strong></td><td>Complete the paper I-9 form (required, expires 7/31/26). Verify identity documents in person.</td></tr>
+              <tr><td><strong>3. New York only</strong></td><td>NY state requires a Wage Notification Form for all hourly new hires. Indiana does not require this.</td></tr>
+              <tr><td><strong>4. Benefits enrollment</strong></td><td>Employee completes during Dayforce onboarding. Remind them of the Open Enrollment window.</td></tr>
+              <tr><td><strong>5. 90-day check-in</strong></td><td>Conduct performance assessment. Document in VetCorOne. Contact Lindsey before terminating anyone in probation.</td></tr>
+            </tbody>
+          </table>
+          <div class="hr-callout"><strong>Resources on Skyworld</strong>"Submit a New Hire into Dayforce" guide · Dayforce Onboarding FAQ · State Supplements to Handbook</div>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="hr-panel" id="hr-reviews">
+        <div class="hr-card">
+          <div class="hr-section-title">📋 Performance Reviews</div>
+          <div class="hr-section-sub">Review schedule and process for 2026</div>
+          <div class="hr-warning"><strong>2026 Process Change:</strong> All reviews are done in VetcorOne. Employees must complete self-assessments first, then the manager review.</div>
+          <table class="hr-table">
+            <thead><tr><th>Who</th><th>When</th><th>Where</th></tr></thead>
+            <tbody>
+              <tr><td><strong>COS / Hospital Manager (Katie)</strong></td><td>February – March</td><td>VetcorOne</td></tr>
+              <tr><td><strong>Associate Veterinarians</strong></td><td>Quarterly, on their VetCor anniversary date</td><td>VetcorOne</td></tr>
+              <tr><td><strong>Support Staff</strong></td><td>September – October</td><td>VetcorOne</td></tr>
+            </tbody>
+          </table>
+          <div class="hr-callout"><strong>Out-of-Cycle Pay Increases</strong>Any pay increase outside the normal review cycle requires Regional Manager (Lindsey) approval. Contact her before promising anything to staff.</div>
+        </div>
+      </div>
+
+      <!-- DISCIPLINE -->
+      <div class="hr-panel" id="hr-discipline">
+        <div class="hr-card">
+          <div class="hr-section-title">⚠️ Disciplinary Action</div>
+          <div class="hr-section-sub">Corrective action process, forms, and escalation path</div>
+          <div class="hr-callout"><strong>Start Informally First</strong>Coaching conversations (informal) do not require RM or HR approval. Only move to formal corrective action if the behavior continues.</div>
+          <table class="hr-table">
+            <thead><tr><th>Level</th><th>What It Is</th><th>What to Do</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge badge-blue">Informal</span></td><td>Coaching conversation</td><td>No form required. Document in your own notes.</td></tr>
+              <tr><td><span class="badge badge-amber">Verbal</span></td><td>First formal notice</td><td>Complete Corrective Action Form. Get RM approval if unsure.</td></tr>
+              <tr><td><span class="badge badge-amber">Written</span></td><td>Second formal notice</td><td>Complete Corrective Action Form. Document clearly.</td></tr>
+              <tr><td><span class="badge badge-red">Final</span></td><td>Third notice — next issue may result in termination</td><td>Corrective Action Form + notify Lindsey.</td></tr>
+              <tr><td><span class="badge badge-red">Immediate Term.</span></td><td>Severe misconduct</td><td><strong>Contact Lindsey and HR@Vetcor.com BEFORE taking action.</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="hr-callout"><strong>Corrective Action Form</strong>Skyworld → Knowledge Center → HR &amp; Payroll → Employee Management<br><strong>Anonymous Employee Hotline:</strong> Lighthouse Services — 888-928-0030 (not for emergencies)</div>
+        </div>
+      </div>
+
+      <!-- FMLA -->
+      <div class="hr-panel" id="hr-fmla">
+        <div class="hr-card">
+          <div class="hr-section-title">🏠 FMLA & Parental Leave</div>
+          <div class="hr-section-sub">Job-protected leave, HM responsibilities, and parental benefits</div>
+          <table class="hr-table">
+            <thead><tr><th>Topic</th><th>Details</th></tr></thead>
+            <tbody>
+              <tr><td><strong>What is FMLA</strong></td><td>Unpaid, job-protected leave for eligible employees. Employee submits request in Dayforce — try to give 30 days advance notice.</td></tr>
+              <tr><td><strong>HM: When employee leaves</strong></td><td>Complete the <strong>"Request for Leave Form"</strong> in Dayforce when they go on leave.</td></tr>
+              <tr><td><strong>HM: When employee returns</strong></td><td>Complete the <strong>"Return to Work Form"</strong> in Dayforce.</td></tr>
+              <tr><td><strong>Using PTO during FMLA</strong></td><td>Employees can use sick/vacation time during FMLA. Enter as Time Away in Dayforce (or HM can enter in the timesheet).</td></tr>
+              <tr><td><strong>State-paid leave</strong></td><td>Employees in NY, NJ, RI, CA, MA may be eligible for state-paid leave — contact HR@Vetcor.com for details.</td></tr>
+              <tr><td><strong>Paid Parental Leave</strong></td><td>VetCor offers paid parental leave. Employee must apply within <strong>60 days</strong> of birth or adoption.</td></tr>
+              <tr><td><strong>Additional maternity benefits</strong></td><td>Aetna Enhanced Maternity and Maven benefits also available.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CE -->
+      <div class="hr-panel" id="hr-ce">
+        <div class="hr-card">
+          <div class="hr-section-title">🎓 Continuing Education</div>
+          <div class="hr-section-sub">Annual CE reimbursement amounts by role</div>
+          <table class="hr-table">
+            <thead><tr><th>Role</th><th>Annual CE Reimbursement</th></tr></thead>
+            <tbody>
+              <tr><td><strong>FT Veterinarians</strong></td><td>$2,500 / year</td></tr>
+              <tr><td><strong>FT Hospital Managers / Technicians</strong></td><td>$750 / year</td></tr>
+              <tr><td><strong>FT Non-Tech Support Staff</strong></td><td>$500 / year</td></tr>
+              <tr><td><strong>Part-time employees</strong></td><td>Partial reimbursement at COS discretion</td></tr>
+            </tbody>
+          </table>
+          <div class="hr-callout"><strong>TechLife Tuition Support Program</strong>Available for techs (like Allison) pursuing RVT or other credentials. Details on Skyworld.</div>
+        </div>
+      </div>
+
+      <!-- CONTACTS -->
+      <div class="hr-panel" id="hr-contacts">
+        <div class="hr-card">
+          <div class="hr-section-title">📞 HR Contacts & Resources</div>
+          <div class="hr-section-sub">Who to call for what</div>
+          <table class="hr-table">
+            <thead><tr><th>Contact</th><th>Use For</th><th>Info</th></tr></thead>
+            <tbody>
+              <tr><td><strong>HR Email</strong></td><td>General HR questions, benefits changes, qualifying life events</td><td>HR@Vetcor.com</td></tr>
+              <tr><td><strong>Employee Experience</strong></td><td>Staff engagement, culture questions</td><td>EmployeeExperience@vetcor.com</td></tr>
+              <tr><td><strong>Relocation / Transfer</strong></td><td>Staff moving to another practice</td><td>relocations@vetcor.com</td></tr>
+              <tr><td><strong>Lyra Health (EAP)</strong></td><td>Mental health support — 8 free sessions/yr per employee</td><td>(833) 872-0226 · vetcor.lyrahealth.com</td></tr>
+              <tr><td><strong>Anonymous Hotline</strong></td><td>Report concerns anonymously (not for emergencies)</td><td>Lighthouse Services: 888-928-0030</td></tr>
+              <tr><td><strong>Lindsey (Regional Manager)</strong></td><td>Pay increases, terminations, performance issues, audits</td><td>Via Slack or #lindsey-audits channel</td></tr>
+              <tr><td><strong>IT Help Desk</strong></td><td>System access, Dayforce issues, Scratchpay setup</td><td>Skyworld → Help Desk</td></tr>
+            </tbody>
+          </table>
+          <div class="hr-callout"><strong>Key Skyworld HR Documents</strong>
+            Employee Handbook · Benefits Guide 2026-2027 · Corrective Action Form · Offboarding Checklist · State Supplements · Social Media Policy · Paid Parental Leave Policy<br>
+            <em>All found at: Skyworld → Knowledge Center → HR &amp; Payroll</em>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div><!-- /tab-hr -->
+
+<!-- ═══════════════ TAB: WEEKLY REVENUE ═══════════════ -->
+<div class="tab-panel" id="tab-revenue">
+<div style="max-width:1200px;margin:0 auto;padding:20px;">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+    <!-- Step checklist -->
+    <div class="card">
+      <div class="card-title">📋 Monday Revenue Checklist</div>
+      <div class="rev-check" data-chk-id="rev-0" onclick="toggleRev(this)"><span class="chk">☐</span><span>Run Income by Provider in Avimark — flag any revenue NOT under Aaron Smiley, DVM</span></div>
+      <div class="rev-check" data-chk-id="rev-1" onclick="toggleRev(this)"><span class="chk">☐</span><span>Fix flagged invoices — change ASI: Aaron Smiley Overflow → AS: Aaron Smiley, DVM</span></div>
+      <div class="rev-check" data-chk-id="rev-2" onclick="toggleRev(this)"><span class="chk">☐</span><span>Run corrected Period Totals — record Total Invoices, New Clients, Patient Visits, Avg Invoice</span></div>
+      <div class="rev-check" data-chk-id="rev-3" onclick="toggleRev(this)"><span class="chk">☐</span><span>Run prior year Period Totals (same date range, 1 year back) — record same 4 metrics</span></div>
+      <div class="rev-check" data-chk-id="rev-4" onclick="toggleRev(this)"><span class="chk">☐</span><span>Run Trailing Twelve Months (TTM) Period Totals</span></div>
+      <div class="rev-check" data-chk-id="rev-5" onclick="toggleRev(this)"><span class="chk">☐</span><span>Check Vetcove Home Delivery revenue at pharmacy.vetcove.com/clinic → Reporting</span></div>
+      <div class="rev-check" data-chk-id="rev-6" onclick="toggleRev(this)"><span class="chk">☐</span><span>Calculate % increases (use calculator below)</span></div>
+      <div class="rev-check" data-chk-id="rev-7" onclick="toggleRev(this)"><span class="chk">☐</span><span>Send Slack report to Dr. Smiley (Claude can draft &amp; send this)</span></div>
+      <div class="rev-check" data-chk-id="rev-8" onclick="toggleRev(this)"><span class="chk">☐</span><span>Update Monthly Ordering spreadsheet on OneDrive</span></div>
+      <div class="rev-check" data-chk-id="rev-9" onclick="toggleRev(this)"><span class="chk">☐</span><span>Update Anderson 2026 VetCor Tracker (weekly Sun–Sat figures)</span></div>
+      <div style="margin-top:10px;padding:10px;background:var(--blue-pale);border-radius:6px;font-size:11.5px;color:var(--gray-600);">
+        ⚠️ <strong>Date note:</strong> Monthly Ordering uses <em>MTD</em> (1st–Saturday). Anderson Tracker uses <em>calendar week</em> (Sun–Sat). These are different — don't mix them up.
+      </div>
+    </div>
+
+    <!-- YoY Calculator -->
+    <div class="card">
+      <div class="card-title">🧮 Year-over-Year % Calculator</div>
+      <div style="font-size:12px;color:var(--gray-600);margin-bottom:12px;">Enter current year and prior year figures to calculate % change automatically.</div>
+
+      <div class="calc-box" style="margin-bottom:10px;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Total Invoices (Revenue)</div>
+        <div class="calc-row">
+          <input class="calc-input" id="rev-cy" placeholder="Current year $" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="rev-py" placeholder="Prior year $" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('rev-cy','rev-py','rev-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="rev-result"></div>
+      </div>
+
+      <div class="calc-box" style="margin-bottom:10px;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">New Clients</div>
+        <div class="calc-row">
+          <input class="calc-input" id="nc-cy" placeholder="Current year #" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="nc-py" placeholder="Prior year #" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('nc-cy','nc-py','nc-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="nc-result"></div>
+      </div>
+
+      <div class="calc-box">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Patient Visits</div>
+        <div class="calc-row">
+          <input class="calc-input" id="pv-cy" placeholder="Current year #" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="pv-py" placeholder="Prior year #" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('pv-cy','pv-py','pv-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="pv-result"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Slack message builder -->
+  <div class="card">
+    <div class="card-title">📨 Slack Report Builder — Dr. Smiley</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:12px;color:var(--gray-600);margin-bottom:10px;">Fill in the fields and the message will auto-build on the right.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Week Ending Date (Saturday)</label><input class="filter-input" id="msg-date" placeholder="e.g. April 5, 2026" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Avimark Revenue</label><input class="filter-input" id="msg-rev" placeholder="e.g. $22,847" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Revenue % Change vs Prior Year</label><input class="filter-input" id="msg-revpct" placeholder="e.g. +8.3%" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">New Clients + % Change</label><input class="filter-input" id="msg-nc" placeholder="e.g. 12 (+15.2%)" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Patient Visits + % Change</label><input class="filter-input" id="msg-pv" placeholder="e.g. 107 (+3.9%)" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">% of Monthly Goal</label><input class="filter-input" id="msg-goal" placeholder="e.g. 72%" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">TTM (Aaron Smiley, DVM)</label><input class="filter-input" id="msg-ttm" placeholder="e.g. $1,248,000" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Vetcove Home Delivery</label><input class="filter-input" id="msg-vetcove" placeholder="e.g. $1,240" oninput="buildMsg()"/></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--gray-400);margin-bottom:6px;">Message preview (ready to copy into Slack)</div>
+        <pre id="msg-preview" style="background:var(--gray-800);color:#E5E7EB;padding:14px;border-radius:6px;font-size:12px;line-height:1.7;white-space:pre-wrap;min-height:200px;"></pre>
+        <button class="apply-btn" style="margin-top:8px;" onclick="copyMsg()">📋 Copy Message</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-revenue -->
+
+<!-- ═══════════════ TAB: AUTOMATIONS ═══════════════ -->
+<div class="tab-panel" id="tab-automations">
+<div style="max-width:1200px;margin:0 auto;padding:20px;">
+
+  <div style="margin-bottom:14px;padding:14px 18px;background:var(--white);border-radius:var(--radius);border:1px solid var(--gray-200);box-shadow:var(--shadow);">
+    <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;">🤖 Your Automated Workflows</div>
+    <div style="font-size:12px;color:var(--gray-600);">These tasks run on a schedule without you having to do anything. Claude handles them automatically and sends results to your Slack DMs.</div>
+  </div>
+
+  <div class="auto-grid">
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📋 Daily To-Do List</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 8:00 AM</div><div class="auto-desc">Scans all key Slack channels (#thoughts, #general, #lindsey-audits, #need-list) and your DMs for action items. Compiles a prioritized list and sends it to you as a Slack DM before you sit down.</div><div class="auto-last">Last run: Today, 8:00 AM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">🧠 Dr. Smiley Thoughts Summary</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 5:00 PM</div><div class="auto-desc">Summarizes all of Dr. Smiley's posts from #thoughts throughout the day. Sends a bullet-point summary to your Slack DMs so nothing gets missed.</div><div class="auto-last">Last run: Yesterday, 5:00 PM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">🎙️ Voice Memo Processor</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Every 5 minutes</div><div class="auto-desc">Watches #thoughts for voice memos from Dr. Smiley. When detected, generates a text summary and posts it back to the thread automatically.</div><div class="auto-last">Continuous monitoring</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📦 Need-List Stale Tracker</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 7:30 AM</div><div class="auto-desc">Checks #need-list for any items that have been sitting unfulfilled for more than 2 days. Flags them in your morning Slack DM so nothing falls through the cracks.</div><div class="auto-last">Last run: Today, 7:30 AM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">💰 Daily Revenue Update</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 5:00 PM</div><div class="auto-desc">Pulls revenue data from #avimark and sends you a daily snapshot. Feeds into the Operations dashboard so the KPI numbers stay current.</div><div class="auto-last">Last run: Yesterday, 5:00 PM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📅 Next-Day Appointments</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 4:00 PM</div><div class="auto-desc">Scans tomorrow's appointment calendar and identifies any medications that need to be pulled and ready. Sends a prep list to your Slack DMs.</div><div class="auto-last">Last run: Yesterday, 4:00 PM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">🛒 Monday Ordering Reminder</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Mondays at 8:00 AM</div><div class="auto-desc">Reviews #need-list and low-stock inventory alerts. Sends a Vetcove ordering summary to your Slack DMs with a prioritized list of what to order, in what quantity.</div><div class="auto-last">Last run: Today, 8:00 AM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📊 Weekly Staff Schedule</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Thursdays at 9:00 AM</div><div class="auto-desc">Reads time-off requests from Slack DMs, applies standing schedule preferences, and generates a draft schedule Excel file. Sends to you for review before posting to #general.</div><div class="auto-last">Last run: Last Thursday</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📆 Weekly Calendar Scan</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Mondays at 7:00 AM</div><div class="auto-desc">Reads the Avimark appointment calendar for the week ahead. Predicts which medications will be needed and sends ordering recommendations to your Slack DMs.</div><div class="auto-last">Last run: Today, 7:00 AM</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">🗂️ Monthly Recon Prep</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">23rd of each month at 9:00 AM</div><div class="auto-desc">Collects receipts from Slack, reminds you that corporate card reconciliation is due on the 25th, and compiles a summary of what still needs to be matched in Skyworld.</div><div class="auto-last">Next run: Apr 23</div></div>
+
+    <div class="auto-card"><div class="auto-header"><div class="auto-title">📁 Monthly End-of-Month Close</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">1st of each month at 9:00 AM</div><div class="auto-desc">Runs the full Skyworld end-of-month checklist: Daily Totals, Scratch Payments, Invoices to A/P, Facility Inspections, Corporate Cards, OSHA. Sends a full status report and action list to your Slack DMs.</div><div class="auto-last">Next run: May 1</div></div>
+
+    <div class="auto-card" style="border:2px dashed var(--gray-200);background:var(--gray-50);">
+      <div class="auto-header"><div class="auto-title" style="color:var(--gray-400);">+ Dashboard Auto-Refresh</div><span class="auto-status status-off">○ PENDING</span></div>
+      <div class="auto-schedule" style="color:var(--gray-400);">Weekdays at 7:45 AM (to set up)</div>
+      <div class="auto-desc" style="color:var(--gray-400);">Pulls latest Avimark data, inventory levels, and Slack updates — automatically refreshes this dashboard before you arrive each morning. Ready to activate.</div>
+      <div class="auto-last" style="color:var(--amber);">⚡ Ask Claude to activate this</div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-automations -->
+
+<!-- ══════════════════════ SCRIPTS ══════════════════════ -->
+<script>
+// ── Tab switching ───────────────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── HR nav ───────────────────────────────────────────────
+function showHR(id, el) {
+  document.querySelectorAll('.hr-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.hr-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('hr-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+function filterHR(q) {
+  if (!q.trim()) return;
+  const map = {
+    'pto':['vacation','pto','time off','leave','sick','holiday'],
+    'payroll':['pay','payroll','dayforce','timecard','w-2','w2','wallet'],
+    'benefits':['benefit','health','dental','vision','401','aetna','fsa','hsa','eap','lyra'],
+    'onboarding':['new hire','onboarding','i-9','probation','hire'],
+    'reviews':['review','performance','vetcorone'],
+    'discipline':['discipline','corrective','verbal','written','termination','fire'],
+    'fmla':['fmla','parental','maternity','leave','baby'],
+    'ce':['ce','continuing','education','tuition','techlife'],
+    'contacts':['contact','hr email','lindsey','hotline']
+  };
+  const lq = q.toLowerCase();
+  for (const [key, keywords] of Object.entries(map)) {
+    if (keywords.some(k => lq.includes(k))) {
+      const navEl = document.querySelector(`.hr-nav-item[onclick*="${key}"]`);
+      if (navEl) showHR(key, navEl);
+      return;
+    }
+  }
+}
+
+// ── Checklist toggles (with localStorage persistence) ────
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  el.querySelector('.chk').textContent = el.classList.contains('done') ? '☑' : '☐';
+  const id = el.dataset.chkId;
+  if (id) {
+    const checks = JSON.parse(localStorage.getItem('devChecks') || '{}');
+    checks[id] = el.classList.contains('done');
+    localStorage.setItem('devChecks', JSON.stringify(checks));
+  }
+}
+function toggleRev(el) {
+  el.classList.toggle('done');
+  el.querySelector('.chk').textContent = el.classList.contains('done') ? '☑' : '☐';
+  const id = el.dataset.chkId;
+  if (id) {
+    const checks = JSON.parse(localStorage.getItem('devChecks') || '{}');
+    checks[id] = el.classList.contains('done');
+    localStorage.setItem('devChecks', JSON.stringify(checks));
+  }
+}
+
+// ── Load & auto-reset checkboxes ─────────────────────────
+function loadCheckboxes() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayStr = today.toDateString();
+  let checks = JSON.parse(localStorage.getItem('devChecks') || '{}');
+
+  // Auto-reset WEEKLY tasks every Monday
+  if (today.getDay() === 1 && localStorage.getItem('lastWeeklyReset') !== todayStr) {
+    Object.keys(checks).filter(k => k.startsWith('weekly-') || k.startsWith('rev-')).forEach(k => { checks[k] = false; });
+    localStorage.setItem('lastWeeklyReset', todayStr);
+    localStorage.setItem('devChecks', JSON.stringify(checks));
+  }
+
+  // Auto-reset MONTHLY tasks on the 1st of each month
+  if (today.getDate() === 1 && localStorage.getItem('lastMonthlyReset') !== todayStr) {
+    Object.keys(checks).filter(k => k.startsWith('monthly-')).forEach(k => { checks[k] = false; });
+    localStorage.setItem('lastMonthlyReset', todayStr);
+    localStorage.setItem('devChecks', JSON.stringify(checks));
+  }
+
+  // Restore saved states
+  document.querySelectorAll('[data-chk-id]').forEach(el => {
+    if (checks[el.dataset.chkId]) {
+      el.classList.add('done');
+      const chk = el.querySelector('.chk');
+      if (chk) chk.textContent = '☑';
+    }
+  });
+}
+
+// ── YoY Calculator ───────────────────────────────────────
+function calcYoY(cyId, pyId, resultId) {
+  const cy = parseFloat(document.getElementById(cyId).value);
+  const py = parseFloat(document.getElementById(pyId).value);
+  const el = document.getElementById(resultId);
+  if (!cy || !py) { el.textContent = 'Enter both values'; el.style.color = 'var(--gray-400)'; return; }
+  const pct = ((cy - py) / py * 100).toFixed(1);
+  const sign = pct >= 0 ? '+' : '';
+  el.textContent = `${sign}${pct}% vs prior year`;
+  el.style.color = pct >= 0 ? 'var(--green)' : 'var(--red)';
+}
+
+// ── Slack message builder ────────────────────────────────
+function buildMsg() {
+  const date = document.getElementById('msg-date').value || '[Week Ending Date]';
+  const rev = document.getElementById('msg-rev').value || '[Revenue]';
+  const revpct = document.getElementById('msg-revpct').value || '[% Change]';
+  const nc = document.getElementById('msg-nc').value || '[New Clients]';
+  const pv = document.getElementById('msg-pv').value || '[Patient Visits]';
+  const goal = document.getElementById('msg-goal').value || '[% of Goal]';
+  const ttm = document.getElementById('msg-ttm').value || '[TTM]';
+  const vetcove = document.getElementById('msg-vetcove').value || '[Vetcove]';
+  document.getElementById('msg-preview').textContent =
+`📊 Weekly Revenue Report — Week ending ${date}
+
+Avimark Revenue: ${rev} (${revpct} vs prior year)
+New Clients: ${nc}
+Patient Visits: ${pv}
+
+Monthly Goal Progress: ${goal} of goal
+TTM (Aaron Smiley, DVM): ${ttm}
+
+Vetcove Home Delivery: ${vetcove}`;
+}
+
+function copyMsg() {
+  const text = document.getElementById('msg-preview').textContent;
+  navigator.clipboard.writeText(text).then(() => { const btn = event.target; btn.textContent = '✅ Copied!'; setTimeout(() => btn.textContent = '📋 Copy Message', 2000); });
+}
+
+// ── Charts ───────────────────────────────────────────────
+const DATA = {
+  daily:{labels:['3/16','3/18','3/19','3/20','3/23','3/24','3/25','3/30','4/1','4/2','4/3','4/4','4/6'],revenue:[4856,4551,4280,2286,5439,4120,3890,4180,530,3240,4890,3760,5180],py:[4190,4020,3980,1980,4890,3700,3510,3820,410,2980,4510,3410,4820]},
+  weekly:{labels:['W10','W11','W12','W13','W14','W15'],revenue:[21340,23180,19114,20890,17910,22560],py:[19100,20800,17200,18700,16100,20200]},
+  monthly:{labels:['Jan','Feb','Mar','Apr'],revenue:[78420,82310,88940,22847],py:[70410,73880,79870,21110]}
+};
+Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color='#9CA3AF';
+let trendChart, barChart, scatterChart;
+function mkTip(extra={}){return{backgroundColor:'rgba(31,56,100,0.95)',titleColor:'#fff',bodyColor:'rgba(255,255,255,0.8)',padding:10,cornerRadius:6,...extra};}
+function buildTrend(key){
+  if(trendChart)trendChart.destroy();
+  const d=DATA[key];
+  trendChart=new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:d.labels,datasets:[{label:'2026',data:d.revenue,borderColor:'#2563EB',backgroundColor:'rgba(37,99,235,0.08)',borderWidth:2.5,fill:true,tension:0.4,pointRadius:4,pointHoverRadius:6,pointBackgroundColor:'#2563EB'},{label:'2025',data:d.py,borderColor:'#9CA3AF',backgroundColor:'transparent',borderWidth:1.5,borderDash:[5,4],fill:false,tension:0.4,pointRadius:2}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{padding:14,boxWidth:12}},tooltip:{...mkTip(),callbacks:{label:ctx=>` ${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`}}},scales:{x:{grid:{color:'rgba(0,0,0,0.04)'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'k':v)}}}}});
+}
+function switchTrend(key,btn){document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');buildTrend(key);}
+function buildBar(){
+  if(barChart)barChart.destroy();
+  barChart=new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:['Wellness Exams','Vaccines','Preventatives','Medications Rx','Lab/Diag','Surgery','Other'],datasets:[{data:[38,22,18,10,7,3,2],backgroundColor:['#2563EB','#3B82F6','#60A5FA','#93C5FD','#BFDBFE','#DBEAFE','#EFF6FF'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...mkTip(),callbacks:{label:ctx=>` ${ctx.raw}% of revenue`}}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{callback:v=>v+'%'}}}}});
+}
+const SD=[{x:4,y:180,l:'Apr 1'},{x:22,y:201,l:'Mar 23'},{x:17,y:268,l:'Mar 18'},{x:23,y:211,l:'Mar 16'},{x:8,y:286,l:'Mar 20'},{x:14,y:232,l:'Apr 2'},{x:22,y:222,l:'Apr 3'},{x:17,y:221,l:'Apr 4'},{x:24,y:216,l:'Apr 6'},{x:18,y:232,l:'Mar 30'}];
+function buildScatter(){
+  if(scatterChart)scatterChart.destroy();
+  scatterChart=new Chart(document.getElementById('scatterChart'),{type:'scatter',data:{datasets:[{data:SD.map(d=>({x:d.x,y:d.y})),backgroundColor:'rgba(37,99,235,0.65)',pointRadius:7,pointHoverRadius:9}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...mkTip(),callbacks:{label:(ctx)=>{const d=SD[ctx.dataIndex];return ` ${d.l}: ${d.x} visits · $${d.y} avg`;}}}},scales:{x:{title:{display:true,text:'Patient Visits',color:'#9CA3AF',font:{size:11}},grid:{color:'rgba(0,0,0,0.04)'}},y:{title:{display:true,text:'Avg Invoice ($)',color:'#9CA3AF',font:{size:11}},grid:{color:'rgba(0,0,0,0.04)'},ticks:{callback:v=>'$'+v}}}}});
+}
+function applyFilters(){const map={'7d':'daily','30d':'daily','mtd':'daily','90d':'weekly','ytd':'monthly'};const r=document.getElementById('filterDateRange').value;buildTrend(map[r]||'daily');}
+function resetFilters(){document.getElementById('filterDateRange').value='mtd';document.querySelectorAll('.filter-option input').forEach(c=>c.checked=true);buildTrend('daily');}
+// ── Today's Focus ────────────────────────────────────────
+function buildTodaysFocus() {
+  const today = new Date();
+  const day = today.getDay();
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const dateStr = today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+
+  document.getElementById('focus-day-label').textContent = '📌 ' + dayNames[day] + "'s Focus";
+  document.getElementById('focus-date-label').textContent = dateStr;
+
+  const focuses = {
+    1:[{icon:'📊',title:'Weekly Revenue Report',desc:'Run Income by Provider in Avimark, fix ASI→AS, get Period Totals, calculate YoY %, send to Dr. Smiley',p:'HIGH'},
+       {icon:'🛒',title:'Vetcove Order — due by noon',desc:'Place at shop.vetcove.com — prefer Covetrus (green badge). Proheart 12 + Bravecto Quantum are ORDER NOW.',p:'HIGH'},
+       {icon:'📅',title:'Set DVM Schedule in VetCorOne',desc:"Log into VetCorOne and set Dr. Smiley's schedule for the week (Mon–Fri 8–5, Sat 8–12 every other week).",p:'MED'}],
+    2:[{icon:'💬',title:"Check Dr. Smiley's #thoughts",desc:'Review any directives from yesterday and today. Follow up on any Monday action items.',p:'MED'},
+       {icon:'📋',title:'Work Pending HIGH Items',desc:'Check your morning to-do list. Review #lindsey-audits for any Avimark corrections needed.',p:'MED'},
+       {icon:'🐾',title:'Operations Check',desc:'Confirm staffing coverage and handle any walk-in issues or appointment changes.',p:'LOW'}],
+    3:[{icon:'🛒',title:'Midweek Vetcove Restock',desc:'Check for fast-moving items needing a mid-week top-up. Order by noon.',p:'MED'},
+       {icon:'📦',title:'Inventory Count (if late month)',desc:'Last 2 Wednesdays of the month — physical flea/tick/vaccine count. Count by box/vial.',p:'MED'},
+       {icon:'📋',title:'A/P Invoice Review',desc:'Submit any vendor invoices in Skyworld that need to go in before end of week.',p:'LOW'}],
+    4:[{icon:'📅',title:'Review Schedule Draft',desc:"Claude sends a draft schedule at 9 AM — review it and reply 'approved' to finalize and auto-save.",p:'HIGH'},
+       {icon:'💳',title:'Prep Dayforce Timecards',desc:'Payroll Fridays: verify timecards are clean before authorizing tomorrow. Fix any Red X.',p:'MED'},
+       {icon:'💬',title:'Staff Check-Ins',desc:'Thursday is a good day for quick 1:1 coaching conversations before end of week.',p:'LOW'}],
+    5:[{icon:'💳',title:'Authorize Timecards (if payroll)',desc:'Log into Dayforce and authorize timecards for the pay period (prior Sat–Fri) before payroll runs.',p:'HIGH'},
+       {icon:'📋',title:'End-of-Week Review',desc:'Scan #thoughts, #general, and #lindsey-audits for anything to carry into next week.',p:'MED'},
+       {icon:'🐾',title:'Reduced Afternoon Staff',desc:'No afternoon appointments Fridays — clinic runs reduced staff after noon.',p:'LOW'}],
+    6:[{icon:'🐾',title:'Saturday Hours (7AM–12PM)',desc:'Rotation staff: Kelsey, Moissa, Allison. Dr. Smiley every other Saturday.',p:'MED'},
+       {icon:'📋',title:'Weekly Wrap-Up',desc:'Quick check of any outstanding items before the weekend. Flag anything urgent for Monday.',p:'LOW'},
+       {icon:'💬',title:'Check #thoughts',desc:'Any late directives from Dr. Smiley before the weekend.',p:'LOW'}],
+    0:[{icon:'📊',title:'Revenue Report Runs Tomorrow',desc:'Monday 9 AM: Revenue report runs automatically. Vetcove order due by noon. VetCorOne schedule needs to be set.',p:'MED'},
+       {icon:'🛒',title:'Review Inventory',desc:'Quick check on any ORDER NOW items before the week starts.',p:'LOW'},
+       {icon:'💬',title:'Check Messages',desc:'Any weekend messages from Dr. Smiley via Slack.',p:'LOW'}],
+  };
+
+  const pc = {HIGH:'#B91C1C',MED:'#92400E',LOW:'#166534'};
+  const pb = {HIGH:'#FEE2E2',MED:'#FEF3C7',LOW:'#DCFCE7'};
+  const items = focuses[day] || focuses[0];
+
+  document.getElementById('focus-items').innerHTML = items.map(item=>`
+    <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div style="font-size:15px;">${item.icon}</div>
+        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;background:${pb[item.p]};color:${pc[item.p]};">${item.p}</span>
+      </div>
+      <div style="font-size:12.5px;font-weight:700;color:var(--gray-800);margin-bottom:4px;">${item.title}</div>
+      <div style="font-size:11.5px;color:var(--gray-500);line-height:1.5;">${item.desc}</div>
+    </div>`).join('');
+}
+
+// ── End-of-Month Countdown ───────────────────────────────
+function buildCountdowns() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const eom = new Date(today.getFullYear(), today.getMonth()+1, 0);
+  const daysLeft = Math.ceil((eom - today) / 86400000);
+  const eomEl = document.getElementById('eom-days');
+  if (eomEl) {
+    eomEl.textContent = daysLeft + 'd left';
+    eomEl.style.color = daysLeft <= 5 ? 'var(--red)' : daysLeft <= 10 ? 'var(--amber)' : 'var(--blue)';
+  }
+
+  const reconDate = new Date(today.getFullYear(), today.getMonth(), 25);
+  if (reconDate < today) reconDate.setMonth(reconDate.getMonth()+1);
+  const reconDays = Math.ceil((reconDate - today) / 86400000);
+  const reconEl = document.getElementById('recon-days');
+  if (reconEl) {
+    reconEl.textContent = reconDays === 0 ? 'DUE TODAY' : reconDays + 'd away';
+    reconEl.style.color = reconDays <= 3 ? 'var(--red)' : reconDays <= 7 ? 'var(--amber)' : 'var(--gray-600)';
+  }
+
+  // Update compliance month label
+  const monthLabel = document.getElementById('compliance-month-label');
+  if (monthLabel) monthLabel.textContent = today.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+
+  // Update recon due label in checklist
+  const reconDueLabel = document.getElementById('recon-due-label');
+  if (reconDueLabel) reconDueLabel.textContent = today.toLocaleDateString('en-US',{month:'short'}) + ' 25';
+}
+
+function init(){
+  buildTrend('daily');buildBar();buildScatter();
+  const now = new Date();
+  const ts = now.toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+  document.getElementById('lastUpdated').textContent = 'Refreshed: ' + ts;
+  document.getElementById('refreshLabel').textContent = 'Updated ' + now.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  buildMsg();
+  buildTodaysFocus();
+  buildCountdowns();
+  loadCheckboxes();
+  // highlight Monday revenue badge
+  if(now.getDay()===1) { document.getElementById('rev-badge').style.background='#DCFCE7'; document.getElementById('rev-badge').style.color='#166534'; }
+}
+document.addEventListener('DOMContentLoaded',init);
+
+// ── Staff Evaluations ─────────────────────────────────────
+const STAFF_DATA = [
+  { id:'jodi',    name:'Jodi Dunn',      role:'Vet Assistant', color:'#2563EB', cert:null,
+    scores:[
+      {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:49,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:82,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:80,patient:'(Lindsey eval)'},
+      {date:'Mar 26',score:78,patient:'Olive Schwettman'},
+      {date:'Mar 30',score:79,patient:'Max Leyba'},
+      {date:'Apr 3', score:72,patient:'Ralli Casstevens'},
+      {date:'Apr 3', score:76,patient:'Rocky Kessler'},
+    ]
+  },
+  { id:'maddie',  name:'Maddie Joseph',  role:'Vet Assistant', color:'#16A34A', cert:null,
+    scores:[
+      {date:'Mar 30',score:81,patient:'Tyson Stutzman'},
+      {date:'Mar 30',score:77,patient:'Columbo & Cherry'},
+      {date:'Apr 2', score:74,patient:'Hugo Scherer'},
+      {date:'Apr 2', score:77,patient:'Dusty Roberts'},
+    ]
+  },
+  { id:'kristi',  name:'Kristi',         role:'Vet Assistant', color:'#D97706', cert:null,
+    scores:[
+      {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:68,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:72,patient:'(Lindsey eval)'},{date:'Jan 22',score:65,patient:'(Lindsey eval)'},
+      {date:'Mar 25',score:68,patient:'Lady Sparks'},
+      {date:'Mar 26',score:59,patient:'Calliope Fosnot'},
+    ]
+  },
+  { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
+    scores:[
+      {date:'Jan 21',score:79,patient:'(Lindsey eval)'},{date:'Jan 21',score:72,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:71,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
+      {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
+      {date:'Mar 26',score:66,patient:'Gypsy Wire'},
+    ]
+  },
+  { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
+    scores:[
+      {date:'Feb 4', score:76,patient:'Monster Landis'},
+      {date:'Feb 4', score:78,patient:'Koda Chrome Skaggs'},
+    ]
+  },
+  { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
+    scores:[
+      {date:'Feb 4', score:74,patient:'Charlie Thompson'},
+    ]
+  },
+  { id:'breanna', name:'Breanna',        role:'HS Extern',     color:'#9CA3AF', cert:null, scores:[] },
+  { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
+];
+
+const EVAL_DATE_ORDER = {'Apr 3':0,'Apr 2':1,'Mar 30':2,'Mar 26':3,'Mar 25':4,'Feb 4':5,'Jan 22':6,'Jan 21':7};
+
+function sAvg(arr){ if(!arr.length)return null; return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10; }
+function scoreCls(s){ if(s===null)return'no-data'; if(s>=80)return'score-excellent'; if(s>=70)return'score-good'; if(s>=60)return'score-fair'; return'score-poor'; }
+function scorePill(s){ if(s===null)return'<span class="score-pill pill-gray">—</span>'; if(s>=80)return`<span class="score-pill pill-green">${s}</span>`; if(s>=70)return`<span class="score-pill pill-blue">${s}</span>`; if(s>=60)return`<span class="score-pill pill-amber">${s}</span>`; return`<span class="score-pill pill-red">${s}</span>`; }
+function calcTrend(scores){
+  if(scores.length<3)return'→';
+  const recent=scores.slice(-3).map(s=>s.score); const prev=scores.slice(-6,-3).map(s=>s.score);
+  if(!prev.length)return'→';
+  const d=sAvg(recent)-sAvg(prev); return d>3?'↑':d<-3?'↓':'→';
+}
+
+function buildEvalSummary(){
+  document.getElementById('eval-summary-grid').innerHTML=STAFF_DATA.map(s=>{
+    const recent=s.scores.at(-1); const recentScore=recent?.score??null;
+    const allScores=s.scores.map(x=>x.score); const average=sAvg(allScores);
+    const trend=calcTrend(s.scores); const cls=scoreCls(recentScore);
+    const trendColor=trend==='↑'?'var(--green)':trend==='↓'?'var(--red)':'var(--gray-400)';
+    const streak=s.scores.length;
+    return`<div class="eval-card ${cls}">
+      <div class="eval-name">${s.name}${s.cert?`<span class="cert-badge">${s.cert}</span>`:''}</div>
+      <div class="eval-role">${s.role}</div>
+      <div class="eval-score-big">${recentScore??'—'}</div>
+      <div class="eval-score-label">${recentScore?'Most recent score / 100':'No evaluations yet'}</div>
+      <div class="eval-meta-row">
+        <div>Avg: <strong>${average??'—'}</strong></div>
+        <div>Trend: <span class="eval-trend-arrow" style="color:${trendColor}">${trend}</span></div>
+        <div>${s.scores.length?`${streak} eval${streak===1?'':'s'}`:'—'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildEvalTrendChart(){
+  const WEEKS=['Jan 21','Jan 22','Feb 4','Mar 25','Mar 26','Mar 30','Apr 2','Apr 3'];
+  function wkAvg(staff,d){ const sc=staff.scores.filter(s=>s.date===d).map(s=>s.score); return sc.length?Math.round(sAvg(sc)):null; }
+  const datasets=STAFF_DATA.filter(s=>s.scores.length>0).map(s=>({
+    label:s.name.split(' ')[0], data:WEEKS.map(w=>wkAvg(s,w)),
+    borderColor:s.color, backgroundColor:'transparent', borderWidth:2.5,
+    pointRadius:5, pointHoverRadius:7, pointBackgroundColor:s.color, tension:0.3, spanGaps:true,
+  }));
+  if(window.evalTrendChart)window.evalTrendChart.destroy();
+  window.evalTrendChart=new Chart(document.getElementById('evalTrendChart'),{
+    type:'line', data:{labels:WEEKS,datasets},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{padding:10,boxWidth:10,font:{size:10}}},
+        tooltip:{...mkTip(),callbacks:{label:ctx=>ctx.raw!==null?` ${ctx.dataset.label}: ${ctx.raw}`:null}}},
+      scales:{x:{grid:{color:'rgba(0,0,0,0.04)'}},y:{min:40,max:100,grid:{color:'rgba(0,0,0,0.04)'},
+        ticks:{stepSize:10}}}}
+  });
+}
+
+function buildEvalBarChart(){
+  const stf=STAFF_DATA.filter(s=>s.scores.length>0);
+  const recent=['Mar 25','Mar 26','Mar 30','Apr 2','Apr 3'];
+  const values=stf.map(s=>{
+    const rc=s.scores.filter(x=>recent.includes(x.date));
+    const src=rc.length?rc:s.scores;
+    return sAvg(src.map(x=>x.score));
+  });
+  if(window.evalBarChart)window.evalBarChart.destroy();
+  window.evalBarChart=new Chart(document.getElementById('evalBarChart'),{
+    type:'bar',
+    data:{labels:stf.map(s=>s.name.split(' ')[0]),datasets:[{data:values,backgroundColor:stf.map(s=>s.color+'99'),borderColor:stf.map(s=>s.color),borderWidth:2,borderRadius:5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{...mkTip(),callbacks:{label:ctx=>` Score: ${ctx.raw}`}}},
+      scales:{x:{grid:{display:false}},y:{min:40,max:100,grid:{color:'rgba(0,0,0,0.04)'},
+        ticks:{stepSize:10,callback:v=>v}}}}
+  });
+}
+
+// All staff for birthday/workiversary tracker (includes non-eval staff like Debbie)
+const ALL_STAFF_BDAY = [
+  ...STAFF_DATA.filter(s=>s.id!=='breanna'&&s.id!=='kathryn'),
+  {id:'debbie', name:'Debbie Wagner', role:'Receptionist'},
+  {id:'breanna', name:'Breanna', role:'HS Extern'},
+  {id:'kathryn', name:'Kathryn', role:'PRN'},
+];
+
+// Known dates from #staff-info Slack channel (pulled Apr 7, 2026)
+const BDAY_KNOWN = {
+  debbie:  {bday:'12/20', wkiv:'04/09'},
+  allison: {bday:'02/09', wkiv:'03/20'},
+};
+
+function daysUntil(mmdd, today){
+  if(!mmdd) return null;
+  const parts=mmdd.split('/');
+  if(parts.length!==2) return null;
+  const m=parseInt(parts[0])-1, d=parseInt(parts[1]);
+  const next=new Date(today.getFullYear(),m,d);
+  if(next<today) next.setFullYear(today.getFullYear()+1);
+  return Math.ceil((next-today)/86400000);
+}
+
+function daysLabel(days, emoji){
+  if(days===null) return '<span class="bday-far">—</span>';
+  if(days===0) return `<span class="bday-upcoming">${emoji} Today!</span>`;
+  if(days<=7)  return `<span class="bday-upcoming">${emoji} In ${days}d!</span>`;
+  if(days<=30) return `<span style="color:var(--blue);font-weight:500;">In ${days}d</span>`;
+  return `<span class="bday-far">In ${days}d</span>`;
+}
+
+function buildBdayTable(){
+  const saved=JSON.parse(localStorage.getItem('devBirthdays2')||'{}');
+  const savedWkiv=JSON.parse(localStorage.getItem('devWkiv')||'{}');
+  const today=new Date(); today.setHours(0,0,0,0);
+  let alerts=[];
+
+  // Header row
+  let html=`<div class="bday-row" style="font-size:10px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;padding-bottom:4px;">
+    <div>Name</div><div>Birthday</div><div>Workiversary</div><div>Coming Up</div>
+  </div>`;
+
+  html += ALL_STAFF_BDAY.map(s=>{
+    const bdayVal = saved[s.id] ?? BDAY_KNOWN[s.id]?.bday ?? '';
+    const wkivVal = savedWkiv[s.id] ?? BDAY_KNOWN[s.id]?.wkiv ?? '';
+    const bdDays = daysUntil(bdayVal, today);
+    const wkDays = daysUntil(wkivVal, today);
+    if(bdDays!==null&&bdDays<=7) alerts.push(`${s.name.split(' ')[0]}'s birthday`);
+    if(wkDays!==null&&wkDays<=7) alerts.push(`${s.name.split(' ')[0]}'s workiversary`);
+    const upcoming = bdDays!==null&&(wkDays===null||bdDays<=wkDays) ? daysLabel(bdDays,'🎂') : daysLabel(wkDays,'🎉');
+    return`<div class="bday-row">
+      <div class="bday-name">${s.name.split(' ')[0]}</div>
+      <input type="text" class="filter-input" style="padding:3px 6px;font-size:11px;" placeholder="MM/DD" value="${bdayVal}" id="bday-${s.id}">
+      <input type="text" class="filter-input" style="padding:3px 6px;font-size:11px;" placeholder="MM/DD" value="${wkivVal}" id="wkiv-${s.id}">
+      <div style="font-size:11.5px;">${upcoming}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('bday-table').innerHTML=html;
+  const banner=document.getElementById('bday-banner');
+  if(alerts.length){ document.getElementById('bday-banner-text').textContent=`Coming up: ${alerts.join(' · ')}`; banner.classList.add('show'); }
+  else banner.classList.remove('show');
+}
+
+function saveBirthdays(){
+  const bdays={}, wkivs={};
+  ALL_STAFF_BDAY.forEach(s=>{
+    const b=document.getElementById('bday-'+s.id); if(b) bdays[s.id]=b.value;
+    const w=document.getElementById('wkiv-'+s.id); if(w) wkivs[s.id]=w.value;
+  });
+  localStorage.setItem('devBirthdays2',JSON.stringify(bdays));
+  localStorage.setItem('devWkiv',JSON.stringify(wkivs));
+  buildBdayTable();
+  const btn=event.target; btn.textContent='✅ Saved!'; setTimeout(()=>btn.textContent='Save',2000);
+}
+
+function buildEvalLog(){
+  const all=[];
+  STAFF_DATA.forEach(s=>s.scores.forEach(e=>all.push({name:s.name,color:s.color,date:e.date,score:e.score,patient:e.patient})));
+  all.sort((a,b)=>(EVAL_DATE_ORDER[a.date]??99)-(EVAL_DATE_ORDER[b.date]??99));
+  document.getElementById('eval-log-table').innerHTML=all.slice(0,14).map(e=>`
+    <div class="eval-log-row">
+      <div style="width:10px;height:10px;border-radius:50%;background:${e.color};flex-shrink:0;"></div>
+      <div><div class="eval-log-name">${e.name}</div><div class="eval-log-patient">${e.patient}</div></div>
+      <div style="font-size:11px;color:var(--gray-400);white-space:nowrap;">${e.date}</div>
+      <div>${scorePill(e.score)}</div>
+    </div>`).join('');
+}
+
+function buildStaffDetail(){
+  const active=STAFF_DATA.filter(s=>s.scores.length>0);
+  document.getElementById('staff-detail-tabs').innerHTML=active.map((s,i)=>
+    `<button class="staff-dtab ${i===0?'active':''}" onclick="showStaffDetail('${s.id}',this)">${s.name.split(' ')[0]}</button>`
+  ).join('');
+  document.getElementById('staff-detail-panels').innerHTML=active.map((s,i)=>{
+    const all=s.scores.map(x=>x.score);
+    const avg2=sAvg(all), high=Math.max(...all), low=Math.min(...all);
+    const trend=calcTrend(s.scores);
+    const savedNotes=localStorage.getItem('staffnote-'+s.id)||'';
+    const histRows=s.scores.slice().reverse().map(e=>`
+      <div class="eval-log-row">
+        ${scorePill(e.score)}
+        <div><div class="eval-log-name">${e.patient}</div></div>
+        <div style="font-size:11px;color:var(--gray-400);">${e.date}</div>
+        <div style="font-size:11px;color:${e.score>=80?'var(--green)':e.score>=70?'var(--blue)':e.score>=60?'var(--amber)':'var(--red)'};">
+          ${e.score>=80?'Excellent':e.score>=70?'Good':e.score>=60?'Needs Work':'Concerning'}
+        </div>
+      </div>`).join('');
+    return`<div class="staff-detail-panel ${i===0?'active':''}" id="detail-${s.id}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div style="display:flex;gap:10px;margin-bottom:16px;">
+            <div class="stat-box" style="flex:1;"><div class="stat-box-val" style="color:${s.color};">${avg2}</div><div class="stat-box-label">Average</div></div>
+            <div class="stat-box" style="flex:1;"><div class="stat-box-val" style="color:var(--green);">${high}</div><div class="stat-box-label">Best</div></div>
+            <div class="stat-box" style="flex:1;"><div class="stat-box-val" style="color:var(--red);">${low}</div><div class="stat-box-label">Low</div></div>
+            <div class="stat-box" style="flex:1;"><div class="stat-box-val" style="color:var(--gray-600);">${s.scores.length}</div><div class="stat-box-label">Total Evals</div></div>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Score Categories (5 × 20 pts)</div>
+          <div style="background:var(--blue-pale);border:1px solid #BFDBFE;border-radius:6px;padding:10px 12px;font-size:11.5px;color:var(--gray-600);margin-bottom:12px;">
+            Per-category breakdowns are in the Slack eval threads under each staff member's channel.
+            Totals are captured here automatically — pull individual categories when you need deep coaching insight.
+          </div>
+          ${['Client Service & Professionalism','Scope of Role & Medical Boundaries','History Depth & Accuracy','Organization & Flow','Completeness & Info Transfer'].map(cat=>`
+            <div class="cat-bar-row">
+              <div class="cat-bar-label">${cat}</div>
+              <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${Math.round(avg2/100*70+15)}%;background:${s.color};"></div></div>
+              <div class="cat-bar-val">—/20</div>
+            </div>`).join('')}
+          <div style="margin-top:14px;">
+            <div style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Manager Notes</div>
+            <textarea class="notes-area" id="staffnote-${s.id}" placeholder="Notes about ${s.name.split(' ')[0]}..." onchange="saveStaffNote('${s.id}')">${savedNotes}</textarea>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">All Evaluations (${s.scores.length})</div>
+          ${histRows}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showStaffDetail(id,btn){
+  document.querySelectorAll('.staff-dtab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.staff-detail-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('detail-'+id).classList.add('active');
+}
+function saveStaffNote(id){
+  const val=document.getElementById('staffnote-'+id)?.value;
+  if(val!==undefined)localStorage.setItem('staffnote-'+id,val);
+}
+
+function initStaffTab(){
+  buildEvalSummary();
+  buildEvalTrendChart();
+  buildEvalBarChart();
+  buildBdayTable();
+  buildEvalLog();
+  buildStaffDetail();
+}
+</script>
+
+<!-- ═══════════════ TAB: STAFF EVALUATIONS ═══════════════ -->
+<div class="tab-panel" id="tab-staff">
+<div style="max-width:1400px;margin:0 auto;padding:20px;">
+
+  <!-- Birthday Alert Banner -->
+  <div class="bday-banner" id="bday-banner">
+    <span id="bday-banner-text"></span>
+  </div>
+
+  <!-- Summary Cards -->
+  <div id="eval-summary-grid" class="eval-grid"></div>
+
+  <!-- Charts Row -->
+  <div class="chart-row two" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-title">Score Trend Over Time
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Weekly avg · All staff with data</span>
+      </div>
+      <div style="height:240px;"><canvas id="evalTrendChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Recent Averages
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Last 90 days</span>
+      </div>
+      <div style="height:240px;"><canvas id="evalBarChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Birthdays + Eval Log -->
+  <div class="insights-row" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-title">🎂 Birthday Tracker
+        <button onclick="saveBirthdays()" style="font-size:10px;padding:3px 10px;background:var(--navy);color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;">Save</button>
+      </div>
+      <div style="font-size:11px;color:var(--gray-400);margin-bottom:10px;">Pulled from #staff-info Slack · Debbie & Allison loaded · Ask others to post theirs · alerts 7 days out</div>
+      <div id="bday-table"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Recent Evaluations
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);">All staff · Newest first</span>
+      </div>
+      <div id="eval-log-table"></div>
+    </div>
+  </div>
+
+  <!-- Individual Staff Detail -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:12px;">Individual Staff Detail</div>
+    <div class="staff-dtabs" id="staff-detail-tabs"></div>
+    <div id="staff-detail-panels"></div>
+  </div>
+
+  <!-- Staff Communications Folder -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:4px;">📁 Staff Communication Logs
+      <span style="font-size:11px;font-weight:400;color:var(--gray-400);">One file per staff member · Click to open in Word</span>
+    </div>
+    <div style="font-size:11px;color:var(--gray-400);margin-bottom:12px;">Use these to log coaching conversations, performance discussions, disciplinary notes, and any important one-on-one interactions.</div>
+    <div class="comms-grid">
+      <div class="comms-card"><div><div class="comms-name">Jodi Dunn</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Jodi_Dunn.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Maddie Joseph</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Maddie_Joseph.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Kristi</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Kristi.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Allison</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant · Studying for cert</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Allison.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Kelsey</div><div style="font-size:10.5px;color:var(--gray-400);">RVT</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Kelsey.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Moissa</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Moissa.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Debbie Wagner</div><div style="font-size:10.5px;color:var(--gray-400);">Receptionist</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Debbie_Wagner.docx">📄 Open Log</a></div>
+      <div class="comms-card"><div><div class="comms-name">Breanna</div><div style="font-size:10.5px;color:var(--gray-400);">HS Extern</div></div><a class="comms-link" href="file:///C:/Users/HMUser/Desktop/claude/Staff%20Conversation%20Logs/ConvoLog_Breanna.docx">📄 Open Log</a></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// Wire up staff tab init on first click
+(function(){
+  let staffInited=false;
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.textContent.includes('Staff') && !staffInited){
+        staffInited=true; setTimeout(initStaffTab,50);
+      }
+    });
+  });
+})();
+</script>
+
+<!-- ═══════════════ TAB: SCHEDULE ═══════════════ -->
+<div class="tab-panel" id="tab-schedule">
+<div style="max-width:1400px;margin:0 auto;padding:20px;">
+
+<script>
+(function(){
+
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat'];
+const FULL_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+// Standing schedule — matches CLAUDE.md
+// hours: string like "7-4", task: 'am'|'pm'|'mid'|'ch'|'off', lunch: string
+const STANDING = [
+  { id:'debbie',  name:'Debbie Wagner', role:'Receptionist',
+    days:['7-5','7-1','7-5','7-2','8-1','off'],
+    tasks:['','','','','','off'], lunch:['1-2','','1-2','','',''] },
+  { id:'kristi',  name:'Kristi',        role:'Vet Assistant',
+    days:['7-4','7-4','7-4','7-4','8-1','off'],
+    tasks:['','','','','','off'], lunch:['12-1','12-1','12-1','12-1','',''] },
+  { id:'kelsey',  name:'Kelsey',        role:'RVT',
+    days:['7-5','7-5','7-1','7-1','7-5','off'],
+    tasks:['am','pm','','','pm','off'], lunch:['1-2','1-2','','','1-2',''] },
+  { id:'jodi',    name:'Jodi Dunn',     role:'Vet Assistant',
+    days:['8-4','8-4','8-1','8-4','8-1','off'],
+    tasks:['','','','','','off'], lunch:['12-1','12-1','','12-1','',''] },
+  { id:'maddie',  name:'Maddie Joseph', role:'Vet Assistant',
+    days:['7-4','7-4','7-4','7-4','7-1','off'],
+    tasks:['ch','ch','ch','ch','','off'], lunch:['12-1','12-1','12-1','12-1','',''] },
+  { id:'moissa',  name:'Moissa',        role:'Vet Assistant',
+    days:['7-1','7-1','7-5','7-1','7-1','off'],
+    tasks:['mid','mid','mid','mid','mid','off'], lunch:['','','1-2','','',''] },
+  { id:'allison', name:'Allison',       role:'Vet Assistant',
+    days:['7-5','7-5','off','7-5','8-5','off'],
+    tasks:['pm','pm','off','pm','pm','off'], lunch:['1-2','1-2','','1-2','1-2',''] },
+  { id:'breanna', name:'Breanna',       role:'HS Extern',
+    days:['off','7-11','off','7-11','7-11','off'],
+    tasks:['off','am','off','am','am','off'], lunch:['','','','','',''] },
+];
+
+function getWeekDates(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dow = today.getDay(); // 0=Sun,1=Mon...
+  const mon = new Date(today); mon.setDate(today.getDate() - (dow===0?6:dow-1));
+  return Array.from({length:6},(_,i)=>{ const d=new Date(mon); d.setDate(mon.getDate()+i); return d; });
+}
+
+function fmtDate(d){ return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function isToday(d){ const t=new Date(); return d.getDate()===t.getDate()&&d.getMonth()===t.getMonth(); }
+
+function taskLabel(t){
+  if(!t||t==='') return '';
+  const map={am:'AM Kennels',pm:'PM Kennels',mid:'Mid Kennels',ch:'Channels',off:'OFF'};
+  const cls={am:'task-am',pm:'task-pm',mid:'task-mid',ch:'task-ch',off:'task-off'};
+  return `<span class="sched-task ${cls[t]||''}">${map[t]||t}</span>`;
+}
+
+function buildScheduleTab(){
+  const weekDates = getWeekDates();
+  const overrides = JSON.parse(localStorage.getItem('schedOverrides')||'{}');
+  const weekKey = fmtDate(weekDates[0]);
+
+  // Week header
+  document.getElementById('sched-week-label').textContent =
+    `Week of ${fmtDate(weekDates[0])} – ${fmtDate(weekDates[5])}`;
+  document.getElementById('sched-today-label').textContent =
+    'Today: ' + new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+  // Day column headers
+  const hdr = document.getElementById('sched-col-headers');
+  hdr.innerHTML = '<div class="sched-col-header" style="background:var(--navy);"></div>' +
+    weekDates.map((d,i)=>{
+      const today = isToday(d);
+      const isSat = i===5;
+      return `<div class="sched-col-header ${today?'today-col':isSat?'weekend-col':''}">
+        ${DAYS[i]}<br><span style="font-weight:400;font-size:10px;opacity:0.8;">${fmtDate(d)}</span>
+      </div>`;
+    }).join('');
+
+  // Staff rows
+  const body = document.getElementById('sched-body');
+  body.innerHTML = STANDING.map(s=>{
+    const ov = overrides[s.id] || {};
+    const cells = weekDates.map((d,i)=>{
+      const ovKey = fmtDate(d);
+      const note = ov[ovKey];
+      const hours = note ? (note==='off'?'OFF':note) : s.days[i];
+      const task  = note ? (note==='off'?'off':s.tasks[i]) : s.tasks[i];
+      const lunch = s.lunch[i];
+      const isOff = hours==='off'||hours==='OFF';
+      const isTod = isToday(d);
+      return `<div class="sched-cell ${isTod?'today-col':''} ${isOff?'off':''}">
+        ${isOff
+          ? `<span class="sched-task task-off">OFF</span>`
+          : `<div class="sched-hours">${hours}</div>
+             ${taskLabel(task)}
+             ${lunch?`<div class="sched-lunch">Lunch ${lunch}</div>`:''}`}
+      </div>`;
+    }).join('');
+    return `<div class="sched-name-col"><div class="sched-name">${s.name.split(' ')[0]}</div><div class="sched-role">${s.role}</div></div>${cells}`;
+  }).join('');
+
+  // Override note rows
+  const noteBody = document.getElementById('sched-notes-body');
+  noteBody.innerHTML = STANDING.map(s=>{
+    const thisWeekOv = weekDates.map((d,i)=>{
+      const ov = overrides[s.id]?.[fmtDate(d)];
+      return ov ? `${DAYS[i]}: ${ov}` : null;
+    }).filter(Boolean).join(', ');
+    return `<div class="sched-note-row">
+      <div style="font-weight:600;font-size:12px;">${s.name.split(' ')[0]}</div>
+      <input class="filter-input" style="font-size:11.5px;padding:5px 8px;" type="text"
+        placeholder="e.g. Mon: off, Tue: 9-3"
+        id="ov-${s.id}" value="${thisWeekOv}">
+      <button onclick="applyOverride('${s.id}')" style="padding:5px 10px;background:var(--navy);color:white;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">Apply</button>
+    </div>`;
+  }).join('');
+}
+
+window.applyOverride = function(id){
+  const val = document.getElementById('ov-'+id).value.trim();
+  const weekDates = getWeekDates();
+  const overrides = JSON.parse(localStorage.getItem('schedOverrides')||'{}');
+  if(!overrides[id]) overrides[id]={};
+  // Parse "Mon: off, Fri: 9-1" style
+  val.split(',').forEach(part=>{
+    const m = part.trim().match(/^(Mon|Tue|Wed|Thu|Fri|Sat):\s*(.+)$/i);
+    if(m){
+      const dayIdx = ['Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(m[1].charAt(0).toUpperCase()+m[1].slice(1,3).toLowerCase());
+      if(dayIdx>=0){ const key=fmtDate(weekDates[dayIdx]); overrides[id][key]=m[2].trim(); }
+    }
+  });
+  if(!val) delete overrides[id];
+  localStorage.setItem('schedOverrides',JSON.stringify(overrides));
+  buildScheduleTab();
+};
+
+window.initScheduleTab = buildScheduleTab;
+
+})();
+</script>
+
+  <!-- Header -->
+  <div class="sched-week-header">
+    <div>
+      <div class="sched-week-label" id="sched-week-label">Loading schedule...</div>
+      <div class="sched-week-sub" id="sched-today-label"></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <a class="sched-excel-link" href="computer:///C:/Users/HMUser/Desktop/claude/schedule/Schedule_Apr6-10_v3.xlsx">📊 Open Excel Schedule</a>
+      <div style="font-size:11px;color:var(--gray-400);">Auto-built Thursdays · Approve via Slack to update here</div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="sched-legend">
+    <div class="sched-legend-item"><span class="sched-task task-am" style="font-size:10px;">AM Kennels</span> Must start 7:00 AM</div>
+    <div class="sched-legend-item"><span class="sched-task task-pm" style="font-size:10px;">PM Kennels</span> Must leave 5:00 PM</div>
+    <div class="sched-legend-item"><span class="sched-task task-mid" style="font-size:10px;">Mid Kennels</span> Midday shift</div>
+    <div class="sched-legend-item"><span class="sched-task task-ch" style="font-size:10px;">Channels</span> ~1hr phone/channel at open</div>
+    <div class="sched-legend-item" style="background:#EFF6FF;padding:2px 8px;border-radius:4px;color:var(--blue);font-weight:600;">Today highlighted in blue</div>
+  </div>
+
+  <!-- Schedule Grid -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="sched-grid" id="sched-col-headers" style="display:grid;grid-template-columns:130px repeat(6,1fr);"></div>
+    <div style="display:grid;grid-template-columns:130px repeat(6,1fr);" id="sched-body"></div>
+  </div>
+
+  <!-- Saturday Note -->
+  <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400E;margin-bottom:14px;">
+    ⭐ <strong>Saturday rotation (every other week):</strong> Kelsey, Moissa, Allison — 7:00 AM–12:00 PM
+    &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Friday note:</strong> No afternoon appointments — reduced staff after noon
+  </div>
+
+  <!-- Weekly Overrides -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:4px;">This Week's Changes
+      <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Enter exceptions from the standing schedule — auto-updates the grid above</span>
+    </div>
+    <div style="font-size:11px;color:var(--gray-400);margin-bottom:10px;">Format: <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px;">Mon: off</code> or <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px;">Fri: 9-1</code> — separate multiple days with commas</div>
+    <div id="sched-notes-body"></div>
+  </div>
+
+  <!-- Known Time Off -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:10px;">Known Upcoming Time Off</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Kristi</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 3, 6, 7, 8 off · Back Apr 9</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Maddie Joseph</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 10 off (approved)</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Jodi Dunn</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 10 off</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Allison</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">May 6 early out by 4 PM · May 7–8 off</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Dr. Smiley</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 27–29 off · Jun 8–12 off</div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Kelsey</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Aug 17–21 PTO (requested Apr 6)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  let schedInited=false;
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.textContent.includes('Schedule')&&!schedInited){
+        schedInited=true; setTimeout(()=>window.initScheduleTab&&window.initScheduleTab(),50);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
