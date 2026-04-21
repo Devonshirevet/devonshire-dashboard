@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DVC Manager">
+<title>Devonshire Hospital Manager</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root{color-scheme:light;--navy:#1F3864;--blue:#3b82f6;--green:#10b981;--red:#ef4444;--amber:#f59e0b;--purple:#7c3aed;--g50:#f9fafb;--g100:#f3f4f6;--g200:#e5e7eb;--g400:#9ca3af;--g600:#4b5563;--g800:#1f2937;--white:#fff;--radius:10px;--shadow:0 1px 3px rgba(0,0,0,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--g100);color:var(--g800);font-size:14px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* Gate */
+#gate{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:linear-gradient(135deg,#1F3864,#2d5aa0);}
+#gate h1{color:white;font-size:22px;margin-bottom:6px;text-align:center;}
+#gate .gsub{color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:24px;}
+#gate input{padding:14px 20px;font-size:16px;border:2px solid rgba(255,255,255,0.3);border-radius:10px;background:rgba(255,255,255,0.1);color:white;text-align:center;width:260px;-webkit-appearance:none;}
+#gate input::placeholder{color:rgba(255,255,255,0.4);}
+#gate .err{color:#fca5a5;font-size:13px;margin-top:8px;display:none;}
+#gate button{margin-top:14px;padding:12px 40px;background:white;color:var(--navy);font-weight:700;border:none;border-radius:10px;font-size:16px;cursor:pointer;}
+
+/* App */
+#app{display:none;padding-bottom:72px;}
+.hdr{background:linear-gradient(135deg,#1F3864,#2d5aa0);color:white;padding:16px 16px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.hdr h1{font-size:17px;font-weight:700;}
+.hdr .sub{font-size:11px;opacity:0.7;margin-top:2px;}
+
+/* Nav */
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;border-top:1px solid var(--g200);z-index:100;box-shadow:0 -2px 8px rgba(0,0,0,0.06);padding-bottom:env(safe-area-inset-bottom);}
+.nav-btn{flex:1;padding:8px 2px 6px;text-align:center;font-size:10px;color:var(--g400);cursor:pointer;font-weight:600;position:relative;transition:color 0.15s;}
+.nav-btn.active{color:var(--navy);}
+.nav-btn .ico{font-size:20px;display:block;margin-bottom:1px;}
+.nav-badge{position:absolute;top:3px;right:calc(50% - 18px);background:var(--red);color:white;font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px;}
+
+/* Pages */
+.page{display:none;padding:12px;}
+.page.active{display:block;}
+
+/* Cards */
+.card{background:white;border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow);}
+.card-t{font-size:14px;font-weight:600;}
+.card-b{font-size:13px;color:var(--g600);margin-top:4px;}
+.card-m{font-size:11px;color:var(--g400);margin-top:4px;}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+.kpi{background:white;border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow);}
+.kpi .l{font-size:10px;color:var(--g400);text-transform:uppercase;letter-spacing:0.5px;}
+.kpi .v{font-size:22px;font-weight:700;color:var(--navy);margin-top:2px;}
+.kpi .c{font-size:11px;font-weight:600;margin-top:2px;}
+.kpi .c.up{color:var(--green);}
+.kpi .c.dn{color:var(--red);}
+.kpi .c.neut{color:var(--g400);}
+
+/* Section header */
+.sh{display:flex;align-items:center;gap:8px;margin:14px 0 8px;padding:0 2px;}
+.sh h2{font-size:14px;font-weight:600;color:var(--g600);}
+.cnt{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;color:white;}
+
+/* Action cards */
+.ac{background:white;border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow);border-left:4px solid var(--g200);}
+.ac.urgent{border-left-color:var(--red);}
+.ac.warn{border-left-color:var(--amber);}
+.ac.info{border-left-color:var(--blue);}
+.ac.done{border-left-color:var(--green);background:#f0fdf4;}
+.ac-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+
+/* Buttons */
+.btns{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.btn{font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;-webkit-appearance:none;}
+.btn:active{transform:scale(0.97);}
+.btn-go{background:var(--green);color:white;}
+.btn-skip{background:var(--g100);color:var(--g400);}
+.btn-blue{background:var(--blue);color:white;}
+.btn-send{background:var(--purple);color:white;}
+.btn-full{width:100%;padding:14px;font-size:14px;margin-top:10px;}
+
+/* Staff */
+.staff-card{background:white;border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow);cursor:pointer;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent;}
+.staff-av{width:42px;height:42px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;}
+.staff-info{flex:1;}
+.staff-name{font-size:14px;font-weight:600;}
+.staff-role{font-size:12px;color:var(--g400);}
+.back-btn{font-size:13px;color:var(--blue);cursor:pointer;margin-bottom:12px;display:inline-block;-webkit-tap-highlight-color:transparent;}
+
+/* Log */
+.log-entry{border-left:3px solid var(--blue);padding:8px 12px;margin-bottom:8px;background:var(--g50);border-radius:0 8px 8px 0;}
+.log-date{font-size:11px;color:var(--g400);font-weight:600;}
+.log-topic{font-size:12px;font-weight:600;margin-top:2px;}
+.log-note{font-size:12px;color:var(--g600);margin-top:2px;}
+textarea.log-input{width:100%;padding:12px;border:1px solid var(--g200);border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;min-height:80px;margin-top:6px;-webkit-appearance:none;}
+select.log-sel{width:100%;padding:12px;border:1px solid var(--g200);border-radius:8px;font-size:14px;margin-top:6px;background:white;-webkit-appearance:none;}
+
+/* Inventory */
+.walk-loc{background:var(--navy);color:white;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;margin:12px 0 8px;}
+.walk-item{background:white;border-radius:8px;padding:12px 14px;margin-bottom:6px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;}
+.wi-info{flex:1;min-width:0;}
+.wi-name{font-size:13px;font-weight:600;}
+.wi-par{font-size:11px;color:var(--g400);margin-top:2px;}
+.wi-count{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.wi-count button{width:36px;height:36px;border-radius:50%;border:1px solid var(--g200);background:white;font-size:18px;font-weight:700;cursor:pointer;color:var(--navy);-webkit-appearance:none;-webkit-tap-highlight-color:transparent;}
+.wi-count button:active{background:var(--g100);}
+.wi-count span{font-size:20px;font-weight:700;color:var(--navy);min-width:28px;text-align:center;}
+.walk-item.low{border-left:3px solid var(--red);}
+.walk-item.ok{border-left:3px solid var(--green);}
+
+.order-preview{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);padding:14px 16px;margin-top:12px;}
+.order-line{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #fef3c7;font-size:13px;}
+.order-line:last-child{border-bottom:none;}
+.order-why{font-size:11px;color:#92400e;margin-top:2px;}
+
+/* Chart */
+.chart-box{background:white;border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow);}
+.chart-box h3{font-size:13px;font-weight:600;color:var(--g600);margin-bottom:8px;}
+canvas{max-height:160px;}
+
+/* Info */
+.info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1e40af;margin-bottom:12px;line-height:1.5;}
+
+/* Dr quotes */
+.drq{background:#fefce8;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 16px;margin-bottom:8px;}
+.drq .qt{font-size:13px;color:#92400e;font-style:italic;}
+.drq .dt{font-size:11px;color:#d97706;margin-top:4px;}
+
+.empty{text-align:center;padding:24px;color:var(--g400);font-size:13px;}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <h1>Devonshire<br>Hospital Manager</h1>
+  <div class="gsub">Management App</div>
+  <input type="password" id="pw" placeholder="Password" autocomplete="off">
+  <div class="err" id="pw-err">Incorrect password</div>
+  <button onclick="tryLogin()">Enter</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="hdr">
+    <h1>Devonshire Hospital Manager</h1>
+    <div class="sub" id="hdr-sub"></div>
+  </div>
+
+  <div class="page active" id="pg-revenue"></div>
+  <div class="page" id="pg-actions"></div>
+  <div class="page" id="pg-inventory"></div>
+  <div class="page" id="pg-staff"></div>
+  <div class="page" id="pg-drsmiley"></div>
+
+  <div class="nav">
+    <div class="nav-btn active" data-pg="revenue"><span class="ico">📊</span>Revenue</div>
+    <div class="nav-btn" data-pg="actions"><span class="ico">⚡</span>Actions</div>
+    <div class="nav-btn" data-pg="inventory"><span class="ico">📦</span>Inventory</div>
+    <div class="nav-btn" data-pg="staff"><span class="ico">👥</span>Staff</div>
+    <div class="nav-btn" data-pg="drsmiley"><span class="ico">💭</span>Dr. S</div>
+  </div>
+</div>
+
+<!-- LIVE DATA — updated daily by dashboard-daily-refresh skill -->
+<!-- DVC_MANAGER_DATA_START -->
+<script id="mgr-live-data">
+window.MGR_DATA = {
+  lastUpdated: "Apr 21, 2026 7:50 AM",
+  revenue: {
+    mtdRevenue: 40326,
+    ytdRevenue: 376180,
+    avgInvoice: 218,
+    patientVisits: 185,
+    mtdPct: 8.3,
+    ytdPct: 11.2,
+    avgInvoicePct: 5.6,
+    visitsPct: 3.9,
+    weeklyRevenue: 6800,
+    costs: 64.2,
+    monthly: [98300, 118700, 118854, 40326],
+    comparePeriod: "Apr 2025"
+  },
+  needList: [
+    {item: "22g IV catheters", from: "Allison", time: "9:09 AM today"},
+    {item: "Propofol", from: "Allison", time: "9:09 AM today"},
+    {item: "Onsior tablets", from: "Kelsey", time: "8:59 AM today"}
+  ],
+  needListOrdered: [
+    {item: "Euthanasia solution", from: "Kelsey"},
+    {item: "Clip 10", from: "Kelsey"}
+  ],
+  audits: [
+    {text: "Please remove the Simparica 3 pk 44.1-88lbs on the account for Ruby Doty-Davis.", from: "Staff Computer", date: "Apr 13"}
+  ],
+  drThoughts: [
+    {text: "This is a note to get the information out of my mind. I think it'll be important during the presentation to show people. Show them how it works show them how to use Claude. Talking through it's fine but they need to see at work", date: "Apr 13"},
+    {text: "Any word from Katherine? I'll send a message to Lindsey today to let her know I want to hire Katherine back", date: "Apr 13"},
+    {text: "Do we know her (Jodi) timeline?", date: "Apr 13"}
+  ],
+  tasks: [
+    {name: "Run weekly Monday revenue report", due: "Apr 6", priority: "urgent", notes: "Use the weekly-revenue skill in Claude."},
+    {name: "Check Scratchpay dashboard", due: "Apr 6", priority: "info", notes: "Log into dashboard.scratchpay.com. Clinic ID: 13177."},
+    {name: "Check #katie-audits for Avimark corrections", due: "Apr 6", priority: "info", notes: "Review for new correction requests."},
+    {name: "Work on Avimark info", due: "Apr 7", priority: "info", notes: "Review and update records."},
+    {name: "Create RVT line item in Avimark", due: "Apr 7", priority: "info", notes: "Set up new RVT service line item with pricing."},
+    {name: "Midweek Vetcove restock", due: "Apr 8", priority: "info", notes: "Check #need-list. Reorder low items. Prefer Covetrus."}
+  ],
+  staff: [
+    {id:"jodi",name:"Jodi Dunn",role:"Veterinary Technician",initials:"JD",latestScore:null,scores:[]},
+    {id:"kristi",name:"Kristi",role:"Veterinary Technician",initials:"KR",latestScore:null,scores:[]},
+    {id:"allison",name:"Allison",role:"Veterinary Assistant",initials:"AL",latestScore:null,scores:[]},
+    {id:"kelsey",name:"Kelsey",role:"Veterinary Technician",initials:"KE",latestScore:null,scores:[]},
+    {id:"moissa",name:"Moissa",role:"Veterinary Assistant",initials:"MO",latestScore:null,scores:[]},
+    {id:"breanna",name:"Breanna",role:"Kennel (HS Student)",initials:"BR",latestScore:null,scores:[]},
+    {id:"debbie",name:"Debbie Wagner",role:"Front Desk",initials:"DW",latestScore:null,scores:[]}
+  ]
+};
+</script>
+<!-- DVC_MANAGER_DATA_END -->
+
+<script>
+// ── PASSWORD ──
+function tryLogin(){
+  if(document.getElementById('pw').value==='Devonshire26'){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    init();
+  } else {
+    document.getElementById('pw-err').style.display='block';
+    document.getElementById('pw').value='';
+  }
+}
+document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+
+// ── STATE ──
+const D = window.MGR_DATA;
+let inventoryCounts = {};
+let convLogs = {};
+let selectedStaff = null;
+let actionStatus = {};
+
+// Inventory par levels
+const INVENTORY = [
+  {loc:'Main Medication Cabinet',items:[
+    {code:'clavamox',name:'Clavamox / Amoxicillin',par:2,unit:'bottles',rule:'Highest turnover. Reorder at 1.'},
+    {code:'cerenia',name:'Cerenia Injectable',par:2,unit:'vials',rule:'One open, one sealed backup.'},
+    {code:'convenia',name:'Convenia Injectable',par:2,unit:'vials',rule:'Limited days once opened — check date.'},
+    {code:'cytopoint',name:'Cytopoint',par:2,unit:'vials',rule:'Goes fast. Always keep backup.'},
+    {code:'librela',name:'Librela',par:2,unit:'vials',rule:'Goes fast. Always keep backup.'},
+    {code:'metacam',name:'Metacam / Carprofen',par:2,unit:'bottles',rule:'Usually plenty — glance and confirm.'},
+    {code:'epi',name:'Epinephrine',par:2,unit:'vials',rule:'NEVER run out. Check surgery too.'},
+    {code:'adequan',name:'Adequan',par:1,unit:'units',rule:'Can order just 1 now.'},
+    {code:'gabapentin',name:'Gabapentin',par:2,unit:'bottles',rule:'One open, one backup.'},
+    {code:'trazodone',name:'Trazodone',par:2,unit:'bottles',rule:'One open, one backup.'},
+    {code:'metronidazole',name:'Metronidazole',par:2,unit:'bottles',rule:'One open, one backup.'}
+  ]},
+  {loc:'Exam Room Fridges (check all 4)',items:[
+    {code:'rabies_r1',name:'Rabies - Room 1',par:5,unit:'doses',rule:'5 or fewer = needs backup.'},
+    {code:'rabies_r2',name:'Rabies - Room 2',par:5,unit:'doses',rule:'5 or fewer = needs backup.'},
+    {code:'rabies_r3',name:'Rabies - Room 3',par:5,unit:'doses',rule:'5 or fewer = needs backup.'},
+    {code:'rabies_r4',name:'Rabies - Room 4',par:5,unit:'doses',rule:'5 or fewer = needs backup.'},
+    {code:'dapp',name:'DAPP Vaccine (Vanguard)',par:2,unit:'trays',rule:'One open, one backup tray.'},
+    {code:'lepto',name:'Nobivac Lepto',par:2,unit:'trays',rule:'One open, one backup.'},
+    {code:'bordetella',name:'Bordetella (Bronchi-Shield)',par:2,unit:'trays',rule:'One open, one backup.'},
+    {code:'felocell',name:'Felocell (Feline)',par:2,unit:'trays',rule:'One open, one backup.'},
+    {code:'purevax',name:'Purevax Rabies (Feline)',par:2,unit:'trays',rule:'One open, one backup.'}
+  ]},
+  {loc:'Surgery / Storage',items:[
+    {code:'proheart',name:'ProHeart 12',par:2,unit:'vials',rule:'If 1 → order. If 2 → check schedule. Expensive.'},
+    {code:'vetsulin',name:'Vetsulin / Prozinc',par:1,unit:'vials',rule:'Expensive. Only order what you need.'},
+    {code:'u40',name:'U40 Syringes',par:1,unit:'boxes',rule:'1 customer buys a box. Keep 1 box.'}
+  ]},
+  {loc:'Flea/Tick Prevention Display',items:[
+    {code:'simtrio',name:'Simparica Trio',par:2,unit:'sleeves',rule:'Buy 3-PACKS not 6-packs.'},
+    {code:'bravecto',name:'Bravecto Quantum',par:2,unit:'sleeves',rule:'2 sleeves per size.'},
+    {code:'revplus',name:'Revolution Plus',par:2,unit:'sleeves',rule:'Check green AND orange.'},
+    {code:'nexgard',name:'NexGard / Green',par:2,unit:'sleeves',rule:'Order even if not on list — flea season.'},
+    {code:'claro',name:'Claro / Cleo',par:3,unit:'doses',rule:'ALWAYS buy in 3s — Amanda sends 1 free/quarter.'}
+  ]}
+];
+
+// ── HELPERS ──
+const $=id=>document.getElementById(id);
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function fmt$(n){return'$'+(n||0).toLocaleString();}
+
+// ── NAV ──
+document.querySelector('.nav').addEventListener('click',e=>{
+  const btn=e.target.closest('.nav-btn');if(!btn)return;
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  $('pg-'+btn.dataset.pg).classList.add('active');
+});
+
+// ── INIT ──
+function init(){
+  const now=new Date();
+  $('hdr-sub').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' · Data: '+D.lastUpdated;
+
+  // Badges
+  const urgentCount = D.audits.length + D.tasks.filter(t=>t.priority==='urgent').length;
+  if(urgentCount>0){addBadge('actions',urgentCount);}
+  if(D.needList.length>0){addBadge('inventory',D.needList.length);}
+
+  renderRevenue();
+  renderActions();
+  renderInventory();
+  renderStaff();
+  renderDrSmiley();
+}
+
+function addBadge(pg,n){
+  const el=document.querySelector('[data-pg="'+pg+'"]');
+  const b=document.createElement('span');b.className='nav-badge';b.textContent=n;el.appendChild(b);
+}
+
+// ── REVENUE ──
+function renderRevenue(){
+  const r=D.revenue;
+  const budget=Math.round((r.monthly[r.monthly.length-2]||0)*0.18);
+  let h='';
+  h+='<div class="kpis">';
+  h+='<div class="kpi"><div class="l">MTD Revenue</div><div class="v">'+fmt$(r.mtdRevenue)+'</div><div class="c up">+'+(r.mtdPct||0)+'% vs '+esc(r.comparePeriod)+'</div></div>';
+  h+='<div class="kpi"><div class="l">YTD Revenue</div><div class="v">'+fmt$(r.ytdRevenue)+'</div><div class="c up">+'+(r.ytdPct||0)+'% YoY</div></div>';
+  h+='<div class="kpi"><div class="l">Avg Invoice</div><div class="v">'+fmt$(r.avgInvoice)+'</div><div class="c up">+'+(r.avgInvoicePct||0)+'%</div></div>';
+  h+='<div class="kpi"><div class="l">Patient Visits</div><div class="v">'+(r.patientVisits||0)+'</div><div class="c up">+'+(r.visitsPct||0)+'%</div></div>';
+  h+='<div class="kpi"><div class="l">Weekly Revenue</div><div class="v">'+fmt$(r.weeklyRevenue)+'</div></div>';
+  h+='<div class="kpi"><div class="l">Controllable Costs</div><div class="v">'+(r.costs||0)+'%</div><div class="c '+((r.costs||0)<=65?'up':'dn')+'">'+(r.costs<=65?'On target':'Watch this')+'</div></div>';
+  h+='</div>';
+  h+='<div class="chart-box"><h3>2026 Monthly Revenue</h3><div style="height:150px"><canvas id="rev-chart"></canvas></div></div>';
+  h+='<div class="info"><strong>Ordering Budget:</strong> '+fmt$(budget)+' this month (last month revenue × 18%)</div>';
+  h+='<div class="card"><div class="card-m">Last updated: '+esc(D.lastUpdated)+' · Revenue from Avimark TJ via #avimark</div></div>';
+  $('pg-revenue').innerHTML=h;
+
+  new Chart(document.getElementById('rev-chart'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr MTD'],datasets:[{data:r.monthly,backgroundColor:['#93c5fd','#93c5fd','#93c5fd','#3b82f6'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'$'+(v/1000)+'k'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}});
+}
+
+// ── ACTIONS ──
+function renderActions(){
+  let h='';
+  // Audits
+  if(D.audits.length){
+    h+='<div class="sh"><h2>Avimark Corrections</h2><span class="cnt" style="background:var(--red)">'+D.audits.length+'</span></div>';
+    D.audits.forEach((a,i)=>{
+      const done=actionStatus['audit-'+i];
+      h+='<div class="ac '+(done?'done':'urgent')+'"><div class="ac-tag" style="color:var(--red)">AVIMARK FIX</div>';
+      h+='<div class="card-t">'+(done?'&#10003; ':'')+esc(a.text)+'</div>';
+      h+='<div class="card-m">'+esc(a.from)+' · '+esc(a.date)+'</div>';
+      if(!done) h+='<div class="btns"><button class="btn btn-go" onclick="markDone(\'audit-'+i+'\')">Mark Fixed</button></div>';
+      else h+='<div class="card-m" style="color:var(--green);font-weight:600;margin-top:8px">Done</div>';
+      h+='</div>';
+    });
+  }
+  // Tasks
+  const urgent=D.tasks.filter(t=>t.priority==='urgent');
+  const other=D.tasks.filter(t=>t.priority!=='urgent');
+  if(urgent.length){
+    h+='<div class="sh"><h2>Overdue</h2><span class="cnt" style="background:var(--red)">'+urgent.length+'</span></div>';
+    urgent.forEach(t=>{h+='<div class="ac urgent"><div class="ac-tag" style="color:var(--blue)">TASK</div><div class="card-t">'+esc(t.name)+'</div><div class="card-b">'+esc(t.notes)+'</div><div class="card-m">Due '+esc(t.due)+'</div></div>';});
+  }
+  if(other.length){
+    h+='<div class="sh"><h2>Upcoming</h2><span class="cnt" style="background:var(--g400)">'+other.length+'</span></div>';
+    other.forEach(t=>{h+='<div class="ac info"><div class="ac-tag" style="color:var(--blue)">TASK</div><div class="card-t">'+esc(t.name)+'</div><div class="card-b">'+esc(t.notes)+'</div><div class="card-m">Due '+esc(t.due)+'</div></div>';});
+  }
+  if(!D.audits.length&&!D.tasks.length) h='<div class="empty">All caught up!</div>';
+  $('pg-actions').innerHTML=h;
+}
+window.markDone=function(id){actionStatus[id]=true;renderActions();};
+
+// ── INVENTORY ──
+function renderInventory(){
+  const dow=new Date().getDay();
+  const isOrderDay=dow===1||dow===3;
+  let h='';
+  if(isOrderDay) h+='<div class="info"><strong>Today is an order day!</strong> Do your walk-through, then tap "Build Order." Place by noon on Vetcove.</div>';
+  else h+='<div class="info">Next order: '+(dow===0||dow>=4?'Monday':'Wednesday')+'. Walk-through now and the order will be ready.</div>';
+
+  // Need-list
+  if(D.needList.length){
+    h+='<div class="sh"><h2>#need-list</h2><span class="cnt" style="background:var(--amber)">'+D.needList.length+'</span></div>';
+    D.needList.forEach(n=>{h+='<div class="card"><div class="card-t">'+esc(n.item)+'</div><div class="card-m">'+esc(n.from)+' · '+esc(n.time)+'</div></div>';});
+  }
+  if(D.needListOrdered.length){
+    h+='<div class="sh"><h2>Already Ordered</h2><span class="cnt" style="background:var(--green)">'+D.needListOrdered.length+'</span></div>';
+    D.needListOrdered.forEach(n=>{h+='<div class="card" style="opacity:0.5"><div class="card-t">&#10003; '+esc(n.item)+'</div><div class="card-m">'+esc(n.from)+'</div></div>';});
+  }
+
+  h+='<div class="sh"><h2>Inventory Walk-Through</h2></div>';
+  h+='<div class="card-m" style="padding:0 2px 8px">Tap +/- to log counts. Red = below par level.</div>';
+
+  INVENTORY.forEach(section=>{
+    h+='<div class="walk-loc">'+esc(section.loc)+'</div>';
+    section.items.forEach(item=>{
+      const count=inventoryCounts[item.code]||0;
+      const isLow=count>0&&count<item.par;
+      const isOk=count>=item.par;
+      h+='<div class="walk-item '+(isLow?'low':(isOk?'ok':''))+'">';
+      h+='<div class="wi-info"><div class="wi-name">'+esc(item.name)+'</div>';
+      h+='<div class="wi-par">Par: '+item.par+' '+item.unit+'</div>';
+      h+='<div class="wi-par">'+esc(item.rule)+'</div></div>';
+      h+='<div class="wi-count">';
+      h+='<button onclick="invAdj(\''+item.code+'\',-1)">−</button>';
+      h+='<span id="inv-'+item.code+'">'+count+'</span>';
+      h+='<button onclick="invAdj(\''+item.code+'\',1)">+</button>';
+      h+='</div></div>';
+    });
+  });
+
+  h+='<button class="btn btn-go btn-full" onclick="buildOrder()">Build Order from Walk-Through</button>';
+  h+='<div id="order-result"></div>';
+  $('pg-inventory').innerHTML=h;
+}
+
+window.invAdj=function(code,delta){
+  inventoryCounts[code]=Math.max(0,(inventoryCounts[code]||0)+delta);
+  const el=document.getElementById('inv-'+code);if(el)el.textContent=inventoryCounts[code];
+  const item=INVENTORY.flatMap(s=>s.items).find(i=>i.code===code);
+  if(item){const card=el.closest('.walk-item');card.className='walk-item'+(inventoryCounts[code]>0?(inventoryCounts[code]<item.par?' low':' ok'):'');}
+};
+
+window.buildOrder=function(){
+  const toOrder=[];
+  INVENTORY.forEach(s=>{s.items.forEach(item=>{
+    const have=inventoryCounts[item.code]||0;
+    if(have<item.par)toOrder.push({name:item.name,have,par:item.par,need:item.par-have,unit:item.unit,rule:item.rule});
+  });});
+
+  // Also add need-list items
+  const needListItems=D.needList.map(n=>n.item);
+
+  const el=document.getElementById('order-result');
+  if(toOrder.length===0&&needListItems.length===0){el.innerHTML='<div class="info" style="margin-top:12px">Everything stocked! Nothing to order.</div>';return;}
+
+  let h='<div class="order-preview"><div style="font-size:15px;font-weight:700;margin-bottom:10px">Order Recommendation</div>';
+
+  if(toOrder.length){
+    h+='<div style="font-size:12px;font-weight:600;color:#92400e;margin-bottom:6px">FROM WALK-THROUGH ('+toOrder.length+' items):</div>';
+    toOrder.forEach(o=>{
+      h+='<div class="order-line"><div><strong>'+esc(o.name)+'</strong>';
+      h+='<div class="order-why">Have '+o.have+' / Par '+o.par+' → Order '+o.need+' '+o.unit+'. '+esc(o.rule)+'</div></div>';
+      h+='<div style="font-weight:700;color:var(--navy);white-space:nowrap;padding-left:8px">'+o.need+' '+o.unit+'</div></div>';
+    });
+  }
+
+  if(needListItems.length){
+    h+='<div style="font-size:12px;font-weight:600;color:#92400e;margin:10px 0 6px">FROM #NEED-LIST:</div>';
+    needListItems.forEach(item=>{
+      h+='<div class="order-line"><strong>'+esc(item)+'</strong><div style="font-size:11px;color:#92400e">Check shelf first</div></div>';
+    });
+  }
+
+  const budget=Math.round((D.revenue.monthly[D.revenue.monthly.length-2]||0)*0.18);
+  h+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid #fde68a;font-size:12px;color:#92400e">';
+  h+='<strong>Budget reminder:</strong> '+fmt$(budget)+' this month (last month × 18%).<br>';
+  h+='Order at <strong>shop.vetcove.com</strong> · Prefer Covetrus (green badge).<br>';
+  h+='Claro/Cleo: always buy in 3s (Amanda deal). Simparica Trio: 3-packs.</div>';
+  h+='</div>';
+
+  el.innerHTML=h;
+};
+
+// ── STAFF ──
+function renderStaff(){
+  if(selectedStaff){renderStaffDetail();return;}
+  let h='<div class="sh"><h2>Team</h2></div>';
+  D.staff.forEach(s=>{
+    h+='<div class="staff-card" onclick="selectStaff(\''+s.id+'\')">';
+    h+='<div class="staff-av">'+s.initials+'</div>';
+    h+='<div class="staff-info"><div class="staff-name">'+esc(s.name)+'</div><div class="staff-role">'+esc(s.role)+'</div></div>';
+    const logCount=(convLogs[s.id]||[]).length;
+    if(logCount>0)h+='<div style="font-size:11px;color:var(--g400)">'+logCount+' logs</div>';
+    h+='<div style="color:var(--g400);font-size:14px">›</div></div>';
+  });
+  $('pg-staff').innerHTML=h;
+}
+
+function renderStaffDetail(){
+  const s=D.staff.find(x=>x.id===selectedStaff);if(!s)return;
+  let h='<div class="back-btn" onclick="backToStaff()">← Team</div>';
+  h+='<div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:12px">';
+  h+='<div class="staff-av" style="width:50px;height:50px;font-size:20px">'+s.initials+'</div>';
+  h+='<div><div style="font-size:17px;font-weight:700">'+esc(s.name)+'</div><div style="font-size:13px;color:var(--g400)">'+esc(s.role)+'</div></div></div>';
+
+  // Scores
+  if(s.scores&&s.scores.length){
+    h+='<div class="sh"><h2>Eval Scores</h2></div>';
+    h+='<div class="card">';
+    s.scores.forEach(sc=>{h+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px"><span>'+esc(sc.date)+'</span><strong>'+sc.score+'/100</strong></div>';});
+    h+='</div>';
+  }
+
+  // Conversation log
+  h+='<div class="sh"><h2>Conversation Log</h2></div>';
+  const logs=convLogs[s.id]||[];
+  if(logs.length===0) h+='<div class="card"><div class="card-b" style="color:var(--g400)">No conversations logged yet.</div></div>';
+  logs.forEach(l=>{
+    h+='<div class="log-entry"><div class="log-date">'+esc(l.date)+'</div><div class="log-topic">'+esc(l.topic)+'</div><div class="log-note">'+esc(l.note)+'</div>';
+    if(l.followup)h+='<div class="log-note" style="color:var(--blue);font-weight:600">Follow-up: '+esc(l.followup)+'</div>';
+    h+='</div>';
+  });
+
+  // New log form
+  h+='<div class="card" style="margin-top:8px"><div class="card-t">Log a Conversation</div>';
+  h+='<select class="log-sel" id="log-topic"><option value="">Select topic...</option>';
+  h+='<option>Performance / Coaching</option><option>Corrective Action</option><option>Schedule / Time-off</option><option>Complaint</option><option>Personal / Situation</option><option>Goal Setting</option><option>General Check-in</option><option>Other</option></select>';
+  h+='<textarea class="log-input" id="log-note" placeholder="What was discussed? Any context..."></textarea>';
+  h+='<textarea class="log-input" id="log-followup" placeholder="Follow-up action (optional)" style="min-height:50px"></textarea>';
+  h+='<button class="btn btn-blue btn-full" onclick="saveLog(\''+s.id+'\')">Save Conversation</button></div>';
+  $('pg-staff').innerHTML=h;
+}
+
+window.selectStaff=function(id){selectedStaff=id;renderStaff();};
+window.backToStaff=function(){selectedStaff=null;renderStaff();};
+window.saveLog=function(staffId){
+  const topic=document.getElementById('log-topic').value;
+  const note=document.getElementById('log-note').value;
+  const followup=document.getElementById('log-followup').value;
+  if(!topic||!note){alert('Select a topic and enter notes.');return;}
+  if(!convLogs[staffId])convLogs[staffId]=[];
+  convLogs[staffId].unshift({date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),topic,note,followup:followup||null});
+  renderStaffDetail();
+};
+
+// ── DR. SMILEY ──
+function renderDrSmiley(){
+  let h='';
+  if(!D.drThoughts.length){$('pg-drsmiley').innerHTML='<div class="empty">No recent messages</div>';return;}
+  h+='<div class="sh"><h2>Latest from Dr. Smiley</h2></div>';
+  D.drThoughts.forEach(t=>{
+    h+='<div class="drq"><div class="qt">"'+esc(t.text)+'"</div><div class="dt">'+esc(t.date)+'</div></div>';
+  });
+  $('pg-drsmiley').innerHTML=h;
+}
+</script>
+</body>
+</html>
