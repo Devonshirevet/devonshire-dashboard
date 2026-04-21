@@ -6,6 +6,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="DVC Manager">
+<meta name="apple-mobile-web-app-title" content="DVC Manager">
+<link rel="apple-touch-icon" href="dvc-icon-180.png">
+<link rel="icon" type="image/png" href="dvc-icon-180.png">
 <title>Devonshire Hospital Manager</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>
@@ -153,15 +156,15 @@ canvas{max-height:160px;}
   <div class="page" id="pg-drsmiley"></div>
 
   <div class="nav">
-    <div class="nav-btn active" data-pg="revenue"><span class="ico">📊</span>Revenue</div>
-    <div class="nav-btn" data-pg="actions"><span class="ico">⚡</span>Actions</div>
-    <div class="nav-btn" data-pg="inventory"><span class="ico">📦</span>Inventory</div>
-    <div class="nav-btn" data-pg="staff"><span class="ico">👥</span>Staff</div>
-    <div class="nav-btn" data-pg="drsmiley"><span class="ico">💭</span>Dr. S</div>
+    <div class="nav-btn active" data-pg="revenue"><span class="ico">ð</span>Revenue</div>
+    <div class="nav-btn" data-pg="actions"><span class="ico">â¡</span>Actions</div>
+    <div class="nav-btn" data-pg="inventory"><span class="ico">ð¦</span>Inventory</div>
+    <div class="nav-btn" data-pg="staff"><span class="ico">ð¥</span>Staff</div>
+    <div class="nav-btn" data-pg="drsmiley"><span class="ico">ð­</span>Dr. S</div>
   </div>
 </div>
 
-<!-- LIVE DATA — updated daily by dashboard-daily-refresh skill -->
+<!-- LIVE DATA â updated daily by dashboard-daily-refresh skill -->
 <!-- DVC_MANAGER_DATA_START -->
 <script id="mgr-live-data">
 window.MGR_DATA = {
@@ -219,7 +222,7 @@ window.MGR_DATA = {
 <!-- DVC_MANAGER_DATA_END -->
 
 <script>
-// ── PASSWORD ──
+// ââ PASSWORD ââ
 function tryLogin(){
   if(document.getElementById('pw').value==='Devonshire26'){
     document.getElementById('gate').style.display='none';
@@ -232,7 +235,7 @@ function tryLogin(){
 }
 document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
 
-// ── STATE ──
+// ââ STATE ââ
 const D = window.MGR_DATA;
 let inventoryCounts = {};
 let convLogs = {};
@@ -244,10 +247,10 @@ const INVENTORY = [
   {loc:'Main Medication Cabinet',items:[
     {code:'clavamox',name:'Clavamox / Amoxicillin',par:2,unit:'bottles',rule:'Highest turnover. Reorder at 1.'},
     {code:'cerenia',name:'Cerenia Injectable',par:2,unit:'vials',rule:'One open, one sealed backup.'},
-    {code:'convenia',name:'Convenia Injectable',par:2,unit:'vials',rule:'Limited days once opened — check date.'},
+    {code:'convenia',name:'Convenia Injectable',par:2,unit:'vials',rule:'Limited days once opened â check date.'},
     {code:'cytopoint',name:'Cytopoint',par:2,unit:'vials',rule:'Goes fast. Always keep backup.'},
     {code:'librela',name:'Librela',par:2,unit:'vials',rule:'Goes fast. Always keep backup.'},
-    {code:'metacam',name:'Metacam / Carprofen',par:2,unit:'bottles',rule:'Usually plenty — glance and confirm.'},
+    {code:'metacam',name:'Metacam / Carprofen',par:2,unit:'bottles',rule:'Usually plenty â glance and confirm.'},
     {code:'epi',name:'Epinephrine',par:2,unit:'vials',rule:'NEVER run out. Check surgery too.'},
     {code:'adequan',name:'Adequan',par:1,unit:'units',rule:'Can order just 1 now.'},
     {code:'gabapentin',name:'Gabapentin',par:2,unit:'bottles',rule:'One open, one backup.'},
@@ -266,7 +269,7 @@ const INVENTORY = [
     {code:'purevax',name:'Purevax Rabies (Feline)',par:2,unit:'trays',rule:'One open, one backup.'}
   ]},
   {loc:'Surgery / Storage',items:[
-    {code:'proheart',name:'ProHeart 12',par:2,unit:'vials',rule:'If 1 → order. If 2 → check schedule. Expensive.'},
+    {code:'proheart',name:'ProHeart 12',par:2,unit:'vials',rule:'If 1 â order. If 2 â check schedule. Expensive.'},
     {code:'vetsulin',name:'Vetsulin / Prozinc',par:1,unit:'vials',rule:'Expensive. Only order what you need.'},
     {code:'u40',name:'U40 Syringes',par:1,unit:'boxes',rule:'1 customer buys a box. Keep 1 box.'}
   ]},
@@ -274,17 +277,17 @@ const INVENTORY = [
     {code:'simtrio',name:'Simparica Trio',par:2,unit:'sleeves',rule:'Buy 3-PACKS not 6-packs.'},
     {code:'bravecto',name:'Bravecto Quantum',par:2,unit:'sleeves',rule:'2 sleeves per size.'},
     {code:'revplus',name:'Revolution Plus',par:2,unit:'sleeves',rule:'Check green AND orange.'},
-    {code:'nexgard',name:'NexGard / Green',par:2,unit:'sleeves',rule:'Order even if not on list — flea season.'},
-    {code:'claro',name:'Claro / Cleo',par:3,unit:'doses',rule:'ALWAYS buy in 3s — Amanda sends 1 free/quarter.'}
+    {code:'nexgard',name:'NexGard / Green',par:2,unit:'sleeves',rule:'Order even if not on list â flea season.'},
+    {code:'claro',name:'Claro / Cleo',par:3,unit:'doses',rule:'ALWAYS buy in 3s â Amanda sends 1 free/quarter.'}
   ]}
 ];
 
-// ── HELPERS ──
+// ââ HELPERS ââ
 const $=id=>document.getElementById(id);
 function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function fmt$(n){return'$'+(n||0).toLocaleString();}
 
-// ── NAV ──
+// ââ NAV ââ
 document.querySelector('.nav').addEventListener('click',e=>{
   const btn=e.target.closest('.nav-btn');if(!btn)return;
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -293,10 +296,10 @@ document.querySelector('.nav').addEventListener('click',e=>{
   $('pg-'+btn.dataset.pg).classList.add('active');
 });
 
-// ── INIT ──
+// ââ INIT ââ
 function init(){
   const now=new Date();
-  $('hdr-sub').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' · Data: '+D.lastUpdated;
+  $('hdr-sub').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' Â· Data: '+D.lastUpdated;
 
   // Badges
   const urgentCount = D.audits.length + D.tasks.filter(t=>t.priority==='urgent').length;
@@ -315,7 +318,7 @@ function addBadge(pg,n){
   const b=document.createElement('span');b.className='nav-badge';b.textContent=n;el.appendChild(b);
 }
 
-// ── REVENUE ──
+// ââ REVENUE ââ
 function renderRevenue(){
   const r=D.revenue;
   const budget=Math.round((r.monthly[r.monthly.length-2]||0)*0.18);
@@ -329,14 +332,14 @@ function renderRevenue(){
   h+='<div class="kpi"><div class="l">Controllable Costs</div><div class="v">'+(r.costs||0)+'%</div><div class="c '+((r.costs||0)<=65?'up':'dn')+'">'+(r.costs<=65?'On target':'Watch this')+'</div></div>';
   h+='</div>';
   h+='<div class="chart-box"><h3>2026 Monthly Revenue</h3><div style="height:150px"><canvas id="rev-chart"></canvas></div></div>';
-  h+='<div class="info"><strong>Ordering Budget:</strong> '+fmt$(budget)+' this month (last month revenue × 18%)</div>';
-  h+='<div class="card"><div class="card-m">Last updated: '+esc(D.lastUpdated)+' · Revenue from Avimark TJ via #avimark</div></div>';
+  h+='<div class="info"><strong>Ordering Budget:</strong> '+fmt$(budget)+' this month (last month revenue Ã 18%)</div>';
+  h+='<div class="card"><div class="card-m">Last updated: '+esc(D.lastUpdated)+' Â· Revenue from Avimark TJ via #avimark</div></div>';
   $('pg-revenue').innerHTML=h;
 
   new Chart(document.getElementById('rev-chart'),{type:'bar',data:{labels:['Jan','Feb','Mar','Apr MTD'],datasets:[{data:r.monthly,backgroundColor:['#93c5fd','#93c5fd','#93c5fd','#3b82f6'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'$'+(v/1000)+'k'},grid:{color:'#f3f4f6'}},x:{grid:{display:false}}}}});
 }
 
-// ── ACTIONS ──
+// ââ ACTIONS ââ
 function renderActions(){
   let h='';
   // Audits
@@ -346,7 +349,7 @@ function renderActions(){
       const done=actionStatus['audit-'+i];
       h+='<div class="ac '+(done?'done':'urgent')+'"><div class="ac-tag" style="color:var(--red)">AVIMARK FIX</div>';
       h+='<div class="card-t">'+(done?'&#10003; ':'')+esc(a.text)+'</div>';
-      h+='<div class="card-m">'+esc(a.from)+' · '+esc(a.date)+'</div>';
+      h+='<div class="card-m">'+esc(a.from)+' Â· '+esc(a.date)+'</div>';
       if(!done) h+='<div class="btns"><button class="btn btn-go" onclick="markDone(\'audit-'+i+'\')">Mark Fixed</button></div>';
       else h+='<div class="card-m" style="color:var(--green);font-weight:600;margin-top:8px">Done</div>';
       h+='</div>';
@@ -368,7 +371,7 @@ function renderActions(){
 }
 window.markDone=function(id){actionStatus[id]=true;renderActions();};
 
-// ── INVENTORY ──
+// ââ INVENTORY ââ
 function renderInventory(){
   const dow=new Date().getDay();
   const isOrderDay=dow===1||dow===3;
@@ -379,7 +382,7 @@ function renderInventory(){
   // Need-list
   if(D.needList.length){
     h+='<div class="sh"><h2>#need-list</h2><span class="cnt" style="background:var(--amber)">'+D.needList.length+'</span></div>';
-    D.needList.forEach(n=>{h+='<div class="card"><div class="card-t">'+esc(n.item)+'</div><div class="card-m">'+esc(n.from)+' · '+esc(n.time)+'</div></div>';});
+    D.needList.forEach(n=>{h+='<div class="card"><div class="card-t">'+esc(n.item)+'</div><div class="card-m">'+esc(n.from)+' Â· '+esc(n.time)+'</div></div>';});
   }
   if(D.needListOrdered.length){
     h+='<div class="sh"><h2>Already Ordered</h2><span class="cnt" style="background:var(--green)">'+D.needListOrdered.length+'</span></div>';
@@ -400,7 +403,7 @@ function renderInventory(){
       h+='<div class="wi-par">Par: '+item.par+' '+item.unit+'</div>';
       h+='<div class="wi-par">'+esc(item.rule)+'</div></div>';
       h+='<div class="wi-count">';
-      h+='<button onclick="invAdj(\''+item.code+'\',-1)">−</button>';
+      h+='<button onclick="invAdj(\''+item.code+'\',-1)">â</button>';
       h+='<span id="inv-'+item.code+'">'+count+'</span>';
       h+='<button onclick="invAdj(\''+item.code+'\',1)">+</button>';
       h+='</div></div>';
@@ -438,7 +441,7 @@ window.buildOrder=function(){
     h+='<div style="font-size:12px;font-weight:600;color:#92400e;margin-bottom:6px">FROM WALK-THROUGH ('+toOrder.length+' items):</div>';
     toOrder.forEach(o=>{
       h+='<div class="order-line"><div><strong>'+esc(o.name)+'</strong>';
-      h+='<div class="order-why">Have '+o.have+' / Par '+o.par+' → Order '+o.need+' '+o.unit+'. '+esc(o.rule)+'</div></div>';
+      h+='<div class="order-why">Have '+o.have+' / Par '+o.par+' â Order '+o.need+' '+o.unit+'. '+esc(o.rule)+'</div></div>';
       h+='<div style="font-weight:700;color:var(--navy);white-space:nowrap;padding-left:8px">'+o.need+' '+o.unit+'</div></div>';
     });
   }
@@ -452,15 +455,15 @@ window.buildOrder=function(){
 
   const budget=Math.round((D.revenue.monthly[D.revenue.monthly.length-2]||0)*0.18);
   h+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid #fde68a;font-size:12px;color:#92400e">';
-  h+='<strong>Budget reminder:</strong> '+fmt$(budget)+' this month (last month × 18%).<br>';
-  h+='Order at <strong>shop.vetcove.com</strong> · Prefer Covetrus (green badge).<br>';
+  h+='<strong>Budget reminder:</strong> '+fmt$(budget)+' this month (last month Ã 18%).<br>';
+  h+='Order at <strong>shop.vetcove.com</strong> Â· Prefer Covetrus (green badge).<br>';
   h+='Claro/Cleo: always buy in 3s (Amanda deal). Simparica Trio: 3-packs.</div>';
   h+='</div>';
 
   el.innerHTML=h;
 };
 
-// ── STAFF ──
+// ââ STAFF ââ
 function renderStaff(){
   if(selectedStaff){renderStaffDetail();return;}
   let h='<div class="sh"><h2>Team</h2></div>';
@@ -470,14 +473,14 @@ function renderStaff(){
     h+='<div class="staff-info"><div class="staff-name">'+esc(s.name)+'</div><div class="staff-role">'+esc(s.role)+'</div></div>';
     const logCount=(convLogs[s.id]||[]).length;
     if(logCount>0)h+='<div style="font-size:11px;color:var(--g400)">'+logCount+' logs</div>';
-    h+='<div style="color:var(--g400);font-size:14px">›</div></div>';
+    h+='<div style="color:var(--g400);font-size:14px">âº</div></div>';
   });
   $('pg-staff').innerHTML=h;
 }
 
 function renderStaffDetail(){
   const s=D.staff.find(x=>x.id===selectedStaff);if(!s)return;
-  let h='<div class="back-btn" onclick="backToStaff()">← Team</div>';
+  let h='<div class="back-btn" onclick="backToStaff()">â Team</div>';
   h+='<div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:12px">';
   h+='<div class="staff-av" style="width:50px;height:50px;font-size:20px">'+s.initials+'</div>';
   h+='<div><div style="font-size:17px;font-weight:700">'+esc(s.name)+'</div><div style="font-size:13px;color:var(--g400)">'+esc(s.role)+'</div></div></div>';
@@ -522,7 +525,7 @@ window.saveLog=function(staffId){
   renderStaffDetail();
 };
 
-// ── DR. SMILEY ──
+// ââ DR. SMILEY ââ
 function renderDrSmiley(){
   let h='';
   if(!D.drThoughts.length){$('pg-drsmiley').innerHTML='<div class="empty">No recent messages</div>';return;}
