@@ -413,24 +413,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <!-- ── Main Dashboard (hidden until authenticated) ── -->
 <div id="dvc-main">
 
-<!-- DVC_LIVE_DATA_START — updated automatically by update_dashboard.py — do not edit manually -->
+<!-- STAFF_LOG_DATA_START — updated by Claude — do not edit manually -->
+<script id="staff-log-data">
+window.STAFF_LOG_DATA = {};
+</script>
+<!-- STAFF_LOG_DATA_END -->
+
+<!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Apr 29, 2026 8:00 AM",
-  mtdRevenue:         64697,   // TJ data: Apr 1-15 + 20 + 22 = $64,697.42. Missing TJs for Apr 16-18, 21.
-  ytdRevenue:         400551,  // Jan 98,300 + Feb 118,700 + Mar 118,854 + Apr MTD 64,697
-  avgInvoice:         216,     // $64,697 / 300 visits
-  patientVisits:      300,     // from TJ patient counts: Apr 1-13 (185) + 14 (29) + 15 (15) + 20 (37) + 22 (34)
+  lastUpdated:        "May 2, 2026 8:00 AM",
+  lastTjDate:         "2026-04-28",
+  mtdRevenue:         0,
+  ytdRevenue:         410748,
+  avgInvoice:         0,
+  patientVisits:      0,
   controllableCosts:  64.2,
-  mtdRevenuePct:      8.3,
+  mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
-  avgInvoicePct:      5.6,
-  patientVisitsPct:   3.9,
-  comparePeriod:      "Apr 2025",
-  weeklyRevenue:      13268,
-  weeklyRevenuePct:   6.4,
-  weeklyNewClients:   3,
-  weeklyPeriodTotal:  13268
+  avgInvoicePct:      null,
+  patientVisitsPct:   null,
+  comparePeriod:      "May 2025",
+  weeklyRevenue:      null,
+  weeklyRevenuePct:   null,
+  weeklyNewClients:   null,
+  weeklyPeriodTotal:  null
 };
 </script>
 <!-- DVC_LIVE_DATA_END -->
@@ -447,6 +454,7 @@ window.DVC_LIVE = {
   <div class="header-right">
     <div class="live-badge"><div class="live-dot"></div> <span id="refreshLabel">Last Refreshed</span></div>
     <div class="last-updated" id="lastUpdated">—</div>
+    <div class="last-updated" id="lastTjBadge" style="font-weight:600;">—</div>
   </div>
 </div>
 
@@ -506,7 +514,7 @@ window.DVC_LIVE = {
         </div>
       </div>
       <div style="display:flex;gap:20px;flex-wrap:wrap;">
-        <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:white;line-height:1;">~15 hrs</div><div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;">saved / week</div></div>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:white;line-height:1;">~10-12 hrs</div><div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;">saved / week</div></div>
         <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:white;line-height:1;">22</div><div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;">auto tasks</div></div>
         <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:#34D399;line-height:1;">$0</div><div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;">extra staff</div></div>
         <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:white;line-height:1;">Jan '26</div><div style="font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;">live since</div></div>
@@ -563,7 +571,7 @@ window.DVC_LIVE = {
         <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">14 unreconciled corporate card transactions ($733.25). Due Apr 25. Skyworld → Accounting → Corporate Cards. Charges under $25 don't need a receipt.</div></div>
         <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">Run INSPECT query (indiana.pmpaware.net) before dispensing any controlled substance today — required by Indiana law.</div></div>
         <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">Facility inspection overdue since 3/11/25. Do physical walk-through then submit in Skyworld → Operations → Facility Inspections.</div></div>
-        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">April 10: Maddie Joseph and Jodi Dunn both off. Confirm kennel and channel coverage is filled.</div></div>
+        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">Channel coverage: Maddie's departure left channels unassigned. Designate a new default for daily phone/channel work.</div></div>
         <div class="action-item"><span class="priority p-low">LOW</span><div class="action-text">Scratch Payment eCheck ($190.00, Client 19448) unassigned since Aug 2025. Address in Avimark daily totals.</div></div>
       </div>
     </div>
@@ -630,13 +638,13 @@ window.DVC_LIVE = {
     <!-- Staff + Directives -->
     <div class="chart-row two" style="margin-bottom:14px;">
       <div class="card">
-        <div class="card-title">Staff Status — Week of Apr 7</div>
+        <div class="card-title">Staff Status — <span id="staff-status-week"></span></div>
+        <script>document.getElementById('staff-status-week').textContent='Week of '+(function(){var d=new Date(),dow=d.getDay(),mon=new Date(d);mon.setDate(d.getDate()-(dow===0?6:dow-1));return mon.toLocaleDateString('en-US',{month:'short',day:'numeric'})})();</script>
         <div class="staff-row">
           <div class="staff-badge"><div class="s-dot dot-in"></div>Debbie</div>
-          <div class="staff-badge"><div class="s-dot dot-out"></div>Kristi <span style="font-size:10px;color:var(--gray-400);margin-left:2px;">(back 4/9)</span></div>
+          <div class="staff-badge"><div class="s-dot dot-in"></div>Kristi</div>
           <div class="staff-badge"><div class="s-dot dot-in"></div>Kelsey</div>
           <div class="staff-badge"><div class="s-dot dot-in"></div>Jodi</div>
-          <div class="staff-badge"><div class="s-dot dot-in"></div>Maddie</div>
           <div class="staff-badge"><div class="s-dot dot-in"></div>Moissa</div>
           <div class="staff-badge"><div class="s-dot dot-in"></div>Allison</div>
           <div class="staff-badge"><div class="s-dot dot-in"></div>Breanna</div>
@@ -650,10 +658,7 @@ window.DVC_LIVE = {
               <th style="text-align:left;padding:4px 8px;color:var(--gray-400);font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--gray-200);">Status</th>
             </tr></thead>
             <tbody>
-              <tr><td style="padding:5px 8px;">Kristi</td><td style="padding:5px 8px;">Apr 3–8</td><td style="padding:5px 8px;"><span class="badge badge-amber">Out</span></td></tr>
-              <tr><td style="padding:5px 8px;">Maddie Joseph</td><td style="padding:5px 8px;">Apr 10</td><td style="padding:5px 8px;"><span class="badge badge-blue">Approved</span></td></tr>
-              <tr><td style="padding:5px 8px;">Jodi Dunn</td><td style="padding:5px 8px;">Apr 10</td><td style="padding:5px 8px;"><span class="badge badge-blue">Approved</span></td></tr>
-              <tr><td style="padding:5px 8px;">Allison</td><td style="padding:5px 8px;">May 7–8</td><td style="padding:5px 8px;"><span class="badge badge-green">Scheduled</span></td></tr>
+              <tr><td style="padding:5px 8px;">Allison</td><td style="padding:5px 8px;">May 6 early out (4 PM) · May 7–8 off</td><td style="padding:5px 8px;"><span class="badge badge-green">Scheduled</span></td></tr>
               <tr><td style="padding:5px 8px;">Kelsey</td><td style="padding:5px 8px;">Aug 17–21</td><td style="padding:5px 8px;"><span class="badge badge-green">Scheduled</span></td></tr>
             </tbody>
           </table>
@@ -1409,6 +1414,12 @@ const DATA = {
   weekly:{labels:['W10','W11','W12','W13','W14','W15'],revenue:[21340,23180,19114,20890,17910,22560],py:[19100,20800,17200,18700,16100,20200]},
   monthly:{labels:['Jan','Feb','Mar','Apr MTD'],revenue:[98300,118700,118854,40326],py:[88400,106700,106900,36260]}
 };
+// Patch chart DATA with live DVC_LIVE values when available
+(function(){
+  var d = window.DVC_LIVE;
+  if (!d) return;
+  if (d.mtdRevenue) DATA.monthly.revenue[DATA.monthly.revenue.length-1] = d.mtdRevenue;
+})();
 Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif";
 Chart.defaults.font.size=11;
 Chart.defaults.color='#9CA3AF';
@@ -1775,6 +1786,25 @@ function loadLiveData() {
     document.getElementById('lastUpdated').textContent = 'Data: ' + d.lastUpdated;
     document.getElementById('refreshLabel').textContent = 'Data as of ' + d.lastUpdated;
   }
+
+  // TJ freshness badge
+  if (d.lastTjDate) {
+    const tjDate = new Date(d.lastTjDate + 'T12:00:00');
+    const now = new Date();
+    const diffDays = Math.floor((now - tjDate) / 86400000);
+    const badge = document.getElementById('lastTjBadge');
+    const dateStr = tjDate.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    if (diffDays <= 1) {
+      badge.textContent = 'Last TJ: ' + dateStr + ' ✓';
+      badge.style.color = '#34D399';
+    } else if (diffDays <= 3) {
+      badge.textContent = 'Last TJ: ' + dateStr + ' (' + diffDays + 'd ago)';
+      badge.style.color = '#FBBF24';
+    } else {
+      badge.textContent = 'Last TJ: ' + dateStr + ' (' + diffDays + 'd ago!)';
+      badge.style.color = '#F87171';
+    }
+  }
 }
 
 function init(){
@@ -1814,16 +1844,13 @@ const STAFF_DATA = [
       {date:'Apr 20',score:76,patient:'Margo Humes'},
       {date:'Apr 21',score:74,patient:'Jazzy Stevens'},
       {date:'Apr 23',score:79,patient:'Kirby Swinford'},
+      {date:'Apr 30',score:79,patient:'Romeo Lade'},
+      {date:'May 1', score:79,patient:'Luna DeWitt'},
+      {date:'May 1', score:84,patient:'Bandit Bull'},
+      {date:'May 1', score:77,patient:'Auggie Odom'},
     ]
   },
-  { id:'maddie',  name:'Maddie Joseph',  role:'Vet Assistant', color:'#16A34A', cert:null,
-    scores:[
-      {date:'Mar 30',score:81,patient:'Tyson Stutzman'},
-      {date:'Mar 30',score:77,patient:'Columbo & Cherry'},
-      {date:'Apr 2', score:74,patient:'Hugo Scherer'},
-      {date:'Apr 2', score:77,patient:'Dusty Roberts'},
-    ]
-  },
+  // Maddie Joseph removed — left clinic April 2026
   { id:'kristi',  name:'Kristi',         role:'Vet Assistant', color:'#D97706', cert:null,
     scores:[
       {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:68,patient:'(Lindsey eval)'},
@@ -1856,7 +1883,7 @@ const STAFF_DATA = [
   { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
 ];
 
-const EVAL_DATE_ORDER = {'Apr 23':0,'Apr 21':1,'Apr 20':2,'Apr 16':3,'Apr 13':4,'Apr 9':5,'Apr 8':6,'Apr 7':7,'Apr 3':8,'Apr 2':9,'Mar 30':10,'Mar 26':11,'Mar 25':12,'Feb 4':13,'Jan 22':14,'Jan 21':15};
+const EVAL_DATE_ORDER = {'May 1':0,'Apr 30':1,'Apr 23':2,'Apr 21':3,'Apr 20':4,'Apr 16':5,'Apr 13':6,'Apr 9':7,'Apr 8':8,'Apr 7':9,'Apr 3':10,'Apr 2':11,'Mar 30':12,'Mar 26':13,'Mar 25':14,'Feb 4':15,'Jan 22':16,'Jan 21':17};
 
 function sAvg(arr){ if(!arr.length)return null; return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10; }
 function scoreCls(s){ if(s===null)return'no-data'; if(s>=80)return'score-excellent'; if(s>=70)return'score-good'; if(s>=60)return'score-fair'; return'score-poor'; }
@@ -2094,7 +2121,6 @@ function initStaffTab(){
 // ── Staff Conversation Log System ─────────────────────────
 const LOG_STAFF = [
   {id:'jodi',    name:'Jodi Dunn',     role:'Vet Assistant'},
-  {id:'maddie',  name:'Maddie Joseph', role:'Vet Assistant'},
   {id:'kristi',  name:'Kristi',        role:'Vet Assistant'},
   {id:'allison', name:'Allison',       role:'Vet Assistant · Studying for cert'},
   {id:'kelsey',  name:'Kelsey',        role:'RVT'},
@@ -2102,8 +2128,33 @@ const LOG_STAFF = [
   {id:'debbie',  name:'Debbie Wagner', role:'Receptionist'},
   {id:'breanna', name:'Breanna',       role:'HS Extern'},
 ];
-function getStaffLog(id){ return JSON.parse(localStorage.getItem('stafflog-'+id)||'[]'); }
-function saveStaffLog(id,entries){ localStorage.setItem('stafflog-'+id,JSON.stringify(entries)); }
+// In-memory working copy — seeded from embedded STAFF_LOG_DATA + localStorage
+const _staffLogMem = {};
+(function(){
+  const src = window.STAFF_LOG_DATA || {};
+  // Seed from embedded data (this is the last-known-good snapshot from daily refresh)
+  for(const k in src) _staffLogMem[k] = JSON.parse(JSON.stringify(src[k]));
+  // Merge localStorage on top (picks up entries added since last refresh)
+  LOG_STAFF.forEach(s=>{
+    try{
+      const ls = localStorage.getItem('stafflog-'+s.id);
+      if(ls){
+        const arr = JSON.parse(ls);
+        if(arr.length){
+          if(!_staffLogMem[s.id]) _staffLogMem[s.id]=[];
+          const existing = new Set(_staffLogMem[s.id].map(e=>e.added));
+          arr.forEach(e=>{ if(!existing.has(e.added)) _staffLogMem[s.id].push(e); });
+        }
+      }
+    }catch(e){}
+  });
+})();
+function getStaffLog(id){ return _staffLogMem[id] || []; }
+function saveStaffLog(id,entries){
+  _staffLogMem[id] = entries;
+  // Persist to localStorage so entries survive page reloads until next daily refresh embeds them
+  try{ localStorage.setItem('stafflog-'+id, JSON.stringify(entries)); }catch(e){}
+}
 
 function openStaffLog(id,name,role){
   const modal=document.getElementById('log-modal');
@@ -2243,7 +2294,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     <div style="font-size:11px;color:var(--gray-400);margin-bottom:12px;">Log coaching conversations, performance discussions, disciplinary notes, and any important one-on-one interactions. All entries are saved locally in your browser.</div>
     <div class="comms-grid">
       <div class="comms-card"><div><div class="comms-name">Jodi Dunn</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><button class="comms-link-btn" id="logbtn-jodi" onclick="openStaffLog('jodi','Jodi Dunn','Vet Assistant')">📄 Open Log</button></div>
-      <div class="comms-card"><div><div class="comms-name">Maddie Joseph</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><button class="comms-link-btn" id="logbtn-maddie" onclick="openStaffLog('maddie','Maddie Joseph','Vet Assistant')">📄 Open Log</button></div>
       <div class="comms-card"><div><div class="comms-name">Kristi</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant</div></div><button class="comms-link-btn" id="logbtn-kristi" onclick="openStaffLog('kristi','Kristi','Vet Assistant')">📄 Open Log</button></div>
       <div class="comms-card"><div><div class="comms-name">Allison</div><div style="font-size:10.5px;color:var(--gray-400);">Vet Assistant · Studying for cert</div></div><button class="comms-link-btn" id="logbtn-allison" onclick="openStaffLog('allison','Allison','Vet Assistant · Studying for cert')">📄 Open Log</button></div>
       <div class="comms-card"><div><div class="comms-name">Kelsey</div><div style="font-size:10.5px;color:var(--gray-400);">RVT</div></div><button class="comms-link-btn" id="logbtn-kelsey" onclick="openStaffLog('kelsey','Kelsey','RVT')">📄 Open Log</button></div>
@@ -2295,9 +2345,7 @@ const STANDING = [
   { id:'jodi',    name:'Jodi Dunn',     role:'Vet Assistant',
     days:['8-4','8-4','8-1','8-4','8-1','off'],
     tasks:['','','','','','off'], lunch:['12-1','12-1','','12-1','',''] },
-  { id:'maddie',  name:'Maddie Joseph', role:'Vet Assistant',
-    days:['7-4','7-4','7-4','7-4','7-1','off'],
-    tasks:['ch','ch','ch','ch','','off'], lunch:['12-1','12-1','12-1','12-1','',''] },
+  // Maddie Joseph removed — left clinic April 2026
   { id:'moissa',  name:'Moissa',        role:'Vet Assistant',
     days:['7-1','7-1','7-5','7-1','7-1','off'],
     tasks:['mid','mid','mid','mid','mid','off'], lunch:['','','1-2','','',''] },
@@ -2459,15 +2507,11 @@ window.initScheduleTab = buildScheduleTab;
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
       <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
         <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Kristi</div>
-        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 3, 6, 7, 8 off · Back Apr 9</div>
-      </div>
-      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
-        <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Maddie Joseph</div>
-        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 10 off (approved)</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">No upcoming PTO</div>
       </div>
       <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
         <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Jodi Dunn</div>
-        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">Apr 10 off</div>
+        <div style="font-size:11.5px;color:var(--gray-600);margin-top:3px;">No upcoming PTO</div>
       </div>
       <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:10px 12px;">
         <div style="font-size:12px;font-weight:700;color:var(--gray-800);">Allison</div>
@@ -2505,6 +2549,12 @@ window.initScheduleTab = buildScheduleTab;
 <!-- ═══════════════ TAB: PHONE CALLS ═══════════════ -->
 <div class="tab-panel" id="tab-client">
 <div style="max-width:1400px;margin:0 auto;padding:20px;">
+
+  <!-- Staleness notice -->
+  <div id="client-stale-banner" style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#92400E;">
+    <span style="font-size:18px;">&#9888;</span>
+    <div><strong>Snapshot data from Apr 7-8, 2026.</strong> This tab shows a historical sample. Live call data is in Slack <a href="https://devonshirevet.slack.com/archives/C0846L13KU5" target="_blank" style="color:#1D4ED8;font-weight:600;">#phone-calls</a>. The daily refresh task will update this tab when new phone data is available.</div>
+  </div>
 
   <!-- KPI Bar -->
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;">
@@ -2785,6 +2835,11 @@ window.initScheduleTab = buildScheduleTab;
     if (u && d.lastUpdated) u.textContent = 'Updated ' + d.lastUpdated;
   })();
   </script>
+
+  <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#92400E;">
+    <span style="font-size:18px;">&#9888;</span>
+    <div><strong>PICO data below is from Apr 8, 2026.</strong> Live PICO questions are posted to Slack <a href="https://devonshirevet.slack.com/archives/C09SF5TRMPA" target="_blank" style="color:#1D4ED8;font-weight:600;">#pico</a>. This section will be refreshed when the daily task picks up new PICO entries.</div>
+  </div>
 
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
     <div>
