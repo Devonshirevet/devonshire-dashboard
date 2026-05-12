@@ -389,6 +389,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   .vendor-card .v-deal{font-size:9px;}
   .hr-layout{grid-template-columns:1fr;}
 }
+
+/* ── AI Banner ── */
+.ai-banner{background:linear-gradient(135deg,#1F3864 0%,#1D4ED8 100%);border-radius:8px;padding:14px 20px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ai-banner-icon{font-size:22px;}
+.ai-banner-title{font-size:13px;font-weight:700;color:white;}
+.ai-banner-sub{font-size:11px;color:rgba(255,255,255,0.65);margin-top:1px;}
+.ai-banner-stats{display:flex;gap:20px;flex-wrap:wrap;}
+.ai-stat{text-align:center;}
+.ai-stat-val{font-size:20px;font-weight:800;color:white;line-height:1;}
+.ai-stat-val.green{color:#34D399;}
+.ai-stat-label{font-size:9px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.4px;}
+
+/* ── Focus Card ── */
+.focus-card-item{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:6px;padding:12px;}
+.focus-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.focus-card-icon{font-size:15px;}
+.focus-card-title{font-size:12.5px;font-weight:700;color:var(--gray-800);margin-bottom:4px;}
+.focus-card-desc{font-size:11.5px;color:var(--gray-500);line-height:1.5;}
+
+/* ── Budget Layout ── */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:10px;}
+.budget-metric-label{font-size:10px;color:var(--gray-400);text-transform:uppercase;font-weight:600;letter-spacing:0.3px;}
+.budget-metric-value{font-size:20px;font-weight:700;}
+.budget-footer{display:flex;justify-content:space-between;font-size:10px;color:var(--gray-400);margin-top:3px;}
+
+/* ── Utility classes ── */
+.card-action-link{font-size:11px;font-weight:600;color:var(--blue);text-decoration:none;margin-left:auto;}
+.card-action-link:hover{text-decoration:underline;}
+.section-label{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
+.section-label-sm{font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.card-mb{margin-bottom:14px;}
+.focus-left-border{border-left:4px solid var(--navy);}
+.focus-date{font-size:11px;font-weight:400;color:var(--gray-400);}
+.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.callout-blue{background:var(--blue-pale);border:1px solid #BFDBFE;border-radius:6px;padding:10px 12px;font-size:11.5px;color:var(--gray-600);margin-bottom:12px;}
+.callout-amber{background:#FEF3C7;border:1px solid #FDE68A;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#92400E;margin-bottom:12px;}
+.msg-preview{background:var(--gray-800);color:#E5E7EB;padding:14px;border-radius:6px;font-size:12px;line-height:1.7;white-space:pre-wrap;min-height:200px;}
+
+/* ── Focus states ── */
+.walk-check:focus-visible,.check-item:focus-visible,.rev-check:focus-visible,.filter-option:focus-visible{outline:2px solid var(--blue-light);outline-offset:1px;border-radius:4px;}
+.ctab:focus-visible,.staff-dtab:focus-visible,.hr-nav-item:focus-visible{outline:2px solid var(--blue-light);outline-offset:-1px;border-radius:3px;}
+.apply-btn:focus-visible,.calc-btn:focus-visible,.reset-btn:focus-visible{outline:2px solid var(--blue-light);outline-offset:2px;}
 </style>
 </head>
 <body>
@@ -422,12 +464,12 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 5, 2026 7:50 AM",
-  lastTjDate:         "2026-04-28",
-  mtdRevenue:         0,
-  ytdRevenue:         410748,
-  avgInvoice:         0,
-  patientVisits:      0,
+  lastUpdated:        "May 12, 2026 7:50 AM",
+  lastTjDate:         "2026-05-05",
+  mtdRevenue:         21254.64,
+  ytdRevenue:         437626.06,
+  avgInvoice:         212.55,
+  patientVisits:      100,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
@@ -440,7 +482,7 @@ window.DVC_LIVE = {
   weeklyPeriodTotal:  null
 };
 </script>
-<!-- DVC_LIVE_DATA_END -->
+<!-- DVC_LIVE_DATA_END -->>
 
 <!-- HEADER -->
 <div class="header">
@@ -1852,6 +1894,12 @@ const STAFF_DATA = [
       {date:'May 4', score:77,patient:'Beni SeaCat'},
       {date:'May 4', score:76,patient:'Poppy Carpenter'},
       {date:'May 4', score:79,patient:'Mocha Maseuli'},
+      {date:'May 5', score:76,patient:'Shirley White'},
+      {date:'May 5', score:72,patient:'Winston Bryan'},
+      {date:'May 6', score:76,patient:'Honeybee McCallister'},
+      {date:'May 7', score:64,patient:'Egg Wilson'},
+      {date:'May 8', score:83,patient:'Nutmeg Burnettbutzow'},
+      {date:'May 8', score:84,patient:'Maggie Dutton'},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -1887,7 +1935,7 @@ const STAFF_DATA = [
   { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
 ];
 
-const EVAL_DATE_ORDER = {'May 1':0,'Apr 30':1,'Apr 23':2,'Apr 21':3,'Apr 20':4,'Apr 16':5,'Apr 13':6,'Apr 9':7,'Apr 8':8,'Apr 7':9,'Apr 3':10,'Apr 2':11,'Mar 30':12,'Mar 26':13,'Mar 25':14,'Feb 4':15,'Jan 22':16,'Jan 21':17};
+const EVAL_DATE_ORDER = {'May 8':0,'May 7':1,'May 6':2,'May 5':3,'May 4':4,'May 1':5,'Apr 30':6,'Apr 23':7,'Apr 21':8,'Apr 20':9,'Apr 16':10,'Apr 13':11,'Apr 9':12,'Apr 8':13,'Apr 7':14,'Apr 3':15,'Apr 2':16,'Mar 30':17,'Mar 26':18,'Mar 25':19,'Feb 4':20,'Jan 22':21,'Jan 21':22};
 
 function sAvg(arr){ if(!arr.length)return null; return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10; }
 function scoreCls(s){ if(s===null)return'no-data'; if(s>=80)return'score-excellent'; if(s>=70)return'score-good'; if(s>=60)return'score-fair'; return'score-poor'; }
