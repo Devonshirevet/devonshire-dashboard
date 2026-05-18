@@ -489,7 +489,18 @@ window.DVC_LIVE = {
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
   weeklyNewClients:   14,
-  weeklyPeriodTotal:  68121.80
+  weeklyPeriodTotal:  68121.80,
+  budgetTarget:       95000,
+  projectedMonthEnd:  null,
+  dailyRunRate:       null,
+  pacingStatus:       null,
+  businessDaysElapsed: null,
+  businessDaysTotal:   null,
+  noShowRate:         null,
+  cancelRate:         null,
+  arTotal:            null,
+  arOver90:           null,
+  lowStockItems:      null
 };
 </script>
 <!-- DVC_LIVE_DATA_END -->
@@ -553,6 +564,26 @@ window.DVC_LIVE = {
         <div class="kpi-label">Controllable Costs %</div>
         <div class="kpi-value" id="kpi-costs-value" style="color:var(--blue);">64.2%</div>
         <div class="kpi-meta"><span class="kpi-trend up" id="kpi-costs-trend" style="color:var(--green);">✓ Under 67%</span><span class="kpi-compare">VetCor target</span></div>
+      </div>
+    </div>
+
+    <!-- Budget Pacing Gauge -->
+    <div id="pacing-gauge" style="background:var(--white);border-radius:var(--radius);padding:14px 18px;box-shadow:var(--shadow);border:1px solid var(--gray-200);margin-bottom:16px;display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--gray-400);display:flex;align-items:center;gap:6px;">🎯 Budget Pacing <span id="pacing-status-badge" style="font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;"></span></div>
+        <div style="font-size:11px;color:var(--gray-400);">Target: <strong style="color:var(--navy);">$95,000</strong></div>
+      </div>
+      <div style="position:relative;height:24px;background:var(--gray-100);border-radius:12px;overflow:hidden;margin-bottom:10px;">
+        <div id="pacing-bar-actual" style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,#3B82F6,#2563EB);border-radius:12px;transition:width 0.6s ease;"></div>
+        <div id="pacing-bar-projected" style="position:absolute;top:0;height:100%;background:repeating-linear-gradient(90deg,rgba(59,130,246,0.15),rgba(59,130,246,0.15) 4px,transparent 4px,transparent 8px);border-radius:0 12px 12px 0;transition:left 0.6s ease, width 0.6s ease;"></div>
+        <div id="pacing-target-line" style="position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy);border-radius:1px;z-index:2;"></div>
+        <div id="pacing-pct-label" style="position:absolute;top:50%;transform:translateY(-50%);font-size:11px;font-weight:700;color:white;padding-left:8px;text-shadow:0 1px 2px rgba(0,0,0,0.3);"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);">
+        <div>MTD: <strong id="pacing-mtd-val" style="color:var(--gray-800);">—</strong></div>
+        <div>Run rate: <strong id="pacing-rate-val" style="color:var(--gray-800);">—</strong>/day</div>
+        <div>Projected: <strong id="pacing-proj-val" style="color:var(--gray-800);">—</strong></div>
+        <div id="pacing-needed" style="font-weight:600;"></div>
       </div>
     </div>
 
@@ -1889,6 +1920,75 @@ function loadLiveData() {
     } else {
       badge.textContent = 'Last TJ: ' + dateStr + ' (' + diffDays + 'd ago!)';
       badge.style.color = '#F87171';
+    }
+  }
+
+  // ── Budget Pacing Gauge ──────────────────────────────────
+  const gauge = document.getElementById('pacing-gauge');
+  const target = d.budgetTarget || 95000;
+  if (gauge && d.mtdRevenue && d.mtdRevenue > 0) {
+    gauge.style.display = 'block';
+    // Auto-calculate pacing if not provided by the morning pull
+    let runRate = d.dailyRunRate;
+    let projected = d.projectedMonthEnd;
+    let bizElapsed = d.businessDaysElapsed;
+    let bizTotal = d.businessDaysTotal;
+    if (!runRate || !projected) {
+      // Calculate from mtdRevenue and current date
+      const now = new Date();
+      const y = now.getFullYear(), m = now.getMonth();
+      const firstDay = new Date(y, m, 1);
+      const lastDay = new Date(y, m + 1, 0);
+      // Count business days (Mon-Fri)
+      function countBizDays(start, end) {
+        let count = 0;
+        let cur = new Date(start);
+        while (cur <= end) {
+          const dow = cur.getDay();
+          if (dow !== 0 && dow !== 6) count++;
+          cur.setDate(cur.getDate() + 1);
+        }
+        return count;
+      }
+      const yesterday = new Date(now); yesterday.setDate(yesterday.getDate() - 1);
+      bizElapsed = countBizDays(firstDay, yesterday);
+      bizTotal = countBizDays(firstDay, lastDay);
+      if (bizElapsed > 0) {
+        runRate = d.mtdRevenue / bizElapsed;
+        projected = runRate * bizTotal;
+      }
+    }
+    if (runRate && projected) {
+      const bizLeft = (bizTotal || 22) - (bizElapsed || 0);
+      const pacingPct = ((projected / target) - 1) * 100;
+      const needed = bizLeft > 0 ? (target - d.mtdRevenue) / bizLeft : 0;
+      // Status
+      let statusText, statusColor, statusBg;
+      if (pacingPct >= 5) { statusText = '🟢 Ahead'; statusColor = '#059669'; statusBg = '#D1FAE5'; }
+      else if (pacingPct >= -5) { statusText = '🟡 On Track'; statusColor = '#D97706'; statusBg = '#FEF3C7'; }
+      else if (pacingPct >= -15) { statusText = '🟠 Below Pace'; statusColor = '#EA580C'; statusBg = '#FED7AA'; }
+      else { statusText = '🔴 Behind'; statusColor = '#DC2626'; statusBg = '#FEE2E2'; }
+      // Badge
+      const badge = document.getElementById('pacing-status-badge');
+      if (badge) { badge.textContent = statusText; badge.style.background = statusBg; badge.style.color = statusColor; }
+      // Progress bar
+      const actualPct = Math.min((d.mtdRevenue / target) * 100, 100);
+      const projPct = Math.min((projected / target) * 100, 120);
+      document.getElementById('pacing-bar-actual').style.width = actualPct + '%';
+      const projBar = document.getElementById('pacing-bar-projected');
+      projBar.style.left = actualPct + '%';
+      projBar.style.width = Math.max(0, Math.min(projPct - actualPct, 100 - actualPct)) + '%';
+      document.getElementById('pacing-target-line').style.left = '100%';
+      document.getElementById('pacing-pct-label').textContent = Math.round(actualPct) + '%';
+      // Values
+      document.getElementById('pacing-mtd-val').textContent = fmt$(d.mtdRevenue);
+      document.getElementById('pacing-rate-val').textContent = fmt$(Math.round(runRate));
+      document.getElementById('pacing-proj-val').textContent = fmt$(Math.round(projected));
+      const neededEl = document.getElementById('pacing-needed');
+      if (neededEl) {
+        if (needed <= 0) { neededEl.textContent = '✓ Already on target'; neededEl.style.color = '#059669'; }
+        else { neededEl.textContent = 'Need ' + fmt$(Math.round(needed)) + '/day'; neededEl.style.color = pacingPct >= -5 ? '#D97706' : '#DC2626'; }
+      }
     }
   }
 }
