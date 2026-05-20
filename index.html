@@ -474,12 +474,12 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 18, 2026 2:45 PM",
-  lastTjDate:         "2026-05-15",
-  mtdRevenue:         75144.19,
-  ytdRevenue:         491515.61,
-  avgInvoice:         262.72,
-  patientVisits:      338,
+  lastUpdated:        "May 20, 2026 9:13 AM",
+  lastTjDate:         "2026-05-19",
+  mtdRevenue:         82582.16,
+  ytdRevenue:         498953.58,
+  avgInvoice:         264.68,
+  patientVisits:      368,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
@@ -489,12 +489,12 @@ window.DVC_LIVE = {
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
   weeklyNewClients:   16,
-  weeklyPeriodTotal:  75144.19,
+  weeklyPeriodTotal:  82582.16,
   budgetTarget:       95000,
-  projectedMonthEnd:  131502.33,
-  dailyRunRate:       6262.02,
+  projectedMonthEnd:  133402,
+  dailyRunRate:       6352.47,
   pacingStatus:       "ahead",
-  businessDaysElapsed: 12,
+  businessDaysElapsed: 13,
   businessDaysTotal:   21,
   noShowRate:         null,
   cancelRate:         null,
@@ -2055,6 +2055,9 @@ const STAFF_DATA = [
       {date:'Mar 25',score:68,patient:'Lady Sparks'},
       {date:'Mar 26',score:59,patient:'Calliope Fosnot'},
       {date:'May 18',score:76,patient:'Chanel Duran'},
+      {date:'May 18',score:82,patient:'Squirt Willis'},
+      {date:'May 18',score:66,patient:'Emily Grotzinger'},
+      {date:'May 18',score:75,patient:'Nikita Michener'},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2073,6 +2076,11 @@ const STAFF_DATA = [
       {date:'Feb 4', score:78,patient:'Koda Chrome Skaggs'},
       {date:'May 15',score:77,patient:'Lucy Bee'},
       {date:'May 18',score:72,patient:'Buddy Larry Sam Duffy'},
+      {date:'May 18',score:77,patient:'Akira Bova'},
+      {date:'May 18',score:71,patient:'Alice Bond'},
+      {date:'May 18',score:79,patient:'Stonewall Rushton'},
+      {date:'May 19',score:64,patient:'Sylvester Madison'},
+      {date:'May 19',score:77,patient:'Lydia Whitworth'},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
@@ -2084,7 +2092,7 @@ const STAFF_DATA = [
   { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
 ];
 
-const EVAL_DATE_ORDER = {'May 18':0,'May 15':1,'May 14':2,'May 8':3,'May 7':4,'May 6':5,'May 5':6,'May 4':7,'May 1':8,'Apr 30':9,'Apr 23':10,'Apr 21':11,'Apr 20':12,'Apr 16':13,'Apr 13':14,'Apr 9':15,'Apr 8':16,'Apr 7':17,'Apr 3':18,'Apr 2':19,'Mar 30':20,'Mar 26':21,'Mar 25':22,'Feb 4':23,'Jan 22':24,'Jan 21':25};
+const EVAL_DATE_ORDER = {'May 19':0,'May 18':1,'May 15':2,'May 14':3,'May 8':4,'May 7':5,'May 6':6,'May 5':7,'May 4':8,'May 1':9,'Apr 30':10,'Apr 23':11,'Apr 21':12,'Apr 20':13,'Apr 16':14,'Apr 13':15,'Apr 9':16,'Apr 8':17,'Apr 7':18,'Apr 3':19,'Apr 2':20,'Mar 30':21,'Mar 26':22,'Mar 25':23,'Feb 4':24,'Jan 22':25,'Jan 21':26};
 
 function sAvg(arr){ if(!arr.length)return null; return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10; }
 function scoreCls(s){ if(s===null)return'no-data'; if(s>=80)return'score-excellent'; if(s>=70)return'score-good'; if(s>=60)return'score-fair'; return'score-poor'; }
