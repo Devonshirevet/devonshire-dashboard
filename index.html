@@ -490,10 +490,10 @@ window.DVC_LIVE = {
   weeklyRevenuePct:   null,
   weeklyNewClients:   16,
   weeklyPeriodTotal:  82582.16,
-  budgetTarget:       95000,
+  budgetTarget:       null,
   projectedMonthEnd:  133402,
   dailyRunRate:       6352.47,
-  pacingStatus:       "ahead",
+  pacingStatus:       null,
   businessDaysElapsed: 13,
   businessDaysTotal:   21,
   noShowRate:         null,
@@ -1559,7 +1559,7 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [
+const INV_DATA = [ // Last updated from Vetcove ordering DM: May 20, 2026
   // --- ORDER NOW (critical) ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:20,note:'Heartworm season — never run out',avg:14,order:17,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
@@ -1567,9 +1567,14 @@ const INV_DATA = [
   {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'critical',pct:20,note:'Injectable F/T — trending up April',avg:4,order:5,cost:1220,priority:'ORDER NOW',feb:2,mar:4},
   {name:'Feline RC GI Loaf Cans',code:'44725',cat:'diet',status:'critical',pct:18,note:'Spiky usage — reorder aggressively',avg:41,order:51,cost:1554,priority:'ORDER NOW',feb:42,mar:72},
   // --- LOW / MONITOR ---
-  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'low',pct:38,note:'Check all 4 exam room fridges; ≤5 doses = order',avg:49,order:60,cost:358,priority:'THIS WEEK',feb:76,mar:53},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:40,note:'High volume canine DALPP',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
-  {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'low',pct:35,note:'High volume',avg:51,order:58,cost:748,priority:'THIS WEEK',feb:76,mar:46},
+  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:15,note:'~24 mL/wk — 16 days since last restock',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:15,note:'~11 mL/wk — controlled substance, Dr. Smiley sign-off',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — Moissa requested',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Animax 30ml',code:'ANIMX1',cat:'other',status:'critical',pct:10,note:'CHRONIC — requested 5+ times since Apr 29',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Cosyntropin',code:'COSYN1',cat:'other',status:'critical',pct:10,note:'CHRONIC — Moissa 3rd request',avg:1,order:2,cost:95,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:20,note:'~27 doses/wk — 16 days since last restock',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'ok',pct:55,note:'~44 remaining, ~3 wks left',avg:48,order:58,cost:392,priority:'ROUTINE',feb:76,mar:46},
+  {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'critical',pct:15,note:'CHRONIC UNFILLED — requested again Monday',avg:51,order:58,cost:748,priority:'ORDER NOW',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -2058,6 +2063,8 @@ const STAFF_DATA = [
       {date:'May 18',score:82,patient:'Squirt Willis'},
       {date:'May 18',score:66,patient:'Emily Grotzinger'},
       {date:'May 18',score:75,patient:'Nikita Michener'},
+      {date:'May 19',score:70,patient:'Ralli Casstevens'},
+      {date:'May 20',score:76,patient:'Jack Smith'},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2068,6 +2075,8 @@ const STAFF_DATA = [
       {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
       {date:'Mar 26',score:66,patient:'Gypsy Wire'},
       {date:'May 18',score:77,patient:'Diesel Mudd'},
+      {date:'May 19',score:74,patient:'Mac Finn Busby'},
+      {date:'May 20',score:84,patient:'Bolt Humane Society'},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -2092,7 +2101,16 @@ const STAFF_DATA = [
   { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
 ];
 
-const EVAL_DATE_ORDER = {'May 19':0,'May 18':1,'May 15':2,'May 14':3,'May 8':4,'May 7':5,'May 6':6,'May 5':7,'May 4':8,'May 1':9,'Apr 30':10,'Apr 23':11,'Apr 21':12,'Apr 20':13,'Apr 16':14,'Apr 13':15,'Apr 9':16,'Apr 8':17,'Apr 7':18,'Apr 3':19,'Apr 2':20,'Mar 30':21,'Mar 26':22,'Mar 25':23,'Feb 4':24,'Jan 22':25,'Jan 21':26};
+// Dynamic date ordering — no more hardcoded list that goes stale
+const _monthIdx={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+function evalDateSort(a,b){
+  const [am,ad]=a.split(' '), [bm,bd]=b.split(' ');
+  return ((_monthIdx[bm]||0)-(_monthIdx[am]||0)) || (parseInt(bd)-parseInt(ad));  // newest first
+}
+function evalDateChron(a,b){
+  const [am,ad]=a.split(' '), [bm,bd]=b.split(' ');
+  return ((_monthIdx[am]||0)-(_monthIdx[bm]||0)) || (parseInt(ad)-parseInt(bd));  // oldest first
+}
 
 function sAvg(arr){ if(!arr.length)return null; return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*10)/10; }
 function scoreCls(s){ if(s===null)return'no-data'; if(s>=80)return'score-excellent'; if(s>=70)return'score-good'; if(s>=60)return'score-fair'; return'score-poor'; }
@@ -2126,12 +2144,18 @@ function buildEvalSummary(){
 }
 
 function buildEvalTrendChart(){
-  const WEEKS=['Jan 21','Jan 22','Feb 4','Mar 25','Mar 26','Mar 30','Apr 2','Apr 3'];
+  // Dynamically collect all unique dates from STAFF_DATA and sort chronologically
+  const allDates=new Set(); STAFF_DATA.forEach(s=>s.scores.forEach(e=>allDates.add(e.date)));
+  const monthOrder={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const WEEKS=[...allDates].sort((a,b)=>{
+    const [am,ad]=a.split(' '), [bm,bd]=b.split(' ');
+    return (monthOrder[am]||0)-(monthOrder[bm]||0) || parseInt(ad)-parseInt(bd);
+  });
   function wkAvg(staff,d){ const sc=staff.scores.filter(s=>s.date===d).map(s=>s.score); return sc.length?Math.round(sAvg(sc)):null; }
   const datasets=STAFF_DATA.filter(s=>s.scores.length>0).map(s=>({
     label:s.name.split(' ')[0], data:WEEKS.map(w=>wkAvg(s,w)),
     borderColor:s.color, backgroundColor:'transparent', borderWidth:2.5,
-    pointRadius:5, pointHoverRadius:7, pointBackgroundColor:s.color, tension:0.3, spanGaps:true,
+    pointRadius:4, pointHoverRadius:6, pointBackgroundColor:s.color, tension:0.3, spanGaps:true,
   }));
   if(window.evalTrendChart)window.evalTrendChart.destroy();
   window.evalTrendChart=new Chart(document.getElementById('evalTrendChart'),{
@@ -2139,16 +2163,24 @@ function buildEvalTrendChart(){
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
       plugins:{legend:{position:'bottom',labels:{padding:10,boxWidth:10,font:{size:10}}},
         tooltip:{...mkTip(),callbacks:{label:ctx=>ctx.raw!==null?` ${ctx.dataset.label}: ${ctx.raw}`:null}}},
-      scales:{x:{grid:{color:'rgba(0,0,0,0.04)'}},y:{min:40,max:100,grid:{color:'rgba(0,0,0,0.04)'},
+      scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{maxRotation:45,autoSkip:true,maxTicksLimit:15}},y:{min:40,max:100,grid:{color:'rgba(0,0,0,0.04)'},
         ticks:{stepSize:10}}}}
   });
 }
 
 function buildEvalBarChart(){
   const stf=STAFF_DATA.filter(s=>s.scores.length>0);
-  const recent=['Mar 25','Mar 26','Mar 30','Apr 2','Apr 3'];
+  // Use each staff member's last 90 days of scores for recent average
+  const monthOrder={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const allDates=new Set(); STAFF_DATA.forEach(s=>s.scores.forEach(e=>allDates.add(e.date)));
+  const sortedDates=[...allDates].sort((a,b)=>{
+    const [am,ad]=a.split(' '), [bm,bd]=b.split(' ');
+    return (monthOrder[am]||0)-(monthOrder[bm]||0) || parseInt(ad)-parseInt(bd);
+  });
+  // Take the last 10 unique dates as "recent"
+  const recentDates=new Set(sortedDates.slice(-10));
   const values=stf.map(s=>{
-    const rc=s.scores.filter(x=>recent.includes(x.date));
+    const rc=s.scores.filter(x=>recentDates.has(x.date));
     const src=rc.length?rc:s.scores;
     return sAvg(src.map(x=>x.score));
   });
@@ -2243,7 +2275,7 @@ function saveBirthdays(){
 function buildEvalLog(){
   const all=[];
   STAFF_DATA.forEach(s=>s.scores.forEach(e=>all.push({name:s.name,color:s.color,date:e.date,score:e.score,patient:e.patient})));
-  all.sort((a,b)=>(EVAL_DATE_ORDER[a.date]??99)-(EVAL_DATE_ORDER[b.date]??99));
+  all.sort((a,b)=>evalDateSort(a.date,b.date));
   document.getElementById('eval-log-table').innerHTML=all.slice(0,14).map(e=>`
     <div class="eval-log-row">
       <div style="width:10px;height:10px;border-radius:50%;background:${e.color};flex-shrink:0;"></div>
