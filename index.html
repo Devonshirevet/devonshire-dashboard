@@ -307,7 +307,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 /* ── Staff Evaluations Tab ── */
 .eval-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
 .eval-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--gray-200);padding:14px;border-top:3px solid var(--gray-200);transition:transform 0.15s;cursor:default;}
-.eval-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+.eval-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);cursor:pointer;}
 .eval-card.score-excellent{border-top-color:var(--green);}
 .eval-card.score-good{border-top-color:var(--blue);}
 .eval-card.score-fair{border-top-color:var(--amber);}
@@ -324,6 +324,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .eval-score-label{font-size:10px;color:var(--gray-400);margin-bottom:8px;}
 .eval-meta-row{display:flex;justify-content:space-between;font-size:10.5px;color:var(--gray-400);border-top:1px solid var(--gray-100);padding-top:7px;margin-top:4px;gap:4px;}
 .eval-trend-arrow{font-size:14px;font-weight:700;}
+
+/* Eval Detail Modal */
+.eval-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+.eval-modal-overlay.open{opacity:1;pointer-events:auto;}
+.eval-modal{background:var(--white);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.25);width:700px;max-width:92vw;max-height:85vh;overflow-y:auto;position:relative;transform:scale(0.95);transition:transform 0.2s;}
+.eval-modal-overlay.open .eval-modal{transform:scale(1);}
+.eval-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px 14px;border-bottom:1px solid var(--gray-200);position:sticky;top:0;background:var(--white);z-index:2;border-radius:12px 12px 0 0;}
+.eval-modal-name{font-size:18px;font-weight:800;color:var(--gray-800);}
+.eval-modal-role{font-size:12px;color:var(--gray-400);margin-left:8px;}
+.eval-modal-close{background:none;border:none;cursor:pointer;font-size:22px;color:var(--gray-400);padding:4px 8px;border-radius:6px;line-height:1;}
+.eval-modal-close:hover{background:var(--gray-100);color:var(--gray-800);}
+.eval-modal-body{padding:18px 22px 22px;}
+.eval-modal-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px;}
+.em-stat{text-align:center;background:var(--gray-50);border-radius:8px;padding:10px 6px;border:1px solid var(--gray-200);}
+.em-stat-val{font-size:22px;font-weight:800;line-height:1.1;}
+.em-stat-label{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
+.eval-modal-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--gray-400);margin:16px 0 8px;display:flex;align-items:center;gap:8px;}
+.eval-modal-section-title::after{content:'';flex:1;height:1px;background:var(--gray-200);}
+.em-chart-wrap{height:140px;margin-bottom:6px;}
+.em-score-table{width:100%;border-collapse:collapse;}
+.em-score-table th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray-400);padding:6px 8px;border-bottom:2px solid var(--gray-200);}
+.em-score-table td{padding:6px 8px;font-size:12px;border-bottom:1px solid var(--gray-100);}
+.em-score-table tr:last-child td{border-bottom:none;}
+.em-score-table tr.em-low-score{background:#FEF2F2;}
+.em-improve-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.em-improve-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:6px;font-size:12px;}
+.em-improve-score{font-weight:700;color:var(--red);min-width:24px;}
+.em-improve-name{color:var(--gray-800);}
 .cert-badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:600;background:#EDE9FE;color:#5B21B6;margin-left:6px;vertical-align:middle;}
 .bday-banner{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border:1px solid #FCD34D;border-radius:6px;padding:10px 16px;margin-bottom:12px;font-size:12px;color:#92400E;display:none;align-items:center;gap:10px;}
 .bday-banner.show{display:flex;}
@@ -516,12 +544,12 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 26, 2026 9:30 AM",
-  lastTjDate:         "2026-05-21",
-  mtdRevenue:         93028.73,
+  lastUpdated:        "May 27, 2026 7:50 AM",
+  lastTjDate:         "2026-05-22",
+  mtdRevenue:         104494.11,
   ytdRevenue:         500931.97,
-  avgInvoice:         223.63,
-  patientVisits:      416,
+  avgInvoice:         252.40,
+  patientVisits:      490,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
@@ -530,18 +558,18 @@ window.DVC_LIVE = {
   comparePeriod:      "May 2025",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
-  weeklyNewClients:   21,
-  weeklyPeriodTotal:  93028.73,
+  weeklyNewClients:   26,
+  weeklyPeriodTotal:  104494.11,
   budgetTarget:       null,
-  projectedMonthEnd:  130240,
-  dailyRunRate:       6201.92,
+  projectedMonthEnd:  137149,
+  dailyRunRate:       6530.88,
   pacingStatus:       null,
-  businessDaysElapsed: 15,
+  businessDaysElapsed: 16,
   businessDaysTotal:   21,
-  noShowRate:         3.8,
-  cancelRate:         7.7,
-  arTotal:            9881.48,
-  arOver90:           5675.53,
+  noShowRate:         4.3,
+  cancelRate:         8.7,
+  arTotal:            108.15,
+  arOver90:           -40.59,
   lowStockItems:      27
 };
 </script>
@@ -568,8 +596,18 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "May 26, 2026 9:30 AM",
+  lastUpdated: "May 27, 2026 7:50 AM",
   items: [
+    {id:"nl-20",text:"Librela 44-66",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-21",text:"Librela 88-132",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-22",text:"LRS 1000ml",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-23",text:"DALPP",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-24",text:"Rabies",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-25",text:"Large dog Seresto",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-26",text:"Terramycin",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-27",text:"Epiklean",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-28",text:"Feliway Classic",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-29",text:"Feliway Multicat",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-1",text:"U-40 syringes",author:"Debbie",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-2",text:"(Photo posted — check #need-list)",author:"Breanna",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-3",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
@@ -592,12 +630,15 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "May 26, 2026 9:30 AM",
+  lastUpdated: "May 27, 2026 7:50 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
     {staff:"Kelsey",dates:["2026-05-28"],type:"early_out",note:"Leave at noon (rescheduled doctor appt)",inDayforce:false,slackOnly:true},
+    {staff:"Kristi",dates:["2026-06-01"],type:"late_start",note:"Morning off for doctor appt — in at 1 PM, work until 5",inDayforce:false,slackOnly:true},
+    {staff:"Allison",dates:["2026-06-02"],type:"late_start",note:"In at 12 or 1 PM",inDayforce:false,slackOnly:true},
     {staff:"Moissa",dates:["2026-06-02"],type:"early_out",note:"Off at noon (Arthur has appointment) — can work afternoon another day",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM",inDayforce:false,slackOnly:true},
+    {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
@@ -1689,7 +1730,7 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: May 26, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: May 27, 2026
   // --- ORDER NOW (critical) — from May 26 ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — possibly 22 days since last restock',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:15,note:'~27 doses/wk — possibly 22 days since last restock',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
@@ -1722,7 +1763,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 26, 2026
   {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:40,note:'~37 remaining, ~2 wks left — getting low',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:35,note:'~32 doses remaining (~2 wks), Moissa posted DALPP today',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -2281,40 +2322,40 @@ const STAFF_DATA = [
       {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:49,patient:'(Lindsey eval)'},
       {date:'Jan 22',score:82,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
       {date:'Jan 22',score:80,patient:'(Lindsey eval)'},
-      {date:'Mar 26',score:78,patient:'Olive Schwettman'},
-      {date:'Mar 30',score:79,patient:'Max Leyba'},
-      {date:'Apr 3', score:72,patient:'Ralli Casstevens'},
-      {date:'Apr 3', score:76,patient:'Rocky Kessler'},
-      {date:'Apr 7', score:79,patient:'Emmie Dunn'},
-      {date:'Apr 7', score:74,patient:'Kitty Seek'},
-      {date:'Apr 8', score:79,patient:'Pickle Cook'},
-      {date:'Apr 9', score:79,patient:'Pickle Cook'},
-      {date:'Apr 13',score:80,patient:'Sonic Mattingly'},
-      {date:'Apr 13',score:73,patient:'Sammie Winkler'},
-      {date:'Apr 16',score:76,patient:'Chevy Hartman'},
-      {date:'Apr 20',score:77,patient:'Kiki Layton'},
-      {date:'Apr 20',score:76,patient:'Grace Zavalydrga'},
-      {date:'Apr 20',score:76,patient:'Margo Humes'},
-      {date:'Apr 21',score:74,patient:'Jazzy Stevens'},
-      {date:'Apr 23',score:79,patient:'Kirby Swinford'},
-      {date:'Apr 30',score:79,patient:'Romeo Lade'},
-      {date:'May 1', score:79,patient:'Luna DeWitt'},
-      {date:'May 1', score:84,patient:'Bandit Bull'},
-      {date:'May 1', score:77,patient:'Auggie Odom'},
-      {date:'May 4', score:79,patient:'Cali Underwood'},
-      {date:'May 4', score:77,patient:'Beni SeaCat'},
-      {date:'May 4', score:76,patient:'Poppy Carpenter'},
-      {date:'May 4', score:79,patient:'Mocha Maseuli'},
-      {date:'May 5', score:76,patient:'Shirley White'},
-      {date:'May 5', score:72,patient:'Winston Bryan'},
-      {date:'May 6', score:76,patient:'Honeybee McCallister'},
-      {date:'May 7', score:64,patient:'Egg Wilson'},
-      {date:'May 8', score:83,patient:'Nutmeg Burnettbutzow'},
-      {date:'May 8', score:84,patient:'Maggie Dutton'},
-      {date:'May 14',score:83,patient:'Callie Shanks'},
-      {date:'May 21',score:78,patient:'Sophie Walters'},
-      {date:'May 22',score:80,patient:'Bear Morris'},
-      {date:'May 22',score:75,patient:'Abby Skinner'},
+      {date:'Mar 26',score:78,patient:'Olive Schwettman',cats:[16,15,16,16,15]},
+      {date:'Mar 30',score:79,patient:'Max Leyba',cats:[17,16,15,16,15]},
+      {date:'Apr 3', score:72,patient:'Ralli Casstevens',cats:[16,17,13,14,12]},
+      {date:'Apr 3', score:76,patient:'Rocky Kessler',cats:[16,15,14,16,15]},
+      {date:'Apr 7', score:79,patient:'Emmie Dunn',cats:[17,16,15,16,15]},
+      {date:'Apr 7', score:74,patient:'Kitty Seek',cats:[16,15,14,14,15]},
+      {date:'Apr 8', score:79,patient:'Pickle Cook',cats:[17,16,15,16,15]},
+      {date:'Apr 9', score:79,patient:'Pickle Cook',cats:[17,16,15,16,15]},
+      {date:'Apr 13',score:80,patient:'Sonic Mattingly',cats:[17,16,15,16,16]},
+      {date:'Apr 13',score:73,patient:'Sammie Winkler',cats:[16,14,15,14,14]},
+      {date:'Apr 16',score:76,patient:'Chevy Hartman',cats:[16,15,16,14,15]},
+      {date:'Apr 20',score:77,patient:'Kiki Layton',cats:[16,17,15,15,14]},
+      {date:'Apr 20',score:76,patient:'Grace Zavalydrga',cats:[16,15,16,15,14]},
+      {date:'Apr 20',score:76,patient:'Margo Humes',cats:[16,15,16,14,15]},
+      {date:'Apr 21',score:74,patient:'Jazzy Stevens',cats:[16,15,14,15,14]},
+      {date:'Apr 23',score:79,patient:'Kirby Swinford',cats:[17,16,15,16,15]},
+      {date:'Apr 30',score:79,patient:'Romeo Lade',cats:[16,17,15,16,15]},
+      {date:'May 1', score:79,patient:'Luna DeWitt',cats:[17,16,15,16,15]},
+      {date:'May 1', score:84,patient:'Bandit Bull',cats:[17,18,16,17,16]},
+      {date:'May 1', score:77,patient:'Auggie Odom',cats:[16,17,15,15,14]},
+      {date:'May 4', score:79,patient:'Cali Underwood',cats:[16,17,16,15,15]},
+      {date:'May 4', score:77,patient:'Beni SeaCat',cats:[16,15,16,15,15]},
+      {date:'May 4', score:76,patient:'Poppy Carpenter',cats:[16,17,15,14,14]},
+      {date:'May 4', score:79,patient:'Mocha Maseuli',cats:[16,17,15,16,15]},
+      {date:'May 5', score:76,patient:'Shirley White',cats:[16,14,16,15,15]},
+      {date:'May 5', score:72,patient:'Winston Bryan',cats:[16,14,15,14,13]},
+      {date:'May 6', score:76,patient:'Honeybee McCallister',cats:[17,16,14,15,14]},
+      {date:'May 7', score:64,patient:'Egg Wilson',cats:[14,17,12,10,11]},
+      {date:'May 8', score:83,patient:'Nutmeg Burnettbutzow',cats:[17,18,16,17,15]},
+      {date:'May 8', score:84,patient:'Maggie Dutton',cats:[17,18,16,17,16]},
+      {date:'May 14',score:83,patient:'Callie Shanks',cats:[17,19,15,16,16]},
+      {date:'May 21',score:78,patient:'Sophie Walters',cats:[16,15,16,16,15]},
+      {date:'May 22',score:80,patient:'Bear Morris',cats:[17,16,15,16,16]},
+      {date:'May 22',score:75,patient:'Abby Skinner',cats:[17,16,13,15,14]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2322,17 +2363,17 @@ const STAFF_DATA = [
     scores:[
       {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:68,patient:'(Lindsey eval)'},
       {date:'Jan 22',score:72,patient:'(Lindsey eval)'},{date:'Jan 22',score:65,patient:'(Lindsey eval)'},
-      {date:'Mar 25',score:68,patient:'Lady Sparks'},
-      {date:'Mar 26',score:59,patient:'Calliope Fosnot'},
-      {date:'May 18',score:76,patient:'Chanel Duran'},
-      {date:'May 18',score:82,patient:'Squirt Willis'},
-      {date:'May 18',score:66,patient:'Emily Grotzinger'},
-      {date:'May 18',score:75,patient:'Nikita Michener'},
-      {date:'May 19',score:70,patient:'Ralli Casstevens'},
-      {date:'May 20',score:76,patient:'Jack Smith'},
-      {date:'May 20',score:76,patient:'Reggie Patton'},
-      {date:'May 20',score:75,patient:'Baby Hodge'},
-      {date:'May 21',score:48,patient:'Tux Bourse'},
+      {date:'Mar 25',score:68,patient:'Lady Sparks',cats:[16,14,12,13,13]},
+      {date:'Mar 26',score:59,patient:'Calliope Fosnot',cats:[14,15,10,9,11]},
+      {date:'May 18',score:76,patient:'Chanel Duran',cats:[16,17,14,15,14]},
+      {date:'May 18',score:82,patient:'Squirt Willis',cats:[17,18,16,16,15]},
+      {date:'May 18',score:66,patient:'Emily Grotzinger',cats:[15,16,10,14,11]},
+      {date:'May 18',score:75,patient:'Nikita Michener',cats:[16,17,13,15,14]},
+      {date:'May 19',score:70,patient:'Ralli Casstevens',cats:[15,16,14,12,13]},
+      {date:'May 20',score:76,patient:'Jack Smith',cats:[16,17,14,15,14]},
+      {date:'May 20',score:76,patient:'Reggie Patton',cats:[16,18,14,15,13]},
+      {date:'May 20',score:75,patient:'Baby Hodge',cats:[17,15,14,16,13]},
+      {date:'May 21',score:48,patient:'Tux Bourse',cats:[12,14,8,7,7]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2341,47 +2382,51 @@ const STAFF_DATA = [
       {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
       {date:'Jan 22',score:71,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
       {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
-      {date:'Mar 26',score:66,patient:'Gypsy Wire'},
-      {date:'May 18',score:77,patient:'Diesel Mudd'},
-      {date:'May 19',score:74,patient:'Mac Finn Busby'},
-      {date:'May 20',score:84,patient:'Bolt Humane Society'},
-      {date:'May 20',score:75,patient:'Anniman Dryden'},
-      {date:'May 20',score:79,patient:'Nala McDole'},
-      {date:'May 21',score:66,patient:'Romeo Dougie Woods'},
-      {date:'May 21',score:82,patient:'Josie Johnson'},
-      {date:'May 21',score:71,patient:'Baby Hodge'},
-      {date:'May 21',score:80,patient:'Huey Madigan'},
-      {date:'May 21',score:81,patient:'Harley Coggins'},
-      {date:'May 22',score:86,patient:'Peyton Conrad'},
-      {date:'May 22',score:81,patient:'Oreo Jaunett'},
+      {date:'Mar 26',score:66,patient:'Gypsy Wire',cats:[14,16,11,13,12]},
+      {date:'May 18',score:77,patient:'Diesel Mudd',cats:[16,15,16,15,15]},
+      {date:'May 19',score:74,patient:'Mac Finn Busby',cats:[16,15,14,15,14]},
+      {date:'May 20',score:84,patient:'Bolt Humane Society',cats:[17,20,16,16,15]},
+      {date:'May 20',score:75,patient:'Anniman Dryden',cats:[16,17,14,15,13]},
+      {date:'May 20',score:79,patient:'Nala McDole',cats:[17,16,15,16,15]},
+      {date:'May 21',score:66,patient:'Romeo Dougie Woods',cats:[14,15,12,13,12]},
+      {date:'May 21',score:82,patient:'Josie Johnson',cats:[17,18,15,16,16]},
+      {date:'May 21',score:71,patient:'Baby Hodge',cats:[16,14,13,15,13]},
+      {date:'May 21',score:80,patient:'Huey Madigan',cats:[17,18,14,16,15]},
+      {date:'May 21',score:81,patient:'Harley Coggins',cats:[17,19,15,16,14]},
+      {date:'May 22',score:86,patient:'Peyton Conrad',cats:[18,19,16,17,16]},
+      {date:'May 22',score:81,patient:'Oreo Jaunett',cats:[17,16,15,17,16]},
+      {date:'May 27',score:82,patient:'Brindle Young',cats:[17,18,16,16,15]},
+      {date:'May 27',score:77,patient:'Pistol Heiney',cats:[16,17,15,14,15]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
     scores:[
-      {date:'Feb 4', score:76,patient:'Monster Landis'},
-      {date:'Feb 4', score:78,patient:'Koda Chrome Skaggs'},
-      {date:'May 15',score:77,patient:'Lucy Bee'},
-      {date:'May 18',score:72,patient:'Buddy Larry Sam Duffy'},
-      {date:'May 18',score:77,patient:'Akira Bova'},
-      {date:'May 18',score:71,patient:'Alice Bond'},
-      {date:'May 18',score:79,patient:'Stonewall Rushton'},
-      {date:'May 19',score:64,patient:'Sylvester Madison'},
-      {date:'May 19',score:77,patient:'Lydia Whitworth'},
-      {date:'May 20',score:66,patient:'Jasper Legg'},
-      {date:'May 21',score:74,patient:'Willow Reeves'},
-      {date:'May 22',score:79,patient:'Woody White'},
-      {date:'May 22',score:84,patient:'John Snow Tilford'},
-      {date:'May 22',score:76,patient:'Timothy Street'},
-      {date:'May 22',score:74,patient:'Max Copeland'},
-      {date:'May 22',score:59,patient:'Zeke Brady'},
-      {date:'May 26',score:73,patient:'Sammy Johnson'},
+      {date:'Feb 4', score:76,patient:'Monster Landis',cats:[16,15,16,14,15]},
+      {date:'Feb 4', score:78,patient:'Koda Chrome Skaggs',cats:[17,16,15,16,14]},
+      {date:'May 15',score:77,patient:'Lucy Bee',cats:[16,17,15,15,14]},
+      {date:'May 18',score:72,patient:'Buddy Larry Sam Duffy',cats:[16,15,14,13,14]},
+      {date:'May 18',score:77,patient:'Akira Bova',cats:[16,17,14,16,14]},
+      {date:'May 18',score:71,patient:'Alice Bond',cats:[16,17,13,12,13]},
+      {date:'May 18',score:79,patient:'Stonewall Rushton',cats:[17,16,15,16,15]},
+      {date:'May 19',score:64,patient:'Sylvester Madison',cats:[15,14,13,10,12]},
+      {date:'May 19',score:77,patient:'Lydia Whitworth',cats:[17,16,14,15,15]},
+      {date:'May 20',score:66,patient:'Jasper Legg',cats:[15,16,13,10,12]},
+      {date:'May 21',score:74,patient:'Willow Reeves',cats:[16,15,14,15,14]},
+      {date:'May 22',score:79,patient:'Woody White',cats:[17,16,15,16,15]},
+      {date:'May 22',score:84,patient:'John Snow Tilford',cats:[18,19,15,16,16]},
+      {date:'May 22',score:76,patient:'Timothy Street',cats:[16,16,15,15,14]},
+      {date:'May 22',score:74,patient:'Max Copeland',cats:[16,15,14,15,14]},
+      {date:'May 22',score:59,patient:'Zeke Brady',cats:[14,16,10,9,10]},
+      {date:'May 26',score:73,patient:'Sammy Johnson',cats:[16,15,14,15,13]},
+      {date:'May 26',score:65,patient:'Sylvester Madison',cats:[14,16,13,10,12]},
+      {date:'May 26',score:71,patient:'Thor Jimenez',cats:[16,15,13,14,13]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
     scores:[
-      {date:'Feb 4', score:74,patient:'Charlie Thompson'},
-      {date:'May 20',score:79,patient:'Lil Mama McGill'},
-      {date:'May 20',score:79,patient:'Indy Webner'},
+      {date:'Feb 4', score:74,patient:'Charlie Thompson',cats:[16,17,14,14,13]},
+      {date:'May 20',score:79,patient:'Lil Mama McGill',cats:[17,18,14,16,14]},
+      {date:'May 20',score:79,patient:'Indy Webner',cats:[17,16,15,16,15]},
     ]
   },
   { id:'breanna', name:'Breanna',        role:'HS Extern',     color:'#9CA3AF', cert:null, scores:[] },
@@ -2416,7 +2461,7 @@ function buildEvalSummary(){
     const trend=calcTrend(s.scores); const cls=scoreCls(recentScore);
     const trendColor=trend==='↑'?'var(--green)':trend==='↓'?'var(--red)':'var(--gray-400)';
     const streak=s.scores.length;
-    return`<div class="eval-card ${cls}">
+    return`<div class="eval-card ${cls}" onclick="openEvalModal('${escH(s.id)}')" title="Click to see all scores">
       <div class="eval-name">${escH(s.name)}${s.cert?`<span class="cert-badge">${escH(s.cert)}</span>`:''}</div>
       <div class="eval-role">${escH(s.role)}</div>
       <div class="eval-score-big">${recentScore??'—'}</div>
@@ -2635,6 +2680,157 @@ function saveStaffNote(id){
   const val=document.getElementById('staffnote-'+id)?.value;
   if(val!==undefined)localStorage.setItem('staffnote-'+id,val);
 }
+
+// ── Eval Detail Modal ─────────────────────────────────────
+const CAT_NAMES=['Client Service','Scope of Role','History Depth','Organization','Completeness'];
+const CAT_FULL=['Client Service & Professionalism','Scope of Role & Medical Boundaries','History Depth & Accuracy','Organization & Flow','Completeness & Info Transfer'];
+let _evalModalChart=null;
+function openEvalModal(staffId){
+  const s=STAFF_DATA.find(x=>x.id===staffId);
+  if(!s||!s.scores.length)return;
+  document.getElementById('emName').textContent=s.name;
+  document.getElementById('emRole').textContent=s.role+(s.cert?' · '+s.cert:'');
+  const all=s.scores.map(x=>x.score);
+  const avg=sAvg(all), high=Math.max(...all), low=Math.min(...all), total=s.scores.length;
+  const trend=calcTrend(s.scores);
+  const trendColor=trend==='↑'?'var(--green)':trend==='↓'?'var(--red)':'var(--gray-400)';
+
+  // Category averages (only from evals that have cats data)
+  const withCats=s.scores.filter(e=>e.cats);
+  const catAvgs=[0,1,2,3,4].map(i=>{
+    const vals=withCats.map(e=>e.cats[i]);
+    return vals.length?Math.round(sAvg(vals)*10)/10:null;
+  });
+  // Find weakest categories
+  const catRanked=catAvgs.map((v,i)=>({i,v,name:CAT_NAMES[i],full:CAT_FULL[i]})).filter(x=>x.v!==null).sort((a,b)=>a.v-b.v);
+  const weakest=catRanked.slice(0,2);
+  const strongest=catRanked.slice(-2).reverse();
+
+  // Find bottom 5 scores for improvement section
+  const sorted=[...s.scores].sort((a,b)=>a.score-b.score);
+  const bottomScores=sorted.slice(0,5);
+  const bottomSet=new Set(bottomScores.map(x=>x.date+x.patient+x.score));
+
+  // Category bar colors
+  function catBarColor(v){ if(v>=17)return'var(--green)'; if(v>=14)return'var(--blue)'; if(v>=11)return'var(--amber)'; return'var(--red)'; }
+
+  let html=`
+    <div class="eval-modal-stats">
+      <div class="em-stat"><div class="em-stat-val" style="color:${s.color};">${avg}</div><div class="em-stat-label">Average</div></div>
+      <div class="em-stat"><div class="em-stat-val" style="color:var(--green);">${high}</div><div class="em-stat-label">Best</div></div>
+      <div class="em-stat"><div class="em-stat-val" style="color:var(--red);">${low}</div><div class="em-stat-label">Lowest</div></div>
+      <div class="em-stat"><div class="em-stat-val" style="color:var(--gray-600);">${total}</div><div class="em-stat-label">Total Evals</div></div>
+      <div class="em-stat"><div class="em-stat-val" style="color:${trendColor};">${trend}</div><div class="em-stat-label">Trend</div></div>
+    </div>`;
+
+  // Category breakdown section
+  if(withCats.length>0){
+    html+=`
+    <div class="eval-modal-section-title">Category Averages (${withCats.length} evals with breakdown)</div>
+    <div style="margin-bottom:16px;">
+      ${CAT_FULL.map((name,i)=>{
+        const v=catAvgs[i]; const pct=v?Math.round(v/20*100):0;
+        const isWeak=weakest.some(w=>w.i===i);
+        return`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;${isWeak?'background:#FEF2F2;padding:6px 8px;border-radius:6px;border:1px solid #FECACA;margin-left:-8px;margin-right:-8px;':''}">
+          <div style="width:200px;flex-shrink:0;font-size:12px;color:var(--gray-600);${isWeak?'font-weight:700;color:var(--red);':''}">
+            ${isWeak?'⚠ ':''}${name}
+          </div>
+          <div style="flex:1;background:var(--gray-100);border-radius:99px;height:8px;overflow:hidden;">
+            <div style="width:${pct}%;height:100%;background:${v?catBarColor(v):'var(--gray-300)'};border-radius:99px;transition:width 0.3s;"></div>
+          </div>
+          <div style="min-width:42px;text-align:right;font-size:12px;font-weight:700;color:${v?catBarColor(v):'var(--gray-400)'};">${v??'—'} / 20</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 12px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--red);margin-bottom:6px;">⚠ Needs Work</div>
+        ${weakest.map(w=>`<div style="font-size:12px;color:var(--gray-800);margin-bottom:3px;"><strong>${w.name}</strong> — avg ${w.v}/20</div>`).join('')}
+      </div>
+      <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px 12px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--green);margin-bottom:6px;">✓ Strongest</div>
+        ${strongest.map(w=>`<div style="font-size:12px;color:var(--gray-800);margin-bottom:3px;"><strong>${w.name}</strong> — avg ${w.v}/20</div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  html+=`
+    <div class="eval-modal-section-title">Lowest Scores</div>
+    <div class="em-improve-list" style="margin-bottom:12px;">
+      ${bottomScores.map(e=>{
+        const catInfo=e.cats?` — weakest: ${CAT_NAMES[e.cats.indexOf(Math.min(...e.cats))]} (${Math.min(...e.cats)}/20)`:'';
+        return`<div class="em-improve-item">
+          <div class="em-improve-score">${e.score}</div>
+          <div class="em-improve-name">${escH(e.patient)}<span style="color:var(--gray-400);font-size:11px;margin-left:6px;">${escH(e.date)}</span><span style="color:var(--red);font-size:10px;display:block;margin-top:2px;">${catInfo}</span></div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="eval-modal-section-title">Score Trend</div>
+    <div class="em-chart-wrap"><canvas id="emTrendCanvas"></canvas></div>
+
+    <div class="eval-modal-section-title">All Evaluations (${total})</div>
+    <table class="em-score-table">
+      <thead><tr><th>Score</th><th>Patient</th><th>Date</th>${withCats.length?'<th>CS</th><th>SR</th><th>HD</th><th>OF</th><th>CT</th>':'<th>Rating</th>'}</tr></thead>
+      <tbody>
+        ${s.scores.slice().reverse().map(e=>{
+          const isLow=bottomSet.has(e.date+e.patient+e.score);
+          if(withCats.length && e.cats){
+            const minCat=Math.min(...e.cats);
+            return`<tr class="${isLow?'em-low-score':''}">
+              <td>${scorePill(e.score)}</td>
+              <td style="font-weight:600;">${escH(e.patient)}</td>
+              <td style="color:var(--gray-400);white-space:nowrap;">${escH(e.date)}</td>
+              ${e.cats.map(c=>`<td style="text-align:center;font-weight:600;font-size:11px;color:${c>=17?'var(--green)':c>=14?'var(--blue)':c>=11?'var(--amber)':'var(--red)'};${c===minCat&&c<14?'background:#FEF2F2;border-radius:4px;':''}">${c}</td>`).join('')}
+            </tr>`;
+          }
+          const rating=e.score>=80?'Excellent':e.score>=70?'Good':e.score>=60?'Needs Work':'Concerning';
+          const rColor=e.score>=80?'var(--green)':e.score>=70?'var(--blue)':e.score>=60?'var(--amber)':'var(--red)';
+          return`<tr class="${isLow?'em-low-score':''}">
+            <td>${scorePill(e.score)}</td>
+            <td style="font-weight:600;">${escH(e.patient)}</td>
+            <td style="color:var(--gray-400);">${escH(e.date)}</td>
+            ${withCats.length?'<td colspan="5"></td>':`<td style="color:${rColor};font-weight:600;font-size:11px;">${rating}</td>`}
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+
+  document.getElementById('emBody').innerHTML=html;
+  document.getElementById('evalModal').classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Build mini trend chart
+  requestAnimationFrame(()=>{
+    const ctx=document.getElementById('emTrendCanvas');
+    if(!ctx)return;
+    if(_evalModalChart)_evalModalChart.destroy();
+    const labels=s.scores.map(e=>e.date);
+    const data=s.scores.map(e=>e.score);
+    _evalModalChart=new Chart(ctx,{
+      type:'line',
+      data:{labels,datasets:[{
+        data, borderColor:s.color, backgroundColor:s.color+'22',
+        borderWidth:2.5, pointRadius:3, pointHoverRadius:6,
+        pointBackgroundColor:s.scores.map(e=>e.score>=80?'#16A34A':e.score>=70?s.color:e.score>=60?'#D97706':'#DC2626'),
+        tension:0.3, fill:true
+      }]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{...mkTip(),callbacks:{label:ctx2=>' Score: '+ctx2.raw}}},
+        scales:{x:{grid:{display:false},ticks:{maxRotation:45,autoSkip:true,maxTicksLimit:12,font:{size:10}}},
+          y:{min:Math.max(30,low-10),max:100,grid:{color:'rgba(0,0,0,0.04)'},ticks:{stepSize:10}}}
+      }
+    });
+  });
+}
+
+function closeEvalModal(){
+  document.getElementById('evalModal').classList.remove('open');
+  document.body.style.overflow='';
+  if(_evalModalChart){_evalModalChart.destroy();_evalModalChart=null;}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEvalModal();});
 
 function initStaffTab(){
   buildEvalSummary();
@@ -3834,112 +4030,28 @@ window.publishSchedule=function(){
   <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
     <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
       <span style="font-size:14px;font-weight:700;color:var(--navy);">Crystal</span>
-      <span style="font-size:11px;color:var(--gray-500);">Nixon · cat · GI + kidney monitoring + pain management · Rx diet</span>
-      <span style="font-size:10px;background:#FEE2E2;color:#991B1B;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">5 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">12:10 PM</span>
+      <span style="font-size:11px;color:var(--gray-500);">Iszee Nixon · feline patient</span>
+      <span style="font-size:10px;background:#EDE9FE;color:#5B21B6;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">PICO questions</span>
     </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Prescription diet only (+ compatible treats) to improve stool quality?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Cat with mushy yellowish stool/possible diarrhea and straining to defecate</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Feed only prescription urinary diet + compatible treats; eliminate people food (popcorn, Cheese Nips)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Firmer stool; less diarrhea; reduced straining/panting with defecation</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · Carprofen BID — better pain control vs. once-daily dosing?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Cat with stiff gait, back-end weakness, tail carriage changes; delayed relief on once-daily</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Carprofen twice daily (¼ of 75 mg tablet BID)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Once-daily carprofen dosing</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Improved comfort/mobility; fewer pain fluctuations; better ability to posture/defecate</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 · Add wet prescription food to improve intake &amp; pill administration?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Cat with poor teeth; inconsistent acceptance of softened dry prescription diet</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Supplement/mix wet prescription food with dry; use wet food to administer pills</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Dry prescription kibble softened with water or chicken broth only</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Improved appetite/consistency; easier pill administration</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 · Recheck bloodwork before increasing NSAID dose (creatinine 1.2)?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Cat with mildly elevated creatinine (1.2) and planned carprofen dose increase</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Repeat Level 1 bloodwork panel to reassess creatinine/renal function</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Continue without repeat labwork</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Early detection of renal compromise; guide NSAID safety and dosing decisions</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q5 · Is Purina UR equivalent to Royal Canin SO for urinary support?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Cat on prescription urinary diet (Purina UR); Royal Canin SO is being considered as alternative</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Continue Purina UR prescription urinary diet</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Royal Canin SO prescription urinary diet</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Comparable therapeutic urinary support; appropriate substitution equivalence</span>
-        </div>
+    <div style="padding:16px;display:grid;gap:10px;">
+      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#EFF6FF;border-radius:0 6px 6px 0;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Data pending refresh</div>
+        <div style="font-size:11px;color:var(--gray-700);">Content will be populated on next dashboard refresh.</div>
       </div>
     </div>
   </details>
 
-  <div style="margin-top:6px;padding:10px 14px;background:var(--gray-50);border-radius:6px;font-size:11px;color:var(--gray-500);line-height:1.7;">
-    <strong>About this tab:</strong> PICO questions are generated by Q GPT-5.2 from exam audio recordings posted to <a href="https://devonshirevet.slack.com/archives/C09SF5TRMPA" target="_blank" rel="noopener noreferrer" style="color:var(--blue);">#pico</a>. These are Dr. Smiley's clinical reference questions — not for staff-facing use. Additional patients from today may appear as audio is processed throughout the day. Updated by the dashboard-daily-refresh scheduled task.
-  </div>
-
 </div>
 </div><!-- /tab-dvm -->
 
-<!-- ═══ Staff Conversation Log Modal ═══ -->
-<div class="log-modal-overlay" id="log-modal">
-  <div class="log-modal">
-    <div class="log-modal-header">
-      <div>
-        <div class="log-modal-title" id="log-modal-name"></div>
-        <div style="font-size:11px;color:var(--gray-400);margin-top:3px;" id="log-modal-role"></div>
-      </div>
-      <button class="log-modal-close" onclick="closeStaffLog()" title="Close">✕</button>
+<!-- ═══ EVAL DETAIL MODAL ═══ -->
+<div class="eval-modal-overlay" id="evalModal" onclick="if(event.target===this)closeEvalModal()">
+  <div class="eval-modal">
+    <div class="eval-modal-header">
+      <div><span class="eval-modal-name" id="emName"></span><span class="eval-modal-role" id="emRole"></span></div>
+      <button class="eval-modal-close" onclick="closeEvalModal()">&times;</button>
     </div>
-    <div class="log-modal-body">
-      <!-- Add Entry Form -->
-      <div class="log-add-form">
-        <div class="log-add-title">➕ Add New Entry</div>
-        <div class="log-form-row">
-          <label class="log-form-label" for="log-date">Date</label>
-          <input type="text" id="log-date" class="log-form-input" placeholder="MM/DD/YYYY" style="max-width:140px;">
-        </div>
-        <div class="log-form-row">
-          <label class="log-form-label" for="log-type">Type</label>
-          <select id="log-type" class="log-form-input" style="max-width:240px;">
-            <option value="coaching">Coaching</option>
-            <option value="performance">Performance Discussion</option>
-            <option value="disciplinary">Disciplinary</option>
-            <option value="general">General Note</option>
-          </select>
-        </div>
-        <div class="log-form-row" style="align-items:flex-start;">
-          <label class="log-form-label" for="log-notes" style="padding-top:6px;">Notes</label>
-          <textarea id="log-notes" class="log-form-input notes-area" rows="3" placeholder="What was discussed, decisions made, next steps..."></textarea>
-        </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:10px;">
-          <button onclick="addLogEntry()"
-            style="background:var(--navy);color:white;border:none;padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;"
-            onmouseover="this.style.background='var(--blue)'" onmouseout="this.style.background='var(--navy)'">
-            + Save Entry
-          </button>
-        </div>
-      </div>
-      <!-- Entries List -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-        <div class="log-entries-header" style="margin-bottom:0;">Log History</div>
-        <div id="log-entry-count" style="font-size:11px;color:var(--gray-400);"></div>
-      </div>
-      <div id="log-entries"></div>
-    </div>
+    <div class="eval-modal-body" id="emBody"></div>
   </div>
 </div>
 
