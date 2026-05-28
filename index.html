@@ -544,7 +544,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 27, 2026 7:50 AM",
+  lastUpdated:        "May 28, 2026 7:50 AM",
   lastTjDate:         "2026-05-22",
   mtdRevenue:         104494.11,
   ytdRevenue:         500931.97,
@@ -564,13 +564,13 @@ window.DVC_LIVE = {
   projectedMonthEnd:  137149,
   dailyRunRate:       6530.88,
   pacingStatus:       null,
-  businessDaysElapsed: 16,
+  businessDaysElapsed: 17,
   businessDaysTotal:   21,
   noShowRate:         4.3,
   cancelRate:         8.7,
   arTotal:            108.15,
   arOver90:           -40.59,
-  lowStockItems:      27
+  lowStockItems:      31
 };
 </script>
 <!-- DVC_LIVE_DATA_END -->
@@ -596,8 +596,17 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "May 27, 2026 7:50 AM",
+  lastUpdated: "May 28, 2026 7:50 AM",
   items: [
+    {id:"nl-30",text:"Cat scratchers (photo posted)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"low"},
+    {id:"nl-31",text:"Simparica Trio 44-88",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-32",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-33",text:"Cat litter",author:"Kelsey",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-34",text:"Thyro-tab 0.8mg",author:"Staff Computer",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-35",text:"Omeprazole for Kyzer (2 bottles)",author:"Triage Nurse",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-36",text:"Vetmedin 5mg",author:"Allison",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-37",text:"Oral bordetella syringes",author:"Allison",date:"May 27",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-38",text:"Coffee pods",author:"Debbie",date:"May 27",channel:"#need-list",status:"ordered",priority:"low"},
     {id:"nl-20",text:"Librela 44-66",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-21",text:"Librela 88-132",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-22",text:"LRS 1000ml",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
@@ -609,19 +618,11 @@ window.NEED_LIST_DATA = {
     {id:"nl-28",text:"Feliway Classic",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-29",text:"Feliway Multicat",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-1",text:"U-40 syringes",author:"Debbie",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-2",text:"(Photo posted — check #need-list)",author:"Breanna",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-3",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-4",text:"(Photo posted — check #need-list)",author:"Kristi",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-5",text:"Levetiracetam XR 750mg x2 (Shadow)",author:"Kelsey",date:"May 24",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-6",text:"Librela 88-132",author:"Allison",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-7",text:"New lock for shed",author:"Staff Computer",date:"May 22",channel:"#need-list",status:"open",priority:"low"},
     {id:"nl-8",text:"Vetmedin 2.5mg",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-9",text:"Diazepam",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-10",text:"Sharp containers",author:"Allison",date:"May 21",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-11",text:"Fecal tubes",author:"Staff Computer",date:"May 21",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-12",text:"Trazodone",author:"Triage Nurse",date:"May 21",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-13",text:"Big and small brown bags",author:"Allison",date:"May 21",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-14",text:"Paper towels",author:"Allison",date:"May 21",channel:"#need-list",status:"open",priority:"low"}
+    {id:"nl-9",text:"Diazepam",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"}
   ]
 };
 </script>
@@ -630,16 +631,16 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "May 27, 2026 7:50 AM",
+  lastUpdated: "May 28, 2026 7:50 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
     {staff:"Kelsey",dates:["2026-05-28"],type:"early_out",note:"Leave at noon (rescheduled doctor appt)",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-01"],type:"late_start",note:"Morning off for doctor appt — in at 1 PM, work until 5",inDayforce:false,slackOnly:true},
     {staff:"Allison",dates:["2026-06-02"],type:"late_start",note:"In at 12 or 1 PM",inDayforce:false,slackOnly:true},
     {staff:"Moissa",dates:["2026-06-02"],type:"early_out",note:"Off at noon (Arthur has appointment) — can work afternoon another day",inDayforce:false,slackOnly:true},
-    {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM",inDayforce:false,slackOnly:true},
+    {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM — UPDATE: can work until 5 if needed",inDayforce:false,slackOnly:true},
     {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
-    {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
+    {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -1730,12 +1731,12 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: May 27, 2026
-  // --- ORDER NOW (critical) — from May 26 ordering DM ---
+const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
+  // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — possibly 22 days since last restock',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
-  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:15,note:'~27 doses/wk — possibly 22 days since last restock',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
-  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:15,note:'~24 mL/wk — critical regardless of May 18 order status',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:15,note:'~11 mL/wk — controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — NOT ordered since May 4 (24 days). Moissa posted again May 27',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
+  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:10,note:'~24 mL/wk — NOT ordered since May 4 (24 days)',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:10,note:'~11 mL/wk — NOT ordered since May 4 (24 days). Controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — critical',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'critical',pct:15,note:'Requested May 18, still no confirmation',avg:4,order:5,cost:1220,priority:'ORDER NOW',feb:2,mar:4},
   {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
@@ -1756,14 +1757,18 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 27, 2026
   {name:'Vetmedin 2.5mg',code:'VETM25',cat:'other',status:'critical',pct:20,note:'Need-list May 22',avg:2,order:3,cost:85,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Levetiracetam XR 750mg',code:'LEVE01',cat:'other',status:'critical',pct:20,note:'Kelsey request May 24 for Shadow',avg:1,order:2,cost:45,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Marboquin 100mg',code:'MARB01',cat:'antibiotic',status:'critical',pct:20,note:'Carry-forward from May 19',avg:1,order:2,cost:35,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Simparica Trio 44-88',code:'SIT0048',cat:'flea-tick',status:'critical',pct:20,note:'Need-list May 28 — Staff Computer',avg:5,order:8,cost:750,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Vetmedin 5mg',code:'VETM50',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Allison',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Thyro-tab 0.8mg',code:'THYR08',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Staff Computer',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Omeprazole (Kyzer)',code:'OMEP01',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — 2 bottles for Kyzer',avg:1,order:2,cost:25,priority:'ORDER NOW',feb:0,mar:0},
   // --- LOW / CHECK STOCK ---
-  {name:'Dexdomitor Inj',code:'DEX01',cat:'anesthetic',status:'low',pct:40,note:'~1.6 mL/wk — check stock',avg:2,order:3,cost:95,priority:'THIS WEEK',feb:0,mar:0},
+  {name:'Dexdomitor Inj',code:'DEX01',cat:'anesthetic',status:'critical',pct:15,note:'~1.6 mL/wk — NOT ordered since May 4 (24 days)',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Carprofen Injection',code:'CARP01',cat:'pain',status:'low',pct:40,note:'~4 mL/wk — check stock',avg:4,order:5,cost:55,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Ketamine Inj',code:'KET01',cat:'controlled',status:'low',pct:40,note:'~1 mL/wk — controlled, last order May 4',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:35,note:'~32 doses remaining (~2 wks), Moissa posted DALPP today',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'critical',pct:15,note:'25 doses delivered May 19, ~6 left (~2.5 days). Moissa reposted DALPP May 27',avg:48,order:58,cost:392,priority:'ORDER NOW',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -2356,6 +2361,8 @@ const STAFF_DATA = [
       {date:'May 21',score:78,patient:'Sophie Walters',cats:[16,15,16,16,15]},
       {date:'May 22',score:80,patient:'Bear Morris',cats:[17,16,15,16,16]},
       {date:'May 22',score:75,patient:'Abby Skinner',cats:[17,16,13,15,14]},
+      {date:'May 27',score:80,patient:'Stormy Piekarz',cats:[17,16,15,17,15]},
+      {date:'May 27',score:78,patient:'Blaze Johnson',cats:[16,18,15,15,14]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2374,6 +2381,10 @@ const STAFF_DATA = [
       {date:'May 20',score:76,patient:'Reggie Patton',cats:[16,18,14,15,13]},
       {date:'May 20',score:75,patient:'Baby Hodge',cats:[17,15,14,16,13]},
       {date:'May 21',score:48,patient:'Tux Bourse',cats:[12,14,8,7,7]},
+      {date:'May 27',score:67,patient:'Trix and Micky Richardson',cats:[15,13,12,14,13]},
+      {date:'May 27',score:74,patient:'Max Leyba',cats:[16,15,14,15,14]},
+      {date:'May 27',score:57,patient:'Obie and Rose Berry',cats:[12,14,11,10,10]},
+      {date:'May 27',score:76,patient:'Luke and Roman',cats:[16,17,14,15,14]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2397,6 +2408,9 @@ const STAFF_DATA = [
       {date:'May 22',score:81,patient:'Oreo Jaunett',cats:[17,16,15,17,16]},
       {date:'May 27',score:82,patient:'Brindle Young',cats:[17,18,16,16,15]},
       {date:'May 27',score:77,patient:'Pistol Heiney',cats:[16,17,15,14,15]},
+      {date:'May 27',score:75,patient:'Reggie Patton',cats:[16,17,15,13,14]},
+      {date:'May 27',score:74,patient:'Ralo Brooks',cats:[16,15,14,15,14]},
+      {date:'May 28',score:81,patient:'Mollie Garrison',cats:[17,18,16,15,15]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -2420,6 +2434,7 @@ const STAFF_DATA = [
       {date:'May 26',score:73,patient:'Sammy Johnson',cats:[16,15,14,15,13]},
       {date:'May 26',score:65,patient:'Sylvester Madison',cats:[14,16,13,10,12]},
       {date:'May 26',score:71,patient:'Thor Jimenez',cats:[16,15,13,14,13]},
+      {date:'May 27',score:73,patient:'Dash Stanley',cats:[16,17,13,14,13]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
@@ -3382,238 +3397,198 @@ window.publishSchedule=function(){
 <div class="tab-panel" role="tabpanel" hidden id="tab-client">
 <div style="max-width:1400px;margin:0 auto;padding:20px;">
 
-  <!-- Staleness notice -->
-  <div id="client-stale-banner" style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#92400E;">
-    <span style="font-size:18px;">&#9888;</span>
-    <div><strong>Snapshot data from Apr 7-8, 2026.</strong> This tab shows a historical sample. Live call data is in Slack <a href="https://devonshirevet.slack.com/archives/C0846L13KU5" target="_blank" rel="noopener noreferrer" style="color:#1D4ED8;font-weight:600;">#phone-calls</a>. The daily refresh task will update this tab when new phone data is available.</div>
+  <!-- Live data banner -->
+  <div style="background:#DCFCE7;border:1px solid #16A34A;border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#166534;">
+    <span style="font-size:18px;">&#9989;</span>
+    <div><strong>Live from #client-analysis — May 27, 2026.</strong> 9 client behavioral profiles generated today from VetSoap exam transcripts via Q GPT-5.2. Compliance scores, financial indicators, and staff tips are AI-generated from real exam room conversations.</div>
   </div>
 
-  <!-- KPI Bar -->
+  <!-- KPI Bar — Compliance Intelligence -->
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;">
     <div class="kpi-card primary">
-      <div class="kpi-label">Today Ext Calls</div>
-      <div class="kpi-value" style="font-size:28px;">13</div>
-      <div class="kpi-meta"><span class="kpi-compare">thru 7:30 AM · Apr 8</span></div>
+      <div class="kpi-label">Exams Profiled Today</div>
+      <div class="kpi-value" style="font-size:28px;">9</div>
+      <div class="kpi-meta"><span class="kpi-compare">May 27 · from VetSoap audio</span></div>
     </div>
     <div class="kpi-card success">
-      <div class="kpi-label">Yesterday Ext Calls</div>
-      <div class="kpi-value" style="font-size:28px;">22</div>
-      <div class="kpi-meta"><span class="kpi-compare">Apr 7, full day</span></div>
+      <div class="kpi-label">High Compliance</div>
+      <div class="kpi-value" style="font-size:28px;">7</div>
+      <div class="kpi-meta"><span class="kpi-trend up">78%</span><span class="kpi-compare">predicted follow-through</span></div>
     </div>
     <div class="kpi-card info">
-      <div class="kpi-label">Avg Handle Time</div>
-      <div class="kpi-value" style="font-size:28px;">2:23</div>
-      <div class="kpi-meta"><span class="kpi-compare">today external</span></div>
+      <div class="kpi-label">Avg Compliance Score</div>
+      <div class="kpi-value" style="font-size:28px;">7.1/10</div>
+      <div class="kpi-meta"><span class="kpi-compare">AI confidence rating</span></div>
     </div>
     <div class="kpi-card warning">
-      <div class="kpi-label">Long Calls &gt;5 min</div>
-      <div class="kpi-value" style="font-size:28px;">1</div>
-      <div class="kpi-meta"><span class="kpi-compare">Huston, C. — 10:47</span></div>
+      <div class="kpi-label">Budget-Conscious</div>
+      <div class="kpi-value" style="font-size:28px;">3</div>
+      <div class="kpi-meta"><span class="kpi-compare">need tiered pricing approach</span></div>
     </div>
     <div class="kpi-card neutral">
-      <div class="kpi-label">Repeat Callers</div>
-      <div class="kpi-value" style="font-size:28px;">2</div>
-      <div class="kpi-meta"><span class="kpi-compare">Reed, Wagner (Apr 7+8)</span></div>
+      <div class="kpi-label">High Trust Clients</div>
+      <div class="kpi-value" style="font-size:28px;">7</div>
+      <div class="kpi-meta"><span class="kpi-compare">strong vet team relationship</span></div>
     </div>
   </div>
 
-  <!-- Call Tables Row -->
+  <!-- Compliance Intelligence Summary -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-
-    <!-- Today -->
     <div class="card">
-      <div class="card-title">📅 Today — Apr 8 <span style="font-weight:400;color:var(--gray-400);font-size:11px;text-transform:none;letter-spacing:0;">(morning · 13 external calls logged)</span></div>
-      <div style="display:grid;grid-template-columns:74px 1fr 56px 70px;gap:0;font-size:12px;">
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Time</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Caller</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-align:right;text-transform:uppercase;letter-spacing:0.4px;">Duration</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Type</div>
-
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">7:29 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Mccowan, Vicki</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:58</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">7:02 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Barker, Charles</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">3:11</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">6:36 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Muncie area landline</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">1:37</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">6:29 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Lavelle, Mary</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">3:31</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">6:24 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Padilla, K.</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">2:29</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">6:08 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Mcdowell, Traci</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:59</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">5:40 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Huston, C. <span style="color:var(--red);font-size:10px;font-weight:700;">⚠ long</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--red);font-weight:700;">10:47</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">5:26 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Anderson area <span style="color:var(--gray-400);font-weight:400;">×2</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:30/2:12</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">5:15 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Reed, Wanda <span style="color:var(--amber);font-size:10px;font-weight:600;">repeat</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:27</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">4:32 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Wagner, Heather <span style="color:var(--amber);font-size:10px;font-weight:600;">repeat ×2</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:06/1:29</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;color:var(--gray-400);">4:13 AM</div><div style="padding:5px 5px;font-weight:500;">Edwards, Luckey</div><div style="padding:5px 5px;text-align:right;color:var(--gray-600);">2:21</div><div style="padding:5px 5px;"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-      </div>
-      <div style="margin-top:10px;padding:8px 10px;background:var(--gray-50);border-radius:5px;font-size:11px;color:var(--gray-600);">
-        <strong>Internal extensions today:</strong> Ext 100 ×6 (hold/queue) · Ext 101 ×2 (check-in) · Ext 105 ×1 (Dr. Smiley)
-      </div>
-    </div>
-
-    <!-- Yesterday -->
-    <div class="card">
-      <div class="card-title">📅 Yesterday — Apr 7 <span style="font-weight:400;color:var(--gray-400);font-size:11px;text-transform:none;letter-spacing:0;">(full day · 22 external calls)</span></div>
-      <div style="display:grid;grid-template-columns:74px 1fr 56px 70px;gap:0;font-size:12px;">
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Time</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Caller</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-align:right;text-transform:uppercase;letter-spacing:0.4px;">Duration</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray-400);padding:4px 5px;border-bottom:2px solid var(--gray-200);text-transform:uppercase;letter-spacing:0.4px;">Type</div>
-
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">1:46 PM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Anderson area <span style="color:var(--amber);font-size:10px;font-weight:600;">×3+ calls</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--amber);font-weight:600;">short</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">1:03 PM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">S. Anderson Vet</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">2:50</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EDE9FE;color:#5B21B6;padding:1px 6px;border-radius:8px;font-weight:600;">vet clinic</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">12:39 PM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Kwalik, Trudy</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">2:43</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">12:10 PM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Wilkens, J.</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">3:38</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">11:28 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Ball, Jennifer</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--amber);font-weight:600;">4:13</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">11:13 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">VCA Northwood</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">0:28</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EDE9FE;color:#5B21B6;padding:1px 6px;border-radius:8px;font-weight:600;">vet clinic</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">10:33 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Fishers Pediatrics</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--gray-600);">1:20</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:8px;font-weight:600;">business</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">8:49 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Los Angeles, CA <span style="color:var(--gray-400);font-size:10px;">out-of-area</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--red);font-weight:700;">7:12</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#F3F4F6;color:#4B5563;padding:1px 6px;border-radius:8px;font-weight:600;">unknown</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">7:31 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Aubrey, Kimberly</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--amber);font-weight:600;">4:39</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">6:33 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Victory Spray</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--red);font-weight:700;">6:28</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:8px;font-weight:600;">business</span></div>
-        <div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);color:var(--gray-400);">5:02 AM</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);font-weight:500;">Reed, Wanda <span style="color:var(--amber);font-size:10px;font-weight:600;">repeat</span></div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);text-align:right;color:var(--red);font-weight:700;">6:48</div><div style="padding:5px 5px;border-bottom:1px solid var(--gray-100);"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-        <div style="padding:5px 5px;color:var(--gray-400);">4:03 AM</div><div style="padding:5px 5px;font-weight:500;">Collins, Linda <span style="color:var(--red);font-size:10px;font-weight:600;">×4 calls</span></div><div style="padding:5px 5px;text-align:right;color:var(--amber);font-weight:600;">varies</div><div style="padding:5px 5px;"><span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 6px;border-radius:8px;font-weight:600;">client</span></div>
-      </div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-        <div style="font-size:10.5px;background:#DBEAFE;color:#1D4ED8;padding:2px 9px;border-radius:10px;font-weight:600;">16 client calls</div>
-        <div style="font-size:10.5px;background:#EDE9FE;color:#5B21B6;padding:2px 9px;border-radius:10px;font-weight:600;">2 vet-to-vet</div>
-        <div style="font-size:10.5px;background:#FEF3C7;color:#92400E;padding:2px 9px;border-radius:10px;font-weight:600;">2 business</div>
-        <div style="font-size:10.5px;background:#FEE2E2;color:#B91C1C;padding:2px 9px;border-radius:10px;font-weight:600;">3 calls &gt;5 min</div>
-        <div style="font-size:10.5px;background:#F3F4F6;color:#4B5563;padding:2px 9px;border-radius:10px;font-weight:600;">1 unknown</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Call Patterns & Notes -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-    <div class="card">
-      <div class="card-title">🔍 Patterns &amp; Flags</div>
+      <div class="card-title">📊 Today's Compliance Breakdown</div>
       <div style="font-size:12.5px;color:var(--gray-700);line-height:1.8;">
+        <div style="margin-bottom:6px;padding:8px 10px;background:#DCFCE7;border-left:3px solid #16A34A;border-radius:0 4px 4px 0;">
+          <strong>7 of 9 clients</strong> predicted high compliance — strong preventive care follow-through expected. These clients trust the team and accept recommended services.
+        </div>
         <div style="margin-bottom:6px;padding:8px 10px;background:#FEF3C7;border-left:3px solid var(--amber);border-radius:0 4px 4px 0;">
-          <strong>Wanda Reed</strong> called both Apr 7 (6:48 min) and Apr 8 — likely needs follow-up or an unresolved issue.
+          <strong>3 Budget-Conscious clients</strong> (Spencer Ellis, Brindle Young, Roman Merritt) — present tiered pricing and "best vs acceptable" options. Written estimates reduce drop-off.
         </div>
-        <div style="margin-bottom:6px;padding:8px 10px;background:#FEE2E2;border-left:3px solid var(--red);border-radius:0 4px 4px 0;">
-          <strong>Collins, Linda</strong> called 4 times Apr 7 between 3:56–4:03 AM — all very short (0:07–1:07). Persistent early-morning caller.
+        <div style="margin-bottom:6px;padding:8px 10px;background:#EFF6FF;border-left:3px solid #2563EB;border-radius:0 4px 4px 0;">
+          <strong>Key pattern:</strong> Clients who received step-by-step explanations showed highest compliance scores. Collaborative approach outperforms directive.
         </div>
-        <div style="margin-bottom:6px;padding:8px 10px;background:#EDE9FE;border-left:3px solid var(--purple);border-radius:0 4px 4px 0;">
-          <strong>VCA Northwood &amp; S. Anderson Vet</strong> both called Apr 7 — possible referral conversations or shared patient cases.
-        </div>
-        <div style="padding:8px 10px;background:#F3F4F6;border-left:3px solid var(--gray-400);border-radius:0 4px 4px 0;">
-          <strong>Los Angeles, CA</strong> — 7 min call Apr 7. Out-of-area, no name match. Could be a specialist, drug rep, or telehealth inquiry.
+        <div style="padding:8px 10px;background:#F4ECFB;border-left:3px solid #7C3AED;border-radius:0 4px 4px 0;">
+          <strong>Preventive care acceptance:</strong> Vaccines, parasite prevention (Seresto, ProHeart, Bravecto), and routine bloodwork accepted across most visits today.
         </div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">ℹ️ About This Data</div>
+      <div class="card-title">ℹ️ How This Works</div>
       <div style="font-size:12px;color:var(--gray-600);line-height:1.8;">
-        <div style="margin-bottom:8px;"><strong>Source:</strong> Axion phone system → Slack <a href="https://devonshirevet.slack.com/archives/C0846L13KU5" target="_blank" rel="noopener noreferrer" style="color:var(--blue);">#phone-calls</a></div>
-        <div style="margin-bottom:8px;"><strong>Note on duplicates:</strong> Each call posts 3× in Slack (Axion retry behavior). All data above is deduplicated — one row per unique call.</div>
-        <div style="margin-bottom:8px;"><strong>Internal extensions:</strong>
-          <div style="display:grid;grid-template-columns:60px 1fr;gap:2px;margin-top:4px;font-size:11.5px;">
-            <span style="color:var(--gray-400);">Ext 100</span><span>Front desk hold / queue</span>
-            <span style="color:var(--gray-400);">Ext 101</span><span>Check In desk</span>
-            <span style="color:var(--gray-400);">Ext 102</span><span>Exam room</span>
-            <span style="color:var(--gray-400);">Ext 103</span><span>Kennel</span>
-            <span style="color:var(--gray-400);">Ext 105</span><span>Dr. Smiley</span>
-          </div>
-        </div>
-        <div style="color:var(--gray-400);font-size:11px;margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-200);">This tab is updated by the daily-refresh scheduled task. To view real-time data, open Slack #phone-calls.</div>
+        <div style="margin-bottom:8px;"><strong>Source:</strong> VetSoap exam recordings → #client-analysis → Q GPT-5.2 AI profiles</div>
+        <div style="margin-bottom:8px;"><strong>What it captures:</strong> Every exam room conversation is recorded via VetSoap. AI analyzes the transcript to extract financial indicators, emotional patterns, decision-making cues, compliance predictors, and communication preferences.</div>
+        <div style="margin-bottom:8px;"><strong>Why it matters for compliance:</strong> Instead of guessing why owners decline bloodwork or skip preventives, we have actual conversation data showing what works and what doesn't — per client, per visit.</div>
+        <div style="margin-bottom:8px;"><strong>Staff tips:</strong> Each profile includes a "Bottom-Line Summary for New Staff" — actionable guidance on how to approach each client based on observed behavior.</div>
+        <div style="color:var(--gray-400);font-size:11px;margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-200);">Profiles generated by Q GPT-5.2 from exam audio. Confidence scores reflect AI transcription certainty. Updated May 27, 2026.</div>
       </div>
     </div>
   </div>
 
-  <!-- ── Client Behavioral Profiles ── -->
+  <!-- ── Client Behavioral Profiles — LIVE May 27, 2026 ── -->
   <div style="margin-top:16px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--gray-200);">
-      <div style="font-size:14px;font-weight:700;color:var(--navy);">🧠 Today's Client Behavioral Profiles <span style="font-weight:400;color:var(--gray-400);font-size:11px;">— from #client-analysis</span></div>
-      <div style="font-size:10.5px;color:var(--gray-400);">Q GPT-5.2 · Apr 8, 2026 · 11 clients</div>
+      <div style="font-size:14px;font-weight:700;color:var(--navy);">🧠 Today's Client Behavioral Profiles <span style="font-weight:400;color:var(--gray-400);font-size:11px;">— live from #client-analysis</span></div>
+      <div style="font-size:10.5px;color:var(--gray-400);">Q GPT-5.2 · May 27, 2026 · 9 clients</div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
 
-      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Moose<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Conrad · 4:19 PM</span></div><div style="font-size:10px;color:var(--gray-500);">6yo Boston Terrier · neut. male · wellness</div></div>
-          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">😊 Easy-Going</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Simple plan, compliment adherence. Offer injectable HW (ProHeart) as convenience upgrade — low friction, will say yes.</div>
-      </div>
-
-      <div style="border:1px solid #BFDBFE;border-left:4px solid #3B82F6;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Lola<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Medley · 4:13 PM</span></div><div style="font-size:10px;color:var(--gray-500);">6yo Great Dane · spayed · tail amp. scheduled</div></div>
-          <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">🔍 Analytical</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Nurse/EMT — medically literate, decides fast. Lead with firm e-collar plan + concise written aftercare checklist. Main risk: post-op self-trauma to incision.</div>
-      </div>
-
-      <div style="border:1px solid #FED7AA;border-left:4px solid #F97316;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Bonnie<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Leyba-Pacheco · 3:51 PM</span></div><div style="font-size:10px;color:var(--gray-500);">GI/anorexia · multi-caregiver household</div></div>
-          <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💛 Anxious</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Mom, girlfriend &amp; sister all override diet plan. Written feeding protocol for ALL caregivers — verbal plan won't hold across households.</div>
-      </div>
-
-      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Chaffee<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Trueblood · 3:00 PM</span></div><div style="font-size:10px;color:var(--gray-500);">Allergies + arthritis · Librella · multi-pet</div></div>
-          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">😊 Easy-Going</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Accepted vaccines, Librella, bloodwork &amp; Claro without pushback. Step-by-step "what you'll see today/tomorrow" timelines work well.</div>
-      </div>
-
-      <div style="border:1px solid #E5E7EB;border-left:4px solid #6B7280;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Tinkerbell &amp; Star<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Jackson · 2:52 PM</span></div><div style="font-size:10px;color:var(--gray-500);">Multi-pet (+ Porky due the 1st) · "dad's paying"</div></div>
-          <span style="font-size:10px;background:#F3F4F6;color:#374151;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💰 Cost-Aware</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> "Dad's paying" — implied budget limit (didn't specify max). Accepted full preventive plan without pushback. Ear meds very hard at home. Strong multi-pet CLV.</div>
-      </div>
-
-      <div style="border:1px solid #FED7AA;border-left:4px solid #F97316;border-radius:8px;padding:12px;background:white;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Skittles<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · McCord · 12:15 PM</span></div><div style="font-size:10px;color:var(--gray-500);">6yo Tonkinese cat · hip nodule FNA · multi-cat</div></div>
-          <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💛 Anxious</span>
-        </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Cancer worry. Use "finding → likely dx → confirming → when we'll call you" script. Proactive text/call update before they ask keeps anxiety low.</div>
-      </div>
-
+      <!-- Spencer Ellis — Budget-Conscious (8/10) -->
       <div style="border:1px solid #FECACA;border-left:4px solid #EF4444;border-radius:8px;padding:12px;background:white;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Crystal<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Nixon · 12:10 PM</span></div><div style="font-size:10px;color:var(--gray-500);">Cat · GI + kidney + pain mgmt · Rx diet</div></div>
-          <span style="font-size:10px;background:#FEE2E2;color:#991B1B;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💸 Price-Sensitive</span>
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Spencer<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Ellis · 10:12 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Multi-cat · preventive care · price-checks pharmacies</div></div>
+          <span style="font-size:10px;background:#FEE2E2;color:#991B1B;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💸 Budget-Conscious</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> "Spent $100+ on dry food already." Always offer tiered plan. Agreed to wet food trial after clinic offered 3 free cans — cost-bridge approach works.</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (7/10)</span>
+          <span style="font-size:9px;background:#FEE2E2;color:#991B1B;padding:1px 6px;border-radius:8px;font-weight:600;">Price: high sensitivity</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Actively price-checks (Chewy/Amazon vs clinic). Provide drug name, dosing interval, and 2 price-tiered options in writing at checkout. Proceeds with care when value is clear.</div>
       </div>
 
-      <div style="border:1px solid #BFDBFE;border-left:4px solid #3B82F6;border-radius:8px;padding:12px;background:white;">
+      <!-- Brindle Young — Budget-Conscious (8/10) -->
+      <div style="border:1px solid #FECACA;border-left:4px solid #EF4444;border-radius:8px;padding:12px;background:white;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Pepper<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Soden · 12:05 PM</span></div><div style="font-size:10px;color:var(--gray-500);">Preventive care · dental · HW prevention</div></div>
-          <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">🔍 Analytical</span>
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Brindle<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Young · 8:49 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Multi-pet · dental needed · considering pet insurance</div></div>
+          <span style="font-size:10px;background:#FEE2E2;color:#991B1B;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💸 Budget-Conscious</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Both teachers — timing &amp; budget matter ("prefer summer"). Wants to "read up." Give two written options with pricing: do today vs schedule summer visit.</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: moderate (7/10)</span>
+          <span style="font-size:9px;background:#FEE2E2;color:#991B1B;padding:1px 6px;border-radius:8px;font-weight:600;">Budget cap: $200</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Decision: shared w/ spouse</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Set $200 budget upfront. Confirm spending cap early, present "must-do today / schedule next" plan with written estimates. Considering pet insurance — good sign for long-term CLV.</div>
       </div>
 
+      <!-- Reggie Patton — Reassurance-Needed (8/10 compliance) -->
+      <div style="border:1px solid #FED7AA;border-left:4px solid #F97316;border-radius:8px;padding:12px;background:white;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Reggie<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Patton · 10:33 AM</span></div><div style="font-size:10px;color:var(--gray-500);">GI upset · pacing/panting · highly observant owner</div></div>
+          <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💛 Needs Reassurance</span>
+        </div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (8/10)</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+          <span style="font-size:9px;background:#F4ECFB;color:#7C3AED;padding:1px 6px;border-radius:8px;font-weight:600;">Attachment: high</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Very observant — tracks behavioral changes closely (pacing, staring, "zombie" behavior). Needs clear written aftercare + specific red flags to prevent worry escalation if recovery isn't linear.</div>
+      </div>
+
+      <!-- Stormy Piekarz — Engaged/Collaborative (8/10 compliance) -->
       <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Ellie<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Weber · 11:00 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Annual preventive · weight mgmt · multi-pet</div></div>
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Stormy<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Piekarz · 9:49 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Brachycephalic · annual preventives · Bravecto → injection</div></div>
+          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">😊 Engaged</span>
+        </div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (8/10)</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+          <span style="font-size:9px;background:#F4ECFB;color:#7C3AED;padding:1px 6px;border-radius:8px;font-weight:600;">Spouse involved</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Asks about cost upfront but proceeds for value/convenience. Switching from topical to injection — highlight year-long coverage. Proactive home care (fan, cooling pad) shows high engagement.</div>
+      </div>
+
+      <!-- Roman Merritt — Budget-Conscious (7/10) -->
+      <div style="border:1px solid #E5E7EB;border-left:4px solid #6B7280;border-radius:8px;padding:12px;background:white;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Roman<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Merritt · 11:05 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Preventive care · Seresto + ProHeart · hip concern</div></div>
+          <span style="font-size:10px;background:#F3F4F6;color:#374151;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💰 Budget-Conscious</span>
+        </div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (7/10)</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+          <span style="font-size:9px;background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:8px;font-weight:600;">Friend-influenced</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Avoids low-yield spending but accepts preventives (Seresto, ProHeart, vaccines). Use "call us if..." mobility triggers in written notes to reduce outside-opinion churn from friends.</div>
+      </div>
+
+      <!-- Luke Merritt — Easy-Going (6/10) -->
+      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Luke<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Merritt · 11:05 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Vaccines + flea/tick · Seresto collar fit · multi-pet</div></div>
           <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">😊 Easy-Going</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Praise vigilance on weight monitoring. Practical, stepwise guidance works well. Cost not a barrier. Wet food supplement accepted — strong multi-pet CLV potential.</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (7/10)</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+          <span style="font-size:9px;background:#F4ECFB;color:#7C3AED;padding:1px 6px;border-radius:8px;font-weight:600;">Multi-pet</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Cooperative, low friction. Requested hands-on demo for correct collar fit — demonstrate key at-home steps during visit and send one-paragraph written recap for high adherence.</div>
       </div>
 
-      <div style="border:1px solid #FED7AA;border-left:4px solid #F97316;border-radius:8px;padding:12px;background:white;">
+      <!-- Blaze Johnson — Easy-Going (6/10) -->
+      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Winston<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Rowlen · 10:08 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Puppy · new owners in their 60s</div></div>
-          <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💛 Anxious</span>
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Blaze<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Johnson · 11:15 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Dental + pre-anesthesia bloodwork · anal sac history</div></div>
+          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">😊 Easy-Going</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Stressed by frequent accidents ("we're in our 60s"). Spouse involved. Written potty/crate schedule + "what to expect by week" milestones reduces frustration.</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;background:#DCFCE7;color:#166534;padding:1px 6px;border-radius:8px;font-weight:600;">Compliance: high (6/10)</span>
+          <span style="font-size:9px;background:#DBEAFE;color:#1E40AF;padding:1px 6px;border-radius:8px;font-weight:600;">Trust: high</span>
+          <span style="font-size:9px;background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:8px;font-weight:600;">Declined surgery before</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Responds well to stepwise plans (bloodwork → results → then anesthesia). Past decline of anal sac surgery — present options with priorities and outcomes. Main risk: passive delay after diagnostics.</div>
       </div>
 
-      <div style="border:1px solid #FED7AA;border-left:4px solid #F97316;border-radius:8px;padding:12px;background:white;">
+      <!-- Lucy Douglass -->
+      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Pickle<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Cook · 9:22 AM</span></div><div style="font-size:10px;color:var(--gray-500);">GI/IBD · fear of euthanasia</div></div>
-          <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">💛 Anxious</span>
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Lucy<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Douglass · 8:08 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Exam profiled · full transcript available</div></div>
+          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">📋 Profiled</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> "I don't want to put him down" — fear-driven. Guilt-reducing framing works. Short written feeding plan with tiered diet options. Prioritized steps prevent overwhelm.</div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Full behavioral profile available in <a href="https://devonshirevet.slack.com/archives/C08TT2FJT4J" style="color:#1D4ED8;">#client-analysis</a> thread. Click to review compliance scores and staff guidance.</div>
+      </div>
+
+      <!-- Pistol Heiney -->
+      <div style="border:1px solid #D1FAE5;border-left:4px solid #10B981;border-radius:8px;padding:12px;background:white;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div><div style="font-size:13px;font-weight:700;color:var(--navy);">Pistol<span style="color:var(--gray-400);font-weight:400;font-size:11px;"> · Heiney · 8:08 AM</span></div><div style="font-size:10px;color:var(--gray-500);">Exam profiled · full transcript available</div></div>
+          <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:2px 7px;border-radius:10px;font-weight:700;flex-shrink:0;margin-left:6px;">📋 Profiled</span>
+        </div>
+        <div style="font-size:11px;color:var(--gray-700);padding:7px 8px;background:#F9FAFB;border-radius:5px;line-height:1.55;"><strong>Tip:</strong> Full behavioral profile available in <a href="https://devonshirevet.slack.com/archives/C08TT2FJT4J" style="color:#1D4ED8;">#client-analysis</a> thread. Click to review compliance scores and staff guidance.</div>
       </div>
 
     </div>
-    <div style="font-size:10.5px;color:var(--gray-400);margin-top:8px;">Profiles generated by Q GPT-5.2 from exam audio. Confidence scores reflect AI transcription certainty — use as behavioral guide, not clinical fact. Updated by dashboard-daily-refresh.</div>
+    <div style="font-size:10.5px;color:var(--gray-400);margin-top:8px;">Profiles generated by Q GPT-5.2 from VetSoap exam audio. Confidence scores reflect AI transcription certainty — use as behavioral guide, not clinical fact. Data pulled live from #client-analysis on May 27, 2026.</div>
   </div>
 
 </div>
