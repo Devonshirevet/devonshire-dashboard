@@ -544,7 +544,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 28, 2026 10:32 AM",
+  lastUpdated:        "May 29, 2026 9:30 AM",
   lastTjDate:         "2026-05-27",
   mtdRevenue:         122580.75,
   ytdRevenue:         500931.97,
@@ -564,7 +564,7 @@ window.DVC_LIVE = {
   projectedMonthEnd:  136201,
   dailyRunRate:       6810.04,
   pacingStatus:       null,
-  businessDaysElapsed: 18,
+  businessDaysElapsed: 20,
   businessDaysTotal:   20,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -596,12 +596,15 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "May 28, 2026 7:50 AM",
+  lastUpdated: "May 29, 2026 9:30 AM",
   items: [
+    {id:"nl-40",text:"Big black trash bags",author:"Kristi",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-41",text:"20ml syringes luer lock",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-42",text:"Librela 22-44",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-30",text:"Cat scratchers (photo posted)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"low"},
     {id:"nl-31",text:"Simparica Trio 44-88",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-32",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-33",text:"Cat litter",author:"Kelsey",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-33",text:"Cat litter",author:"Kelsey",date:"May 28",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-34",text:"Thyro-tab 0.8mg",author:"Staff Computer",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-35",text:"Omeprazole for Kyzer (2 bottles)",author:"Triage Nurse",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-36",text:"Vetmedin 5mg",author:"Allison",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
@@ -631,10 +634,9 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "May 28, 2026 7:50 AM",
+  lastUpdated: "May 29, 2026 9:30 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Kelsey",dates:["2026-05-28"],type:"early_out",note:"Leave at noon (rescheduled doctor appt)",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-01"],type:"late_start",note:"Morning off for doctor appt — in at 1 PM, work until 5",inDayforce:false,slackOnly:true},
     {staff:"Allison",dates:["2026-06-02"],type:"late_start",note:"In at 12 or 1 PM",inDayforce:false,slackOnly:true},
     {staff:"Moissa",dates:["2026-06-02"],type:"early_out",note:"Off at noon (Arthur has appointment) — can work afternoon another day",inDayforce:false,slackOnly:true},
@@ -642,6 +644,7 @@ window.TIME_OFF_DATA = {
     {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
+    {staff:"Maddie Joseph",dates:["2026-06-09"],type:"pto",note:"⚠️ Requested Jun 9 off instead of Jun 11 — VERIFY: Maddie listed as quit Apr 2026",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -2363,6 +2366,8 @@ const STAFF_DATA = [
       {date:'May 22',score:75,patient:'Abby Skinner',cats:[17,16,13,15,14]},
       {date:'May 27',score:80,patient:'Stormy Piekarz',cats:[17,16,15,17,15]},
       {date:'May 27',score:78,patient:'Blaze Johnson',cats:[16,18,15,15,14]},
+      {date:'May 28',score:80,patient:'Tucker Patrick',cats:[16,17,15,16,16]},
+      {date:'May 28',score:83,patient:'Onyx Sauerwein',cats:[17,18,16,17,15]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2385,6 +2390,9 @@ const STAFF_DATA = [
       {date:'May 27',score:74,patient:'Max Leyba',cats:[16,15,14,15,14]},
       {date:'May 27',score:57,patient:'Obie and Rose Berry',cats:[12,14,11,10,10]},
       {date:'May 27',score:76,patient:'Luke and Roman',cats:[16,17,14,15,14]},
+      {date:'May 28',score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
+      {date:'May 28',score:75,patient:'Jay Davis',cats:[16,17,13,15,14]},
+      {date:'May 28',score:76,patient:'Murray Bennett',cats:[16,17,15,14,14]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2411,6 +2419,7 @@ const STAFF_DATA = [
       {date:'May 27',score:75,patient:'Reggie Patton',cats:[16,17,15,13,14]},
       {date:'May 27',score:74,patient:'Ralo Brooks',cats:[16,15,14,15,14]},
       {date:'May 28',score:81,patient:'Mollie Garrison',cats:[17,18,16,15,15]},
+      {date:'May 28',score:81,patient:'Kiya Ghaffari',cats:[17,19,14,16,15]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -2435,6 +2444,7 @@ const STAFF_DATA = [
       {date:'May 26',score:65,patient:'Sylvester Madison',cats:[14,16,13,10,12]},
       {date:'May 26',score:71,patient:'Thor Jimenez',cats:[16,15,13,14,13]},
       {date:'May 27',score:73,patient:'Dash Stanley',cats:[16,17,13,14,13]},
+      {date:'May 29',score:56,patient:'Mango+BC Rahali',cats:[12,18,11,6,9]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
