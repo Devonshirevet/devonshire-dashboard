@@ -544,36 +544,160 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "May 29, 2026 10:26 AM",
+  lastUpdated:        "Jun 01, 2026 10:00 AM",
   lastTjDate:         "2026-05-28",
-  mtdRevenue:         127656.15,
+  mtdRevenue:         0,
   ytdRevenue:         500931.97,
-  avgInvoice:         260.52,
-  patientVisits:      583,
+  avgInvoice:         0,
+  patientVisits:      0,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
   avgInvoicePct:      null,
   patientVisitsPct:   null,
-  comparePeriod:      "May 2025",
+  comparePeriod:      "May 2026",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
-  weeklyNewClients:   27,
-  weeklyPeriodTotal:  127656.15,
+  weeklyNewClients:   0,
+  weeklyPeriodTotal:  0,
   budgetTarget:       null,
-  projectedMonthEnd:  134375,
-  dailyRunRate:       6718.74,
+  projectedMonthEnd:  0,
+  dailyRunRate:       0,
   pacingStatus:       null,
-  businessDaysElapsed: 19,
-  businessDaysTotal:   20,
+  businessDaysElapsed: 0,
+  businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
   arTotal:            108.15,
   arOver90:           -40.59,
-  lowStockItems:      31
+  lowStockItems:      31,
+  prevMonthRevenue:   127656.15
 };
 </script>
 <!-- DVC_LIVE_DATA_END -->
+
+<!-- AVIMARK_MCP_LIVE_LOADER — fetches live data from avimark_mcp_server.py --http mode -->
+<script id="avimark-mcp-loader">
+(function() {
+  // Configure the MCP API URL — change this if the server runs on a different host/port
+  var AVIMARK_API_URL = 'http://localhost:8765';
+
+  window.AVIMARK_LIVE = null;  // will be populated if API is reachable
+  window.AVIMARK_API_URL = AVIMARK_API_URL;
+
+  function applyLiveData(data) {
+    window.AVIMARK_LIVE = data;
+
+    // Merge live data into DVC_LIVE so existing dashboard code picks it up
+    var live = window.DVC_LIVE || {};
+    live.lastUpdated        = data.lastUpdated;
+    live.lastTjDate         = data.lastTjDate;
+    live.mtdRevenue         = data.mtdRevenue;
+    live.ytdRevenue         = data.ytdRevenue;
+    live.avgInvoice         = data.avgInvoice;
+    live.patientVisits      = data.patientVisits;
+    live.mtdRevenuePct      = data.mtdRevenuePct;
+    live.ytdRevenuePct      = data.ytdRevenuePct;
+    live.avgInvoicePct      = data.avgInvoicePct;
+    live.patientVisitsPct   = data.patientVisitsPct;
+    live.comparePeriod      = data.comparePeriod;
+    live.prevMonthRevenue   = data.prevMonthRevenue;
+    live.businessDaysElapsed = data.businessDaysElapsed;
+    live.businessDaysTotal  = data.businessDaysTotal;
+    live.dailyRunRate       = data.dailyRunRate;
+    live.projectedMonthEnd  = data.projectedMonthEnd;
+    live.arTotal            = data.arTotal;
+    live.controllableCosts  = live.controllableCosts || null; // keep existing if set
+    window.DVC_LIVE = live;
+
+    // Update chart DATA with live monthly trend if available
+    if (data.monthlyTrend && data.monthlyTrend.length && typeof DATA !== 'undefined') {
+      DATA.monthly.labels  = data.monthlyTrend.map(function(m) { return m.month; });
+      DATA.monthly.revenue = data.monthlyTrend.map(function(m) { return m.revenue; });
+      if (data.pyMonthlyTrend && data.pyMonthlyTrend.length) {
+        DATA.monthly.py = data.pyMonthlyTrend.map(function(m) { return m.revenue; });
+      }
+    }
+
+    // Update daily chart data from live daily breakdown
+    if (data.dailyBreakdown && typeof DATA !== 'undefined') {
+      var dates = Object.keys(data.dailyBreakdown).sort();
+      if (dates.length > 0) {
+        DATA.daily.labels  = dates.map(function(d) {
+          var parts = d.split('-');
+          return parseInt(parts[1]) + '/' + parseInt(parts[2]);
+        });
+        DATA.daily.revenue = dates.map(function(d) { return data.dailyBreakdown[d].production || 0; });
+        // Prior year daily
+        if (data.pyDailyBreakdown) {
+          var pyDates = Object.keys(data.pyDailyBreakdown).sort();
+          DATA.daily.py = pyDates.map(function(d) { return data.pyDailyBreakdown[d].production || 0; });
+          // Pad if lengths differ
+          while (DATA.daily.py.length < DATA.daily.revenue.length) DATA.daily.py.push(0);
+        }
+      }
+    }
+
+    // Show live badge
+    var badge = document.getElementById('live-source-badge');
+    if (badge) {
+      badge.textContent = 'LIVE from Avimark';
+      badge.style.color = '#34D399';
+    }
+  }
+
+  // Attempt to fetch live data on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add a live-source indicator to the header if it doesn't exist
+    var headerRight = document.querySelector('.header-right');
+    if (headerRight && !document.getElementById('live-source-badge')) {
+      var span = document.createElement('span');
+      span.id = 'live-source-badge';
+      span.style.cssText = 'font-size:10px;opacity:0.6;';
+      span.textContent = 'Cached data';
+      headerRight.insertBefore(span, headerRight.firstChild);
+    }
+
+    fetch(AVIMARK_API_URL + '/api/dashboard-summary', {mode: 'cors'})
+      .then(function(resp) {
+        if (!resp.ok) throw new Error('API returned ' + resp.status);
+        return resp.json();
+      })
+      .then(function(data) {
+        if (data && data.source === 'avimark_mcp_live') {
+          applyLiveData(data);
+          // Re-run dashboard render functions that depend on DVC_LIVE
+          if (typeof loadLiveData === 'function') loadLiveData();
+          if (typeof buildTrend === 'function') buildTrend('monthly');
+          if (typeof buildBudgetTracker === 'function') buildBudgetTracker();
+          console.log('[Avimark MCP] Live data loaded successfully:', data.lastUpdated);
+        }
+      })
+      .catch(function(err) {
+        console.log('[Avimark MCP] API not reachable, using cached DVC_LIVE data. (' + err.message + ')');
+      });
+  });
+
+  // Expose a manual refresh function
+  window.refreshAvimarkData = function() {
+    var badge = document.getElementById('live-source-badge');
+    if (badge) { badge.textContent = 'Refreshing...'; badge.style.color = '#FBBF24'; }
+    fetch(AVIMARK_API_URL + '/api/dashboard-summary', {mode: 'cors'})
+      .then(function(resp) { return resp.json(); })
+      .then(function(data) {
+        if (data && data.source === 'avimark_mcp_live') {
+          applyLiveData(data);
+          if (typeof loadLiveData === 'function') loadLiveData();
+          if (typeof buildTrend === 'function') buildTrend('monthly');
+          if (typeof buildBudgetTracker === 'function') buildBudgetTracker();
+        }
+      })
+      .catch(function(err) {
+        if (badge) { badge.textContent = 'Offline'; badge.style.color = '#F87171'; }
+      });
+  };
+})();
+</script>
 
 <!-- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B -->
 <script id="appt-med-data">
@@ -596,34 +720,24 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "May 29, 2026 9:30 AM",
+  lastUpdated: "Jun 01, 2026 10:00 AM",
   items: [
-    {id:"nl-40",text:"Big black trash bags",author:"Kristi",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-50",text:"Bonqat",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-51",text:"Librela 66-88",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-52",text:"Claro",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-53",text:"Bexacat 90",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-54",text:"Forks",author:"Kathryn",date:"May 29",channel:"#need-list",status:"open",priority:"low"},
+    {id:"nl-40",text:"Big black trash bags",author:"Kristi",date:"May 28",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-41",text:"20ml syringes luer lock",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-42",text:"Librela 22-44",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-30",text:"Cat scratchers (photo posted)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-31",text:"Simparica Trio 44-88",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-32",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-42",text:"Librela 22-44",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-30",text:"Cat scratchers (photo posted)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"ordered",priority:"low"},
+    {id:"nl-31",text:"Simparica Trio 44-88",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-32",text:"(Photo posted — check #need-list)",author:"Kathryn",date:"May 28",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-33",text:"Cat litter",author:"Kelsey",date:"May 28",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-34",text:"Thyro-tab 0.8mg",author:"Staff Computer",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-35",text:"Omeprazole for Kyzer (2 bottles)",author:"Triage Nurse",date:"May 27",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-34",text:"Thyro-tab 0.8mg",author:"Staff Computer",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-35",text:"Omeprazole for Kyzer (2 bottles)",author:"Triage Nurse",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-36",text:"Vetmedin 5mg",author:"Allison",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-37",text:"Oral bordetella syringes",author:"Allison",date:"May 27",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-38",text:"Coffee pods",author:"Debbie",date:"May 27",channel:"#need-list",status:"ordered",priority:"low"},
-    {id:"nl-20",text:"Librela 44-66",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-21",text:"Librela 88-132",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-22",text:"LRS 1000ml",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-23",text:"DALPP",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-24",text:"Rabies",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-25",text:"Large dog Seresto",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-26",text:"Terramycin",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-27",text:"Epiklean",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-28",text:"Feliway Classic",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-29",text:"Feliway Multicat",author:"Moissa",date:"May 27",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-1",text:"U-40 syringes",author:"Debbie",date:"May 26",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-5",text:"Levetiracetam XR 750mg x2 (Shadow)",author:"Kelsey",date:"May 24",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-6",text:"Librela 88-132",author:"Allison",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-7",text:"New lock for shed",author:"Staff Computer",date:"May 22",channel:"#need-list",status:"open",priority:"low"},
     {id:"nl-8",text:"Vetmedin 2.5mg",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-9",text:"Diazepam",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"}
   ]
@@ -634,17 +748,17 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "May 29, 2026 9:30 AM",
+  lastUpdated: "Jun 01, 2026 10:00 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
     {staff:"Kristi",dates:["2026-06-01"],type:"late_start",note:"Morning off for doctor appt — in at 1 PM, work until 5",inDayforce:false,slackOnly:true},
-    {staff:"Allison",dates:["2026-06-02"],type:"late_start",note:"In at 12 or 1 PM",inDayforce:false,slackOnly:true},
     {staff:"Moissa",dates:["2026-06-02"],type:"early_out",note:"Off at noon (Arthur has appointment) — can work afternoon another day",inDayforce:false,slackOnly:true},
+    {staff:"Allison",dates:["2026-06-03"],type:"late_start",note:"In at 12 or 1 PM (corrected May 29 — got dates mixed up, can work all day Jun 2)",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM — UPDATE: can work until 5 if needed",inDayforce:false,slackOnly:true},
     {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
-    {staff:"Maddie Joseph",dates:["2026-06-09"],type:"pto",note:"⚠️ Requested Jun 9 off instead of Jun 11 — VERIFY: Maddie listed as quit Apr 2026",inDayforce:false,slackOnly:true},
+    {staff:"Maddie Joseph",dates:["2026-06-09"],type:"pto",note:"Requested Jun 9 off instead of Jun 11 — VERIFY: Maddie listed as quit Apr 2026",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -681,6 +795,7 @@ window.APPT_COUNTS = {
     </div>
   </div>
   <div class="header-right">
+    <button onclick="if(typeof refreshAvimarkData==='function')refreshAvimarkData()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:4px 10px;font-size:11px;color:rgba(255,255,255,0.8);cursor:pointer;" title="Pull fresh data from Avimark MCP">Refresh</button>
     <div class="live-badge"><div class="live-dot"></div> <span id="refreshLabel">Last Refreshed</span></div>
     <div class="last-updated" id="lastUpdated">—</div>
     <div class="last-updated" id="lastTjBadge" style="font-weight:600;">—</div>
@@ -1734,20 +1849,20 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 01, 2026
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — possibly 22 days since last restock',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — NOT ordered since May 4 (24 days). Moissa posted again May 27',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
   {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:10,note:'~24 mL/wk — NOT ordered since May 4 (24 days)',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:10,note:'~11 mL/wk — NOT ordered since May 4 (24 days). Controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — critical',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'critical',pct:15,note:'Requested May 18, still no confirmation',avg:4,order:5,cost:1220,priority:'ORDER NOW',feb:2,mar:4},
+  {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:4,order:5,cost:1220,priority:'ROUTINE',feb:2,mar:4},
   {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
   {name:'Epinephrine 1mg/mL',code:'EMER01',cat:'emergency',status:'critical',pct:25,note:'NEVER run out — check surgery storage too',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:1,mar:2},
   {name:'Feline RC GI Loaf Cans',code:'44725',cat:'diet',status:'critical',pct:18,note:'Spiky usage — reorder aggressively',avg:41,order:51,cost:1554,priority:'ORDER NOW',feb:42,mar:72},
   // --- CHRONIC UNFILLED (4+ weeks) ---
   {name:'Animax 30ml',code:'ANIMX1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 6+ requests since Apr 29, resolve sourcing',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'critical',pct:10,note:'CHRONIC — 4+ requests since May 6',avg:51,order:58,cost:748,priority:'ORDER NOW',feb:76,mar:46},
+  {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:51,order:58,cost:748,priority:'ROUTINE',feb:76,mar:46},
   {name:'Cosyntropin',code:'COSYN1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 4+ requests since May 6',avg:1,order:2,cost:95,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Flexprofen 25+100mg',code:'FLEX01',cat:'other',status:'critical',pct:10,note:'CHRONIC — multiple requests, both sizes',avg:2,order:3,cost:50,priority:'ORDER NOW',feb:0,mar:0},
   {name:'22g Needles',code:'NEED22',cat:'other',status:'critical',pct:10,note:'CHRONIC — since Apr 29',avg:5,order:10,cost:15,priority:'ORDER NOW',feb:0,mar:0},
@@ -1760,7 +1875,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
   {name:'Vetmedin 2.5mg',code:'VETM25',cat:'other',status:'critical',pct:20,note:'Need-list May 22',avg:2,order:3,cost:85,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Levetiracetam XR 750mg',code:'LEVE01',cat:'other',status:'critical',pct:20,note:'Kelsey request May 24 for Shadow',avg:1,order:2,cost:45,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Marboquin 100mg',code:'MARB01',cat:'antibiotic',status:'critical',pct:20,note:'Carry-forward from May 19',avg:1,order:2,cost:35,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Simparica Trio 44-88',code:'SIT0048',cat:'flea-tick',status:'critical',pct:20,note:'Need-list May 28 — Staff Computer',avg:5,order:8,cost:750,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Simparica Trio 44-88',code:'SIT0048',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:5,order:8,cost:750,priority:'ROUTINE',feb:0,mar:0},
   {name:'Vetmedin 5mg',code:'VETM50',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Allison',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Thyro-tab 0.8mg',code:'THYR08',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Staff Computer',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Omeprazole (Kyzer)',code:'OMEP01',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — 2 bottles for Kyzer',avg:1,order:2,cost:25,priority:'ORDER NOW',feb:0,mar:0},
@@ -1771,7 +1886,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
   {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'critical',pct:15,note:'25 doses delivered May 19, ~6 left (~2.5 days). Moissa reposted DALPP May 27',avg:48,order:58,cost:392,priority:'ORDER NOW',feb:76,mar:46},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:48,order:58,cost:392,priority:'ROUTINE',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -1782,7 +1897,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
   {name:'Librela 15mg/mL',code:'10022808',cat:'pain',status:'ok',pct:60,note:'42+ units but 88-132 size requested separately',avg:5,order:6,cost:252,priority:'ROUTINE',feb:4,mar:6},
   {name:'Amoxicillin 250mg Caps',code:'ANT002',cat:'antibiotic',status:'ok',pct:60,note:'High turnover — reorder at 1 bottle',avg:12,order:15,cost:90,priority:'ROUTINE',feb:10,mar:14},
   {name:'Simparica 11–22# (orange)',code:'SI003',cat:'flea-tick',status:'ok',pct:55,note:'2 full sleeves',avg:13,order:15,cost:372,priority:'ROUTINE',feb:8,mar:22},
-  {name:'Bronchi-Shield Oral',code:'VAC0017',cat:'vaccine',status:'ok',pct:58,note:'~44 remaining from Apr 30 bulk',avg:51,order:55,cost:263,priority:'ROUTINE',feb:76,mar:46},
+  {name:'Bronchi-Shield Oral',code:'VAC0017',cat:'vaccine',status:'critical',pct:15,note:'~15 doses/wk — NOT in recent orders per Jun 1 DM',avg:51,order:55,cost:263,priority:'ORDER NOW',feb:76,mar:46},
   {name:'Solensia',code:'SOL01',cat:'pain',status:'ok',pct:65,note:'12 vials in stock',avg:2,order:3,cost:180,priority:'ROUTINE',feb:0,mar:0},
   {name:'LymeVax',code:'VAC011',cat:'vaccine',status:'ok',pct:60,note:'Seasonal tick vaccine',avg:13,order:16,cost:194,priority:'ROUTINE',feb:12,mar:18},
   {name:'Claro Otic Solution',code:'CLARO1',cat:'other',status:'ok',pct:55,note:'Ordered May 6 — Amanda quarterly deal',avg:4,order:6,cost:195,priority:'ROUTINE',feb:3,mar:5},
@@ -1791,6 +1906,10 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: May 28, 2026
   {name:'Canine RC Urinary SO 6.6#',code:'426066',cat:'diet',status:'ok',pct:60,note:'Rx diet',avg:5,order:6,cost:124,priority:'ROUTINE',feb:4,mar:6},
   {name:'Vetsulin U-40 Insulin',code:'INS040',cat:'other',status:'ok',pct:68,note:'Only order what you need',avg:2,order:2,cost:98,priority:'ROUTINE',feb:1,mar:2},
   {name:'Zenrelia',code:'ZEN01',cat:'other',status:'ok',pct:65,note:'Ordered May 6',avg:2,order:3,cost:75,priority:'ROUTINE',feb:0,mar:0},
+  // --- NEW from Jun 1 #need-list ---
+  {name:'Bonqat',code:'BONQ01',cat:'other',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:1,order:2,cost:30,priority:'THIS WEEK',feb:0,mar:0},
+  {name:'Librela 66-88#',code:'LIB66',cat:'pain',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:2,order:3,cost:165,priority:'THIS WEEK',feb:0,mar:0},
+  {name:'Bexacat 90',code:'BEXC90',cat:'other',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:1,order:2,cost:120,priority:'THIS WEEK',feb:0,mar:0},
 ];
 
 const WALK_CHECKS = [
@@ -2368,6 +2487,7 @@ const STAFF_DATA = [
       {date:'May 27',score:78,patient:'Blaze Johnson',cats:[16,18,15,15,14]},
       {date:'May 28',score:80,patient:'Tucker Patrick',cats:[16,17,15,16,16]},
       {date:'May 28',score:83,patient:'Onyx Sauerwein',cats:[17,18,16,17,15]},
+      {date:'May 29',score:70,patient:'Onyx Sauerwein',cats:[16,15,12,14,13]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2393,6 +2513,7 @@ const STAFF_DATA = [
       {date:'May 28',score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
       {date:'May 28',score:75,patient:'Jay Davis',cats:[16,17,13,15,14]},
       {date:'May 28',score:76,patient:'Murray Bennett',cats:[16,17,15,14,14]},
+      {date:'May 29',score:74,patient:'Prissy Hedrick',cats:[16,15,14,15,14]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2420,6 +2541,9 @@ const STAFF_DATA = [
       {date:'May 27',score:74,patient:'Ralo Brooks',cats:[16,15,14,15,14]},
       {date:'May 28',score:81,patient:'Mollie Garrison',cats:[17,18,16,15,15]},
       {date:'May 28',score:81,patient:'Kiya Ghaffari',cats:[17,19,14,16,15]},
+      {date:'May 29',score:84,patient:'Alfie Soetenga',cats:[17,19,16,16,16]},
+      {date:'May 29',score:78,patient:'Junior Scott',cats:[17,16,15,16,14]},
+      {date:'Jun 1', score:79,patient:'Molly+Bree Logsdon',cats:[17,16,15,16,15]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -2445,6 +2569,7 @@ const STAFF_DATA = [
       {date:'May 26',score:71,patient:'Thor Jimenez',cats:[16,15,13,14,13]},
       {date:'May 27',score:73,patient:'Dash Stanley',cats:[16,17,13,14,13]},
       {date:'May 29',score:56,patient:'Mango+BC Rahali',cats:[12,18,11,6,9]},
+      {date:'May 29',score:75,patient:'Pixie Sulzen',cats:[16,15,14,16,14]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
