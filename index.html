@@ -544,7 +544,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 03, 2026 9:30 AM",
+  lastUpdated:        "Jun 04, 2026 9:00 AM",
   lastTjDate:         "2026-05-29",
   mtdRevenue:         0,
   ytdRevenue:         632434.13,
@@ -563,8 +563,8 @@ window.DVC_LIVE = {
   budgetTarget:       null,
   projectedMonthEnd:  0,
   dailyRunRate:       0,
-  pacingStatus:       "3 business days in — awaiting first June TJ",
-  businessDaysElapsed: 3,
+  pacingStatus:       "4 business days in — awaiting first June TJ",
+  businessDaysElapsed: 4,
   businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -715,10 +715,20 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 03, 2026 9:30 AM",
+  lastUpdated: "Jun 04, 2026 9:00 AM",
   items: [
-    {id:"nl-70",text:"(Photo — check Slack)",author:"Kristi",date:"Jun 3",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-66",text:"Apoquel 16mg chewable",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-75",text:"Propofol",author:"Allison",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-74",text:"(Photo — check Slack, IMG_2155)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-73",text:"Felimazole 2.5mg",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-72",text:"Plates",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"low"},
+    {id:"nl-71",text:"18g needles",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-69",text:"23 winged infusion set",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-68",text:"Purple tops",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-67",text:"Red tops",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-59",text:"Flu vaccine",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-56",text:"Bordatella",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-70",text:"(Photo — check Slack, IMG_2153)",author:"Kristi",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-66",text:"Apoquel 16mg chewable",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-65",text:"Prednisone 5mg",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-64",text:"Vetmedin 1.25mg chewable",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-63",text:"Postage stamps",author:"Staff Computer",date:"Jun 2",channel:"#need-list",status:"open",priority:"low"},
@@ -744,14 +754,15 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 03, 2026 9:30 AM",
+  lastUpdated: "Jun 04, 2026 9:00 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Allison",dates:["2026-06-03"],type:"late_start",note:"In at 12 or 1 PM (corrected May 29 — got dates mixed up)",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM — UPDATE: can work until 5 if needed",inDayforce:false,slackOnly:true},
     {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
+    {staff:"Moissa",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (requested Jun 3) — NOTE: Kelsey also out at 1 PM same day",inDayforce:false,slackOnly:true},
+    {staff:"Maddie Joseph",dates:["2026-06-08","2026-06-09"],type:"pto",note:"Mon+Tue off, PTO 1 day if possible; works Wed–Fri — verify employment status (listed as quit Apr 2026)",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -2520,6 +2531,9 @@ const STAFF_DATA = [
       {date:'Jun 2', score:68,patient:'Maya (mock exam)',cats:[15,14,13,14,12]},
       {date:'Jun 3', score:73,patient:'Crimson King',cats:[16,17,13,14,13]},
       {date:'Jun 3', score:74,patient:'Ellie Bowman',cats:[16,16,14,15,13]},
+      {date:'Jun 3', score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
+      {date:'Jun 3', score:74,patient:'Archie Allen',cats:[16,17,13,15,13]},
+      {date:'Jun 4', score:72,patient:'Brindle Young',cats:[16,14,13,15,14]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2551,6 +2565,7 @@ const STAFF_DATA = [
       {date:'May 29',score:78,patient:'Junior Scott',cats:[17,16,15,16,14]},
       {date:'Jun 1', score:79,patient:'Molly+Bree Logsdon',cats:[17,16,15,16,15]},
       {date:'Jun 1', score:79,patient:'Smiley Landis',cats:[17,16,15,16,15]},
+      {date:'Jun 3', score:80,patient:'Bob Brooks',cats:[17,18,15,16,14]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -2584,6 +2599,7 @@ const STAFF_DATA = [
       {date:'Jun 2', score:78,patient:'GG Lawson',cats:[16,18,14,15,15]},
       {date:'Jun 3', score:72,patient:'Pearl Kellem',cats:[15,16,14,13,14]},
       {date:'Jun 3', score:69,patient:'Zoos Starnes',cats:[16,17,14,10,12]},
+      {date:'Jun 3', score:80,patient:'Teddy+Chewy Trick',cats:[17,18,14,15,16]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
