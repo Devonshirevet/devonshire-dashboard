@@ -544,12 +544,12 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 04, 2026 9:00 AM",
-  lastTjDate:         "2026-05-29",
-  mtdRevenue:         0,
-  ytdRevenue:         632434.13,
-  avgInvoice:         0,
-  patientVisits:      0,
+  lastUpdated:        "Jun 05, 2026 9:15 AM",
+  lastTjDate:         "2026-06-04",
+  mtdRevenue:         1752.75,
+  ytdRevenue:         634186.88,
+  avgInvoice:         159.34,
+  patientVisits:      11,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
@@ -558,13 +558,13 @@ window.DVC_LIVE = {
   comparePeriod:      "May 2026",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
-  weeklyNewClients:   0,
+  weeklyNewClients:   1,
   weeklyPeriodTotal:  0,
   budgetTarget:       null,
-  projectedMonthEnd:  0,
-  dailyRunRate:       0,
-  pacingStatus:       "4 business days in — awaiting first June TJ",
-  businessDaysElapsed: 4,
+  projectedMonthEnd:  null,
+  dailyRunRate:       1752.75,
+  pacingStatus:       "5 business days in — only Jun 4 TJ posted; Jun 1–3 TJs still missing",
+  businessDaysElapsed: 5,
   businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -715,8 +715,10 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 04, 2026 9:00 AM",
+  lastUpdated: "Jun 05, 2026 9:15 AM",
   items: [
+    {id:"nl-77",text:"Cautery tips",author:"Kathryn",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-76",text:"(Photo — check Slack, IMG_2156)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-75",text:"Propofol",author:"Allison",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-74",text:"(Photo — check Slack, IMG_2155)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-73",text:"Felimazole 2.5mg",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"open",priority:"high"},
@@ -754,14 +756,13 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 04, 2026 9:00 AM",
+  lastUpdated: "Jun 05, 2026 9:15 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Kathryn",dates:["2026-06-04"],type:"early_out",note:"Off at 4 PM — UPDATE: can work until 5 if needed",inDayforce:false,slackOnly:true},
     {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
-    {staff:"Moissa",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (requested Jun 3) — NOTE: Kelsey also out at 1 PM same day",inDayforce:false,slackOnly:true},
+    {staff:"Moissa",dates:["2026-06-08","2026-06-09","2026-06-10","2026-06-11","2026-06-12"],type:"pto",note:"FULL WEEK Jun 8–12 PTO (posted Jun 5, supersedes Jun 8 early-out) — NOT in Dayforce. Same week Kelsey out early Mon + Maddie out Mon/Tue. COVERAGE RISK",inDayforce:false,slackOnly:true},
     {staff:"Maddie Joseph",dates:["2026-06-08","2026-06-09"],type:"pto",note:"Mon+Tue off, PTO 1 day if possible; works Wed–Fri — verify employment status (listed as quit Apr 2026)",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -1853,7 +1854,7 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #need-list sync: Jun 03, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #need-list sync: Jun 05, 2026
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — possibly 22 days since last restock',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — NOT ordered since May 4 (24 days). Moissa posted again May 27',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
@@ -1921,6 +1922,9 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #nee
   {name:'Apoquel 16mg Chewable',code:'APOQ16',cat:'other',status:'critical',pct:15,note:'URGENT per Jun 3 DM — Triage Nurse 6/2',avg:2,order:3,cost:120,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Prednisone 5mg',code:'PRED05',cat:'other',status:'low',pct:35,note:'Need-list Jun 2 — Triage Nurse',avg:2,order:3,cost:15,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetmedin 1.25mg Chewable',code:'VETM12',cat:'other',status:'low',pct:35,note:'Need-list Jun 2 — Triage Nurse',avg:1,order:2,cost:75,priority:'THIS WEEK',feb:0,mar:0},
+  // --- NEW from Jun 3-4 #need-list ---
+  {name:'Felimazole 2.5mg',code:'FELI25',cat:'other',status:'critical',pct:15,note:'Need-list Jun 3 — Triage Nurse, unconfirmed',avg:1,order:2,cost:40,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Cautery Tips',code:'CAUT01',cat:'other',status:'low',pct:40,note:'Need-list Jun 4 — Kathryn',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
 ];
 
 const WALK_CHECKS = [
@@ -2500,6 +2504,8 @@ const STAFF_DATA = [
       {date:'May 28',score:83,patient:'Onyx Sauerwein',cats:[17,18,16,17,15]},
       {date:'May 29',score:70,patient:'Onyx Sauerwein',cats:[16,15,12,14,13]},
       {date:'Jun 3', score:79,patient:'Mr Spock Billey',cats:[17,16,15,16,15]},
+      {date:'Jun 4', score:73,patient:'Abbey Scott',cats:[16,15,14,15,13]},
+      {date:'Jun 4', score:73,patient:'Molly Cervantes',cats:[16,15,14,15,13]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2534,6 +2540,9 @@ const STAFF_DATA = [
       {date:'Jun 3', score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
       {date:'Jun 3', score:74,patient:'Archie Allen',cats:[16,17,13,15,13]},
       {date:'Jun 4', score:72,patient:'Brindle Young',cats:[16,14,13,15,14]},
+      {date:'Jun 4', score:59,patient:'Lilly+Luna Barry',cats:[12,14,11,12,10]},
+      {date:'Jun 4', score:76,patient:'Kade Butcher',cats:[16,17,14,15,14]},
+      {date:'Jun 5', score:75,patient:'Sam Neff',cats:[16,15,14,15,15]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2566,6 +2575,7 @@ const STAFF_DATA = [
       {date:'Jun 1', score:79,patient:'Molly+Bree Logsdon',cats:[17,16,15,16,15]},
       {date:'Jun 1', score:79,patient:'Smiley Landis',cats:[17,16,15,16,15]},
       {date:'Jun 3', score:80,patient:'Bob Brooks',cats:[17,18,15,16,14]},
+      {date:'Jun 4', score:78,patient:'Gracie Walks',cats:[16,17,15,16,14]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
