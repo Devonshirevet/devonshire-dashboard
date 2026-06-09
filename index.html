@@ -544,7 +544,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 05, 2026 9:15 AM",
+  lastUpdated:        "Jun 09, 2026 10:22 AM",
   lastTjDate:         "2026-06-04",
   mtdRevenue:         1752.75,
   ytdRevenue:         634186.88,
@@ -715,8 +715,11 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 05, 2026 9:15 AM",
+  lastUpdated: "Jun 09, 2026 10:22 AM",
   items: [
+    {id:"nl-80",text:"Soda lime",author:"Triage Nurse",date:"Jun 8",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-79",text:"Flexprofen 100mg",author:"Kathryn",date:"Jun 8",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-78",text:"Meloxidyl 32ml",author:"Triage Nurse",date:"Jun 5",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-77",text:"Cautery tips",author:"Kathryn",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-76",text:"(Photo — check Slack, IMG_2156)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-75",text:"Propofol",author:"Allison",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
@@ -756,14 +759,11 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 05, 2026 9:15 AM",
+  lastUpdated: "Jun 09, 2026 10:22 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Breanna",dates:["2026-06-05"],type:"pto",note:"LAST DAY — leaving clinic",inDayforce:false,slackOnly:true},
-    {staff:"Kathryn",dates:["2026-06-05"],type:"pto",note:"Available to work (changed from off — volunteered May 27)",inDayforce:false,slackOnly:true},
-    {staff:"Kelsey",dates:["2026-06-08"],type:"early_out",note:"Off at 1 PM (neurologist appt)",inDayforce:false,slackOnly:true},
-    {staff:"Moissa",dates:["2026-06-08","2026-06-09","2026-06-10","2026-06-11","2026-06-12"],type:"pto",note:"FULL WEEK Jun 8–12 PTO (posted Jun 5, supersedes Jun 8 early-out) — NOT in Dayforce. Same week Kelsey out early Mon + Maddie out Mon/Tue. COVERAGE RISK",inDayforce:false,slackOnly:true},
-    {staff:"Maddie Joseph",dates:["2026-06-08","2026-06-09"],type:"pto",note:"Mon+Tue off, PTO 1 day if possible; works Wed–Fri — verify employment status (listed as quit Apr 2026)",inDayforce:false,slackOnly:true},
+    {staff:"Moissa",dates:["2026-06-09","2026-06-10","2026-06-11","2026-06-12"],type:"pto",note:"OUT rest of week Jun 9–12 PTO (full week Jun 8–12, posted Jun 5) — NOT in Dayforce. COVERAGE RISK",inDayforce:false,slackOnly:true},
+    {staff:"Maddie Joseph",dates:["2026-06-09"],type:"pto",note:"Tue off; works Wed–Fri — verify employment status (listed as quit Apr 2026)",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -817,6 +817,7 @@ window.APPT_COUNTS = {
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-schedule" onclick="switchTab('schedule',this)">📅 Schedule</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-client" onclick="switchTab('client',this)">👤 Client</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-dvm" onclick="switchTab('dvm',this)">🩺 DVM</button>
+  <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-whatway" onclick="switchTab('whatway',this)">🔗 What &amp; Way</button>
 </div>
 
 <!-- ═══════════════ TAB: OPERATIONS ═══════════════ -->
@@ -1854,13 +1855,13 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #need-list sync: Jun 05, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 08, 2026 | #need-list sync: Jun 08, 2026
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
-  {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — possibly 22 days since last restock',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
-  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — NOT ordered since May 4 (24 days). Moissa posted again May 27',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
-  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:10,note:'~24 mL/wk — NOT ordered since May 4 (24 days)',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:10,note:'~11 mL/wk — NOT ordered since May 4 (24 days). Controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — critical',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — last ordered May 18 (21 days) per Jun 8 DM',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
+  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — no confirmed Zoetis order since ~May 18 (~80+ doses used) per Jun 8 DM',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
+  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:10,note:'~24 mL/wk — flagged urgent Jun 1 & Jun 8 DMs',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:10,note:'~11 mL/wk — flagged Jun 1 & Jun 8. Controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — not in May 27 order per Jun 8 DM',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:4,order:5,cost:1220,priority:'ROUTINE',feb:2,mar:4},
   {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
   {name:'Epinephrine 1mg/mL',code:'EMER01',cat:'emergency',status:'critical',pct:25,note:'NEVER run out — check surgery storage too',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:1,mar:2},
@@ -1869,15 +1870,15 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #nee
   {name:'Animax 30ml',code:'ANIMX1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 6+ requests since Apr 29, resolve sourcing',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:0,mar:0},
   {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:51,order:58,cost:748,priority:'ROUTINE',feb:76,mar:46},
   {name:'Cosyntropin',code:'COSYN1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 4+ requests since May 6',avg:1,order:2,cost:95,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Flexprofen 25+100mg',code:'FLEX01',cat:'other',status:'critical',pct:10,note:'CHRONIC — Allison re-requested 100mg Jun 1',avg:2,order:3,cost:50,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Flexprofen 25+100mg',code:'FLEX01',cat:'other',status:'ok',pct:60,note:'In "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:2,order:3,cost:50,priority:'ROUTINE',feb:0,mar:0},
   {name:'22g Needles',code:'NEED22',cat:'other',status:'critical',pct:10,note:'CHRONIC — since Apr 29',avg:5,order:10,cost:15,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Whole Blood Containers',code:'WBC01',cat:'other',status:'critical',pct:10,note:'CHRONIC — recurring since May 1',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
   // --- NEED-LIST / CARRY-FORWARD ---
   {name:'Hydromorphone x2',code:'HYDRO1',cat:'controlled',status:'critical',pct:15,note:'Carry-forward from May 19 — controlled, Dr. Smiley sign-off',avg:1,order:2,cost:60,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Diazepam',code:'DIAZ01',cat:'controlled',status:'critical',pct:15,note:'Need-list May 22 — controlled, Dr. Smiley sign-off',avg:1,order:2,cost:40,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Diazepam',code:'DIAZ01',cat:'controlled',status:'ok',pct:60,note:'Diazepam Inj in "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:1,order:2,cost:40,priority:'ROUTINE',feb:0,mar:0},
   {name:'Librela 88-132#',code:'LIB88',cat:'pain',status:'critical',pct:15,note:'4th+ request from Allison — high priority',avg:3,order:5,cost:330,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Trazodone',code:'TRAZ01',cat:'other',status:'critical',pct:20,note:'Need-list May 21',avg:3,order:5,cost:25,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Vetmedin 2.5mg',code:'VETM25',cat:'other',status:'critical',pct:20,note:'Need-list May 22',avg:2,order:3,cost:85,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Vetmedin 2.5mg',code:'VETM25',cat:'other',status:'ok',pct:60,note:'In "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:2,order:3,cost:85,priority:'ROUTINE',feb:0,mar:0},
   {name:'Levetiracetam XR 750mg',code:'LEVE01',cat:'other',status:'critical',pct:20,note:'Kelsey request May 24 for Shadow',avg:1,order:2,cost:45,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Marboquin 100mg',code:'MARB01',cat:'antibiotic',status:'critical',pct:20,note:'Carry-forward from May 19',avg:1,order:2,cost:35,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Simparica Trio 44-88',code:'SIT0048',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:5,order:8,cost:750,priority:'ROUTINE',feb:0,mar:0},
@@ -1885,13 +1886,13 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #nee
   {name:'Thyro-tab 0.8mg',code:'THYR08',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Staff Computer',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Omeprazole (Kyzer)',code:'OMEP01',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — 2 bottles for Kyzer',avg:1,order:2,cost:25,priority:'ORDER NOW',feb:0,mar:0},
   // --- LOW / CHECK STOCK ---
-  {name:'Dexdomitor Inj',code:'DEX01',cat:'anesthetic',status:'critical',pct:15,note:'~1.6 mL/wk — NOT ordered since May 4 (24 days)',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Dexdomitor Inj',code:'DEX01',cat:'anesthetic',status:'low',pct:40,note:'~1.6 mL/wk — LOW/check stock per Jun 8 DM',avg:2,order:3,cost:95,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Carprofen Injection',code:'CARP01',cat:'pain',status:'low',pct:40,note:'~4 mL/wk — check stock',avg:4,order:5,cost:55,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Ketamine Inj',code:'KET01',cat:'controlled',status:'low',pct:40,note:'~1 mL/wk — controlled, last order May 4',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:48,order:58,cost:392,priority:'ROUTINE',feb:76,mar:46},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:40,note:'~17 doses/wk — confirm vs Vanguard DAPP/L4 in May 27 order, per Jun 8 DM',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -1902,7 +1903,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 03, 2026 | #nee
   {name:'Librela 15mg/mL',code:'10022808',cat:'pain',status:'ok',pct:60,note:'42+ units but 88-132 size requested separately',avg:5,order:6,cost:252,priority:'ROUTINE',feb:4,mar:6},
   {name:'Amoxicillin 250mg Caps',code:'ANT002',cat:'antibiotic',status:'ok',pct:60,note:'High turnover — reorder at 1 bottle',avg:12,order:15,cost:90,priority:'ROUTINE',feb:10,mar:14},
   {name:'Simparica 11–22# (orange)',code:'SI003',cat:'flea-tick',status:'ok',pct:55,note:'2 full sleeves',avg:13,order:15,cost:372,priority:'ROUTINE',feb:8,mar:22},
-  {name:'Bronchi-Shield Oral',code:'VAC0017',cat:'vaccine',status:'critical',pct:15,note:'~15 doses/wk — NOT in recent orders per Jun 1 DM',avg:51,order:55,cost:263,priority:'ORDER NOW',feb:76,mar:46},
+  {name:'Bronchi-Shield Oral',code:'VAC0017',cat:'vaccine',status:'critical',pct:15,note:'~15 doses/wk — not in recent orders per Jun 8 DM',avg:51,order:55,cost:263,priority:'ORDER NOW',feb:76,mar:46},
   {name:'Solensia',code:'SOL01',cat:'pain',status:'ok',pct:65,note:'12 vials in stock',avg:2,order:3,cost:180,priority:'ROUTINE',feb:0,mar:0},
   {name:'LymeVax',code:'VAC011',cat:'vaccine',status:'ok',pct:60,note:'Seasonal tick vaccine',avg:13,order:16,cost:194,priority:'ROUTINE',feb:12,mar:18},
   {name:'Claro Otic Solution',code:'CLARO1',cat:'other',status:'critical',pct:15,note:'URGENT per Jun 3 DM — Moissa need-list 6/1, 3 uses in last 2 TJs',avg:4,order:6,cost:195,priority:'ORDER NOW',feb:3,mar:5},
@@ -2543,6 +2544,8 @@ const STAFF_DATA = [
       {date:'Jun 4', score:59,patient:'Lilly+Luna Barry',cats:[12,14,11,12,10]},
       {date:'Jun 4', score:76,patient:'Kade Butcher',cats:[16,17,14,15,14]},
       {date:'Jun 5', score:75,patient:'Sam Neff',cats:[16,15,14,15,15]},
+      {date:'Jun 5', score:75,patient:'Leia Shanks',cats:[16,17,15,14,13]},
+      {date:'Jun 5', score:71,patient:'Doc Aynes',cats:[15,16,13,14,13]},
     ]
   },
   { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
@@ -2576,6 +2579,8 @@ const STAFF_DATA = [
       {date:'Jun 1', score:79,patient:'Smiley Landis',cats:[17,16,15,16,15]},
       {date:'Jun 3', score:80,patient:'Bob Brooks',cats:[17,18,15,16,14]},
       {date:'Jun 4', score:78,patient:'Gracie Walks',cats:[16,17,15,16,14]},
+      {date:'Jun 5', score:82,patient:'Grace Zavalydriga',cats:[17,18,16,15,16]},
+      {date:'Jun 5', score:76,patient:'Knox Hollowell',cats:[16,17,14,15,14]},
     ]
   },
   { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
@@ -4207,6 +4212,191 @@ window.publishSchedule=function(){
 
 </div>
 </div><!-- /tab-dvm -->
+
+<!-- ═══════════════ TAB: WHAT & WAY ═══════════════ -->
+<div class="tab-panel" role="tabpanel" hidden id="tab-whatway">
+<div style="max-width:1400px;margin:0 auto;padding:20px;">
+
+  <!-- Concept banner -->
+  <div style="background:linear-gradient(135deg,#1F3864 0%,#1D4ED8 100%);border-radius:12px;padding:20px 24px;margin-bottom:16px;color:white;">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:4px;">Marrying the Client &amp; the Clinic</div>
+    <div style="font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px;">The What &amp; The Way — Staff Are the Hinge</div>
+    <div style="font-size:12.5px;line-height:1.7;opacity:.92;max-width:900px;">
+      Clients and the clinic want the same two things. <strong>The What</strong> — the medicine: diagnosis, recommendations, cost, follow-through. <strong>The Way</strong> — how it's delivered: kindness, listening, clear framing, written plans. Staff are where the two meet: when the way is right, clients say yes to the what — compliance rises, clients stick, revenue follows. This tab joins the Staff Evals (the way) with Client Analysis outcomes (the what) so you can see the connection instead of guessing at it.
+    </div>
+  </div>
+
+  <!-- KPI Bar -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+    <div class="kpi-card primary">
+      <div class="kpi-label">Team "Way" Score</div>
+      <div class="kpi-value" style="font-size:28px;" id="ww-way-avg">—</div>
+      <div class="kpi-meta"><span class="kpi-compare">Client Service avg /20 · from staff evals</span></div>
+    </div>
+    <div class="kpi-card info">
+      <div class="kpi-label">Client "What" Score</div>
+      <div class="kpi-value" style="font-size:28px;" id="ww-what-kpi">—</div>
+      <div class="kpi-meta"><span class="kpi-compare">high-compliance visits · #client-analysis Jun 5</span></div>
+    </div>
+    <div class="kpi-card success">
+      <div class="kpi-label">High-Trust Clients</div>
+      <div class="kpi-value" style="font-size:28px;" id="ww-trust-kpi">—</div>
+      <div class="kpi-meta"><span class="kpi-compare">high trust drives follow-through · Jun 5</span></div>
+    </div>
+    <div class="kpi-card warning">
+      <div class="kpi-label">Top Way→What Lever</div>
+      <div class="kpi-value" style="font-size:16px;padding-top:8px;">"One-and-done" framing</div>
+      <div class="kpi-meta"><span class="kpi-compare">fastest yes in Jun 1 profiles</span></div>
+    </div>
+  </div>
+
+  <!-- Way vs What Scorecard -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">🧭 Way vs. What — Team Scorecard
+      <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Way: staff eval Client Service · live</span>
+    </div>
+    <div id="ww-staff-table"></div>
+    <div style="font-size:10.5px;color:var(--gray-400);margin-top:10px;padding-top:8px;border-top:1px solid var(--gray-200);">
+      "Way" columns computed live from the Staff Evals data. "What" shows compliance outcomes of visits tagged to that staff member from #client-analysis. Staff tagging fills in as new exams post with Q's STAFF IN ROOM field.
+    </div>
+  </div>
+
+  <!-- Way chart -->
+  <div class="chart-row two" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-title">The Way, by Staff Member
+        <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Client Service avg (/20) vs overall eval avg (/100, scaled)</span>
+      </div>
+      <div style="height:240px;"><canvas id="wwWayChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔄 Closing the Loop — Status</div>
+      <div style="font-size:12.5px;color:var(--gray-700);line-height:1.8;">
+        <div style="margin-bottom:6px;padding:8px 10px;background:#DCFCE7;border-left:3px solid #16A34A;border-radius:0 4px 4px 0;"><strong>✅ Done (Jun 5):</strong> Visit-level "What" data now flows from #client-analysis — compliance, trust, and price sensitivity per exam (see table below). Staff are auto-tagged when the transcript names them (1 of 10 today: Kristi · Doc Aynes).</div>
+        <div style="margin-bottom:6px;padding:8px 10px;background:#FEF3C7;border-left:3px solid var(--amber);border-radius:0 4px 4px 0;"><strong>⚠️ Blocker:</strong> Q's profile template has no "Staff in Room" field, so most visits can't be joined to a staff member. Fix: ask Dr. Smiley to add one line to Q's instructions — "Identify the staff member(s) in the room (from voices/names in the transcript) and output a STAFF IN ROOM field."</div>
+        <div style="padding:8px 10px;background:#EFF6FF;border-left:3px solid #2563EB;border-radius:0 4px 4px 0;"><strong>📋 Then:</strong> Join Avimark invoice $ per visit → the scorecard shows way score → compliance → dollars per person. The Maddie question, answered for everyone, every day.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visit Outcomes — The What -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">📋 Visit Outcomes — The What, Per Exam
+      <span style="font-size:11px;font-weight:400;color:var(--gray-400);">Live from #client-analysis · Q GPT-5.2 profiles · Jun 5, 2026</span>
+    </div>
+    <div id="ww-visits-table" style="overflow-x:auto;"></div>
+    <div style="font-size:10.5px;color:var(--gray-400);margin-top:10px;padding-top:8px;border-top:1px solid var(--gray-200);">
+      Staff column is auto-detected from transcript mentions only — blank means the profile didn't name anyone, not that no one was there. Invoice $ joins when Avimark per-visit data is linked.
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-whatway -->
+
+<script>
+// ── What & Way tab ─────────────────────────────────────
+(function(){
+  let wwInited=false;
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.textContent.includes('What') && !wwInited){ wwInited=true; setTimeout(initWhatWayTab,50); }
+    });
+  });
+})();
+// Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 5, 2026)
+// staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
+const WW_VISITS=[
+  {date:'Jun 5',time:'8:27a', patient:'Theo Wallace',      client:'Wallace',    profile:'(partial profile)',            compliance:null,      trust:'high',     price:'neutral', staff:null,    note:'Insurance-checker · Chewy scripts · open to ProHeart 12'},
+  {date:'Jun 5',time:'9:27a', patient:'Sam Neff',          client:'Neff',       profile:'Budget-Conscious (7/10)',      compliance:'moderate',trust:'moderate', price:'moderate',staff:null,    note:'Wants totals upfront · $1,900 sticker-shock moment · self-sources Seresto'},
+  {date:'Jun 5',time:'9:38a', patient:'Boomer Williams',   client:'Williams',   profile:'High-compliance (8/10)',       compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Fast decisions · booked Aug 13 recheck on the spot'},
+  {date:'Jun 5',time:'9:53a', patient:'Grace Zavalydriga', client:'Zavalydriga',profile:'Easy-Going (4/10 · short audio)',compliance:'moderate',trust:'moderate',price:'unknown', staff:null,    note:'Limited audio — concise med check-in only'},
+  {date:'Jun 5',time:'10:30a',patient:'Leia Shanks',       client:'Shanks',     profile:'Easy-Going (6/10)',            compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    note:'Accepts full preventive bundle · needs date-based reminders'},
+  {date:'Jun 5',time:'11:11a',patient:'Romeo & Alex Richards',client:'Richards',profile:'Information-Driven',           compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Multi-cat household · executes plans religiously · wants written thresholds'},
+  {date:'Jun 5',time:'11:20a',patient:'Pearl Kellem',      client:'Kellem',     profile:'Information-Driven (7/10)',    compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    note:'Directs own diagnostics · negotiates sequencing · "today vs next" framing works'},
+  {date:'Jun 5',time:'11:37a',patient:'Doc Aynes',         client:'Aynes',      profile:'Easy-Going (7/10)',            compliance:'high',    trust:'high',     price:'neutral', staff:'kristi',note:'Transcript: "pass his rear end to Christy" · warm rapport, accepted plan fully'},
+  {date:'Jun 5',time:'11:58a',patient:'Henry Fogle',       client:'Fogle',      profile:'Emotion-Driven/Anxious (7/10)',compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Client praised Maddie unprompted — the way builds stickiness that outlasts staff'},
+  {date:'Jun 5',time:'11:58a',patient:'Knox Hollowell',    client:'Hollowell',  profile:'Budget-Conscious (9/10)',      compliance:'moderate',trust:'moderate', price:'high',    staff:null,    note:'Declined heartworm on price · accepted staged 3-dose plan · tiered options work'}
+];
+function initWhatWayTab(){
+  if(typeof STAFF_DATA==='undefined')return;
+  const rows=STAFF_DATA.map(s=>{
+    const withCats=s.scores.filter(e=>e.cats);
+    const all=s.scores.map(x=>x.score);
+    const avg=all.length?Math.round(all.reduce((a,b)=>a+b,0)/all.length):null;
+    const cs=withCats.length?Math.round(withCats.reduce((a,e)=>a+e.cats[0],0)/withCats.length*10)/10:null;
+    return {id:s.id,name:s.name,role:s.role,color:s.color,n:s.scores.length,avg,cs};
+  }).filter(r=>r.n>0).sort((a,b)=>(b.cs||0)-(a.cs||0));
+  // KPIs
+  const csVals=rows.filter(r=>r.cs!==null).map(r=>r.cs);
+  if(csVals.length){
+    document.getElementById('ww-way-avg').textContent=(Math.round(csVals.reduce((a,b)=>a+b,0)/csVals.length*10)/10)+'/20';
+  }
+  const known=WW_VISITS.filter(v=>v.compliance);
+  const hi=known.filter(v=>v.compliance==='high').length;
+  document.getElementById('ww-what-kpi').textContent=hi+'/'+known.length;
+  const trustKnown=WW_VISITS.filter(v=>v.trust);
+  document.getElementById('ww-trust-kpi').textContent=trustKnown.filter(v=>v.trust==='high').length+'/'+trustKnown.length;
+  // Scorecard table — join tagged visits per staff
+  function csColor(v){ if(v===null)return'var(--gray-400)'; if(v>=17)return'var(--green)'; if(v>=14)return'var(--blue)'; if(v>=11)return'var(--amber)'; return'var(--red)'; }
+  let html='<table class="order-table"><thead><tr><th>Staff</th><th>Evals</th><th>Way: Client Service</th><th>Way: Overall</th><th>What: Outcomes</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    const tagged=WW_VISITS.filter(v=>v.staff===r.id);
+    let what;
+    if(tagged.length){
+      const tHi=tagged.filter(v=>v.compliance==='high').length;
+      what=`<span style="font-weight:700;color:var(--green);">${tHi}/${tagged.length} high compliance</span><div style="font-size:10px;color:var(--gray-400);">${tagged.length} tagged visit${tagged.length>1?'s':''}</div>`;
+    } else {
+      what='<span style="color:var(--gray-400);font-size:11px;">no tagged visits yet</span>';
+    }
+    html+=`<tr><td><strong style="color:${r.color};">${r.name}</strong><div style="font-size:10px;color:var(--gray-400);">${r.role}</div></td>
+      <td>${r.n}</td>
+      <td style="font-weight:700;color:${csColor(r.cs)};">${r.cs!==null?r.cs+'/20':'—'}</td>
+      <td>${r.avg!==null?r.avg+'/100':'—'}</td>
+      <td>${what}</td></tr>`;
+  });
+  html+='</tbody></table>';
+  document.getElementById('ww-staff-table').innerHTML=html;
+  // Visits table
+  function pill(v,goodVal){
+    if(!v||v==='unknown')return'<span style="color:var(--gray-400);">—</span>';
+    const good=v===goodVal, mid=v==='moderate';
+    const bg=good?'#DCFCE7':mid?'#FEF3C7':'#FEE2E2', fg=good?'#166534':mid?'#92400E':'#991B1B';
+    return `<span style="font-size:10px;background:${bg};color:${fg};padding:2px 8px;border-radius:10px;font-weight:700;">${v}</span>`;
+  }
+  const staffById={}; rows.forEach(r=>staffById[r.id]=r);
+  let vh='<table class="order-table"><thead><tr><th>Time</th><th>Patient · Client</th><th>Profile</th><th>Compliance</th><th>Trust</th><th>Price Sens.</th><th>Staff (auto)</th><th>Invoice</th><th>Notes</th></tr></thead><tbody>';
+  WW_VISITS.forEach(v=>{
+    const st=v.staff&&staffById[v.staff]?`<strong style="color:${staffById[v.staff].color};">${staffById[v.staff].name.split(' ')[0]}</strong>`:'<span style="color:var(--gray-300);">—</span>';
+    vh+=`<tr><td style="white-space:nowrap;">${v.date} ${v.time}</td>
+      <td><strong>${v.patient}</strong><div style="font-size:10px;color:var(--gray-400);">${v.client}</div></td>
+      <td style="font-size:11px;">${v.profile}</td>
+      <td>${pill(v.compliance,'high')}</td>
+      <td>${pill(v.trust,'high')}</td>
+      <td>${v.price==='high'?pill('high','x'):pill(v.price,'neutral')}</td>
+      <td>${st}</td>
+      <td style="font-size:11px;${typeof v.invoice==='number'?'font-weight:700;color:var(--navy);':'color:var(--gray-400);'}">${typeof v.invoice==='number'?'$'+v.invoice.toLocaleString(undefined,{minimumFractionDigits:2}):(v.invoice||'pending')}</td>
+      <td style="font-size:10.5px;color:var(--gray-600);max-width:260px;">${v.note}</td></tr>`;
+  });
+  vh+='</tbody></table>';
+  document.getElementById('ww-visits-table').innerHTML=vh;
+  // Chart
+  if(typeof Chart!=='undefined'){
+    const labels=rows.filter(r=>r.cs!==null).map(r=>r.name.split(' ')[0]);
+    const csData=rows.filter(r=>r.cs!==null).map(r=>r.cs);
+    const avgData=rows.filter(r=>r.cs!==null).map(r=>r.avg!==null?Math.round(r.avg/5*10)/10:null);
+    new Chart(document.getElementById('wwWayChart'),{
+      type:'bar',
+      data:{labels,datasets:[
+        {label:'Client Service (/20)',data:csData,backgroundColor:'#1F3864',borderRadius:4},
+        {label:'Overall eval (scaled /20)',data:avgData,backgroundColor:'#93C5FD',borderRadius:4}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        scales:{y:{beginAtZero:true,max:20,ticks:{font:{size:10}}},x:{ticks:{font:{size:10}}}},
+        plugins:{legend:{labels:{font:{size:10},boxWidth:12}}}}
+    });
+  }
+}
+</script>
 
 <!-- ═══ EVAL DETAIL MODAL ═══ -->
 <div class="eval-modal-overlay" id="evalModal" onclick="if(event.target===this)closeEvalModal()">
