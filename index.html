@@ -544,12 +544,12 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 09, 2026 10:22 AM",
-  lastTjDate:         "2026-06-04",
-  mtdRevenue:         1752.75,
-  ytdRevenue:         634186.88,
-  avgInvoice:         159.34,
-  patientVisits:      11,
+  lastUpdated:        "Jun 10, 2026 9:00 AM",
+  lastTjDate:         "2026-06-08",
+  mtdRevenue:         7579.51,
+  ytdRevenue:         640013.64,
+  avgInvoice:         161.27,
+  patientVisits:      47,
   controllableCosts:  64.2,
   mtdRevenuePct:      null,
   ytdRevenuePct:      11.2,
@@ -562,9 +562,9 @@ window.DVC_LIVE = {
   weeklyPeriodTotal:  0,
   budgetTarget:       null,
   projectedMonthEnd:  null,
-  dailyRunRate:       1752.75,
-  pacingStatus:       "5 business days in — only Jun 4 TJ posted; Jun 1–3 TJs still missing",
-  businessDaysElapsed: 5,
+  dailyRunRate:       1082.79,
+  pacingStatus:       "7 business days in — TJs through Jun 8 posted; Jun 1–3 TJs still missing",
+  businessDaysElapsed: 7,
   businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -715,9 +715,19 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 09, 2026 10:22 AM",
+  lastUpdated: "Jun 10, 2026 9:00 AM",
   items: [
-    {id:"nl-80",text:"Soda lime",author:"Triage Nurse",date:"Jun 8",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-90",text:"(Photo — check Slack, IMG_20260610_095945)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-89",text:"(Photo — check Slack, 20260610_094921)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-88",text:"(Photo — check Slack, IMG_20260610_094725)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-87",text:"Prophy paste",author:"Allison",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-86",text:"(Photo — check Slack, IMG_2194 — NO checkmark yet)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-85",text:"(Photo — check Slack, IMG_2193)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-84",text:"\"One left\" (photo IMG_2192 — identify product)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-83",text:"(6 inventory photos — IMG_2184–2191, check Slack)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-82",text:"Vetmedin 5mg",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-81",text:"Disposable drapes",author:"Allison",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
+    {id:"nl-80",text:"Soda lime",author:"Triage Nurse",date:"Jun 8",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-79",text:"Flexprofen 100mg",author:"Kathryn",date:"Jun 8",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-78",text:"Meloxidyl 32ml",author:"Triage Nurse",date:"Jun 5",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-77",text:"Cautery tips",author:"Kathryn",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
@@ -759,11 +769,10 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 09, 2026 10:22 AM",
+  lastUpdated: "Jun 10, 2026 9:00 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Moissa",dates:["2026-06-09","2026-06-10","2026-06-11","2026-06-12"],type:"pto",note:"OUT rest of week Jun 9–12 PTO (full week Jun 8–12, posted Jun 5) — NOT in Dayforce. COVERAGE RISK",inDayforce:false,slackOnly:true},
-    {staff:"Maddie Joseph",dates:["2026-06-09"],type:"pto",note:"Tue off; works Wed–Fri — verify employment status (listed as quit Apr 2026)",inDayforce:false,slackOnly:true},
+    {staff:"Moissa",dates:["2026-06-10","2026-06-11","2026-06-12"],type:"pto",note:"OUT today through Fri Jun 12 PTO (full week Jun 8–12, posted Jun 5) — NOT in Dayforce. COVERAGE RISK",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -1855,13 +1864,13 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 08, 2026 | #need-list sync: Jun 08, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 10, 2026 (Mid-Week Restock Check) | #need-list sync: Jun 10, 2026
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:15,note:'~16 units/wk — last ordered May 18 (21 days) per Jun 8 DM',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:10,note:'~27 doses/wk — no confirmed Zoetis order since ~May 18 (~80+ doses used) per Jun 8 DM',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
   {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:10,note:'~24 mL/wk — flagged urgent Jun 1 & Jun 8 DMs',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:10,note:'~11 mL/wk — flagged Jun 1 & Jun 8. Controlled, Dr. Smiley sign-off needed',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:15,note:'~6 doses/wk — not in May 27 order per Jun 8 DM',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
+  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'low',pct:40,note:'~6 doses/wk — downgraded to LOW per Jun 10 DM',avg:6,order:10,cost:180,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:4,order:5,cost:1220,priority:'ROUTINE',feb:2,mar:4},
   {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
   {name:'Epinephrine 1mg/mL',code:'EMER01',cat:'emergency',status:'critical',pct:25,note:'NEVER run out — check surgery storage too',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:1,mar:2},
@@ -1892,7 +1901,7 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 08, 2026 | #nee
   {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
   {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'low',pct:40,note:'~17 doses/wk — confirm vs Vanguard DAPP/L4 in May 27 order, per Jun 8 DM',avg:48,order:58,cost:392,priority:'THIS WEEK',feb:76,mar:46},
+  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'critical',pct:15,note:'~17 doses/wk — URGENT per Jun 10 DM, last confirmed order May 27 (14 days)',avg:48,order:58,cost:392,priority:'ORDER NOW',feb:76,mar:46},
   {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
   {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
   {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
@@ -1926,6 +1935,9 @@ const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 08, 2026 | #nee
   // --- NEW from Jun 3-4 #need-list ---
   {name:'Felimazole 2.5mg',code:'FELI25',cat:'other',status:'critical',pct:15,note:'Need-list Jun 3 — Triage Nurse, unconfirmed',avg:1,order:2,cost:40,priority:'ORDER NOW',feb:0,mar:0},
   {name:'Cautery Tips',code:'CAUT01',cat:'other',status:'low',pct:40,note:'Need-list Jun 4 — Kathryn',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
+  // --- NEW from Jun 10 #need-list ---
+  {name:'Prophy Paste',code:'PROPH1',cat:'other',status:'low',pct:40,note:'Need-list Jun 10 — Allison (checkmarked)',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
+  {name:'Disposable Drapes',code:'DRAPE1',cat:'other',status:'low',pct:40,note:'Need-list Jun 10 — Allison (checkmarked)',avg:1,order:2,cost:45,priority:'THIS WEEK',feb:0,mar:0},
 ];
 
 const WALK_CHECKS = [
@@ -4303,19 +4315,19 @@ window.publishSchedule=function(){
     });
   });
 })();
-// Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 5, 2026)
-// staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
+// Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (covers Jun 5, 2026 — no newer recordings as of Jun 10)
+// staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joined from Jun 5 Avimark TJ on Jun 10.
 const WW_VISITS=[
-  {date:'Jun 5',time:'8:27a', patient:'Theo Wallace',      client:'Wallace',    profile:'(partial profile)',            compliance:null,      trust:'high',     price:'neutral', staff:null,    note:'Insurance-checker · Chewy scripts · open to ProHeart 12'},
-  {date:'Jun 5',time:'9:27a', patient:'Sam Neff',          client:'Neff',       profile:'Budget-Conscious (7/10)',      compliance:'moderate',trust:'moderate', price:'moderate',staff:null,    note:'Wants totals upfront · $1,900 sticker-shock moment · self-sources Seresto'},
-  {date:'Jun 5',time:'9:38a', patient:'Boomer Williams',   client:'Williams',   profile:'High-compliance (8/10)',       compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Fast decisions · booked Aug 13 recheck on the spot'},
-  {date:'Jun 5',time:'9:53a', patient:'Grace Zavalydriga', client:'Zavalydriga',profile:'Easy-Going (4/10 · short audio)',compliance:'moderate',trust:'moderate',price:'unknown', staff:null,    note:'Limited audio — concise med check-in only'},
-  {date:'Jun 5',time:'10:30a',patient:'Leia Shanks',       client:'Shanks',     profile:'Easy-Going (6/10)',            compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    note:'Accepts full preventive bundle · needs date-based reminders'},
-  {date:'Jun 5',time:'11:11a',patient:'Romeo & Alex Richards',client:'Richards',profile:'Information-Driven',           compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Multi-cat household · executes plans religiously · wants written thresholds'},
-  {date:'Jun 5',time:'11:20a',patient:'Pearl Kellem',      client:'Kellem',     profile:'Information-Driven (7/10)',    compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    note:'Directs own diagnostics · negotiates sequencing · "today vs next" framing works'},
-  {date:'Jun 5',time:'11:37a',patient:'Doc Aynes',         client:'Aynes',      profile:'Easy-Going (7/10)',            compliance:'high',    trust:'high',     price:'neutral', staff:'kristi',note:'Transcript: "pass his rear end to Christy" · warm rapport, accepted plan fully'},
-  {date:'Jun 5',time:'11:58a',patient:'Henry Fogle',       client:'Fogle',      profile:'Emotion-Driven/Anxious (7/10)',compliance:'high',    trust:'high',     price:'neutral', staff:null,    note:'Client praised Maddie unprompted — the way builds stickiness that outlasts staff'},
-  {date:'Jun 5',time:'11:58a',patient:'Knox Hollowell',    client:'Hollowell',  profile:'Budget-Conscious (9/10)',      compliance:'moderate',trust:'moderate', price:'high',    staff:null,    note:'Declined heartworm on price · accepted staged 3-dose plan · tiered options work'}
+  {date:'Jun 5',time:'8:27a', patient:'Theo Wallace',      client:'Wallace',    profile:'(partial profile)',            compliance:null,      trust:'high',     price:'neutral', staff:null,    invoice:328.75,note:'Insurance-checker · Chewy scripts · open to ProHeart 12'},
+  {date:'Jun 5',time:'9:27a', patient:'Sam Neff',          client:'Neff',       profile:'Budget-Conscious (7/10)',      compliance:'moderate',trust:'moderate', price:'moderate',staff:null,    invoice:606.75,note:'Wants totals upfront · $1,900 sticker-shock moment · self-sources Seresto'},
+  {date:'Jun 5',time:'9:38a', patient:'Boomer Williams',   client:'Williams',   profile:'High-compliance (8/10)',       compliance:'high',    trust:'high',     price:'neutral', staff:null,    invoice:206.75,note:'Fast decisions · booked Aug 13 recheck on the spot'},
+  {date:'Jun 5',time:'9:53a', patient:'Grace Zavalydriga', client:'Zavalydriga',profile:'Easy-Going (4/10 · short audio)',compliance:'moderate',trust:'moderate',price:'unknown', staff:null,    invoice:393.25,note:'Limited audio — concise med check-in only'},
+  {date:'Jun 5',time:'10:30a',patient:'Leia Shanks',       client:'Shanks',     profile:'Easy-Going (6/10)',            compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    invoice:354.75,note:'Accepts full preventive bundle · needs date-based reminders'},
+  {date:'Jun 5',time:'11:11a',patient:'Romeo & Alex Richards',client:'Richards',profile:'Information-Driven',           compliance:'high',    trust:'high',     price:'neutral', staff:null,    invoice:590.50,note:'Multi-cat household · executes plans religiously · wants written thresholds'},
+  {date:'Jun 5',time:'11:20a',patient:'Pearl Kellem',      client:'Kellem',     profile:'Information-Driven (7/10)',    compliance:'moderate',trust:'moderate', price:'neutral', staff:null,    invoice:54.69,note:'Directs own diagnostics · negotiates sequencing · "today vs next" framing works'},
+  {date:'Jun 5',time:'11:37a',patient:'Doc Aynes',         client:'Aynes',      profile:'Easy-Going (7/10)',            compliance:'high',    trust:'high',     price:'neutral', staff:'kristi',invoice:373.50,note:'Transcript: "pass his rear end to Christy" · warm rapport, accepted plan fully'},
+  {date:'Jun 5',time:'11:58a',patient:'Henry Fogle',       client:'Fogle',      profile:'Emotion-Driven/Anxious (7/10)',compliance:'high',    trust:'high',     price:'neutral', staff:null,    invoice:'n/a',note:'Client praised Maddie unprompted — the way builds stickiness that outlasts staff'},
+  {date:'Jun 5',time:'11:58a',patient:'Knox Hollowell',    client:'Hollowell',  profile:'Budget-Conscious (9/10)',      compliance:'moderate',trust:'moderate', price:'high',    staff:null,    invoice:233.25,note:'Declined heartworm on price · accepted staged 3-dose plan · tiered options work'}
 ];
 function initWhatWayTab(){
   if(typeof STAFF_DATA==='undefined')return;
