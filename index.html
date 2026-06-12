@@ -544,7 +544,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 11, 2026 9:00 AM",
+  lastUpdated:        "Jun 12, 2026 9:00 AM",
   lastTjDate:         "2026-06-08",
   mtdRevenue:         7579.51,
   ytdRevenue:         640013.64,
@@ -563,8 +563,8 @@ window.DVC_LIVE = {
   budgetTarget:       null,
   projectedMonthEnd:  null,
   dailyRunRate:       947.44,
-  pacingStatus:       "8 business days in — TJs through Jun 8 posted; Jun 1–3, 9, 10 TJs still missing (clinic on reduced PTO week)",
-  businessDaysElapsed: 8,
+  pacingStatus:       "10 business days in — TJs through Jun 8 posted; Jun 1–3, 9, 10, 11 TJs still missing (clinic on reduced PTO week)",
+  businessDaysElapsed: 10,
   businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -702,9 +702,9 @@ window.DVC_LIVE = {
 <!-- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B -->
 <script id="appt-med-data">
 window.APPT_MED_FLAGS = {
-  lastUpdated: "Jun 11, 2026 9:00 AM",
-  date: "2026-06-11",
-  dateLabel: "Today — Thu Jun 11 (no appointments — all provider columns blocked, Dr. Smiley PTO week Jun 8–12)",
+  lastUpdated: "Jun 12, 2026 9:00 AM",
+  date: "2026-06-12",
+  dateLabel: "Today — Fri Jun 12 (no schedule data — Avimark logged out since Wed; Dr. Smiley PTO week Jun 8–12, clinic may be closed)",
   appointments: []
 };
 </script>
@@ -713,8 +713,9 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 11, 2026 9:00 AM",
+  lastUpdated: "Jun 12, 2026 9:00 AM",
   items: [
+    {id:"nl-91",text:"Flexprofen 75mg",author:"Triage Nurse",date:"Jun 12",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-90",text:"(Photo — check Slack, IMG_20260610_095945)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-89",text:"(Photo — check Slack, 20260610_094921)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-88",text:"(Photo — check Slack, IMG_20260610_094725)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
@@ -767,10 +768,10 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 11, 2026 9:00 AM",
+  lastUpdated: "Jun 12, 2026 9:00 AM",
   source: "Dayforce + Slack #preferred-schedule",
   entries: [
-    {staff:"Moissa",dates:["2026-06-11","2026-06-12"],type:"pto",note:"OUT today + Fri Jun 12 PTO (full week Jun 8–12, posted Jun 5) — NOT in Dayforce. COVERAGE RISK",inDayforce:false,slackOnly:true},
+    {staff:"Moissa",dates:["2026-06-12"],type:"pto",note:"OUT today (last day of full-week PTO Jun 8–12, posted Jun 5) — NOT in Dayforce. Back Monday Jun 15",inDayforce:false,slackOnly:true},
     {staff:"Debbie",dates:["2026-06-15"],type:"pto",note:"Monday off",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -4313,7 +4314,7 @@ window.publishSchedule=function(){
     });
   });
 })();
-// Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (covers Jun 5, 2026 — no newer recordings as of Jun 11; clinic on PTO week Jun 8–12, kept Jun 5 visits so tab isn't empty)
+// Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (covers Jun 5, 2026 — no newer recordings as of Jun 12; clinic on PTO week Jun 8–12, kept Jun 5 visits so tab isn't empty)
 // staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joined from Jun 5 Avimark TJ on Jun 10.
 const WW_VISITS=[
   {date:'Jun 5',time:'8:27a', patient:'Theo Wallace',      client:'Wallace',    profile:'(partial profile)',            compliance:null,      trust:'high',     price:'neutral', staff:null,    invoice:328.75,note:'Insurance-checker · Chewy scripts · open to ProHeart 12'},
