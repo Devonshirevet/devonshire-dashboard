@@ -547,7 +547,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 17, 2026 9:00 AM",
+  lastUpdated:        "Jun 18, 2026 9:00 AM",
   lastTjDate:         "2026-06-08",
   mtdRevenue:         7579.51,
   ytdRevenue:         640013.64,
@@ -716,8 +716,9 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 17, 2026 9:00 AM",
+  lastUpdated: "Jun 18, 2026 9:00 AM",
   items: [
+    {id:"nl-108",text:"Multi-enzyme detergent (photo IMG_2465)",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-107",text:"3ml syringes",author:"Triage Nurse",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-106",text:"Trio 44-88",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-105",text:"(Photo — IMG_20260617_082458)",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
@@ -787,7 +788,7 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 17, 2026 9:00 AM",
+  lastUpdated: "Jun 18, 2026 9:00 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
@@ -2547,6 +2548,7 @@ const STAFF_DATA = [
       {date:'Jun 15',score:77,patient:'Daisy Cole',cats:[16,18,14,15,14]},
       {date:'Jun 15',score:79,patient:'Teddy McKinney',cats:[17,16,15,16,15]},
       {date:'Jun 15',score:78,patient:'Sophie Cooley',cats:[17,16,15,16,14]},
+      {date:'Jun 18',score:76,patient:'Oppy',cats:[16,17,14,15,14]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2664,6 +2666,7 @@ const STAFF_DATA = [
       {date:'Jun 15',score:71,patient:'Raven Fitzpatrick',cats:[16,15,13,14,13]},
       {date:'Jun 15',score:68,patient:'Mr Darcy Woodring',cats:[15,14,12,14,13]},
       {date:'Jun 15',score:74,patient:'Chicory Alexander',cats:[16,14,15,15,14]},
+      {date:'Jun 18',score:83,patient:'Stella Ellis',cats:[18,17,15,17,16]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
@@ -2671,6 +2674,7 @@ const STAFF_DATA = [
       {date:'Feb 4', score:74,patient:'Charlie Thompson',cats:[16,17,14,14,13]},
       {date:'May 20',score:79,patient:'Lil Mama McGill',cats:[17,18,14,16,14]},
       {date:'May 20',score:79,patient:'Indy Webner',cats:[17,16,15,16,15]},
+      {date:'Jun 18',score:81,patient:'Claudia Hampton',cats:[17,18,15,16,15]},
     ]
   },
   { id:'breanna', name:'Breanna',        role:'HS Extern',     color:'#9CA3AF', cert:null, scores:[] },
@@ -4395,7 +4399,7 @@ window.publishSchedule=function(){
 // Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 5, 2026)
 // staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
 const WW_VISITS=[
-  // Most recent 3 business days (Jun 15–17). Jun 16–17 had no #client-analysis profiles (pipeline quiet); Jun 5 rolled off. Invoices pending — no Avimark TJ posted since Jun 8.
+  // Most recent 3 business days (Jun 15–18). 2 new Jun 18 profiles (Oppy/Kirby, Claudia Hampton); Roxy Webb & Jack Morgan profiles cut off by Q. Invoices pending — no Avimark TJ posted since Jun 8.
   {date:'Jun 15',time:'8:27a', patient:'Shy Nance',         client:'Nance',     profile:'Easy-Going (fast yes)',        compliance:'high',    trust:'high',     price:'neutral', staff:'kathryn', invoice:null, note:'~$396 — accepted ProHeart 12 + Revolution + annual, paid by card · no price wall hit'},
   {date:'Jun 15',time:'9:14a', patient:'Roxy Miller',       client:'Miller',    profile:'Easy-Going / Low-Friction',    compliance:'high',    trust:'high',     price:'neutral', staff:'kathryn', invoice:null, note:'Accepted annual injectable prevention — "cheaper than 12 months of pills"'},
   {date:'Jun 15',time:'9:41a', patient:'Dexter Balangee',   client:'Balangee',  profile:'High-trust (neutral price)',   compliance:'high',    trust:'high',     price:'neutral', staff:'jodi',    invoice:null, note:'Full preventive bundle no debate; chose Simparica over injectable; mulling trialing off Zenrelia'},
@@ -4403,6 +4407,8 @@ const WW_VISITS=[
   {date:'Jun 15',time:'10:47a',patient:'Kiya Ghaffari',     client:'Ghaffari',  profile:'Easy-Going',                   compliance:'high',    trust:'high',     price:'neutral', staff:'kristi',  invoice:null, note:'Accepted in-clinic Claro placement + ear-care plan · small but clean'},
   {date:'Jun 15',time:'11:34a',patient:'Jagger McConnell',  client:'McConnell', profile:'Information-Driven',            compliance:'moderate',trust:'moderate', price:'high',    staff:'kristi',  invoice:null, note:'Chose OTC urinary diet over Rx ("stupid expensive"); committed to urine collection/drop-off'},
   {date:'Jun 15',time:'1:07p', patient:'Trixie Salyer',     client:'Salyer',    profile:'Budget-Conscious (9/10)',      compliance:'moderate',trust:'high',     price:'high',    staff:'jodi',    invoice:null, note:'ACTH stim DELAYED to payday — financing never offered. Offer CareCredit/Scratch Pay to keep care same-day'},
+  {date:'Jun 18',time:'8:14a', patient:'Oppy',           client:'Kirby',     profile:'Budget-Conscious (9/10)',      compliance:'moderate', trust:'moderate', price:'high',    staff:'jodi',    invoice:null, note:'Hard $250 cap; price-compared Apoquel vs Zenrelia & Chewy/Walmart — accepted plan within budget · disability/tight budget'},
+  {date:'Jun 18',time:'8:49a', patient:'Claudia Hampton',  client:'Hampton',   profile:'Budget-Conscious (9/10)',      compliance:'moderate', trust:'moderate', price:'high',    staff:'moissa',  invoice:null, note:'Anchored visit to ~$300; multi-cat hyperthyroid mgmt — accepts diagnostics when staged with clear totals'},
 ];
 function initWhatWayTab(){
   if(typeof STAFF_DATA==='undefined')return;
