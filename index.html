@@ -547,7 +547,7 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 18, 2026 9:00 AM",
+  lastUpdated:        "Jun 19, 2026 9:00 AM",
   lastTjDate:         "2026-06-08",
   mtdRevenue:         7579.51,
   ytdRevenue:         640013.64,
@@ -566,8 +566,8 @@ window.DVC_LIVE = {
   budgetTarget:       null,
   projectedMonthEnd:  null,
   dailyRunRate:       947.44,
-  pacingStatus:       "12 business days in — TJs through Jun 8 posted; no new TJs since (Dr. Smiley PTO week Jun 8–12, clinic on reduced schedule). Jun 9–16 TJs not yet posted",
-  businessDaysElapsed: 12,
+  pacingStatus:       "13 business days in — TJs through Jun 8 posted; no new TJs since (Avimark login stuck since ~Jun 10; Jun 9–18 TJs not yet posted to #avimark). Revenue numbers stale pending TJ catch-up",
+  businessDaysElapsed: 13,
   businessDaysTotal:   22,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -705,9 +705,9 @@ window.DVC_LIVE = {
 <!-- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B -->
 <script id="appt-med-data">
 window.APPT_MED_FLAGS = {
-  lastUpdated: "Jun 17, 2026 9:00 AM",
-  date: "2026-06-17",
-  dateLabel: "Today — Wed Jun 17 (no schedule data — Avimark logged out / login stuck since Wed Jun 10; week-calendar export still Mar 24. Schedule canvas in #general stale at Jun 13. No schedule posted)",
+  lastUpdated: "Jun 19, 2026 9:00 AM",
+  date: "2026-06-19",
+  dateLabel: "Today — Fri Jun 19 (no schedule data — Avimark login stuck since ~Wed Jun 10; week-calendar export still Mar 24. No schedule posted to #general. Exam recordings ARE flowing to #client-analysis, so the clinic is seeing patients — Avimark export/login still needs a manual fix)",
   appointments: []
 };
 </script>
@@ -716,8 +716,14 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 18, 2026 9:00 AM",
+  lastUpdated: "Jun 19, 2026 9:00 AM",
   items: [
+    {id:"nl-115",text:"Injectable bordetella (requested 2x — Allison Jun 18 + Jun 19)",author:"Staff Computer",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-114",text:"Convenia",author:"Staff Computer",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-113",text:"Euthasol",author:"Triage Nurse",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-112",text:"Oral bordetella",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-110",text:"Sterilizing pouches (medium-ish)",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-109",text:"Hand paper towels (ASAP)",author:"Kristi",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-108",text:"Multi-enzyme detergent (photo IMG_2465)",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-107",text:"3ml syringes",author:"Triage Nurse",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
     {id:"nl-106",text:"Trio 44-88",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"high"},
@@ -788,10 +794,11 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 18, 2026 9:00 AM",
+  lastUpdated: "Jun 19, 2026 9:00 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
     {staff:"Kristi",dates:["2026-06-27"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
+    {staff:"Debbie",dates:["2026-07-30"],type:"early_out",note:"Afternoon off — dermatology appt; can work all day Jul 29",inDayforce:false,slackOnly:true},
     {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
     {staff:"Kelsey",dates:["2026-08-17","2026-08-18","2026-08-19","2026-08-20","2026-08-21"],type:"pto",note:"Aug 17–21 PTO",inDayforce:false,slackOnly:true}
   ]
@@ -2549,6 +2556,8 @@ const STAFF_DATA = [
       {date:'Jun 15',score:79,patient:'Teddy McKinney',cats:[17,16,15,16,15]},
       {date:'Jun 15',score:78,patient:'Sophie Cooley',cats:[17,16,15,16,14]},
       {date:'Jun 18',score:76,patient:'Oppy',cats:[16,17,14,15,14]},
+      {date:'Jun 19',score:79,patient:'Calvin Mitchener',cats:[16,17,15,16,15]},
+      {date:'Jun 19',score:81,patient:'Gracie Webb',cats:[17,18,15,16,15]},
     ]
   },
   // Maddie Joseph removed — left clinic April 2026
@@ -2667,6 +2676,7 @@ const STAFF_DATA = [
       {date:'Jun 15',score:68,patient:'Mr Darcy Woodring',cats:[15,14,12,14,13]},
       {date:'Jun 15',score:74,patient:'Chicory Alexander',cats:[16,14,15,15,14]},
       {date:'Jun 18',score:83,patient:'Stella Ellis',cats:[18,17,15,17,16]},
+      {date:'Jun 19',score:74,patient:'Willow Reeves',cats:[16,14,15,15,14]},
     ]
   },
   { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
@@ -4399,16 +4409,20 @@ window.publishSchedule=function(){
 // Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 5, 2026)
 // staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
 const WW_VISITS=[
-  // Most recent 3 business days (Jun 15–18). 2 new Jun 18 profiles (Oppy/Kirby, Claudia Hampton); Roxy Webb & Jack Morgan profiles cut off by Q. Invoices pending — no Avimark TJ posted since Jun 8.
-  {date:'Jun 15',time:'8:27a', patient:'Shy Nance',         client:'Nance',     profile:'Easy-Going (fast yes)',        compliance:'high',    trust:'high',     price:'neutral', staff:'kathryn', invoice:null, note:'~$396 — accepted ProHeart 12 + Revolution + annual, paid by card · no price wall hit'},
-  {date:'Jun 15',time:'9:14a', patient:'Roxy Miller',       client:'Miller',    profile:'Easy-Going / Low-Friction',    compliance:'high',    trust:'high',     price:'neutral', staff:'kathryn', invoice:null, note:'Accepted annual injectable prevention — "cheaper than 12 months of pills"'},
-  {date:'Jun 15',time:'9:41a', patient:'Dexter Balangee',   client:'Balangee',  profile:'High-trust (neutral price)',   compliance:'high',    trust:'high',     price:'neutral', staff:'jodi',    invoice:null, note:'Full preventive bundle no debate; chose Simparica over injectable; mulling trialing off Zenrelia'},
-  {date:'Jun 15',time:'10:24a',patient:'Roo Kepperling',    client:'Kepperling',profile:'Information-Driven',            compliance:'high',    trust:'high',     price:'neutral', staff:null,      invoice:null, note:'Annual+vaccine accepted; mostly inter-cat behavior consult — opportunity to bill behavioral plan + recheck'},
-  {date:'Jun 15',time:'10:47a',patient:'Kiya Ghaffari',     client:'Ghaffari',  profile:'Easy-Going',                   compliance:'high',    trust:'high',     price:'neutral', staff:'kristi',  invoice:null, note:'Accepted in-clinic Claro placement + ear-care plan · small but clean'},
-  {date:'Jun 15',time:'11:34a',patient:'Jagger McConnell',  client:'McConnell', profile:'Information-Driven',            compliance:'moderate',trust:'moderate', price:'high',    staff:'kristi',  invoice:null, note:'Chose OTC urinary diet over Rx ("stupid expensive"); committed to urine collection/drop-off'},
-  {date:'Jun 15',time:'1:07p', patient:'Trixie Salyer',     client:'Salyer',    profile:'Budget-Conscious (9/10)',      compliance:'moderate',trust:'high',     price:'high',    staff:'jodi',    invoice:null, note:'ACTH stim DELAYED to payday — financing never offered. Offer CareCredit/Scratch Pay to keep care same-day'},
-  {date:'Jun 18',time:'8:14a', patient:'Oppy',           client:'Kirby',     profile:'Budget-Conscious (9/10)',      compliance:'moderate', trust:'moderate', price:'high',    staff:'jodi',    invoice:null, note:'Hard $250 cap; price-compared Apoquel vs Zenrelia & Chewy/Walmart — accepted plan within budget · disability/tight budget'},
-  {date:'Jun 18',time:'8:49a', patient:'Claudia Hampton',  client:'Hampton',   profile:'Budget-Conscious (9/10)',      compliance:'moderate', trust:'moderate', price:'high',    staff:'moissa',  invoice:null, note:'Anchored visit to ~$300; multi-cat hyperthyroid mgmt — accepts diagnostics when staged with clear totals'},
+  // Covers Jun 18-19, 2026 (most recent 2 business days). Jun 19: 8 profiled exams from #client-analysis. Invoices pending - no Avimark TJ posted since Jun 8 (export/login stuck), so all invoice fields null.
+  {date:'Jun 19',time:'9:28a', patient:'Corvin',   client:'Reaves',     profile:'Easy-Going / Low Friction', compliance:'high',     trust:'high',     price:'neutral', staff:null,     invoice:null, note:'Cat ortho injury - accepted Solensia+Onsior trial + repeat rads, Mon text update. Multi-pet: separate cats for pills. No cost pushback'},
+  {date:'Jun 19',time:'9:32a', patient:'Artemis',  client:'Hiatt',      profile:'Budget-Conscious',          compliance:'high',     trust:'high',     price:'neutral', staff:'kristi', invoice:null, note:'Diabetic cat, hematuria - agreed to fructosamine after cost clarity (asked how much total). Insulin 2u q12h held til Mon results. Wants clear totals, not refusal'},
+  {date:'Jun 19',time:'9:54a', patient:'Gracie',   client:'Webb',       profile:'Easy-Going / Low Friction', compliance:'high',     trust:'high',     price:'neutral', staff:'jodi',   invoice:null, note:'Animax ear tx + dental scheduled; declined flu shot (prior reaction); slight heart murmur noted; weight mgmt. Decides fast, anchors to prior experience'},
+  {date:'Jun 19',time:'10:25a',patient:'Baby',     client:'Cummins',    profile:'Budget-Conscious (9/10)',   compliance:'moderate', trust:'moderate', price:'high',    staff:null,     invoice:null, note:'Hard ~$200 budget; asked That is it? at $220 then accepted. New cat; monthly Credelio flea plan $27 x3mo. Risk: drop-off on monthly prevention - pre-schedule pickups'},
+  {date:'Jun 19',time:'11:01a',patient:'Baxter',   client:'Bentlage',   profile:'Easy-Going / Low Friction', compliance:'high',     trust:'high',     price:'neutral', staff:'jodi',   invoice:null, note:'Arthritis - Librela trial + ProHeart (synced to avoid wasted pills); preventive, mild cost-efficiency talk. Hard to handle - coordinate staff roles'},
+  {date:'Jun 19',time:'11:21a',patient:'Rudy',     client:'Schell',     profile:'Easy-Going / Low Friction', compliance:'moderate', trust:'moderate', price:'unknown', staff:null,     invoice:null, note:'Fractious cat - quick annual vaccine recap, relieved done for the year. Pending HW test callback. Keep visits low-stress/efficient'},
+  {date:'Jun 19',time:'11:41a',patient:'Havok',    client:'Gembala',    profile:'Budget-Conscious (7/10)',   compliance:'high',     trust:'high',     price:'neutral', staff:'kristi', invoice:null, note:'Recurrent ear/allergy; fast decisions, high trust; mild cost sensitivity - responded to protect your wallet seasonal Zenrelia trial framing'},
+  {date:'Jun 19',time:'11:53a',patient:'Calvin',   client:'Mitchener',  profile:'Easy-Going / Low Friction', compliance:'high',     trust:'high',     price:'unknown', staff:null,     invoice:null, note:'Kitten wellness - accepts all recs (declaw refused, soft paws, neuter timing, food transition). Multi-cat home w/ other URI/GI issues. Use reminder-based follow-up'},
+  {date:'Jun 18',time:'8:01a', patient:'Jack',     client:'Morgan',     profile:'Decisive / Preventive',     compliance:'high',     trust:'moderate', price:'unknown', staff:null,     invoice:null, note:'Wellness - vaccines, bloodwork & ProHeart all administered, no documented hesitation. Q profile cut off; read from exam cues'},
+  {date:'Jun 18',time:'8:14a', patient:'Oppy',     client:'Kirby',      profile:'Budget-Conscious (9/10)',   compliance:'moderate', trust:'moderate', price:'high',    staff:'jodi',   invoice:null, note:'Hard $250 cap; price-compared Apoquel vs Zenrelia & Chewy/Walmart - accepted plan within budget; disability/tight budget'},
+  {date:'Jun 18',time:'8:49a', patient:'Claudia Hampton',client:'Hampton',profile:'Budget-Conscious (9/10)', compliance:'moderate', trust:'moderate', price:'high',    staff:'moissa', invoice:null, note:'Anchored visit to ~$300; multi-cat hyperthyroid mgmt - accepts diagnostics when staged with clear totals'},
+  {date:'Jun 18',time:'9:18a', patient:'Mocha',    client:'McLaughlin', profile:'Budget-Conscious (7/10)',   compliance:'moderate', trust:'high',     price:'neutral', staff:'jodi',   invoice:null, note:'Allergy mgmt - chose injection over pills (admin difficulty). Asks which is cheaper; give 2 options + exact total'},
+  {date:'Jun 18',time:'9:31a', patient:'Rudy',     client:'Morgan',     profile:'Budget-Conscious (7/10)',   compliance:'high',     trust:'high',     price:'neutral', staff:null,     invoice:null, note:'Ear tx + vaccines accepted; weight-loss win. Motivated by preventive wins, avoids wasteful spend - convert to scheduled dental + Jan prevention'},
 ];
 function initWhatWayTab(){
   if(typeof STAFF_DATA==='undefined')return;
