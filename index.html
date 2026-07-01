@@ -716,8 +716,10 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jun 30, 2026 9:30 AM",
+  lastUpdated: "Jul 1, 2026 9:33 AM",
   items: [
+    {id:"nl-167",text:"Toilet paper",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"low"},
+    {id:"nl-166",text:"Distilled water",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-165",text:"(Photo — check Slack)",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-164",text:"Ez scrub 205",author:"Moissa",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-163",text:"Ketamine (controlled)",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"high"},
@@ -848,7 +850,7 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jun 30, 2026 9:30 AM",
+  lastUpdated: "Jul 1, 2026 9:33 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
     {staff:"Allison",dates:["2026-07-03"],type:"pto",note:"Out of town — requested Jun 22 via #preferred-schedule",inDayforce:false,slackOnly:true},
@@ -4536,7 +4538,9 @@ window.publishSchedule=function(){
 // Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 22–23, 2026)
 // staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
 const WW_VISITS=[
-  // Covers Jun 29, 26, 25, 2026 (most recent 3 business days w/ exam recordings). Invoices pending — Avimark always-current file not reachable this run (Desktop not connected), so invoice fields null.
+  // Covers Jul 1 + Jun 29, 26, 25, 2026. Invoices pending — Avimark always-current file not reachable this run (Desktop not connected), so invoice fields null. Jul 1: only Craig profile complete at run time (9:33a); 6 other Jul 1 exams still generating in #client-analysis. (Jun 30 evening WW entries were lost when Part Z rolled back a corrupt master.)
+  // --- Jul 1 (from #client-analysis Q profiles) ---
+  {date:'Jul 1',time:'8:58a', patient:'Cindy',  client:'Craig',    profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:'allison', invoice:null, note:'Accepted recommendations without resistance, asked practical questions; friction is logistical not financial. Give concise verbal instructions + written aftercare and a clear if/then plan. Staff in room: Claire + Allison.'},
   // --- Jun 29 (from #client-analysis Q profiles) ---
   {date:'Jun 29',time:'8:38a', patient:'Gus',     client:'Gray',   profile:'Budget-Conscious (9/10)', compliance:'high', trust:'high', price:'high', staff:null, invoice:null, note:'High price sensitivity, spouse is shared decision authority. Explain reasoning, present estimate plainly, prioritize biggest-impact comfort items first, reinforce simple home care.'},
   {date:'Jun 29',time:'8:01a', patient:'Aussie',  client:'Morris', profile:'Budget-Conscious (8/10)', compliance:null, trust:'high', price:'high', staff:null, invoice:null, note:'Explicit budget concerns but accepting of estimates; high attachment and trust. Vet plus tech Chrissy in room (not on roster). Q reply truncated before compliance section.'},
