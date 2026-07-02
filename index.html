@@ -547,34 +547,34 @@ window.STAFF_LOG_DATA = {};
 <!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
 <script id="dvc-live-data">
 window.DVC_LIVE = {
-  lastUpdated:        "Jun 30, 2026 9:30 AM",
-  lastTjDate:         "2026-06-30",
-  mtdRevenue:         121103.59,
-  ytdRevenue:         788599.73,
-  avgInvoice:         66.69,
-  patientVisits:      1816,
+  lastUpdated:        "Jul 02, 2026 9:40 AM",
+  lastTjDate:         "2026-07-02",
+  mtdRevenue:         2563.57,
+  ytdRevenue:         805763.09,
+  avgInvoice:         75.4,
+  patientVisits:      34,
   controllableCosts:  64.2,
-  mtdRevenuePct:      -28.6,
-  ytdRevenuePct:      -17.1,
-  avgInvoicePct:      -2.5,
-  patientVisitsPct:   -27.9,
-  comparePeriod:      "Jun 2025 to date",
+  mtdRevenuePct:      -21.6,
+  ytdRevenuePct:      -15.6,
+  avgInvoicePct:      12.8,
+  patientVisitsPct:   -27.7,
+  comparePeriod:      "Jul 2025 to date",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
   weeklyNewClients:   1,
   weeklyPeriodTotal:  0,
   budgetTarget:       95000,
-  projectedMonthEnd:  121103.59,
-  dailyRunRate:       5504.71,
-  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-06-30 8:49 AM, reads ACCOUNT.V2$). The Desktop ALWAYS_CURRENT file was not reachable this run, so the equivalent reachable dump was used. MTD $121,104 is 127.5% of the $95K target with all 22 business days elapsed (month complete); final month total ~$121,104. Down ~28.6% vs Jun 2025 to date.",
-  businessDaysElapsed: 22,
-  businessDaysTotal:   22,
+  projectedMonthEnd:  29481.06,
+  dailyRunRate:       1281.79,
+  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-07-02 8:42 AM, reads ACCOUNT.V2$). The Desktop ALWAYS_CURRENT file was not reachable this run, so the equivalent reachable dump was used. July is 2 of 23 business days in - MTD $2,564 vs $8,261 target-to-date; early-month projection not yet meaningful. Down ~21.6% vs Jul 2025 to date.",
+  businessDaysElapsed: 2,
+  businessDaysTotal:   23,
   noShowRate:         5.0,
   cancelRate:         10.0,
   arTotal:            108.15,
   arOver90:           -40.59,
   lowStockItems:      31,
-  prevMonthRevenue:   115848.17
+  prevMonthRevenue:   105862.42
 };
 </script>
 <!-- DVC_LIVE_DATA_END -->
@@ -705,9 +705,9 @@ window.DVC_LIVE = {
 <!-- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B -->
 <script id="appt-med-data">
 window.APPT_MED_FLAGS = {
-  lastUpdated: "Jun 30, 2026 9:30 AM",
-  date: "2026-06-30",
-  dateLabel: "Today — Tue Jun 30: 13 appointments on the books (Avimark APPOINT.V2$ handoff is now decoding the schedule). Med-flag keywords can't be auto-derived yet — the decoded export carries patient/client/time but no visit-reason field, and the #general Daily Schedule briefing (which has reasons) hasn't posted since Jun 1. No med flags parseable; verify Librela/vaccine/surgery prep against Avimark directly.",
+  lastUpdated: "Jul 2, 2026 9:40 AM",
+  date: "2026-07-02",
+  dateLabel: "Today — Thu Jul 2: 0 appointments on the books — Avimark shows an all-day Independence Day (Obs?) block, yet exam recordings are coming in this morning, so the clinic appears open with the schedule sitting empty. No med flags parseable.",
   appointments: []
 };
 </script>
@@ -716,8 +716,20 @@ window.APPT_MED_FLAGS = {
 <!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
 <script id="need-list-data">
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jul 1, 2026 9:33 AM",
+  lastUpdated: "Jul 2, 2026 9:40 AM",
   items: [
+    {id:"nl-179",text:"(Photo — check Slack, has ❗ reaction)",author:"Kathryn",date:"Jul 2",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-178",text:"(Photo — check Slack)",author:"Kathryn",date:"Jul 2",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-177",text:"Vetmedin chewable 1.25mg",author:"Triage Nurse",date:"Jul 1",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-176",text:"Bordatella",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-175",text:"Dalpp",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-174",text:"Librela 44-66",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-173",text:"Trio 44-88",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-172",text:"Simparica 88-132",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-171",text:"Amoxi 500",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-170",text:"Vetmedin 2.5",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-169",text:"Flexprofen",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
+    {id:"nl-168",text:"Felimazole",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
     {id:"nl-167",text:"Toilet paper",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"low"},
     {id:"nl-166",text:"Distilled water",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-165",text:"(Photo — check Slack)",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
@@ -850,7 +862,7 @@ window.NEED_LIST_DATA = {
 <!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
 <script id="time-off-data">
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jul 1, 2026 9:33 AM",
+  lastUpdated: "Jul 2, 2026 9:40 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
     {staff:"Allison",dates:["2026-07-03"],type:"pto",note:"Out of town — requested Jun 22 via #preferred-schedule",inDayforce:false,slackOnly:true},
@@ -867,9 +879,9 @@ window.TIME_OFF_DATA = {
 <!-- APPOINTMENT_COUNTS_START — updated by morning-avimark-pull -->
 <script id="appt-count-data">
 window.APPT_COUNTS = {
-  lastUpdated: "Jun 30, 2026 9:30 AM",
+  lastUpdated: "Jul 2, 2026 9:40 AM",
   weekOf: "2026-06-29",
-  source: "Avimark APPOINT.V2$ decoded handoff (claude/avimark dump, gen Jun 30). Mon Jun 29 predates dump window. Jul 2-4 = Independence Day holiday block.",
+  source: "Avimark APPOINT.V2$ decoded handoff (claude/avimark dump, gen Jul 2). Jul 2 blocked all day as Independence Day (Obs?) with 0 appts — but exams ARE being recorded this morning, so the clinic is open; verify the block. Next wk so far: Jul 6: 5, Jul 7: 2, Jul 8: 2, Jul 9: 2.",
   days: [
     {day:"Mon",date:"2026-06-29",count:null,surgeries:0},
     {day:"Tue",date:"2026-06-30",count:13,surgeries:0},
@@ -1947,7 +1959,7 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jun 29, 2026 (Mon Weekly Order — same 7 high-volume items URGENT, 14 days since last confirmed Jun 15 order; Jun 22 order never confirmed placed; usage-based since no fresh TJ since Jun 8) | #need-list sync: Jun 29, 2026
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jul 1, 2026 (Wed Mid-Week Restock Check — same 7 high-volume items still URGENT/unconfirmed from Mon 6/29 cart: Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol, Nobivac Feline; no fresh TJ since Jun 8) | #need-list sync: Jul 2, 2026
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~16 units/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) (usage-based, no fresh TJ) — Zoetis',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~27 doses/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Zoetis',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
@@ -4550,6 +4562,9 @@ const WW_VISITS=[
   // --- Jun 25 (from #client-analysis Q profiles) ---
   {date:'Jun 25',time:'8:57a', patient:'Remi',    client:'Oezer',  profile:'Budget-Conscious (9/10)', compliance:'moderate', trust:'high', price:'high', staff:'jodi', invoice:null, note:'Decides on staying under a clear budget ceiling; accepts core care fast once total fits. Confirm not-to-exceed number first, present 2-tier plan. Gap = flea/tick uptake. Catherine + Jody in room'},
   {date:'Jun 25',time:'8:55a', patient:'Poncho',  client:'Cano',   profile:'Budget-Conscious / Crisis-Driven (9/10)', compliance:'moderate', trust:'moderate', price:'high', staff:null, invoice:null, note:'Budget-threshold decision (390 kind of pushing it); resistant to higher estimates. Lead with calm concrete numbers upfront and a prioritized must-do-today vs can-delay plan. Christy in room (not on roster)'},
+  // Jul 2, 2026 — exams recorded despite the Avimark Independence Day (Obs?) all-day block, so the clinic is open. Bobby Payne (32100) profile cut off before scoring; Ace Panico (28101) still generating at run time. NOTE: a detailed 16-patient Jul 1 visit set was lost in the Jul 2 AM integrity rollback — rebuild from #client-analysis threads if needed.
+  {date:'Jul 2',time:'8:01a', patient:'Hondo', client:'Rowley', profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'neutral', staff:'kathryn', invoice:null, note:'Ear treatment plan accepted without resistance; fast decisions, strong follow-through on meds. Brief rationale + written aftercare. Transcript named Catherine — likely Kathryn.'},
+  {date:'Jul 2',time:'8:45a', patient:'Draco', client:'Sellers', profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'neutral', staff:null, invoice:null, note:'Accepted exam plan, focused questions, agreed to continue meds and bring fecal sample. Mild concern about mobility/progression — reinforce home-care monitoring in writing.'},
 ];
 function initWhatWayTab(){
   if(typeof STAFF_DATA==='undefined')return;
