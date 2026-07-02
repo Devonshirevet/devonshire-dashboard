@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Devonshire Veterinary Clinic — Command Center</title>
+<script src="data/dashboard-data.js"></script>
 <script>
 // Password gate — runs before anything renders
 (function() {
@@ -538,46 +539,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <!-- ── Main Dashboard (hidden until authenticated) ── -->
 <div id="dvc-main">
 
-<!-- STAFF_LOG_DATA_START — updated by Claude — do not edit manually -->
-<script id="staff-log-data">
-window.STAFF_LOG_DATA = {};
-</script>
-<!-- STAFF_LOG_DATA_END -->
+<!-- STAFF_LOG_DATA moved to data/dashboard-data.js (v2) -->
 
-<!-- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually -->
-<script id="dvc-live-data">
-window.DVC_LIVE = {
-  lastUpdated:        "Jul 02, 2026 9:40 AM",
-  lastTjDate:         "2026-07-02",
-  mtdRevenue:         2563.57,
-  ytdRevenue:         805763.09,
-  avgInvoice:         75.4,
-  patientVisits:      34,
-  controllableCosts:  64.2,
-  mtdRevenuePct:      -21.6,
-  ytdRevenuePct:      -15.6,
-  avgInvoicePct:      12.8,
-  patientVisitsPct:   -27.7,
-  comparePeriod:      "Jul 2025 to date",
-  weeklyRevenue:      null,
-  weeklyRevenuePct:   null,
-  weeklyNewClients:   1,
-  weeklyPeriodTotal:  0,
-  budgetTarget:       95000,
-  projectedMonthEnd:  29481.06,
-  dailyRunRate:       1281.79,
-  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-07-02 8:42 AM, reads ACCOUNT.V2$). The Desktop ALWAYS_CURRENT file was not reachable this run, so the equivalent reachable dump was used. July is 2 of 23 business days in - MTD $2,564 vs $8,261 target-to-date; early-month projection not yet meaningful. Down ~21.6% vs Jul 2025 to date.",
-  businessDaysElapsed: 2,
-  businessDaysTotal:   23,
-  noShowRate:         5.0,
-  cancelRate:         10.0,
-  arTotal:            108.15,
-  arOver90:           -40.59,
-  lowStockItems:      31,
-  prevMonthRevenue:   105862.42
-};
-</script>
-<!-- DVC_LIVE_DATA_END -->
+<!-- DVC_LIVE_DATA moved to data/dashboard-data.js (v2) -->
 
 <!-- AVIMARK_MCP_LIVE_LOADER — fetches live data from avimark_mcp_server.py --http mode -->
 <script id="avimark-mcp-loader">
@@ -702,197 +666,13 @@ window.DVC_LIVE = {
 })();
 </script>
 
-<!-- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B -->
-<script id="appt-med-data">
-window.APPT_MED_FLAGS = {
-  lastUpdated: "Jul 2, 2026 9:40 AM",
-  date: "2026-07-02",
-  dateLabel: "Today — Thu Jul 2: 0 appointments on the books — Avimark shows an all-day Independence Day (Obs?) block, yet exam recordings are coming in this morning, so the clinic appears open with the schedule sitting empty. No med flags parseable.",
-  appointments: []
-};
-</script>
-<!-- APPOINTMENT_MED_FLAGS_END -->
+<!-- APPOINTMENT_MED_FLAGS moved to data/dashboard-data.js (v2) -->
 
-<!-- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list -->
-<script id="need-list-data">
-window.NEED_LIST_DATA = {
-  lastUpdated: "Jul 2, 2026 9:40 AM",
-  items: [
-    {id:"nl-179",text:"(Photo — check Slack, has ❗ reaction)",author:"Kathryn",date:"Jul 2",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-178",text:"(Photo — check Slack)",author:"Kathryn",date:"Jul 2",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-177",text:"Vetmedin chewable 1.25mg",author:"Triage Nurse",date:"Jul 1",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-176",text:"Bordatella",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-175",text:"Dalpp",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-174",text:"Librela 44-66",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-173",text:"Trio 44-88",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-172",text:"Simparica 88-132",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-171",text:"Amoxi 500",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-170",text:"Vetmedin 2.5",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-169",text:"Flexprofen",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-168",text:"Felimazole",author:"Moissa",date:"Jul 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-167",text:"Toilet paper",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-166",text:"Distilled water",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-165",text:"(Photo — check Slack)",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-164",text:"Ez scrub 205",author:"Moissa",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-163",text:"Ketamine (controlled)",author:"Kathryn",date:"Jun 30",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-162",text:"IV line",author:"Moissa",date:"Jun 30",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-161",text:"Chem 17",author:"Jodi Dunn",date:"Jun 30",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-160",text:"Rabies",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-159",text:"Proheart 12",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-158",text:"Thunder Ease starter",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-157",text:"Entyce",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-156",text:"Revolution Plus 5.6-11",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-155",text:"Simparica 22-44",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-154b",text:"Seresto large dog",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-154",text:"3ml syringe",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-153c",text:"20g needles",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-153b",text:"22g needles",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-153a",text:"Vetmedin 2.5mg",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-153",text:"Zenrelia 8.5mg",author:"Moissa",date:"Jun 29",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-152",text:"2-inch 3-ring binders (x2)",author:"Dr. Smiley",date:"Jun 29",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-151",text:"Librela 22-44",author:"Staff Computer",date:"Jun 27",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-150",text:"Librela 11-22",author:"Staff Computer",date:"Jun 27",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-149",text:"Fiona's meds",author:"Staff Computer",date:"Jun 27",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-148",text:"250 ml LRS fluid bags",author:"Allison",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-147",text:"1000 ml LRS fluid bags",author:"Allison",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-146",text:"Zenalpha",author:"Allison",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-145",text:"Cosyntropin",author:"Staff Computer",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-144",text:"Ketamine (controlled)",author:"Triage Nurse",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-143",text:"Hydromorphone (controlled)",author:"Triage Nurse",date:"Jun 26",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-142",text:"Flexprofen injectable",author:"Allison",date:"Jun 25",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-141",text:"HeartGard for Faye",author:"Triage Nurse",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-140",text:"Bexacat 30ct",author:"Triage Nurse",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-139",text:"Kim tech wipes",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-138",text:"Dalpp",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-137",text:"Small dog Seresto",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-136",text:"Large dog Seresto",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-135",text:"Credelio 4-17",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-134",text:"Amoxi drop 15ml x2",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-133b",text:"Claro",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-132",text:"Trazodone",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-131",text:"Flexprofen 100mg x3",author:"Moissa",date:"Jun 24",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-130",text:"(Photo — check Slack)",author:"Kristi",date:"Jun 24",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-129",text:"Paper towels",author:"Debbie Wagner",date:"Jun 22",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-128",text:"Flexprofen 100mg",author:"Staff Computer",date:"Jun 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-127",text:"Vetmedin 5mg",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-126",text:"Librela 66-88",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-125",text:"Librela 88-132",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-124",text:"Simparica 44-88",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-123",text:"Terramycin",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-122",text:"Bravecto quantum",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-121",text:"Vetmedin 10mg",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-120",text:"Zenrelia 15",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-119",text:"Felimazole 5mg",author:"Moissa",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-118",text:"Dexmed",author:"Kathryn",date:"Jun 22",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-117",text:"Zenalpha",author:"Kathryn",date:"Jun 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-116",text:"Levetiracetam XR 500mg x2 (Shadow)",author:"Kelsey",date:"Jun 21",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-115",text:"Injectable bordetella (requested 2x — Allison Jun 18 + Jun 19)",author:"Staff Computer",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-114",text:"Convenia",author:"Staff Computer",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-113",text:"Euthasol",author:"Triage Nurse",date:"Jun 19",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-112",text:"Oral bordetella",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-110",text:"Sterilizing pouches (medium-ish)",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-109",text:"Hand paper towels (ASAP)",author:"Kristi",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-108",text:"Multi-enzyme detergent (photo IMG_2465)",author:"Allison",date:"Jun 18",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-107",text:"3ml syringes",author:"Triage Nurse",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-106",text:"Trio 44-88",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-105",text:"(Photo — IMG_20260617_082458)",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-104",text:"Phos clips",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-103",text:"Amoxidrop 15ml x2",author:"Moissa",date:"Jun 17",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-102",text:"Bexacat 90ct bottle",author:"Staff Computer",date:"Jun 15",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-101",text:"Credelio 50-100 — 1 dose x16 (for Jodi)",author:"Triage Nurse",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-100",text:"Librela 11-22",author:"Triage Nurse",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-99",text:"Feline combo vax",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-98",text:"Proheart 12",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-97",text:"Sileo",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-96",text:"Seresto small dog",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-95",text:"Simparica 11-22",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-94",text:"Onsior",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-93",text:"Bexacat 30",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-92",text:"Methimazole 5mg",author:"Moissa",date:"Jun 15",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-91",text:"Flexprofen 75mg",author:"Triage Nurse",date:"Jun 12",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-90",text:"(Photo — check Slack, IMG_20260610_095945)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-89",text:"(Photo — check Slack, 20260610_094921)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-88",text:"(Photo — check Slack, IMG_20260610_094725)",author:"Kathryn",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-87",text:"Prophy paste",author:"Allison",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-86",text:"(Photo — check Slack, IMG_2194 — NO checkmark yet)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-85",text:"(Photo — check Slack, IMG_2193)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-84",text:"\"One left\" (photo IMG_2192 — identify product)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-83",text:"(6 inventory photos — IMG_2184–2191, check Slack)",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-82",text:"Vetmedin 5mg",author:"Kristi",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-81",text:"Disposable drapes",author:"Allison",date:"Jun 10",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-80",text:"Soda lime",author:"Triage Nurse",date:"Jun 8",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-79",text:"Flexprofen 100mg",author:"Kathryn",date:"Jun 8",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-78",text:"Meloxidyl 32ml",author:"Triage Nurse",date:"Jun 5",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-77",text:"Cautery tips",author:"Kathryn",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-76",text:"(Photo — check Slack, IMG_2156)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-75",text:"Propofol",author:"Allison",date:"Jun 4",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-74",text:"(Photo — check Slack, IMG_2155)",author:"Kristi",date:"Jun 4",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-73",text:"Felimazole 2.5mg",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-72",text:"Plates",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"low"},
-    {id:"nl-71",text:"18g needles",author:"Triage Nurse",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-69",text:"23 winged infusion set",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-68",text:"Purple tops",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-67",text:"Red tops",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-59",text:"Flu vaccine",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-56",text:"Bordatella",author:"Moissa",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-70",text:"(Photo — check Slack, IMG_2153)",author:"Kristi",date:"Jun 3",channel:"#need-list",status:"ordered",priority:"medium"},
-    {id:"nl-66",text:"Apoquel 16mg chewable",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-65",text:"Prednisone 5mg",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-64",text:"Vetmedin 1.25mg chewable",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-63",text:"Postage stamps",author:"Staff Computer",date:"Jun 2",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-62",text:"Notebooks",author:"Debbie Wagner",date:"Jun 2",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-61",text:"20ml luer lock syringes",author:"Triage Nurse",date:"Jun 2",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-60",text:"Isoflurane",author:"Allison",date:"Jun 2",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-58",text:"Flexprofen 100mg",author:"Allison",date:"Jun 1",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-57",text:"Cephalexin 500mg",author:"Staff Computer",date:"Jun 1",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-50",text:"Bonqat",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-51",text:"Librela 66-88",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-52",text:"Claro",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-53",text:"Bexacat 90",author:"Moissa",date:"Jun 1",channel:"#need-list",status:"ordered",priority:"high"},
-    {id:"nl-54",text:"Forks",author:"Kathryn",date:"May 29",channel:"#need-list",status:"open",priority:"low"},
-    {id:"nl-41",text:"20ml syringes luer lock",author:"Staff Computer",date:"May 28",channel:"#need-list",status:"open",priority:"medium"},
-    {id:"nl-5",text:"Levetiracetam XR 750mg x2 (Shadow)",author:"Kelsey",date:"May 24",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-8",text:"Vetmedin 2.5mg",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"},
-    {id:"nl-9",text:"Diazepam",author:"Triage Nurse",date:"May 22",channel:"#need-list",status:"open",priority:"high"}
-  ]
-};
-</script>
-<!-- NEED_LIST_DATA_END -->
+<!-- NEED_LIST_DATA moved to data/dashboard-data.js (v2) -->
 
-<!-- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack -->
-<script id="time-off-data">
-window.TIME_OFF_DATA = {
-  lastUpdated: "Jul 2, 2026 9:40 AM",
-  source: "Dayforce + Slack #preferred-schedule + #general",
-  entries: [
-    {staff:"Allison",dates:["2026-07-03"],type:"pto",note:"Out of town — requested Jun 22 via #preferred-schedule",inDayforce:false,slackOnly:true},
-    {staff:"Kathryn",dates:["2026-07-06"],type:"pto",note:"Off Jul 6; can work all day Jul 7-10 — requested Jun 28 #preferred-schedule",inDayforce:false,slackOnly:true},
-    {staff:"Claire",dates:["2026-07-21"],type:"pto",note:"Off — per Katie Jun 23 in #preferred-schedule",inDayforce:false,slackOnly:true},
-    {staff:"Debbie",dates:["2026-07-30"],type:"early_out",note:"Afternoon off — dermatology appt; can work all day Jul 29",inDayforce:false,slackOnly:true},
-    {staff:"Kathryn",dates:["2026-07-31"],type:"pto",note:"Full day off",inDayforce:false,slackOnly:true},
-    {staff:"Kelsey",dates:["2026-08-17","2026-08-18","2026-08-19","2026-08-20","2026-08-21"],type:"pto",note:"Aug 17–21 PTO",inDayforce:false,slackOnly:true}
-  ]
-};
-</script>
-<!-- TIME_OFF_DATA_END -->
+<!-- TIME_OFF_DATA moved to data/dashboard-data.js (v2) -->
 
-<!-- APPOINTMENT_COUNTS_START — updated by morning-avimark-pull -->
-<script id="appt-count-data">
-window.APPT_COUNTS = {
-  lastUpdated: "Jul 2, 2026 9:40 AM",
-  weekOf: "2026-06-29",
-  source: "Avimark APPOINT.V2$ decoded handoff (claude/avimark dump, gen Jul 2). Jul 2 blocked all day as Independence Day (Obs?) with 0 appts — but exams ARE being recorded this morning, so the clinic is open; verify the block. Next wk so far: Jul 6: 5, Jul 7: 2, Jul 8: 2, Jul 9: 2.",
-  days: [
-    {day:"Mon",date:"2026-06-29",count:null,surgeries:0},
-    {day:"Tue",date:"2026-06-30",count:13,surgeries:0},
-    {day:"Wed",date:"2026-07-01",count:25,surgeries:0},
-    {day:"Thu",date:"2026-07-02",count:0,surgeries:0},
-    {day:"Fri",date:"2026-07-03",count:0,surgeries:0},
-    {day:"Sat",date:"2026-07-04",count:0,surgeries:0}
-  ]
-};
-</script>
-<!-- APPOINTMENT_COUNTS_END -->
+<!-- APPOINTMENT_COUNTS moved to data/dashboard-data.js (v2) -->
 
 <!-- HEADER -->
 <div class="header">
@@ -915,17 +695,182 @@ window.APPT_COUNTS = {
 <div class="tab-bar" role="tablist" aria-label="Dashboard sections">
   <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-operations" onclick="switchTab('operations',this)">🏥 Operations</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-hr" onclick="switchTab('hr',this)">👥 HR Assistant</button>
-  <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-revenue" onclick="switchTab('revenue',this)">📊 Weekly Revenue <span class="tab-badge" id="rev-badge">MON</span></button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-automations" onclick="switchTab('automations',this)">⚙️ Automations</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-staff" onclick="switchTab('staff',this)">👩‍⚕️ Staff Evals</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-schedule" onclick="switchTab('schedule',this)">📅 Schedule</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-client" onclick="switchTab('client',this)">👤 Client</button>
   <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-dvm" onclick="switchTab('dvm',this)">🩺 DVM</button>
-  <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-whatway" onclick="switchTab('whatway',this)">🔗 What &amp; Way</button>
 </div>
 
 <!-- ═══════════════ TAB: OPERATIONS ═══════════════ -->
 <div class="tab-panel active" id="tab-operations" role="tabpanel">
+<!-- ═══════ PRACTICE MEASURES — how VetCor grades Devonshire (added 2026-07-02) ═══════ -->
+<div id="practice-measures" style="margin-bottom:18px;">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+    <div style="font-size:16px;font-weight:700;color:var(--navy);">🎓 Practice Measures — your VetCor scorecard</div>
+    <div style="font-size:11px;color:var(--gray-400);" id="pm-asof"></div>
+  </div>
+  <div id="pm-tiles" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px;"></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;">
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="margin-bottom:6px;">🏆 Team Rewards — QTD Revenue Growth</div>
+      <div id="pm-teamrewards"></div>
+      <div style="font-size:10.5px;color:var(--gray-400);margin-top:6px;">Business-day adjusted: (QTD rev ÷ QTD biz days) vs. same quarter last year. This drives the whole team's quarterly bonus.</div>
+    </div>
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="margin-bottom:6px;">💸 Controllable Costs — % of Revenue</div>
+      <div id="pm-cc"></div>
+      <div style="font-size:10.5px;color:var(--gray-400);margin-top:6px;">VetCor bands: ≤63% top quartile · 67% typical · ≥72% bottom quartile.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SOP COMPLIANCE CHECKLIST (from VetCor SOP Jan 2025) ═══════ -->
+<div class="card" id="sop-compliance" style="margin-bottom:18px;">
+  <div class="card-title">📋 SOP Compliance — recurring deadlines</div>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;" id="sop-table"></table>
+</div>
+
+<script>
+(function(){
+  // ---- business-day math per Financial Reporting Guide: Mon–Fri=1, Sat=0.5, Sun=0, minus VetCor holidays ----
+  const HOLIDAYS_2026 = ['2026-01-01','2026-05-25','2026-07-03','2026-09-07','2026-11-26','2026-12-25'];
+  function bizDays(from, to){
+    let n = 0; const d = new Date(from.getTime());
+    while (d <= to) {
+      const iso = d.toISOString().slice(0,10), dow = d.getDay();
+      if (!HOLIDAYS_2026.includes(iso)) n += (dow === 0 ? 0 : dow === 6 ? 0.5 : 1);
+      d.setDate(d.getDate()+1);
+    }
+    return n;
+  }
+  let K = (typeof KPI_DATA !== 'undefined') ? KPI_DATA : null;
+  // Fall back to DVC_LIVE (daily Avimark refresh) until KPI_DATA is populated
+  if ((!K || !K.mtd || K.mtd.revenue == null) && window.DVC_LIVE) {
+    const L = window.DVC_LIVE;
+    const g = p => (p == null ? null : 1 + p/100);
+    K = {
+      asOf: L.lastUpdated,
+      mtd: {
+        revenue: L.mtdRevenue,   py_revenue: g(L.mtdRevenuePct) ? L.mtdRevenue / g(L.mtdRevenuePct) : null,
+        invoices: L.patientVisits, py_invoices: g(L.patientVisitsPct) ? L.patientVisits / g(L.patientVisitsPct) : null,
+        avgInvoice: L.avgInvoice, py_avgInvoice: g(L.avgInvoicePct) ? L.avgInvoice / g(L.avgInvoicePct) : null,
+        newClients: L.weeklyNewClients, py_newClients: null,
+        bizDays: L.businessDaysElapsed, py_bizDays: L.businessDaysElapsed  // same-period compare
+      },
+      qtd: { revenue: null, py_revenue: null, bizDays: null, py_bizDays: null },
+      ccPct: L.controllableCosts
+    };
+  }
+  const fmt$ = v => '$' + Math.round(v).toLocaleString();
+  const pct = v => (v >= 0 ? '+' : '') + (v*100).toFixed(1) + '%';
+
+  // ---- KPI tiles: Revenue, Invoices, Avg Invoice, New Clients (MTD vs PY, bd-adjusted) ----
+  const tiles = [
+    {label:'Revenue (MTD)', key:'revenue', fmt: fmt$},
+    {label:'Invoices (MTD)', key:'invoices', fmt: v=>Math.round(v).toLocaleString()},
+    {label:'Avg Invoice', key:'avgInvoice', fmt: fmt$},
+    {label:'New Clients (MTD)', key:'newClients', fmt: v=>Math.round(v).toLocaleString()}
+  ];
+  document.getElementById('pm-tiles').innerHTML = tiles.map(t => {
+    const cur = K && K.mtd ? K.mtd[t.key] : null;
+    const py  = K && K.mtd ? K.mtd['py_' + t.key] : null;
+    let growth = null;
+    if (cur != null && py != null && py !== 0) {
+      if (t.key === 'revenue' && K.mtd.bizDays && K.mtd.py_bizDays) {
+        growth = (cur / K.mtd.bizDays) / (py / K.mtd.py_bizDays) - 1;
+      } else { growth = cur / py - 1; }
+    }
+    const good = growth != null && growth >= 0;
+    const bg = growth == null ? 'var(--gray-50,#F9FAFB)' : good ? '#ECFDF5' : '#FEF2F2';
+    const bd = growth == null ? 'var(--gray-200,#E5E7EB)' : good ? '#A7F3D0' : '#FECACA';
+    const gc = growth == null ? 'var(--gray-400)' : good ? '#059669' : '#DC2626';
+    return '<div style="background:' + bg + ';border:1px solid ' + bd + ';border-radius:10px;padding:12px 14px;">'
+      + '<div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);">' + t.label + '</div>'
+      + '<div style="font-size:20px;font-weight:800;color:var(--navy);margin:3px 0;">' + (cur != null ? t.fmt(cur) : '—') + '</div>'
+      + '<div style="font-size:11px;font-weight:700;color:' + gc + ';">' + (growth != null ? pct(growth) + ' vs PY' + (t.key==='revenue' ? ' (bd-adj)' : '') : 'awaiting refresh') + '</div>'
+      + '</div>';
+  }).join('');
+  if (K && K.asOf) document.getElementById('pm-asof').textContent = 'Data through ' + K.asOf + ' · green/red = same grading as Skyworld Practice Measures';
+
+  // ---- Team Rewards QTD ----
+  (function(){
+    const el = document.getElementById('pm-teamrewards');
+    if (!(K && K.qtd && K.qtd.revenue != null && K.qtd.py_revenue)) {
+      el.innerHTML = '<div style="font-size:13px;color:var(--gray-400);">Awaiting refresh — needs QTD revenue + prior-year quarter.</div>'; return;
+    }
+    const now = new Date();
+    const qStart = new Date(now.getFullYear(), Math.floor(now.getMonth()/3)*3, 1);
+    const bd = K.qtd.bizDays || bizDays(qStart, now);
+    const pyBd = K.qtd.py_bizDays || bd;
+    const g = (K.qtd.revenue / bd) / (K.qtd.py_revenue / pyBd) - 1;
+    const good = g >= 0.05, ok = g >= 0;
+    el.innerHTML = '<div style="display:flex;align-items:baseline;gap:12px;">'
+      + '<div style="font-size:30px;font-weight:800;color:' + (good ? '#059669' : ok ? '#D97706' : '#DC2626') + ';">' + pct(g) + '</div>'
+      + '<div style="font-size:11px;color:var(--gray-500);">' + fmt$(K.qtd.revenue) + ' QTD vs ' + fmt$(K.qtd.py_revenue) + ' PY<br>' + bd + ' vs ' + pyBd + ' biz days</div></div>';
+  })();
+
+  // ---- Controllable Costs gauge ----
+  (function(){
+    const el = document.getElementById('pm-cc');
+    const v = K && K.ccPct != null ? K.ccPct : null;
+    if (v == null) { el.innerHTML = '<div style="font-size:13px;color:var(--gray-400);">Awaiting refresh.</div>'; return; }
+    const col = v <= 63 ? '#059669' : v <= 67 ? '#10B981' : v < 72 ? '#D97706' : '#DC2626';
+    const label = v <= 63 ? 'TOP QUARTILE' : v <= 67 ? 'Better than typical' : v < 72 ? 'Above typical — watch costs' : 'BOTTOM QUARTILE';
+    const x = Math.min(100, Math.max(0, (v - 55) / (80 - 55) * 100));
+    el.innerHTML = '<div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">'
+      + '<div style="font-size:30px;font-weight:800;color:' + col + ';">' + v.toFixed(1) + '%</div>'
+      + '<div style="font-size:11px;font-weight:700;color:' + col + ';">' + label + '</div></div>'
+      + '<div style="position:relative;height:10px;border-radius:5px;background:linear-gradient(to right,#059669 0%,#059669 32%,#F59E0B 48%,#DC2626 68%,#DC2626 100%);">'
+      + '<div style="position:absolute;top:-3px;left:' + x + '%;width:3px;height:16px;background:var(--navy,#1F3864);border-radius:2px;"></div></div>'
+      + '<div style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--gray-400);margin-top:3px;"><span>63% top 25%</span><span>67% typical</span><span>72% bottom 25%</span></div>';
+  })();
+
+  // ---- SOP compliance rows ----
+  const S = (typeof COMPLIANCE_STATE !== 'undefined') ? COMPLIANCE_STATE : {};
+  const today = new Date();
+  const dayOfMonth = today.getDate();
+  function chip(status, txt){
+    const c = status === 'ok' ? ['#ECFDF5','#059669'] : status === 'due' ? ['#FFFBEB','#D97706'] : status === 'over' ? ['#FEF2F2','#DC2626'] : ['#F9FAFB','#6B7280'];
+    return '<span style="background:' + c[0] + ';color:' + c[1] + ';font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;">' + txt + '</span>';
+  }
+  function monthsAgo(iso){ if (!iso) return null; return (today - new Date(iso)) / 2592000000; }
+  const rows = [
+    (function(){ // inventory count — last business day of month
+      const last = S.inventoryCountLast, m = monthsAgo(last);
+      const st = m == null ? 'unk' : m < 1.2 ? 'ok' : 'over';
+      return {what:'Month-end inventory count — vaccines + flea/tick/HW → Skyworld', when:'Last business day of each month', st, txt: last ? 'Last: ' + last : 'No record'};
+    })(),
+    (function(){ // daily totals log
+      const thru = S.dailyTotalsEnteredThrough;
+      const st = !thru ? 'unk' : ((today - new Date(thru)) / 86400000 > 9 ? 'over' : 'ok');
+      return {what:'Daily Totals entered in Skyworld', when:'Weekly · prior month locked by the 3rd', st, txt: thru ? 'Entered through ' + thru : 'No record'};
+    })(),
+    (function(){ // facility inspection
+      const last = S.facilityInspectionLast, m = monthsAgo(last);
+      const st = m == null ? 'unk' : m < 1.2 ? 'ok' : 'over';
+      return {what:'Facility inspection walk-through + Skyworld form', when:'Monthly (Operations → Facility Inspections)', st, txt: last ? 'Last: ' + last + (m > 2 ? ' — ' + Math.floor(m) + ' months ago' : '') : 'No record'};
+    })(),
+    (function(){ // corporate cards
+      const n = S.corpCardsUnreconciled;
+      const st = n == null ? 'unk' : n === 0 ? 'ok' : dayOfMonth > 25 ? 'over' : 'due';
+      return {what:'Corporate card reconciliation (Skyworld → Accounting)', when:'By the 25th', st, txt: n == null ? 'No record' : n === 0 ? 'All reconciled' : n + ' unreconciled' + (S.corpCardsAmount ? ' ($' + S.corpCardsAmount + ')' : '')};
+    })(),
+    (function(){ // bank deposit
+      const last = S.lastBankDeposit;
+      const d = last ? (today - new Date(last)) / 86400000 : null;
+      const st = d == null ? 'unk' : d <= 3 ? 'ok' : 'due';
+      return {what:'Bank deposit (cash secured in safe between runs)', when:'Every 2–3 days', st, txt: last ? 'Last: ' + last : 'No record'};
+    })()
+  ];
+  document.getElementById('sop-table').innerHTML = rows.map(r =>
+    '<tr style="border-top:1px solid var(--gray-100,#F3F4F6);">'
+    + '<td style="padding:7px 10px 7px 0;font-weight:600;color:var(--navy);">' + r.what + '</td>'
+    + '<td style="padding:7px 10px;color:var(--gray-500);white-space:nowrap;">' + r.when + '</td>'
+    + '<td style="padding:7px 0;text-align:right;">' + chip(r.st, r.st === 'unk' ? r.txt : (r.st === 'ok' ? '✓ ' : r.st === 'over' ? '⚠ ' : '• ') + r.txt) + '</td></tr>').join('');
+})();
+</script>
+
 <div class="layout">
   <div class="main-content">
 
@@ -979,21 +924,7 @@ window.APPT_COUNTS = {
     </div>
 
     <!-- AI Impact Banner -->
-    <div class="ai-banner">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div class="ai-banner-icon">🤖</div>
-        <div>
-          <div class="ai-banner-title">AI is running Devonshire — automatically</div>
-          <div class="ai-banner-sub">22 workflows · Revenue, scheduling, inventory, staff evals, compliance · All hands-free</div>
-        </div>
-      </div>
-      <div class="ai-banner-stats">
-        <div class="ai-stat"><div class="ai-stat-val">~10-12 hrs</div><div class="ai-stat-label">saved / week</div></div>
-        <div class="ai-stat"><div class="ai-stat-val">22</div><div class="ai-stat-label">auto tasks</div></div>
-        <div class="ai-stat"><div class="ai-stat-val green">$0</div><div class="ai-stat-label">extra staff</div></div>
-        <div class="ai-stat"><div class="ai-stat-val">Jan '26</div><div class="ai-stat-label">live since</div></div>
-      </div>
-    </div>
+    <!-- AI banner removed (duplicated Automations tab) -->
 
     <!-- Today's Focus -->
     <div id="todays-focus-card" class="card card-mb focus-left-border">
@@ -1034,20 +965,25 @@ window.APPT_COUNTS = {
     <div class="insights-row">
       <div class="card">
         <div class="card-title">Key Insights</div>
-        <div class="insight-item"><div class="insight-icon icon-green">📈</div><div class="insight-text"><strong>Revenue trending above target</strong>Monthly view: Jan $98.3K · Feb $118.7K · Mar $118.9K · Apr MTD (4/13) $40.3K. YTD $376.2K, +11.2% vs 2025. April pacing 8.3% ahead of Apr 2025. Jan/Feb figures are estimates — parse February Transaction Report (posted 4/13) for precise totals.</div></div>
-        <div class="insight-item"><div class="insight-icon icon-green">✅</div><div class="insight-text"><strong>Controllable costs at 64.2% — within VetCor benchmark</strong>VetCor target is ≤67%. Top 25% of practices hit 63% or lower. You're currently in strong territory.</div></div>
-        <div class="insight-item"><div class="insight-icon icon-blue">📦</div><div class="insight-text"><strong>Forecast engine live — based on real Feb+Mar Avimark data</strong>36 items tracked. Estimated next 30-day order: ~$13,400. Feline RC GI Loaf Cans (72 units in March) is your highest-volume diet item. Proheart 12 jumped from 0→14 units as heartworm season starts.</div></div>
-        <div class="insight-item"><div class="insight-icon icon-amber">⚠️</div><div class="insight-text"><strong>Bravecto Quantum trending UP in April</strong>Only 2 units in Feb, 4 in March, projecting 4.4+ in April. Order 5 units now — high unit cost ($244 each = $1,220 order). Proheart 12 also needs immediate order before season peaks.</div></div>
+        <div id="ops-insights"><div style="font-size:12px;color:var(--gray-400);padding:8px 0;">Populated by the morning refresh…</div></div>
       </div>
       <div class="card">
         <div class="card-title">Recommended Actions</div>
-        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">Place Monday Vetcove order — Proheart 12 (17 units, ~$589) and Bravecto Quantum (5 units, ~$1,220) are ORDER NOW. Feline RC GI Loaf (51 units) also critical. Est. total: ~$13,400. Prefer Covetrus (green badge) at shop.vetcove.com.</div></div>
-        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">14 unreconciled corporate card transactions ($733.25). Due Apr 25. Skyworld → Accounting → Corporate Cards. Charges under $25 don't need a receipt.</div></div>
-        <div class="action-item"><span class="priority p-high">HIGH</span><div class="action-text">Run INSPECT query (indiana.pmpaware.net) before dispensing any controlled substance today — required by Indiana law.</div></div>
-        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">Facility inspection overdue since 3/11/25. Do physical walk-through then submit in Skyworld → Operations → Facility Inspections.</div></div>
-        <div class="action-item"><span class="priority p-med">MED</span><div class="action-text">Channel coverage: Maddie's departure left channels unassigned. Designate a new default for daily phone/channel work.</div></div>
-        <div class="action-item"><span class="priority p-low">LOW</span><div class="action-text">Scratch Payment eCheck ($190.00, Client 19448) unassigned since Aug 2025. Address in Avimark daily totals.</div></div>
+        <div id="ops-actions"><div style="font-size:12px;color:var(--gray-400);padding:8px 0;">Populated by the morning refresh…</div></div>
       </div>
+      <script>
+      (function(){
+        function esc(s){return String(s);}
+        if (typeof INSIGHTS !== 'undefined' && INSIGHTS.length) {
+          document.getElementById('ops-insights').innerHTML = INSIGHTS.map(x =>
+            '<div class="insight-item"><div class="insight-icon icon-' + (x.tone||'blue') + '">' + (x.icon||'📌') + '</div><div class="insight-text"><strong>' + esc(x.title) + '</strong>' + esc(x.body) + '</div></div>').join('');
+        }
+        if (typeof ACTIONS !== 'undefined' && ACTIONS.length) {
+          document.getElementById('ops-actions').innerHTML = ACTIONS.map(x =>
+            '<div class="action-item"><span class="priority p-' + (x.pri||'med') + '">' + (x.pri==='high'?'HIGH':x.pri==='low'?'LOW':'MED') + '</span><div class="action-text">' + esc(x.text) + '</div></div>').join('');
+        }
+      })();
+      </script>
     </div>
 
     <!-- Ordering Day Banner -->
@@ -1341,10 +1277,241 @@ window.APPT_COUNTS = {
     </div>
   </div>
 </div>
+
+<hr style="border:none;border-top:2px solid var(--gray-200,#E5E7EB);margin:26px 0 18px;">
+<div id="ops-revenue-section">
+<div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:10px;">📊 Weekly Revenue Report</div>
+
+<div style="max-width:1200px;margin:0 auto;padding:20px;">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+
+    <!-- Step checklist -->
+    <div class="card">
+      <div class="card-title">📋 Monday Revenue Checklist</div>
+      <div class="rev-check" data-chk-id="rev-0" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run Income by Provider in Avimark — flag any revenue NOT under Aaron Smiley, DVM</span></div>
+      <div class="rev-check" data-chk-id="rev-1" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Fix flagged invoices — change ASI: Aaron Smiley Overflow → AS: Aaron Smiley, DVM</span></div>
+      <div class="rev-check" data-chk-id="rev-2" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run corrected Period Totals — record Total Invoices, New Clients, Patient Visits, Avg Invoice</span></div>
+      <div class="rev-check" data-chk-id="rev-3" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run prior year Period Totals (same date range, 1 year back) — record same 4 metrics</span></div>
+      <div class="rev-check" data-chk-id="rev-4" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run Trailing Twelve Months (TTM) Period Totals</span></div>
+      <div class="rev-check" data-chk-id="rev-5" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Check Vetcove Home Delivery revenue at pharmacy.vetcove.com/clinic → Reporting</span></div>
+      <div class="rev-check" data-chk-id="rev-6" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Calculate % increases (use calculator below)</span></div>
+      <div class="rev-check" data-chk-id="rev-7" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Send Slack report to Dr. Smiley (Claude can draft &amp; send this)</span></div>
+      <div class="rev-check" data-chk-id="rev-8" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Update Monthly Ordering spreadsheet on OneDrive</span></div>
+      <div class="rev-check" data-chk-id="rev-9" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Update Anderson 2026 VetCor Tracker (weekly Sun–Sat figures)</span></div>
+      <div style="margin-top:10px;padding:10px;background:var(--blue-pale);border-radius:6px;font-size:11.5px;color:var(--gray-600);">
+        ⚠️ <strong>Date note:</strong> Monthly Ordering uses <em>MTD</em> (1st–Saturday). Anderson Tracker uses <em>calendar week</em> (Sun–Sat). These are different — don't mix them up.
+      </div>
+    </div>
+
+    <!-- YoY Calculator -->
+    <div class="card">
+      <div class="card-title">🧮 Year-over-Year % Calculator</div>
+      <div style="font-size:12px;color:var(--gray-600);margin-bottom:12px;">Enter current year and prior year figures to calculate % change automatically.</div>
+
+      <div class="calc-box" style="margin-bottom:10px;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Total Invoices (Revenue)</div>
+        <div class="calc-row">
+          <input class="calc-input" id="rev-cy" placeholder="Current year $" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="rev-py" placeholder="Prior year $" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('rev-cy','rev-py','rev-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="rev-result"></div>
+      </div>
+
+      <div class="calc-box" style="margin-bottom:10px;">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">New Clients</div>
+        <div class="calc-row">
+          <input class="calc-input" id="nc-cy" placeholder="Current year #" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="nc-py" placeholder="Prior year #" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('nc-cy','nc-py','nc-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="nc-result"></div>
+      </div>
+
+      <div class="calc-box">
+        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Patient Visits</div>
+        <div class="calc-row">
+          <input class="calc-input" id="pv-cy" placeholder="Current year #" type="number"/>
+          <span style="font-size:12px;color:var(--gray-400);">vs</span>
+          <input class="calc-input" id="pv-py" placeholder="Prior year #" type="number"/>
+          <button class="calc-btn" onclick="calcYoY('pv-cy','pv-py','pv-result')">Calculate</button>
+        </div>
+        <div class="calc-result" id="pv-result"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Slack message builder -->
+  <div class="card">
+    <div class="card-title">📨 Slack Report Builder — Dr. Smiley</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div>
+        <div style="font-size:12px;color:var(--gray-600);margin-bottom:10px;">Fill in the fields and the message will auto-build on the right.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Week Ending Date (Saturday)</label><input class="filter-input" id="msg-date" placeholder="e.g. April 5, 2026" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Avimark Revenue</label><input class="filter-input" id="msg-rev" placeholder="e.g. $22,847" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Revenue % Change vs Prior Year</label><input class="filter-input" id="msg-revpct" placeholder="e.g. +8.3%" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">New Clients + % Change</label><input class="filter-input" id="msg-nc" placeholder="e.g. 12 (+15.2%)" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Patient Visits + % Change</label><input class="filter-input" id="msg-pv" placeholder="e.g. 107 (+3.9%)" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">% of Monthly Goal</label><input class="filter-input" id="msg-goal" placeholder="e.g. 72%" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">TTM (Aaron Smiley, DVM)</label><input class="filter-input" id="msg-ttm" placeholder="e.g. $1,248,000" oninput="buildMsg()"/></div>
+          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Vetcove Home Delivery</label><input class="filter-input" id="msg-vetcove" placeholder="e.g. $1,240" oninput="buildMsg()"/></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--gray-400);margin-bottom:6px;">Message preview (ready to copy into Slack)</div>
+        <pre id="msg-preview" class="msg-preview"></pre>
+        <button class="apply-btn" style="margin-top:8px;" onclick="copyMsg()">📋 Copy Message</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
 </div><!-- /tab-operations -->
 
 <!-- ═══════════════ TAB: HR ASSISTANT ═══════════════ -->
 <div class="tab-panel" role="tabpanel" hidden id="tab-hr">
+<!-- ═══════ PTO BALANCES + ATTENDANCE LOG (v2 · no-points calendar, reworked 2026-07-02) ═══════ -->
+<div style="display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:18px;">
+  <div class="card" style="margin:0;">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:baseline;">🏖️ PTO Balances <span id="pto-asof" style="font-size:10.5px;font-weight:400;color:var(--gray-400);"></span></div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;" id="pto-table"></table>
+    <div style="font-size:10.5px;color:var(--gray-400);margin-top:8px;">Pulled from Dayforce every Monday morning. Vacation is use-it-or-lose-it (no rollover); sick time carries over. Say "update PTO" to pull fresh numbers.</div>
+  </div>
+  <div class="card" style="margin:0;">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <span>⏰ Attendance Log <span style="font-size:10.5px;font-weight:400;color:var(--gray-400);">click a day to mark it · click again to change or clear</span></span>
+      <span style="display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--navy);">
+        <button onclick="attMonth(-1)" style="border:1px solid var(--gray-200,#E5E7EB);background:#fff;border-radius:6px;padding:2px 9px;cursor:pointer;font-size:13px;">‹</button>
+        <span id="att-month-label" style="min-width:110px;text-align:center;"></span>
+        <button onclick="attMonth(1)" style="border:1px solid var(--gray-200,#E5E7EB);background:#fff;border-radius:6px;padding:2px 9px;cursor:pointer;font-size:13px;">›</button>
+      </span>
+    </div>
+    <div style="overflow-x:auto;"><table id="att-cal" style="border-collapse:collapse;font-size:11px;width:100%;"></table></div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--gray-500);margin-top:8px;">
+      <span><b style="color:#D97706;">L</b> Late</span>
+      <span><b style="color:#2563EB;">E</b> Left early</span>
+      <span><b style="color:#EA580C;">C</b> Called out</span>
+      <span><b style="color:#DC2626;">N</b> No call / no show</span>
+      <span id="att-msg" style="margin-left:auto;"></span>
+    </div>
+  </div>
+</div>
+<div id="att-picker" hidden style="position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:999;display:flex;align-items:center;justify-content:center;" onclick="if(event.target===this)closeAttPicker()">
+  <div style="background:#fff;border-radius:12px;padding:18px 20px;box-shadow:0 20px 50px rgba(0,0,0,.25);min-width:250px;">
+    <div id="att-picker-title" style="font-size:13px;font-weight:700;color:var(--navy,#1F3864);margin-bottom:12px;"></div>
+    <div style="display:grid;gap:6px;">
+      <button onclick="attPick('late')" style="text-align:left;border:1px solid #FDE68A;background:#FFFBEB;color:#92400E;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;font-weight:600;">L — Late</button>
+      <button onclick="attPick('left_early')" style="text-align:left;border:1px solid #BFDBFE;background:#EFF6FF;color:#1D4ED8;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;font-weight:600;">E — Left early</button>
+      <button onclick="attPick('called_out')" style="text-align:left;border:1px solid #FED7AA;background:#FFF7ED;color:#C2410C;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;font-weight:600;">C — Called out</button>
+      <button onclick="attPick('ncns')" style="text-align:left;border:1px solid #FECACA;background:#FEF2F2;color:#B91C1C;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;font-weight:600;">N — No call / no show</button>
+      <button onclick="attPick('clear')" style="text-align:left;border:1px solid var(--gray-200,#E5E7EB);background:#fff;color:var(--gray-500,#6B7280);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;">✕ Clear this day</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const API = 'http://localhost:8765/api';
+
+  // ---- PTO table ----
+  (function(){
+    const P = (typeof PTO_DATA !== 'undefined') ? PTO_DATA : null;
+    const tbl = document.getElementById('pto-table');
+    if (!P || !P.employees || !P.employees.length) {
+      tbl.innerHTML = '<tr><td style="padding:8px 0;font-size:12px;color:var(--gray-400);">No Dayforce pull yet — say "update PTO" to run the first one.</td></tr>'; return;
+    }
+    tbl.innerHTML = '<tr style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-400);"><td style="padding:4px 0;">Employee</td><td style="text-align:right;">Vacation</td><td style="text-align:right;">Sick</td></tr>'
+      + P.employees.map(e => {
+        const negV = e.vacation != null && e.vacation < 0, lowV = e.vacation != null && e.vacation >= 0 && e.vacation < 8;
+        return '<tr style="border-top:1px solid var(--gray-100,#F3F4F6);">'
+          + '<td style="padding:6px 0;font-weight:600;color:var(--navy);">' + e.name + '</td>'
+          + '<td style="text-align:right;font-weight:700;color:' + (negV ? '#DC2626' : lowV ? '#D97706' : 'var(--navy)') + ';">' + (e.vacation != null ? e.vacation.toFixed(1) + ' h' + (negV ? ' ⚠' : '') : '—') + '</td>'
+          + '<td style="text-align:right;color:var(--gray-600,#4B5563);">' + (e.sick != null ? e.sick.toFixed(1) + ' h' : '—') + '</td></tr>';
+      }).join('');
+    if (P.lastUpdated) document.getElementById('pto-asof').textContent = 'Dayforce · ' + P.lastUpdated;
+  })();
+
+  // ---- attendance calendar (no points — event log only) ----
+  const T = {
+    late:       {a:'L', c:'#92400E', bg:'#FDE68A'},
+    left_early: {a:'E', c:'#1D4ED8', bg:'#BFDBFE'},
+    called_out: {a:'C', c:'#C2410C', bg:'#FED7AA'},
+    ncns:       {a:'N', c:'#B91C1C', bg:'#FECACA'}
+  };
+  const LEGACY = {tardy:'late', calloff_notice:'called_out', calloff_sameday:'called_out'};
+  const norm = t => T[t] ? t : (LEGACY[t] || null);
+  let events = (typeof ATTENDANCE_EVENTS !== 'undefined') ? ATTENDANCE_EVENTS.slice() : [];
+  const now = new Date();
+  let vy = now.getFullYear(), vm = now.getMonth();
+  let picking = null;
+
+  function staffList(){ return (typeof LOG_STAFF !== 'undefined') ? LOG_STAFF : []; }
+  function evFor(id, iso){
+    return events.find(e => (e.employee === id) && e.date === iso && norm(e.type));
+  }
+  function render(){
+    const dim = new Date(vy, vm + 1, 0).getDate();
+    const MO = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('att-month-label').textContent = MO[vm] + ' ' + vy;
+    const todayIso = new Date().toISOString().slice(0,10);
+    let h = '<tr><th style="text-align:left;padding:4px 6px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-400);">Staff</th>';
+    for (let d = 1; d <= dim; d++) {
+      const dt = new Date(vy, vm, d), dow = dt.getDay();
+      h += '<th style="padding:2px 0;font-weight:' + (dow===0||dow===6 ? '400' : '600') + ';color:var(--gray-' + (dow===0||dow===6 ? '300' : '500') + ',#9CA3AF);font-size:9.5px;min-width:20px;">' + 'SMTWTFS'[dow] + '<br>' + d + '</th>';
+    }
+    h += '<th style="padding:4px 6px;font-size:10px;color:var(--gray-400);text-align:right;">Month</th></tr>';
+    staffList().forEach(s => {
+      h += '<tr style="border-top:1px solid var(--gray-100,#F3F4F6);"><td style="padding:5px 6px;font-weight:600;color:var(--navy);white-space:nowrap;">' + s.name + '</td>';
+      const tally = {};
+      for (let d = 1; d <= dim; d++) {
+        const iso = vy + '-' + String(vm+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+        const dow = new Date(vy, vm, d).getDay();
+        const ev = evFor(s.id, iso);
+        const t = ev ? norm(ev.type) : null;
+        if (t) tally[t] = (tally[t]||0) + 1;
+        const isToday = iso === todayIso;
+        h += '<td onclick="openAttPicker(\'' + s.id + '\',\'' + iso + '\',\'' + s.name.replace(/'/g,'') + '\')" '
+          + 'style="cursor:pointer;text-align:center;padding:3px 0;user-select:none;'
+          + (t ? 'background:' + T[t].bg + ';color:' + T[t].c + ';font-weight:800;border-radius:4px;'
+               : (dow===0||dow===6 ? 'background:var(--gray-50,#F9FAFB);' : ''))
+          + (isToday ? 'outline:1.5px solid var(--navy,#1F3864);outline-offset:-1.5px;' : '')
+          + '" title="' + s.name + ' · ' + iso + (ev && ev.note ? ' · ' + ev.note : '') + '">' + (t ? T[t].a : '·') + '</td>';
+      }
+      const sum = Object.keys(tally).map(k => T[k].a + tally[k]).join(' ');
+      h += '<td style="text-align:right;padding:5px 6px;font-weight:700;color:var(--gray-500);white-space:nowrap;">' + (sum || '—') + '</td></tr>';
+    });
+    document.getElementById('att-cal').innerHTML = h;
+  }
+  window.attMonth = function(d){ vm += d; if (vm < 0) { vm = 11; vy--; } if (vm > 11) { vm = 0; vy++; } render(); };
+  window.openAttPicker = function(id, iso, name){
+    picking = {id, iso};
+    document.getElementById('att-picker-title').textContent = name + ' — ' + iso;
+    document.getElementById('att-picker').hidden = false;
+  };
+  window.closeAttPicker = function(){ document.getElementById('att-picker').hidden = true; picking = null; };
+  window.attPick = function(type){
+    if (!picking) return;
+    const ev = {employee: picking.id, date: picking.iso, type: type, loggedAt: new Date().toISOString()};
+    const msg = document.getElementById('att-msg');
+    fetch(API + '/attendance', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(ev)})
+      .then(r => { if (!r.ok) throw 0;
+        events = events.filter(e => !(e.employee === ev.employee && e.date === ev.date));
+        if (type !== 'clear') events.push(ev);
+        render(); msg.textContent = '✓ saved'; msg.style.color = '#059669'; setTimeout(()=>{msg.textContent='';}, 2000); })
+      .catch(() => { msg.textContent = '✗ local API not reachable — tell Claude instead'; msg.style.color = '#DC2626'; });
+    closeAttPicker();
+  };
+  // hydrate from API (file is source of truth)
+  fetch(API + '/attendance').then(r => r.json()).then(list => { if (Array.isArray(list)) events = list; render(); }).catch(render);
+})();
+</script>
+
 <div style="max-width:1200px;margin:0 auto;padding:20px;">
 
   <!-- Search bar -->
@@ -1585,177 +1752,55 @@ window.APPT_COUNTS = {
 </div><!-- /tab-hr -->
 
 <!-- ═══════════════ TAB: WEEKLY REVENUE ═══════════════ -->
-<div class="tab-panel" role="tabpanel" hidden id="tab-revenue">
-<div style="max-width:1200px;margin:0 auto;padding:20px;">
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-
-    <!-- Step checklist -->
-    <div class="card">
-      <div class="card-title">📋 Monday Revenue Checklist</div>
-      <div class="rev-check" data-chk-id="rev-0" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run Income by Provider in Avimark — flag any revenue NOT under Aaron Smiley, DVM</span></div>
-      <div class="rev-check" data-chk-id="rev-1" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Fix flagged invoices — change ASI: Aaron Smiley Overflow → AS: Aaron Smiley, DVM</span></div>
-      <div class="rev-check" data-chk-id="rev-2" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run corrected Period Totals — record Total Invoices, New Clients, Patient Visits, Avg Invoice</span></div>
-      <div class="rev-check" data-chk-id="rev-3" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run prior year Period Totals (same date range, 1 year back) — record same 4 metrics</span></div>
-      <div class="rev-check" data-chk-id="rev-4" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Run Trailing Twelve Months (TTM) Period Totals</span></div>
-      <div class="rev-check" data-chk-id="rev-5" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Check Vetcove Home Delivery revenue at pharmacy.vetcove.com/clinic → Reporting</span></div>
-      <div class="rev-check" data-chk-id="rev-6" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Calculate % increases (use calculator below)</span></div>
-      <div class="rev-check" data-chk-id="rev-7" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Send Slack report to Dr. Smiley (Claude can draft &amp; send this)</span></div>
-      <div class="rev-check" data-chk-id="rev-8" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Update Monthly Ordering spreadsheet on OneDrive</span></div>
-      <div class="rev-check" data-chk-id="rev-9" role="checkbox" aria-checked="false" tabindex="0" onclick="toggleRev(this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRev(this)}"><span class="chk" aria-hidden="true">☐</span><span>Update Anderson 2026 VetCor Tracker (weekly Sun–Sat figures)</span></div>
-      <div style="margin-top:10px;padding:10px;background:var(--blue-pale);border-radius:6px;font-size:11.5px;color:var(--gray-600);">
-        ⚠️ <strong>Date note:</strong> Monthly Ordering uses <em>MTD</em> (1st–Saturday). Anderson Tracker uses <em>calendar week</em> (Sun–Sat). These are different — don't mix them up.
-      </div>
-    </div>
-
-    <!-- YoY Calculator -->
-    <div class="card">
-      <div class="card-title">🧮 Year-over-Year % Calculator</div>
-      <div style="font-size:12px;color:var(--gray-600);margin-bottom:12px;">Enter current year and prior year figures to calculate % change automatically.</div>
-
-      <div class="calc-box" style="margin-bottom:10px;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Total Invoices (Revenue)</div>
-        <div class="calc-row">
-          <input class="calc-input" id="rev-cy" placeholder="Current year $" type="number"/>
-          <span style="font-size:12px;color:var(--gray-400);">vs</span>
-          <input class="calc-input" id="rev-py" placeholder="Prior year $" type="number"/>
-          <button class="calc-btn" onclick="calcYoY('rev-cy','rev-py','rev-result')">Calculate</button>
-        </div>
-        <div class="calc-result" id="rev-result"></div>
-      </div>
-
-      <div class="calc-box" style="margin-bottom:10px;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">New Clients</div>
-        <div class="calc-row">
-          <input class="calc-input" id="nc-cy" placeholder="Current year #" type="number"/>
-          <span style="font-size:12px;color:var(--gray-400);">vs</span>
-          <input class="calc-input" id="nc-py" placeholder="Prior year #" type="number"/>
-          <button class="calc-btn" onclick="calcYoY('nc-cy','nc-py','nc-result')">Calculate</button>
-        </div>
-        <div class="calc-result" id="nc-result"></div>
-      </div>
-
-      <div class="calc-box">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px;">Patient Visits</div>
-        <div class="calc-row">
-          <input class="calc-input" id="pv-cy" placeholder="Current year #" type="number"/>
-          <span style="font-size:12px;color:var(--gray-400);">vs</span>
-          <input class="calc-input" id="pv-py" placeholder="Prior year #" type="number"/>
-          <button class="calc-btn" onclick="calcYoY('pv-cy','pv-py','pv-result')">Calculate</button>
-        </div>
-        <div class="calc-result" id="pv-result"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Slack message builder -->
-  <div class="card">
-    <div class="card-title">📨 Slack Report Builder — Dr. Smiley</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div>
-        <div style="font-size:12px;color:var(--gray-600);margin-bottom:10px;">Fill in the fields and the message will auto-build on the right.</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Week Ending Date (Saturday)</label><input class="filter-input" id="msg-date" placeholder="e.g. April 5, 2026" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Avimark Revenue</label><input class="filter-input" id="msg-rev" placeholder="e.g. $22,847" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Revenue % Change vs Prior Year</label><input class="filter-input" id="msg-revpct" placeholder="e.g. +8.3%" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">New Clients + % Change</label><input class="filter-input" id="msg-nc" placeholder="e.g. 12 (+15.2%)" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Patient Visits + % Change</label><input class="filter-input" id="msg-pv" placeholder="e.g. 107 (+3.9%)" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">% of Monthly Goal</label><input class="filter-input" id="msg-goal" placeholder="e.g. 72%" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">TTM (Aaron Smiley, DVM)</label><input class="filter-input" id="msg-ttm" placeholder="e.g. $1,248,000" oninput="buildMsg()"/></div>
-          <div><label style="font-size:11px;color:var(--gray-400);display:block;margin-bottom:3px;">Vetcove Home Delivery</label><input class="filter-input" id="msg-vetcove" placeholder="e.g. $1,240" oninput="buildMsg()"/></div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--gray-400);margin-bottom:6px;">Message preview (ready to copy into Slack)</div>
-        <pre id="msg-preview" class="msg-preview"></pre>
-        <button class="apply-btn" style="margin-top:8px;" onclick="copyMsg()">📋 Copy Message</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div><!-- /tab-revenue -->
+<!-- revenue panel merged into Operations 2026-07-02 --><!-- /tab-revenue -->
 
 <!-- ═══════════════ TAB: AUTOMATIONS ═══════════════ -->
 <div class="tab-panel" role="tabpanel" hidden id="tab-automations">
-<div style="max-width:1400px;margin:0 auto;padding:20px;">
-
-  <!-- Impact Header -->
-  <div style="background:linear-gradient(135deg,var(--navy) 0%,#2563EB 100%);border-radius:10px;padding:24px 28px;margin-bottom:18px;color:white;">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-      <div>
-        <div style="font-size:18px;font-weight:800;margin-bottom:4px;">🤖 AI Automation Engine — Devonshire Veterinary Clinic</div>
-        <div style="font-size:12px;opacity:0.75;">22 workflows running autonomously · Active since January 2026 · Zero manual triggers required</div>
-      </div>
-      <div style="display:flex;gap:24px;flex-wrap:wrap;">
-        <div style="text-align:center;">
-          <div style="font-size:32px;font-weight:800;line-height:1;">22</div>
-          <div style="font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.5px;">Active Tasks</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:32px;font-weight:800;line-height:1;">~15</div>
-          <div style="font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.5px;">Hrs Saved/Week</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:32px;font-weight:800;line-height:1;">$0</div>
-          <div style="font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.5px;">Extra Staff Cost</div>
-        </div>
-      </div>
-    </div>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+  <div>
+    <div style="font-size:18px;font-weight:700;color:var(--navy);">⚙️ Automation Status</div>
+    <div style="font-size:12px;color:var(--gray-500);margin-top:2px;" id="auto-subtitle">Live status of every scheduled workflow · timestamps update with each run</div>
   </div>
-
-  <!-- Category: Daily -->
-  <div class="section-label" style="margin-top:4px;">⏰ Daily — Runs Every Weekday</div>
-  <div class="auto-grid" style="margin-bottom:18px;">
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">☀️ Dashboard Morning Refresh</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 7:50 AM</div><div class="auto-desc">Pulls latest Avimark TJ data, updates all revenue KPIs on this dashboard, scans for new staff eval scores, and refreshes the inventory predictor — all before Katie arrives.</div><div class="auto-last">Last run: Today, 7:50 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📋 Daily To-Do List</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 8:00 AM</div><div class="auto-desc">Scans #thoughts, #general, #lindsey-audits, #need-list, and Katie's DMs for action items. Compiles a prioritized list and sends it as a Slack DM before she sits down.</div><div class="auto-last">Last run: Today, 8:00 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🎯 Dr. Smiley Priority Review</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 6:30 AM</div><div class="auto-desc">Sends Dr. Smiley a Slack DM with Katie's current Asana task list each morning, asking him to reply with priority rankings so she knows what to focus on first.</div><div class="auto-last">Last run: Today, 6:30 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📦 Need-List Stale Tracker</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 7:30 AM</div><div class="auto-desc">Checks #need-list for items sitting unfulfilled more than 2 days. Flags them in the morning Slack DM so nothing falls through the cracks.</div><div class="auto-last">Last run: Today, 7:30 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📅 Next-Day Appointments</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 4:00 PM</div><div class="auto-desc">Scans tomorrow's appointment calendar and identifies medications that need to be pulled and ready. Sends a prep checklist to Slack DMs every afternoon.</div><div class="auto-last">Last run: Yesterday, 4:00 PM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">💰 Daily Revenue Update</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 5:00 PM</div><div class="auto-desc">Pulls end-of-day revenue data from #avimark, updates MTD and YTD totals, and feeds the Operations dashboard KPIs so numbers are always current.</div><div class="auto-last">Last run: Yesterday, 5:00 PM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🧠 Dr. Smiley Thoughts Summary</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Weekdays at 5:00 PM</div><div class="auto-desc">Summarizes all of Dr. Smiley's posts from #thoughts throughout the day into a clean bullet-point digest. Sent to Katie's Slack DMs — nothing gets missed.</div><div class="auto-last">Last run: Yesterday, 5:00 PM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🎙️ Voice Memo Processor</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Continuously — every 9 min</div><div class="auto-desc">Watches #thoughts for Dr. Smiley's voice memos 24/7. When detected, instantly generates a text transcript and summary, posted back to the thread automatically.</div><div class="auto-last">Continuous · Last memo: Apr 13</div></div>
-  </div>
-
-  <!-- Category: Weekly -->
-  <div class="section-label">📆 Weekly — Recurring Each Week</div>
-  <div class="auto-grid" style="margin-bottom:18px;">
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📊 Weekly Revenue Report</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Mondays at 9:00 AM</div><div class="auto-desc">Runs the full Monday revenue workflow — pulls Avimark Period Totals, calculates YoY %, checks Vetcove Home Delivery, sends Dr. Smiley's Slack report, updates the Anderson 2026 VetCor Tracker.</div><div class="auto-last">Last run: Today, 9:02 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📆 Weekly Calendar Scan</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Mondays at 7:00 AM</div><div class="auto-desc">Reads the Avimark appointment calendar for the week ahead. Predicts which medications will be needed and flags ordering recommendations before the Monday Vetcove order.</div><div class="auto-last">Last run: Today, 7:04 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🛒 Monday Vetcove Order</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Mondays at 7:50 AM</div><div class="auto-desc">Checks VetCorOne schedule, reads Avimark TJ usage data, identifies low-stock items, builds the Vetcove cart, and DMs Katie the full order summary before noon deadline.</div><div class="auto-last">Last run: Today, 7:52 AM</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🛒 Wednesday Ordering Reminder</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Wednesdays at 8:00 AM</div><div class="auto-desc">Mid-week restock check. Reviews fast-moving inventory items and flags anything that may run out before next Monday's order. Sends Slack DM with suggested items.</div><div class="auto-last">Last run: Apr 8</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📅 Staff Schedule Builder</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Thursdays at 9:00 AM</div><div class="auto-desc">Reads time-off requests from Slack DMs, checks Dayforce for approved blocks, applies standing schedule rules, and generates a draft Excel schedule for Katie's review before Friday posting.</div><div class="auto-last">Last run: Apr 9</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">💳 Payroll Auto-Approve</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Thursdays at 8:00 AM</div><div class="auto-desc">On payroll Thursdays, logs into Dayforce, reviews staff timecards for errors, flags any Red X issues for Katie to resolve, and approves clean timecards before the payroll deadline.</div><div class="auto-last">Last run: Apr 9</div></div>
-  </div>
-
-  <!-- Category: Monthly -->
-  <div class="section-label">🗓️ Monthly — Recurring Each Month</div>
-  <div class="auto-grid" style="margin-bottom:18px;">
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🔍 Inventory Count Reminder</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">Last Wednesday of each month</div><div class="auto-desc">Reminds Katie to do the physical flea/tick/vaccine count on the last two Wednesdays of the month and submit results in Skyworld Operations → Inventory.</div><div class="auto-last">Next run: Apr 22</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📋 Staff Eval Monthly Summary</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">1st of each month at 8:00 AM</div><div class="auto-desc">Pulls eval scores from each staff member's Slack channel, computes monthly averages and trends, and sends Katie a full team performance summary DM.</div><div class="auto-last">Last run: Apr 1</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🗂️ Month-End Kickoff</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">22nd of each month at 8:00 AM</div><div class="auto-desc">Fires 3 days before reconciliation is due. Collects receipts from Slack, previews outstanding corporate card transactions, and sends Katie a head-start checklist.</div><div class="auto-last">Next run: Apr 22</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">🗂️ Monthly Recon Prep</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">23rd of each month at 9:00 AM</div><div class="auto-desc">Final push reminder: corporate card reconciliation due Apr 25. Compiles a summary of unmatched Scratch eChecks and unreconciled transactions still needing attention in Skyworld.</div><div class="auto-last">Next run: Apr 23</div></div>
-
-    <div class="auto-card"><div class="auto-header"><div class="auto-title">📁 End-of-Month Close</div><span class="auto-status status-on">● ACTIVE</span></div><div class="auto-schedule">1st of each month at 9:00 AM</div><div class="auto-desc">Runs the full Skyworld close checklist: Daily Totals, Scratch Payments fix buttons, Invoices to A/P, Facility Inspections, Corporate Cards, OSHA Compliance. Full status report sent via Slack DM.</div><div class="auto-last">Last run: Apr 1</div></div>
-  </div>
-
+  <div style="display:flex;gap:18px;font-size:12px;color:var(--gray-500);" id="auto-summary"></div>
 </div>
+<div class="card" style="padding:0;overflow:hidden;">
+  <table style="width:100%;border-collapse:collapse;font-size:12.5px;" id="auto-table"></table>
+</div>
+<div style="font-size:11px;color:var(--gray-400);margin-top:8px;">A red dot means the workflow missed its last expected run — mention it to Claude to investigate.</div>
+<script>
+(function(){
+  if (typeof AUTOMATIONS === 'undefined') return;
+  const groups = {daily:'⏰ Daily', weekly:'📆 Weekly', monthly:'🗓️ Monthly', continuous:'🔁 Continuous'};
+  const order = ['continuous','daily','weekly','monthly'];
+  function cadence(s){
+    s = (s||'').toLowerCase();
+    if (s.includes('continuous') || s.includes('every')) return 'continuous';
+    if (s.includes('weekday')) return 'daily';
+    if (s.includes('monday')||s.includes('tuesday')||s.includes('wednesday')||s.includes('thursday')||s.includes('friday')) return 'weekly';
+    return 'monthly';
+  }
+  let rows = '';
+  order.forEach(g => {
+    const items = AUTOMATIONS.filter(a => cadence(a.schedule) === g);
+    if (!items.length) return;
+    rows += '<tr><td colspan="4" style="background:var(--gray-50,#F9FAFB);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);padding:7px 14px;">' + groups[g] + '</td></tr>';
+    items.forEach(a => {
+      const ok = a.status !== 'stale';
+      rows += '<tr style="border-top:1px solid var(--gray-100,#F3F4F6);">'
+        + '<td style="padding:8px 14px;white-space:nowrap;"><span style="color:' + (ok ? '#10B981' : '#EF4444') + ';">●</span> <strong>' + a.name + '</strong></td>'
+        + '<td style="padding:8px 10px;color:var(--gray-500);white-space:nowrap;">' + a.schedule + '</td>'
+        + '<td style="padding:8px 10px;color:var(--gray-500);">' + (a.desc||'') + '</td>'
+        + '<td style="padding:8px 14px;color:var(--gray-400);white-space:nowrap;text-align:right;">' + (a.lastRun || '—') + '</td></tr>';
+    });
+  });
+  document.getElementById('auto-table').innerHTML = rows;
+  const n = AUTOMATIONS.length, stale = AUTOMATIONS.filter(a=>a.status==='stale').length;
+  document.getElementById('auto-summary').innerHTML =
+    '<div><strong style="color:var(--navy);font-size:16px;">' + n + '</strong> workflows</div>'
+    + '<div><strong style="color:' + (stale? '#EF4444':'#10B981') + ';font-size:16px;">' + (stale||'0') + '</strong> need attention</div>'
+    + '<div><strong style="color:var(--navy);font-size:16px;">~15</strong> hrs saved/wk</div>';
+})();
+</script>
 </div><!-- /tab-automations -->
 
 <!-- ══════════════════════ SCRIPTS ══════════════════════ -->
@@ -1922,11 +1967,7 @@ function copyMsg() {
 }
 
 // ── Charts ───────────────────────────────────────────────
-const DATA = {
-  daily:{labels:['3/16','3/18','3/19','3/20','3/23','3/24','3/25','3/30','4/1','4/2','4/3','4/4','4/6'],revenue:[4856,4551,4280,2286,5439,4120,3890,4180,530,3240,4890,3760,5180],py:[4190,4020,3980,1980,4890,3700,3510,3820,410,2980,4510,3410,4820]},
-  weekly:{labels:['W10','W11','W12','W13','W14','W15'],revenue:[21340,23180,19114,20890,17910,22560],py:[19100,20800,17200,18700,16100,20200]},
-  monthly:{labels:['Jan','Feb','Mar','Apr MTD'],revenue:[98300,118700,118854,40326],py:[88400,106700,106900,36260]}
-};
+/* DATA moved to data/dashboard-data.js */
 // Patch chart DATA with live DVC_LIVE values when available
 (function(){
   var d = window.DVC_LIVE;
@@ -1959,107 +2000,11 @@ function resetFilters(){document.getElementById('filterDateRange').value='mtd';d
 // ═══════════════════════════════════════════════════════════
 // ORDERING & INVENTORY ENGINE
 // ═══════════════════════════════════════════════════════════
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jul 1, 2026 (Wed Mid-Week Restock Check — same 7 high-volume items still URGENT/unconfirmed from Mon 6/29 cart: Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol, Nobivac Feline; no fresh TJ since Jun 8) | #need-list sync: Jul 2, 2026
-  // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
-  {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~16 units/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) (usage-based, no fresh TJ) — Zoetis',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
-  {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~27 doses/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Zoetis',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
-  {name:'Propoflo (propofol)',code:'PROP01',cat:'anesthetic',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~24 mL/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Covetrus',avg:24,order:30,cost:120,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Euthasol',code:'EUTH01',cat:'controlled',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~11 mL/wk, controlled, needs Dr. Smiley sign-off — Covetrus',avg:11,order:15,cost:85,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Nobivac Feline FVRCCP/FeLV',code:'NOBF01',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 22 Mon DM (Nobivac Feline 1-HCPCH+Fe) — ~6 doses/wk — Covetrus',avg:6,order:10,cost:180,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Bravecto Quantum Inj 66–88#',code:'BQXL',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:4,order:5,cost:1220,priority:'ROUTINE',feb:2,mar:4},
-  {name:'Clavamox Drops 15mL',code:'ANT001',cat:'antibiotic',status:'critical',pct:15,note:'Highest turnover — keep 2 min',avg:18,order:22,cost:330,priority:'ORDER NOW',feb:16,mar:20},
-  {name:'Epinephrine 1mg/mL',code:'EMER01',cat:'emergency',status:'critical',pct:25,note:'NEVER run out — check surgery storage too',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:1,mar:2},
-  {name:'Feline RC GI Loaf Cans',code:'44725',cat:'diet',status:'critical',pct:18,note:'Spiky usage — reorder aggressively',avg:41,order:51,cost:1554,priority:'ORDER NOW',feb:42,mar:72},
-  // --- CHRONIC UNFILLED (4+ weeks) ---
-  {name:'Animax 30ml',code:'ANIMX1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 6+ requests since Apr 29, resolve sourcing',avg:2,order:3,cost:45,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'DALPP Vaccine 1yr',code:'1120',cat:'vaccine',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:51,order:58,cost:748,priority:'ROUTINE',feb:76,mar:46},
-  {name:'Cosyntropin',code:'COSYN1',cat:'other',status:'critical',pct:10,note:'CHRONIC — 4+ requests since May 6',avg:1,order:2,cost:95,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Flexprofen 25+100mg',code:'FLEX01',cat:'other',status:'ok',pct:60,note:'In "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:2,order:3,cost:50,priority:'ROUTINE',feb:0,mar:0},
-  {name:'22g Needles',code:'NEED22',cat:'other',status:'critical',pct:10,note:'CHRONIC — since Apr 29',avg:5,order:10,cost:15,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Whole Blood Containers',code:'WBC01',cat:'other',status:'critical',pct:10,note:'CHRONIC — recurring since May 1',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
-  // --- NEED-LIST / CARRY-FORWARD ---
-  {name:'Hydromorphone x2',code:'HYDRO1',cat:'controlled',status:'critical',pct:15,note:'Carry-forward from May 19 — controlled, Dr. Smiley sign-off',avg:1,order:2,cost:60,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Diazepam',code:'DIAZ01',cat:'controlled',status:'ok',pct:60,note:'Diazepam Inj in "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:1,order:2,cost:40,priority:'ROUTINE',feb:0,mar:0},
-  {name:'Librela 88-132#',code:'LIB88',cat:'pain',status:'critical',pct:15,note:'4th+ request from Allison — high priority',avg:3,order:5,cost:330,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Trazodone',code:'TRAZ01',cat:'other',status:'critical',pct:20,note:'Need-list May 21',avg:3,order:5,cost:25,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Vetmedin 2.5mg',code:'VETM25',cat:'other',status:'ok',pct:60,note:'In "Recently Ordered — Probably OK" per Jun 8 DM (May 27 order)',avg:2,order:3,cost:85,priority:'ROUTINE',feb:0,mar:0},
-  {name:'Levetiracetam XR 750mg',code:'LEVE01',cat:'other',status:'critical',pct:20,note:'Kelsey request May 24 for Shadow',avg:1,order:2,cost:45,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Marboquin 100mg',code:'MARB01',cat:'antibiotic',status:'critical',pct:20,note:'Carry-forward from May 19',avg:1,order:2,cost:35,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Simparica Trio 44-88',code:'SIT0048',cat:'flea-tick',status:'ok',pct:60,note:'Ordered May 27, in "Recently Ordered" per Jun 1 DM',avg:5,order:8,cost:750,priority:'ROUTINE',feb:0,mar:0},
-  {name:'Vetmedin 5mg',code:'VETM50',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Allison',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Thyro-tab 0.8mg',code:'THYR08',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — Staff Computer',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Omeprazole (Kyzer)',code:'OMEP01',cat:'other',status:'critical',pct:20,note:'Need-list May 27 — 2 bottles for Kyzer',avg:1,order:2,cost:25,priority:'ORDER NOW',feb:0,mar:0},
-  // --- LOW / CHECK STOCK ---
-  {name:'Dexdomitor Inj',code:'DEX01',cat:'anesthetic',status:'low',pct:40,note:'~1.6 mL/wk — LOW/check stock per Jun 8 DM',avg:2,order:3,cost:95,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Carprofen Injection',code:'CARP01',cat:'pain',status:'low',pct:40,note:'~4 mL/wk — check stock',avg:4,order:5,cost:55,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Ketamine Inj',code:'KET01',cat:'controlled',status:'low',pct:40,note:'~1 mL/wk — controlled, last order May 4',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Ace Injectable',code:'ACE01',cat:'anesthetic',status:'low',pct:40,note:'~1 mL/wk — check stock',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Onsior Pills',code:'ONS01',cat:'pain',status:'low',pct:40,note:'~3 pills/wk',avg:3,order:5,cost:65,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vetprofen 100mg',code:'VETP01',cat:'pain',status:'low',pct:40,note:'~9 tabs/wk',avg:9,order:12,cost:40,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vanguard Plus 5L4',code:'VAC006',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~17 doses/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Zoetis',avg:48,order:58,cost:392,priority:'ORDER NOW',feb:76,mar:46},
-  {name:'Bordetella Canine 1yr',code:'1006',cat:'vaccine',status:'low',pct:37,note:'High volume — pair with DALPP order',avg:51,order:56,cost:638,priority:'THIS WEEK',feb:76,mar:46},
-  {name:'Cytopoint 40mg',code:'CYT040',cat:'pain',status:'low',pct:40,note:'Goes fast — always keep a backup vial',avg:6,order:8,cost:520,priority:'THIS WEEK',feb:5,mar:7},
-  {name:'Convenia 10mL',code:'CNV010',cat:'antibiotic',status:'low',pct:35,note:'Limited days once opened — check exp dates',avg:3,order:4,cost:340,priority:'THIS WEEK',feb:2,mar:3},
-  {name:'Cerenia Inj 20mg/mL',code:'CER020',cat:'other',status:'low',pct:42,note:'Always 1 sealed backup',avg:3,order:4,cost:280,priority:'THIS WEEK',feb:3,mar:4},
-  {name:'Simparica TRIO 6pk (11–22#)',code:'SIT0036',cat:'flea-tick',status:'ok',pct:60,note:'90 doses stocked ~Apr 27',avg:8,order:10,cost:869,priority:'ROUTINE',feb:5,mar:12},
-  {name:'Simparica TRIO 6pk (22–44#)',code:'SIT0046',cat:'flea-tick',status:'ok',pct:60,note:'90 doses stocked ~Apr 27',avg:7,order:8,cost:752,priority:'ROUTINE',feb:4,mar:9},
-  // --- OK ---
-  {name:'Librela 15mg/mL',code:'10022808',cat:'pain',status:'ok',pct:60,note:'42+ units but 88-132 size requested separately',avg:5,order:6,cost:252,priority:'ROUTINE',feb:4,mar:6},
-  {name:'Amoxicillin 250mg Caps',code:'ANT002',cat:'antibiotic',status:'ok',pct:60,note:'High turnover — reorder at 1 bottle',avg:12,order:15,cost:90,priority:'ROUTINE',feb:10,mar:14},
-  {name:'Simparica 11–22# (orange)',code:'SI003',cat:'flea-tick',status:'ok',pct:55,note:'2 full sleeves',avg:13,order:15,cost:372,priority:'ROUTINE',feb:8,mar:22},
-  {name:'Bronchi-Shield Oral',code:'VAC0017',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~15 doses/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Zoetis',avg:51,order:55,cost:263,priority:'ORDER NOW',feb:76,mar:46},
-  {name:'Solensia',code:'SOL01',cat:'pain',status:'ok',pct:65,note:'12 vials in stock',avg:2,order:3,cost:180,priority:'ROUTINE',feb:0,mar:0},
-  {name:'LymeVax',code:'VAC011',cat:'vaccine',status:'ok',pct:60,note:'Seasonal tick vaccine',avg:13,order:16,cost:194,priority:'ROUTINE',feb:12,mar:18},
-  {name:'Claro Otic Solution',code:'CLARO1',cat:'other',status:'critical',pct:15,note:'URGENT per Jun 3 DM — Moissa need-list 6/1, 3 uses in last 2 TJs',avg:4,order:6,cost:195,priority:'ORDER NOW',feb:3,mar:5},
-  {name:'Adequan Canine 5mL',code:'ADQ005',cat:'pain',status:'ok',pct:62,note:'Can now order just 1 unit',avg:3,order:3,cost:165,priority:'ROUTINE',feb:2,mar:3},
-  {name:'Metacam 1.5mg/mL Oral',code:'MET015',cat:'pain',status:'ok',pct:70,note:'Usually plenty — glance and confirm',avg:4,order:5,cost:120,priority:'ROUTINE',feb:3,mar:4},
-  {name:'Canine RC Urinary SO 6.6#',code:'426066',cat:'diet',status:'ok',pct:60,note:'Rx diet',avg:5,order:6,cost:124,priority:'ROUTINE',feb:4,mar:6},
-  {name:'Vetsulin U-40 Insulin',code:'INS040',cat:'other',status:'ok',pct:68,note:'Only order what you need',avg:2,order:2,cost:98,priority:'ROUTINE',feb:1,mar:2},
-  {name:'Zenrelia',code:'ZEN01',cat:'other',status:'ok',pct:65,note:'Ordered May 6',avg:2,order:3,cost:75,priority:'ROUTINE',feb:0,mar:0},
-  // --- NEW from Jun 1 #need-list ---
-  {name:'Bonqat',code:'BONQ01',cat:'other',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:1,order:2,cost:30,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Librela 66-88#',code:'LIB66',cat:'pain',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:2,order:3,cost:165,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Bexacat 90',code:'BEXC90',cat:'other',status:'low',pct:35,note:'Need-list Jun 1 — Moissa (checkmark)',avg:1,order:2,cost:120,priority:'THIS WEEK',feb:0,mar:0},
-  // --- NEW from Jun 2 #need-list ---
-  {name:'Isoflurane',code:'ISO01',cat:'anesthetic',status:'critical',pct:15,note:'Need-list Jun 2 — Allison',avg:2,order:3,cost:95,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Cephalexin 500mg',code:'CEPH50',cat:'antibiotic',status:'critical',pct:15,note:'Need-list Jun 1 — Staff Computer',avg:2,order:3,cost:25,priority:'ORDER NOW',feb:0,mar:0},
-  // --- NEW from Jun 2-3 #need-list ---
-  {name:'Apoquel 16mg Chewable',code:'APOQ16',cat:'other',status:'critical',pct:15,note:'URGENT per Jun 3 DM — Triage Nurse 6/2',avg:2,order:3,cost:120,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Prednisone 5mg',code:'PRED05',cat:'other',status:'low',pct:35,note:'Need-list Jun 2 — Triage Nurse',avg:2,order:3,cost:15,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Vetmedin 1.25mg Chewable',code:'VETM12',cat:'other',status:'low',pct:35,note:'Need-list Jun 2 — Triage Nurse',avg:1,order:2,cost:75,priority:'THIS WEEK',feb:0,mar:0},
-  // --- NEW from Jun 3-4 #need-list ---
-  {name:'Felimazole 2.5mg',code:'FELI25',cat:'other',status:'critical',pct:15,note:'Need-list Jun 3 — Triage Nurse, unconfirmed',avg:1,order:2,cost:40,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Cautery Tips',code:'CAUT01',cat:'other',status:'low',pct:40,note:'Need-list Jun 4 — Kathryn',avg:1,order:2,cost:35,priority:'THIS WEEK',feb:0,mar:0},
-  // --- NEW from Jun 10 #need-list ---
-  {name:'Prophy Paste',code:'PROPH1',cat:'other',status:'low',pct:40,note:'Need-list Jun 10 — Allison (checkmarked)',avg:1,order:2,cost:25,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Disposable Drapes',code:'DRAPE1',cat:'other',status:'low',pct:40,note:'Need-list Jun 10 — Allison (checkmarked)',avg:1,order:2,cost:45,priority:'THIS WEEK',feb:0,mar:0},
-  // --- NEW from Jun 15 #need-list (Moissa, all checkmarked — confirm ordered on Vetcove) ---
-  {name:'Methimazole 5mg',code:'METH05',cat:'other',status:'critical',pct:15,note:'Need-list Jun 15 — Moissa (checkmarked)',avg:1,order:2,cost:30,priority:'ORDER NOW',feb:0,mar:0},
-  {name:'Bexacat 30',code:'BEXC30',cat:'other',status:'low',pct:35,note:'Need-list Jun 15 — Moissa (checkmarked)',avg:1,order:2,cost:120,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Seresto Small Dog',code:'SERS01',cat:'flea-tick',status:'low',pct:35,note:'Need-list Jun 15 — Moissa (checkmarked)',avg:2,order:3,cost:308,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Sileo',code:'SILEO1',cat:'other',status:'low',pct:35,note:'Need-list Jun 15 — Moissa (checkmarked)',avg:1,order:2,cost:120,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Feline Combo Vax',code:'FELCMB',cat:'vaccine',status:'low',pct:35,note:'Need-list Jun 15 — Moissa (checkmarked)',avg:3,order:5,cost:180,priority:'THIS WEEK',feb:0,mar:0},
-  {name:'Flexprofen 75mg',code:'FLEX75',cat:'other',status:'critical',pct:15,note:'Need-list Jun 12 (Triage Nurse) + flagged Jun 15 — still open',avg:2,order:3,cost:50,priority:'ORDER NOW',feb:0,mar:0},
-];
+/* INV_DATA moved to data/dashboard-data.js */
 
-const WALK_CHECKS = [
-  {id:'walk-1',label:'Main medication cabinet — one open / one backup rule',icon:'💊'},
-  {id:'walk-2',label:'4 exam room fridges — vaccine levels (≤5 = needs backup)',icon:'🧊'},
-  {id:'walk-3',label:'Surgery fridge/storage — ProHeart, emergency meds, Convenia',icon:'🏥'},
-  {id:'walk-4',label:'Flea/tick display — count sleeves, check expiration',icon:'🐾'},
-  {id:'walk-5',label:'Controlled substances safe (separate process)',icon:'🔒'},
-  {id:'walk-6',label:'Front desk supply area — client-purchase items',icon:'🛒'},
-];
+/* WALK_CHECKS moved to data/dashboard-data.js */
 
-const VENDORS = [
-  {name:'Chris (KRISS)',co:'Covetrus',handles:'Main distributor, emergency orders',deal:null},
-  {name:'Sarah',co:'Zoetis',handles:'Zoetis products, emergency next-day',deal:'Staff samples in summer'},
-  {name:'Amanda',co:'Alanco',handles:'Claro/Cléo',deal:'Buy 3 get 1 free (quarterly)'},
-  {name:'Brian',co:'IDEXX',handles:'Lab, diagnostics',deal:null},
-  {name:'Kristin',co:'Royal Canin',handles:'Rx/therapeutic diets',deal:null},
-  {name:'Stephanie',co:'Purina Pro Plan',handles:'Purina Rx diets',deal:null},
-  {name:'Danielle',co:'MWI',handles:'Secondary distributor',deal:'Alt to Covetrus'},
-];
+/* VENDORS moved to data/dashboard-data.js */
 
 function buildOrderDayBanner(){
   const el=document.getElementById('orderDayBanner');
@@ -2568,269 +2513,12 @@ function init(){
   loadCheckboxes();
   buildOrdering();
   // highlight Monday revenue badge
-  if(now.getDay()===1) { document.getElementById('rev-badge').style.background='#DCFCE7'; document.getElementById('rev-badge').style.color='#166534'; }
+  /* rev-badge styling removed — Revenue merged into Operations */
 }
 document.addEventListener('DOMContentLoaded',init);
 
 // ── Staff Evaluations ─────────────────────────────────────
-const STAFF_DATA = [
-  { id:'jodi',    name:'Jodi Dunn',      role:'Vet Assistant', color:'#2563EB', cert:null,
-    scores:[
-      {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:49,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:82,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:80,patient:'(Lindsey eval)'},
-      {date:'Mar 26',score:78,patient:'Olive Schwettman',cats:[16,15,16,16,15]},
-      {date:'Mar 30',score:79,patient:'Max Leyba',cats:[17,16,15,16,15]},
-      {date:'Apr 3', score:72,patient:'Ralli Casstevens',cats:[16,17,13,14,12]},
-      {date:'Apr 3', score:76,patient:'Rocky Kessler',cats:[16,15,14,16,15]},
-      {date:'Apr 7', score:79,patient:'Emmie Dunn',cats:[17,16,15,16,15]},
-      {date:'Apr 7', score:74,patient:'Kitty Seek',cats:[16,15,14,14,15]},
-      {date:'Apr 8', score:79,patient:'Pickle Cook',cats:[17,16,15,16,15]},
-      {date:'Apr 9', score:79,patient:'Pickle Cook',cats:[17,16,15,16,15]},
-      {date:'Apr 13',score:80,patient:'Sonic Mattingly',cats:[17,16,15,16,16]},
-      {date:'Apr 13',score:73,patient:'Sammie Winkler',cats:[16,14,15,14,14]},
-      {date:'Apr 16',score:76,patient:'Chevy Hartman',cats:[16,15,16,14,15]},
-      {date:'Apr 20',score:77,patient:'Kiki Layton',cats:[16,17,15,15,14]},
-      {date:'Apr 20',score:76,patient:'Grace Zavalydrga',cats:[16,15,16,15,14]},
-      {date:'Apr 20',score:76,patient:'Margo Humes',cats:[16,15,16,14,15]},
-      {date:'Apr 21',score:74,patient:'Jazzy Stevens',cats:[16,15,14,15,14]},
-      {date:'Apr 23',score:79,patient:'Kirby Swinford',cats:[17,16,15,16,15]},
-      {date:'Apr 30',score:79,patient:'Romeo Lade',cats:[16,17,15,16,15]},
-      {date:'May 1', score:79,patient:'Luna DeWitt',cats:[17,16,15,16,15]},
-      {date:'May 1', score:84,patient:'Bandit Bull',cats:[17,18,16,17,16]},
-      {date:'May 1', score:77,patient:'Auggie Odom',cats:[16,17,15,15,14]},
-      {date:'May 4', score:79,patient:'Cali Underwood',cats:[16,17,16,15,15]},
-      {date:'May 4', score:77,patient:'Beni SeaCat',cats:[16,15,16,15,15]},
-      {date:'May 4', score:76,patient:'Poppy Carpenter',cats:[16,17,15,14,14]},
-      {date:'May 4', score:79,patient:'Mocha Maseuli',cats:[16,17,15,16,15]},
-      {date:'May 5', score:76,patient:'Shirley White',cats:[16,14,16,15,15]},
-      {date:'May 5', score:72,patient:'Winston Bryan',cats:[16,14,15,14,13]},
-      {date:'May 6', score:76,patient:'Honeybee McCallister',cats:[17,16,14,15,14]},
-      {date:'May 7', score:64,patient:'Egg Wilson',cats:[14,17,12,10,11]},
-      {date:'May 8', score:83,patient:'Nutmeg Burnettbutzow',cats:[17,18,16,17,15]},
-      {date:'May 8', score:84,patient:'Maggie Dutton',cats:[17,18,16,17,16]},
-      {date:'May 14',score:83,patient:'Callie Shanks',cats:[17,19,15,16,16]},
-      {date:'May 21',score:78,patient:'Sophie Walters',cats:[16,15,16,16,15]},
-      {date:'May 22',score:80,patient:'Bear Morris',cats:[17,16,15,16,16]},
-      {date:'May 22',score:75,patient:'Abby Skinner',cats:[17,16,13,15,14]},
-      {date:'May 27',score:80,patient:'Stormy Piekarz',cats:[17,16,15,17,15]},
-      {date:'May 27',score:78,patient:'Blaze Johnson',cats:[16,18,15,15,14]},
-      {date:'May 28',score:80,patient:'Tucker Patrick',cats:[16,17,15,16,16]},
-      {date:'May 28',score:83,patient:'Onyx Sauerwein',cats:[17,18,16,17,15]},
-      {date:'May 29',score:70,patient:'Onyx Sauerwein',cats:[16,15,12,14,13]},
-      {date:'Jun 3', score:79,patient:'Mr Spock Billey',cats:[17,16,15,16,15]},
-      {date:'Jun 4', score:73,patient:'Abbey Scott',cats:[16,15,14,15,13]},
-      {date:'Jun 4', score:73,patient:'Molly Cervantes',cats:[16,15,14,15,13]},
-      {date:'Jun 15',score:74,patient:'Trixie Sadler',cats:[16,14,15,15,14]},
-      {date:'Jun 15',score:79,patient:'Dexter Balangee',cats:[17,16,16,15,15]},
-      {date:'Jun 15',score:77,patient:'Daisy Cole',cats:[16,18,14,15,14]},
-      {date:'Jun 15',score:79,patient:'Teddy McKinney',cats:[17,16,15,16,15]},
-      {date:'Jun 15',score:78,patient:'Sophie Cooley',cats:[17,16,15,16,14]},
-      {date:'Jun 18',score:76,patient:'Oppy',cats:[16,17,14,15,14]},
-      {date:'Jun 19',score:79,patient:'Calvin Mitchener',cats:[16,17,15,16,15]},
-      {date:'Jun 19',score:81,patient:'Gracie Webb',cats:[17,18,15,16,15]},
-      {date:'Jun 22',score:79,patient:'Arlin Persinger',cats:[16,17,15,16,15]},
-      {date:'Jun 22',score:69,patient:'Cassie Welkom',cats:[14,15,13,14,13]},
-      {date:'Jun 22',score:76,patient:'Brindle Neumann',cats:[16,17,15,14,14]},
-      {date:'Jun 22',score:77,patient:'Pepper Fenwick',cats:[16,17,15,14,15]},
-      {date:'Jun 22',score:79,patient:'Scrappy Neal',cats:[17,18,14,16,14]},
-      {date:'Jun 23',score:75,patient:'Nika and Frank Persinger',cats:[16,16,14,15,14]},
-      {date:'Jun 23',score:80,patient:'Teddy Kelley',cats:[18,16,15,17,14]},
-      {date:'Jun 24',score:68,patient:'Rory Charlton',cats:[15,14,13,14,12]},
-      {date:'Jun 25',score:74,patient:'Zeus Thorneburg',cats:[15,16,14,15,14]},
-      {date:'Jun 25',score:79,patient:'Nala Torres',cats:[17,16,15,16,15]},
-      {date:'Jun 29',score:77,patient:'Bluey Tescher',cats:[17,16,15,14,15]},
-    ]
-  },
-  // Maddie Joseph removed — left clinic April 2026
-  { id:'kristi',  name:'Kristi',         role:'Vet Assistant', color:'#D97706', cert:null,
-    scores:[
-      {date:'Jan 21',score:71,patient:'(Lindsey eval)'},{date:'Jan 21',score:68,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:72,patient:'(Lindsey eval)'},{date:'Jan 22',score:65,patient:'(Lindsey eval)'},
-      {date:'Mar 25',score:68,patient:'Lady Sparks',cats:[16,14,12,13,13]},
-      {date:'Mar 26',score:59,patient:'Calliope Fosnot',cats:[14,15,10,9,11]},
-      {date:'May 18',score:76,patient:'Chanel Duran',cats:[16,17,14,15,14]},
-      {date:'May 18',score:82,patient:'Squirt Willis',cats:[17,18,16,16,15]},
-      {date:'May 18',score:66,patient:'Emily Grotzinger',cats:[15,16,10,14,11]},
-      {date:'May 18',score:75,patient:'Nikita Michener',cats:[16,17,13,15,14]},
-      {date:'May 19',score:70,patient:'Ralli Casstevens',cats:[15,16,14,12,13]},
-      {date:'May 20',score:76,patient:'Jack Smith',cats:[16,17,14,15,14]},
-      {date:'May 20',score:76,patient:'Reggie Patton',cats:[16,18,14,15,13]},
-      {date:'May 20',score:75,patient:'Baby Hodge',cats:[17,15,14,16,13]},
-      {date:'May 21',score:48,patient:'Tux Bourse',cats:[12,14,8,7,7]},
-      {date:'May 27',score:67,patient:'Trix and Micky Richardson',cats:[15,13,12,14,13]},
-      {date:'May 27',score:74,patient:'Max Leyba',cats:[16,15,14,15,14]},
-      {date:'May 27',score:57,patient:'Obie and Rose Berry',cats:[12,14,11,10,10]},
-      {date:'May 27',score:76,patient:'Luke and Roman',cats:[16,17,14,15,14]},
-      {date:'May 28',score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
-      {date:'May 28',score:75,patient:'Jay Davis',cats:[16,17,13,15,14]},
-      {date:'May 28',score:76,patient:'Murray Bennett',cats:[16,17,15,14,14]},
-      {date:'May 29',score:74,patient:'Prissy Hedrick',cats:[16,15,14,15,14]},
-      {date:'Jun 2', score:71,patient:'Kit+Zelda Gray',cats:[15,16,13,14,13]},
-      {date:'Jun 2', score:40,patient:'Little bit Heller',cats:[10,16,4,6,4]},
-      {date:'Jun 2', score:68,patient:'Maya (mock exam)',cats:[15,14,13,14,12]},
-      {date:'Jun 3', score:73,patient:'Crimson King',cats:[16,17,13,14,13]},
-      {date:'Jun 3', score:74,patient:'Ellie Bowman',cats:[16,16,14,15,13]},
-      {date:'Jun 3', score:74,patient:'Biscuit Sloan',cats:[16,15,14,15,14]},
-      {date:'Jun 3', score:74,patient:'Archie Allen',cats:[16,17,13,15,13]},
-      {date:'Jun 4', score:72,patient:'Brindle Young',cats:[16,14,13,15,14]},
-      {date:'Jun 4', score:59,patient:'Lilly+Luna Barry',cats:[12,14,11,12,10]},
-      {date:'Jun 4', score:76,patient:'Kade Butcher',cats:[16,17,14,15,14]},
-      {date:'Jun 5', score:75,patient:'Sam Neff',cats:[16,15,14,15,15]},
-      {date:'Jun 5', score:75,patient:'Leia Shanks',cats:[16,17,15,14,13]},
-      {date:'Jun 5', score:71,patient:'Doc Aynes',cats:[15,16,13,14,13]},
-      {date:'Jun 16',score:75,patient:'Kiya Ghaffari',cats:[15,16,14,16,14]},
-      {date:'Jun 16',score:50,patient:'Lando Villegas',cats:[13,14,6,9,8]},
-      {date:'Jun 16',score:72,patient:'Peanut Vichkon',cats:[16,15,13,14,14]},
-      {date:'Jun 22',score:78,patient:'Emma Watkins',cats:[17,18,14,15,14]},
-      {date:'Jun 22',score:74,patient:'Dexter Townsend',cats:[15,16,14,15,14]},
-      {date:'Jun 23',score:76,patient:'Violet Henry',cats:[16,14,15,16,15]},
-      {date:'Jun 23',score:74,patient:'Matilda Haffey',cats:[16,15,14,15,14]},
-      {date:'Jun 24',score:79,patient:'Perusal Lopez',cats:[17,19,14,15,14]},
-    ]
-  },
-  { id:'allison', name:'Allison',        role:'Vet Assistant', color:'#7C3AED', cert:'Studying for cert',
-    scores:[
-      {date:'Jan 21',score:79,patient:'(Lindsey eval)'},{date:'Jan 21',score:72,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:71,patient:'(Lindsey eval)'},{date:'Jan 22',score:73,patient:'(Lindsey eval)'},
-      {date:'Jan 22',score:76,patient:'(Lindsey eval)'},{date:'Jan 22',score:74,patient:'(Lindsey eval)'},
-      {date:'Mar 26',score:66,patient:'Gypsy Wire',cats:[14,16,11,13,12]},
-      {date:'May 18',score:77,patient:'Diesel Mudd',cats:[16,15,16,15,15]},
-      {date:'May 19',score:74,patient:'Mac Finn Busby',cats:[16,15,14,15,14]},
-      {date:'May 20',score:84,patient:'Bolt Humane Society',cats:[17,20,16,16,15]},
-      {date:'May 20',score:75,patient:'Anniman Dryden',cats:[16,17,14,15,13]},
-      {date:'May 20',score:79,patient:'Nala McDole',cats:[17,16,15,16,15]},
-      {date:'May 21',score:66,patient:'Romeo Dougie Woods',cats:[14,15,12,13,12]},
-      {date:'May 21',score:82,patient:'Josie Johnson',cats:[17,18,15,16,16]},
-      {date:'May 21',score:71,patient:'Baby Hodge',cats:[16,14,13,15,13]},
-      {date:'May 21',score:80,patient:'Huey Madigan',cats:[17,18,14,16,15]},
-      {date:'May 21',score:81,patient:'Harley Coggins',cats:[17,19,15,16,14]},
-      {date:'May 22',score:86,patient:'Peyton Conrad',cats:[18,19,16,17,16]},
-      {date:'May 22',score:81,patient:'Oreo Jaunett',cats:[17,16,15,17,16]},
-      {date:'May 27',score:82,patient:'Brindle Young',cats:[17,18,16,16,15]},
-      {date:'May 27',score:77,patient:'Pistol Heiney',cats:[16,17,15,14,15]},
-      {date:'May 27',score:75,patient:'Reggie Patton',cats:[16,17,15,13,14]},
-      {date:'May 27',score:74,patient:'Ralo Brooks',cats:[16,15,14,15,14]},
-      {date:'May 28',score:81,patient:'Mollie Garrison',cats:[17,18,16,15,15]},
-      {date:'May 28',score:81,patient:'Kiya Ghaffari',cats:[17,19,14,16,15]},
-      {date:'May 29',score:84,patient:'Alfie Soetenga',cats:[17,19,16,16,16]},
-      {date:'May 29',score:78,patient:'Junior Scott',cats:[17,16,15,16,14]},
-      {date:'Jun 1', score:79,patient:'Molly+Bree Logsdon',cats:[17,16,15,16,15]},
-      {date:'Jun 1', score:79,patient:'Smiley Landis',cats:[17,16,15,16,15]},
-      {date:'Jun 3', score:80,patient:'Bob Brooks',cats:[17,18,15,16,14]},
-      {date:'Jun 4', score:78,patient:'Gracie Walks',cats:[16,17,15,16,14]},
-      {date:'Jun 5', score:82,patient:'Grace Zavalydriga',cats:[17,18,16,15,16]},
-      {date:'Jun 5', score:76,patient:'Knox Hollowell',cats:[16,17,14,15,14]},
-    ]
-  },
-  { id:'kelsey',  name:'Kelsey',         role:'RVT',           color:'#0891B2', cert:'RVT',
-    scores:[
-      {date:'Feb 4', score:76,patient:'Monster Landis',cats:[16,15,16,14,15]},
-      {date:'Feb 4', score:78,patient:'Koda Chrome Skaggs',cats:[17,16,15,16,14]},
-      {date:'May 15',score:77,patient:'Lucy Bee',cats:[16,17,15,15,14]},
-      {date:'May 18',score:72,patient:'Buddy Larry Sam Duffy',cats:[16,15,14,13,14]},
-      {date:'May 18',score:77,patient:'Akira Bova',cats:[16,17,14,16,14]},
-      {date:'May 18',score:71,patient:'Alice Bond',cats:[16,17,13,12,13]},
-      {date:'May 18',score:79,patient:'Stonewall Rushton',cats:[17,16,15,16,15]},
-      {date:'May 19',score:64,patient:'Sylvester Madison',cats:[15,14,13,10,12]},
-      {date:'May 19',score:77,patient:'Lydia Whitworth',cats:[17,16,14,15,15]},
-      {date:'May 20',score:66,patient:'Jasper Legg',cats:[15,16,13,10,12]},
-      {date:'May 21',score:74,patient:'Willow Reeves',cats:[16,15,14,15,14]},
-      {date:'May 22',score:79,patient:'Woody White',cats:[17,16,15,16,15]},
-      {date:'May 22',score:84,patient:'John Snow Tilford',cats:[18,19,15,16,16]},
-      {date:'May 22',score:76,patient:'Timothy Street',cats:[16,16,15,15,14]},
-      {date:'May 22',score:74,patient:'Max Copeland',cats:[16,15,14,15,14]},
-      {date:'May 22',score:59,patient:'Zeke Brady',cats:[14,16,10,9,10]},
-      {date:'May 26',score:73,patient:'Sammy Johnson',cats:[16,15,14,15,13]},
-      {date:'May 26',score:65,patient:'Sylvester Madison',cats:[14,16,13,10,12]},
-      {date:'May 26',score:71,patient:'Thor Jimenez',cats:[16,15,13,14,13]},
-      {date:'May 27',score:73,patient:'Dash Stanley',cats:[16,17,13,14,13]},
-      {date:'May 29',score:56,patient:'Mango+BC Rahali',cats:[12,18,11,6,9]},
-      {date:'May 29',score:75,patient:'Pixie Sulzen',cats:[16,15,14,16,14]},
-      {date:'Jun 1', score:79,patient:'Winston Egan',cats:[17,16,15,16,15]},
-      {date:'Jun 1', score:74,patient:'Smokey Crisp',cats:[16,15,14,15,14]},
-      {date:'Jun 2', score:85,patient:'Monroe Bailey',cats:[18,18,16,17,16]},
-      {date:'Jun 2', score:78,patient:'Bailey Bowman',cats:[17,18,14,15,14]},
-      {date:'Jun 2', score:78,patient:'GG Lawson',cats:[16,18,14,15,15]},
-      {date:'Jun 3', score:72,patient:'Pearl Kellem',cats:[15,16,14,13,14]},
-      {date:'Jun 3', score:69,patient:'Zoos Starnes',cats:[16,17,14,10,12]},
-      {date:'Jun 3', score:80,patient:'Teddy+Chewy Trick',cats:[17,18,14,15,16]},
-      {date:'Jun 15',score:77,patient:'Esther Hamman',cats:[16,17,14,15,15]},
-      {date:'Jun 15',score:73,patient:'GG Young',cats:[15,16,14,14,14]},
-      {date:'Jun 15',score:76,patient:'Domino Fenwick',cats:[16,17,14,15,14]},
-      {date:'Jun 15',score:71,patient:'Raven Fitzpatrick',cats:[16,15,13,14,13]},
-      {date:'Jun 15',score:68,patient:'Mr Darcy Woodring',cats:[15,14,12,14,13]},
-      {date:'Jun 15',score:74,patient:'Chicory Alexander',cats:[16,14,15,15,14]},
-      {date:'Jun 18',score:83,patient:'Stella Ellis',cats:[18,17,15,17,16]},
-      {date:'Jun 19',score:74,patient:'Willow Reeves',cats:[16,14,15,15,14]},
-      {date:'Jun 22',score:69,patient:'Roz Ellen Urbanski',cats:[14,15,13,14,13]},
-      {date:'Jun 22',score:63,patient:'Raider Hagan',cats:[14,16,12,10,11]},
-      {date:'Jun 22',score:77,patient:'Bruno Calhoun',cats:[16,17,15,14,15]},
-      {date:'Jun 23',score:76,patient:'Rose Nunemaker',cats:[17,15,14,16,14]},
-      {date:'Jun 23',score:79,patient:'Silver Martinez',cats:[17,19,14,15,14]},
-      {date:'Jun 26',score:76,patient:'Moose Knerr',cats:[16,17,14,15,14]},
-      {date:'Jun 29',score:72,patient:'Rudy the 4th Scott',cats:[16,15,14,13,14]},
-    ]
-  },
-  { id:'moissa',  name:'Moissa',         role:'Vet Assistant', color:'#DB2777', cert:null,
-    scores:[
-      {date:'Feb 4', score:74,patient:'Charlie Thompson',cats:[16,17,14,14,13]},
-      {date:'May 20',score:79,patient:'Lil Mama McGill',cats:[17,18,14,16,14]},
-      {date:'May 20',score:79,patient:'Indy Webner',cats:[17,16,15,16,15]},
-      {date:'Jun 18',score:81,patient:'Claudia Hampton',cats:[17,18,15,16,15]},
-      {date:'Jun 23',score:73,patient:'Harlee Eldrige',cats:[13,17,15,14,14]},
-    ]
-  },
-  { id:'breanna', name:'Breanna',        role:'HS Extern',     color:'#9CA3AF', cert:null,
-    scores:[
-      {date:'Nov 4', score:70,patient:'Rocky Zirkle',cats:[15,16,13,14,12]},
-      {date:'Nov 4', score:80,patient:'Gail George',cats:[16,17,16,16,15]},
-      {date:'Nov 5', score:78,patient:'Obi Cesar',cats:[16,16,15,16,15]},
-      {date:'Nov 5', score:79,patient:'Homeless George',cats:[16,17,15,16,15]},
-      {date:'Nov 12',score:70,patient:'Friendly Tweedy',cats:[15,16,13,14,12]},
-      {date:'Nov 12',score:79,patient:'Parker Dowers',cats:[16,17,15,16,15]},
-      {date:'Nov 13',score:80,patient:'Jojo Graham',cats:[17,17,15,16,15]},
-      {date:'Nov 20',score:75,patient:'Jelly Stansberry',cats:[16,15,14,16,14]},
-      {date:'Nov 20',score:77,patient:'Hermes Turner',cats:[16,17,15,15,14]},
-      {date:'Nov 25',score:76,patient:'Vincent Stansberry',cats:[16,17,14,15,14]},
-      {date:'Nov 25',score:72,patient:'Mazie Whitesel',cats:[15,16,14,13,14]},
-      {date:'Nov 25',score:76,patient:'Bruno Beatty',cats:[16,17,14,15,14]},
-      {date:'Dec 2', score:43,patient:'Merlot and Bordeaux Dzelme',cats:[10,14,6,7,6]},
-      {date:'Dec 2', score:71,patient:'Barron Weaver',cats:[16,15,14,13,13]},
-      {date:'Dec 4', score:67,patient:'Stella Briggs',cats:[14,15,13,13,12]},
-      {date:'Dec 4', score:76,patient:'Ollie Bohmer',cats:[16,17,14,15,14]},
-      {date:'Dec 5', score:78,patient:'Angel Ellis',cats:[17,16,14,16,15]},
-      {date:'Dec 8', score:67,patient:'Newt Kenobi Staggs',cats:[12,13,14,15,13]},
-      {date:'Dec 9', score:74,patient:'Vash-tai Jared',cats:[15,18,14,14,13]},
-      {date:'Dec 9', score:71,patient:'Myka Chrich',cats:[15,17,13,14,12]},
-      {date:'Dec 10',score:67,patient:'Molly Gibson',cats:[14,16,12,13,12]},
-      {date:'Dec 10',score:76,patient:'Logan King',cats:[16,16,15,15,14]},
-      {date:'Dec 11',score:73,patient:'Ghost Wolfe',cats:[16,17,13,15,12]},
-      {date:'Dec 11',score:74,patient:'Cocoa Blockson',cats:[16,15,14,15,14]},
-      {date:'Dec 15',score:70,patient:'Murphy Baxter',cats:[15,16,13,14,12]},
-      {date:'Dec 22',score:79,patient:'Sunday Stewart',cats:[16,18,15,16,14]},
-      {date:'Dec 22',score:75,patient:'John Snow Tilford',cats:[16,17,14,15,13]},
-      {date:'Dec 23',score:66,patient:'Lori Paynter',cats:[15,14,12,13,12]},
-      {date:'Jan 6', score:80,patient:'Mary Poole',cats:[17,18,14,16,15]},
-      {date:'Jan 6', score:73,patient:'Hank Turner',cats:[16,15,13,15,14]},
-      {date:'Jan 7', score:72,patient:'Lucy Littell',cats:[15,16,14,13,14]},
-      {date:'Jan 8', score:49,patient:'Miss Kitty Lavelle',cats:[12,13,6,10,8]},
-      {date:'Jan 9', score:76,patient:'Noodle and Navi Neff',cats:[16,17,14,15,14]},
-      {date:'Jan 13',score:76,patient:'Dexter Townsend',cats:[16,17,14,15,14]},
-      {date:'Jan 15',score:70,patient:'Lucky Butterfield',cats:[15,14,14,13,14]},
-      {date:'Jan 16',score:81,patient:'Willow Jones',cats:[17,18,15,16,15]},
-      {date:'Jan 21',score:75,patient:'Izzy Hampton',cats:[16,15,14,16,14]},
-      {date:'Jan 22',score:82,patient:'Titus Mudd',cats:[17,18,16,16,15]},
-      {date:'Jan 23',score:76,patient:'Lucifer Caulk',cats:[16,17,14,15,14]},
-      {date:'Jan 28',score:75,patient:'Buster Belangee',cats:[16,17,14,15,13]},
-      {date:'Jan 30',score:72,patient:'Huckleberry Feasel',cats:[16,15,14,14,13]},
-      {date:'Feb 2', score:74,patient:'Petey Beck',cats:[16,14,15,15,14]},
-      {date:'Feb 3', score:80,patient:'Maverick Candler',cats:[17,18,15,16,14]},
-    ]
-  },
-  { id:'kathryn', name:'Kathryn',        role:'PRN',           color:'#6B7280', cert:null, scores:[] },
-];
+/* STAFF_DATA moved to data/dashboard-data.js */
 
 // Dynamic date ordering — no more hardcoded list that goes stale
 const _monthIdx={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
@@ -2935,10 +2623,7 @@ const ALL_STAFF_BDAY = [
 ];
 
 // Known dates from #staff-info Slack channel (pulled Apr 7, 2026)
-const BDAY_KNOWN = {
-  debbie:  {bday:'12/20', wkiv:'04/09'},
-  allison: {bday:'02/09', wkiv:'03/20'},
-};
+/* BDAY_KNOWN moved to data/dashboard-data.js */
 
 function daysUntil(mmdd, today){
   if(!mmdd) return null;
@@ -3258,15 +2943,7 @@ function staffChartsReady(tries){
 }
 
 // ── Staff Conversation Log System ─────────────────────────
-const LOG_STAFF = [
-  {id:'jodi',    name:'Jodi Dunn',     role:'Vet Assistant'},
-  {id:'kristi',  name:'Kristi',        role:'Vet Assistant'},
-  {id:'allison', name:'Allison',       role:'Vet Assistant · Studying for cert'},
-  {id:'kelsey',  name:'Kelsey',        role:'RVT'},
-  {id:'moissa',  name:'Moissa',        role:'Vet Assistant'},
-  {id:'debbie',  name:'Debbie Wagner', role:'Receptionist'},
-  {id:'breanna', name:'Breanna',       role:'HS Extern'},
-];
+/* LOG_STAFF moved to data/dashboard-data.js */
 // In-memory working copy — seeded from embedded STAFF_LOG_DATA + localStorage
 const _staffLogMem = {};
 (function(){
@@ -3375,6 +3052,46 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 <!-- ═══════════════ TAB: STAFF EVALUATIONS ═══════════════ -->
 <div class="tab-panel" role="tabpanel" hidden id="tab-staff">
+<!-- ═══════ VISIT EVIDENCE — confirmed exam recordings only (added 2026-07-02) ═══════ -->
+<div class="card" id="visit-evidence" style="margin-bottom:18px;">
+  <div class="card-title" style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
+    🎥 Visit Evidence — from exam recordings
+    <span style="font-size:10.5px;font-weight:400;color:var(--gray-400);">confirmed attributions only · coaching material, not a grade · confirm tags in Client tab → Visit Outcomes</span>
+  </div>
+  <table style="width:100%;border-collapse:collapse;font-size:12px;" id="visit-evidence-table"></table>
+</div>
+<script>
+(function(){
+  const R = (typeof EXAM_ROSTER !== 'undefined') ? EXAM_ROSTER : [];
+  const V = (typeof WW_VISITS !== 'undefined') ? WW_VISITS : [];
+  const vkey = v => v.date + '|' + (v.time||'') + '|' + v.patient;
+  window.renderVisitEvidence = function(conf){
+    conf = conf || {};
+    const per = {};
+    R.forEach(s => per[s.id] = {n:0, hi:0, mid:0, notes:[]});
+    V.forEach(v => {
+      let id = (vkey(v) in conf) ? conf[vkey(v)] : (v.staffConfirmed ? v.staff : null);
+      if (!id || !per[id]) return;
+      per[id].n++;
+      if (v.compliance === 'high') per[id].hi++; else if (v.compliance) per[id].mid++;
+      per[id].notes.push(v.date + ' ' + v.patient + ': ' + (v.note||'').slice(0,110) + '…');
+    });
+    document.getElementById('visit-evidence-table').innerHTML =
+      '<tr style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-400);"><td style="padding:4px 0;">Staff</td><td style="text-align:center;">Confirmed visits</td><td style="text-align:center;">High compliance</td><td style="text-align:center;">Mod / low</td><td>Latest evidence</td></tr>'
+      + R.map(s => {
+        const d = per[s.id];
+        return '<tr style="border-top:1px solid var(--gray-100,#F3F4F6);">'
+          + '<td style="padding:6px 0;font-weight:600;color:var(--navy);white-space:nowrap;">' + s.name + '</td>'
+          + '<td style="text-align:center;font-weight:700;color:' + (d.n ? 'var(--navy)' : 'var(--gray-300,#D1D5DB)') + ';">' + d.n + '</td>'
+          + '<td style="text-align:center;color:#059669;font-weight:700;">' + (d.hi || '—') + '</td>'
+          + '<td style="text-align:center;color:#D97706;font-weight:700;">' + (d.mid || '—') + '</td>'
+          + '<td style="font-size:10.5px;color:var(--gray-500);line-height:1.5;">' + (d.notes.slice(-2).join('<br>') || '<span style="color:var(--gray-300,#D1D5DB);">no confirmed recordings yet</span>') + '</td></tr>';
+      }).join('');
+  };
+  window.renderVisitEvidence({});
+})();
+</script>
+
 <div style="max-width:1400px;margin:0 auto;padding:20px;">
 
   <!-- Birthday Alert Banner -->
@@ -3471,30 +3188,7 @@ const FULL_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 
 // Standing schedule — matches CLAUDE.md
 // hours: string like "7-4", task: 'am'|'pm'|'mid'|'ch'|'off', lunch: string
-const STANDING = [
-  { id:'debbie',  name:'Debbie Wagner', role:'Receptionist',
-    days:['7-5','7-1','7-5','7-2','8-1','off'],
-    tasks:['','','','','','off'], lunch:['1-2','','1-2','','',''] },
-  { id:'kristi',  name:'Kristi',        role:'Vet Assistant',
-    days:['7-4','7-4','7-4','7-4','8-1','off'],
-    tasks:['','','','','','off'], lunch:['12-1','12-1','12-1','12-1','',''] },
-  { id:'kelsey',  name:'Kelsey',        role:'RVT',
-    days:['7-5','7-5','7-1','7-1','7-5','off'],
-    tasks:['am','pm','','','pm','off'], lunch:['1-2','1-2','','','1-2',''] },
-  { id:'jodi',    name:'Jodi Dunn',     role:'Vet Assistant',
-    days:['8-4','8-4','8-1','8-4','8-1','off'],
-    tasks:['','','','','','off'], lunch:['12-1','12-1','','12-1','',''] },
-  // Maddie Joseph removed — left clinic April 2026
-  { id:'moissa',  name:'Moissa',        role:'Vet Assistant',
-    days:['7-1','7-1','7-5','7-1','7-1','off'],
-    tasks:['mid','mid','mid','mid','mid','off'], lunch:['','','1-2','','',''] },
-  { id:'allison', name:'Allison',       role:'Vet Assistant',
-    days:['7-5','7-5','off','7-5','8-5','off'],
-    tasks:['pm','pm','off','pm','pm','off'], lunch:['1-2','1-2','','1-2','1-2',''] },
-  { id:'breanna', name:'Breanna',       role:'HS Extern',
-    days:['off','7-11','off','7-11','7-11','off'],
-    tasks:['off','am','off','am','am','off'], lunch:['','','','','',''] },
-];
+/* STANDING moved to data/dashboard-data.js */
 
 function getWeekDates(){
   const today = new Date(); today.setHours(0,0,0,0);
@@ -3795,6 +3489,105 @@ window.publishSchedule=function(){
 
 <!-- ═══════════════ TAB: PHONE CALLS ═══════════════ -->
 <div class="tab-panel" role="tabpanel" hidden id="tab-client">
+<!-- ═══════ VISIT OUTCOMES — Avimark × voice-memo analysis (added 2026-07-02) ═══════ -->
+<div class="card" id="visit-outcomes" style="margin-bottom:18px;">
+  <div class="card-title" style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
+    🔬 Visit Outcomes — what we said × what they bought
+    <span style="font-size:10.5px;font-weight:400;color:var(--gray-400);">exam recording analysis (#client-analysis) joined to the Avimark invoice for the same visit</span>
+  </div>
+  <div id="visit-list"></div>
+</div>
+<script>
+(function(){
+  const API = 'http://localhost:8765/api';
+  const V = (typeof WW_VISITS !== 'undefined') ? WW_VISITS.slice() : [];
+  const R = (typeof EXAM_ROSTER !== 'undefined') ? EXAM_ROSTER : [];
+  const AL = (typeof STAFF_ALIASES !== 'undefined') ? STAFF_ALIASES : {};
+  const el = document.getElementById('visit-list');
+  let conf = {};   // visitKey -> staffId ('' = confirmed-unknown), persisted via /api/kv
+
+  const rosterId = raw => {
+    if (!raw) return null;
+    const k = String(raw).toLowerCase();
+    if (R.some(s => s.id === k)) return k;
+    return AL[k] || null;
+  };
+  const rosterName = id => { const s = R.find(x => x.id === id); return s ? s.name : id; };
+  const vkey = v => v.date + '|' + (v.time||'') + '|' + v.patient;
+  const chip = (txt, c, bg, extra) => '<span ' + (extra||'') + ' style="background:' + bg + ';color:' + c + ';font-size:10px;font-weight:700;padding:1.5px 7px;border-radius:99px;white-space:nowrap;' + (extra ? 'cursor:pointer;' : '') + '">' + txt + '</span>';
+  const comp = c => c === 'high' ? chip('COMPLIANCE HIGH','#059669','#ECFDF5') : c === 'moderate' ? chip('COMPLIANCE MOD','#D97706','#FFFBEB') : c === 'low' ? chip('COMPLIANCE LOW','#DC2626','#FEF2F2') : chip('COMPLIANCE ?','#6B7280','#F9FAFB');
+  const price = p => p === 'high' ? chip('PRICE-SENSITIVE','#C2410C','#FFF7ED') : '';
+
+  function staffState(v){
+    const key = vkey(v);
+    if (key in conf) return conf[key] ? {id: conf[key], st:'confirmed'} : {id:null, st:'unknown'};
+    const id = rosterId(v.staff);
+    if (id && v.staffConfirmed) return {id, st:'confirmed'};
+    if (id) return {id, st:'pending'};
+    return {id:null, st:'unknown'};
+  }
+  function staffChip(v){
+    const s = staffState(v);
+    if (s.st === 'confirmed') return chip('👤 ' + rosterName(s.id), '#1D4ED8', '#EFF6FF');
+    if (s.st === 'pending')  return chip('👤 ' + rosterName(s.id) + '? — click to confirm', '#92400E', '#FDE68A',
+      'onclick="vsPick(\'' + vkey(v).replace(/'/g,'') + '\')"');
+    return chip('👤 unknown — click to assign', '#6B7280', '#F3F4F6',
+      'onclick="vsPick(\'' + vkey(v).replace(/'/g,'') + '\')"');
+  }
+
+  function render(){
+    if (!V.length) { el.innerHTML = '<div style="font-size:12px;color:var(--gray-400);padding:6px 0;">No analyzed visits yet.</div>'; return; }
+    el.innerHTML = V.map(v => {
+      const inv = (typeof v.invoice === 'number') ? {total: v.invoice} : (v.invoice === 'n/a' ? {na:true} : v.invoice);
+      let invHtml;
+      if (inv && inv.total != null) {
+        invHtml = '<div style="font-weight:800;color:var(--navy);font-size:15px;">$' + Number(inv.total).toLocaleString() + '</div>'
+          + (inv.items || []).map(i => '<div style="font-size:10.5px;color:var(--gray-500);">' + i.desc + ' — $' + i.amt + '</div>').join('')
+          + (inv.declined && inv.declined.length ? '<div style="font-size:10.5px;color:#DC2626;margin-top:3px;">Declined: ' + inv.declined.join(', ') + '</div>' : '');
+      } else if (inv && inv.na) {
+        invHtml = '<div style="font-size:10.5px;color:var(--gray-400);">no invoice found for this visit</div>';
+      } else {
+        invHtml = '<div style="font-size:10.5px;color:#92400E;background:#FFFBEB;border:1px solid #FDE68A;border-radius:6px;padding:4px 8px;">Avimark lines pending — the morning refresh matches this visit to the transaction journal</div>';
+      }
+      return '<div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(140px,1fr);gap:12px;border-top:1px solid var(--gray-100,#F3F4F6);padding:10px 0;">'
+        + '<div>'
+        +   '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:baseline;margin-bottom:4px;">'
+        +     '<strong style="color:var(--navy);">' + v.patient + '</strong>'
+        +     '<span style="font-size:11px;color:var(--gray-500);">(' + v.client + ') · ' + v.date + (v.time ? ' ' + v.time : '') + '</span>'
+        +     comp(v.compliance) + price(v.price) + staffChip(v)
+        +   '</div>'
+        +   '<div style="font-size:11px;color:var(--gray-500);margin-bottom:3px;font-style:italic;">' + (v.profile || '') + '</div>'
+        +   '<div style="font-size:11.5px;color:var(--gray-600,#4B5563);line-height:1.5;">' + (v.note || '') + '</div>'
+        + '</div>'
+        + '<div style="text-align:right;">' + invHtml + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  window.vsPick = function(key){
+    const v = V.find(x => vkey(x).replace(/'/g,'') === key);
+    if (!v) return;
+    const name = prompt('Who was in the room for ' + v.patient + ' (' + v.client + ') on ' + v.date + '?\n\nType one: ' + R.map(s=>s.name).join(', ') + '\nor "none" if not identifiable.');
+    if (name == null) return;
+    const id = name.trim().toLowerCase() === 'none' ? '' : rosterId(name.trim().split(' ')[0]);
+    if (id === null) { alert('"' + name + '" is not on the exam roster.'); return; }
+    conf[vkey(v)] = id;
+    fetch(API + '/kv', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({key:'visit-staff-confirm', value: JSON.stringify(conf)})}).catch(()=>{});
+    render();
+    if (typeof window.renderVisitEvidence === 'function') window.renderVisitEvidence(conf);
+  };
+
+  fetch(API + '/kv').then(r => r.json()).then(kv => {
+    try { conf = JSON.parse(kv['visit-staff-confirm'] || '{}'); } catch(e){ conf = {}; }
+    render();
+    if (typeof window.renderVisitEvidence === 'function') window.renderVisitEvidence(conf);
+  }).catch(render);
+})();
+</script>
+
+<div id="client-live-region">
+
 <div style="max-width:1400px;margin:0 auto;padding:20px;">
 
   <!-- Live data banner -->
@@ -4030,435 +3823,55 @@ window.publishSchedule=function(){
   </div>
 
 </div>
-</div><!-- /tab-client -->
 
-<!-- ═══ DVM TAB ═══ -->
-<div class="tab-panel" role="tabpanel" hidden id="tab-dvm">
-<div style="max-width:1400px;margin:0 auto;padding:20px;">
-
-  <!-- DR. SMILEY PRODUCTION HEADER -->
-  <div style="background:linear-gradient(135deg,#1F3864 0%,#1D4ED8 100%);border-radius:12px;padding:20px 24px;margin-bottom:20px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-    <div>
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:4px;">Dr. Aaron Smiley, DVM · Production Summary</div>
-      <div style="font-size:22px;font-weight:800;letter-spacing:-.3px;" id="dvm-mtd-revenue">$40,326</div>
-      <div style="font-size:11px;opacity:.8;margin-top:2px;">Month-to-Date Revenue &nbsp;·&nbsp; Apr 1 – Apr 13, 2026</div>
-    </div>
-    <div style="display:flex;gap:24px;flex-wrap:wrap;">
-      <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:800;" id="dvm-visits">177</div>
-        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">Patient Visits</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:800;" id="dvm-avg-inv">$227</div>
-        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">Avg Invoice</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:800;color:#86EFAC;">▲ 8.3%</div>
-        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">vs Apr 2025</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:800;">$376K</div>
-        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">YTD Revenue</div>
-      </div>
-    </div>
-    <div style="font-size:10.5px;opacity:.6;text-align:right;">
-      <div>Avimark · Period Totals</div>
-      <div id="dvm-updated">Updated Apr 13, 2026 9:30 AM</div>
-    </div>
-  </div>
-  <script>
-  (function(){
-    const d = window.DVC_LIVE;
-    if (!d) return;
-    const r = document.getElementById('dvm-mtd-revenue');
-    const v = document.getElementById('dvm-visits');
-    const a = document.getElementById('dvm-avg-inv');
-    const u = document.getElementById('dvm-updated');
-    if (r && d.mtdRevenue) r.textContent = '$' + Number(d.mtdRevenue).toLocaleString();
-    if (v && d.patientVisits) v.textContent = Number(d.patientVisits).toLocaleString();
-    if (a && d.avgInvoice) a.textContent = '$' + Number(d.avgInvoice).toLocaleString();
-    if (u && d.lastUpdated) u.textContent = 'Updated ' + d.lastUpdated;
-  })();
-  </script>
-
-  <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:12px;color:#92400E;">
-    <span style="font-size:18px;">&#9888;</span>
-    <div><strong>PICO data below is from Apr 8, 2026.</strong> Live PICO questions are posted to Slack <a href="https://devonshirevet.slack.com/archives/C09SF5TRMPA" target="_blank" rel="noopener noreferrer" style="color:#1D4ED8;font-weight:600;">#pico</a>. This section will be refreshed when the daily task picks up new PICO entries.</div>
-  </div>
-
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
-    <div>
-      <div style="font-size:18px;font-weight:700;color:var(--navy);">🩺 Clinical PICO Questions</div>
-      <div style="font-size:12px;color:var(--gray-500);margin-top:3px;">Q GPT-5.2 · <a href="https://devonshirevet.slack.com/archives/C09SF5TRMPA" target="_blank" rel="noopener noreferrer" style="color:var(--blue);">#pico</a> · Apr 8, 2026 · 7 patients with full PICO documentation</div>
-    </div>
-    <div style="text-align:right;font-size:10.5px;color:var(--gray-500);line-height:1.8;">
-      <div><strong style="color:#2563EB;">P</strong> = Patient &nbsp;·&nbsp; <strong style="color:#059669;">I</strong> = Intervention &nbsp;·&nbsp; <strong style="color:#D97706;">C</strong> = Comparison &nbsp;·&nbsp; <strong style="color:#7C3AED;">O</strong> = Outcome</div>
-      <div style="color:var(--gray-400);">Click a patient row to expand / collapse questions</div>
-    </div>
-  </div>
-
-  <!-- MOOSE CONRAD -->
-  <details open style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Moose</span>
-      <span style="font-size:11px;color:var(--gray-500);">Conrad · 6yo Boston Terrier · neut. male · annual wellness</span>
-      <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">5 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">4:19 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#F8FAFF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Injectable HW prevention vs. monthly Simparica Trio?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>6yo neutered Boston Terrier needing ongoing heartworm prevention</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Switch to injectable heartworm preventive (ProHeart)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Continue monthly Simparica Trio oral tablets</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Effective HW prevention with improved adherence/convenience</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#F8FAFF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · Annual core &amp; lifestyle vaccines at this visit?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Moose presenting for annual preventive care / vaccination update</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>DAPP + leptospirosis + rabies + oral Bordetella</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Protection against distemper, parvo, lepto, rabies, Bordetella</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#F8FAFF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 · Annual wellness bloodwork — CBC + chemistry + tick screen?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Clinically normal on exam, annual wellness visit</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>CBC, chemistry panel, Lyme/Ehrlichia/Anaplasma tick screen</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Early detection of systemic disease; establish baseline values</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#F8FAFF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 · Fecal screen when owner brings sample?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Requires intestinal parasite screening; no stool sample available at visit</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Run fecal testing when owner provides stool sample</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Detection of intestinal parasites to guide treatment if positive</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#F8FAFF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q5 · Continue measured feeding + avoid table food for weight maintenance?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Moose at ideal BCS 4.5/9; obesity risk due to brachycephalic breed conformation</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Continue measured diet; avoid table food</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Maintain healthy weight; reduce joint disease and obesity-associated complications</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- LOLA MEDLEY -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Lola</span>
-      <span style="font-size:11px;color:var(--gray-500);">Medley · 6yo Great Dane · spayed female · tail amputation</span>
-      <span style="font-size:10px;background:#FEE2E2;color:#991B1B;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">7 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">4:13 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Surgical tail amputation to resolve chronic self-trauma &amp; necrosis?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>6yo spayed Great Dane with severe tail self-trauma, necrosis, suspected local infection</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Tail amputation</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Resolution of ongoing trauma/necrosis; prevention of recurrence; healed stump</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · How proximal should amputation be to prevent re-trauma?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Great Dane with long tail and repeated self-trauma</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Proximal amputation — short nub ("get it out of the way")</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Less proximal / allow auto-amputation or partial sloughing</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduced ability to re-traumatize; improved chance of uncomplicated healing</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 · E-collar to prevent post-op self-trauma to incision?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Lola post-tail-amputation with high risk of incision chewing</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>E-collar and/or barrier strategy preventing access to surgical site</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Inflatable/donut collar or no barrier</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Prevention of incision licking/chewing; reduced wound breakdown/infection</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 · Leave necrotic tail unbandaged while awaiting surgery?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Necrotic tail with exposed tissue while awaiting definitive surgery</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Do NOT wrap/bandage — leave alone</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Wrap with coban or other bandage material</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Avoid complications (contamination, impaired healing) before surgery</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q5 · If distal tail sloughs before surgery, still proceed with amputation?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Progressive necrosis; distal tail may auto-amputate before scheduled surgery</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Reassess remaining tail length; proceed with surgical amputation if trauma risk persists</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>No further surgery after auto-amputation</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Prevention of continued self-trauma; establish healed, stable stump</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q6 · Pre-op antibiotics for suspected local infection?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Necrotic tail with suspected local infection awaiting amputation</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Cephalexin 500 mg, 2 tablets PO BID until gone</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduce bacterial load; improved comfort; reduced perioperative infection risk</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #EF4444;padding:8px 10px;background:#FFF8F8;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q7 · Pre-anesthetic bloodwork before tail amputation?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>6yo Great Dane scheduled for anesthesia for tail amputation</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Pre-anesthetic bloodwork — Level 2 recommended</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>No pre-anesthetic bloodwork</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Identify occult abnormalities affecting anesthetic risk; informed anesthetic planning</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- BONNIE LEYBA-PACHECO -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Bonnie</span>
-      <span style="font-size:11px;color:var(--gray-500);">Leyba-Pacheco · dog · GI / anorexia / behavior management</span>
-      <span style="font-size:10px;background:#FFEDD5;color:#C2410C;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">6 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">3:51 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Consistent diet (avoid frequent switching + right bag size) to reduce vomiting?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Picky eater with intermittent vomiting; frequent food switching; concern about staleness</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Consistent diet; appropriate bag size stored in original bag to reduce staleness</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Improved appetite consistency; reduced vomiting episodes</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · Transition from homemade proteins to complete commercial kibble?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog primarily eating homemade chicken/turkey/beef/ham; rarely eats kibble; vomiting with beef</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Complete, balanced commercial kibble as primary diet; reduce/remove homemade toppers</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Continue predominantly homemade diet with rotating proteins</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduced vomiting/diarrhea; improved appetite consistency; better nutritional balance</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 · Targeted feeding plan for anorexia episodes before vomiting onset?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Short-duration food refusal that can precede vomiting episodes</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Specific appetite/GI-support feeding algorithm during refusal periods</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Dog resumes eating; vomiting prevented during and after anorexia episodes</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 · Probiotics for sensitive stomach — what form if she avoids powder on food?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Sensitive stomach; vomiting/diarrhea history; avoids probiotic powder sprinkled on food</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Probiotics — capsule or oral formulation</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Powder sprinkled on food or no probiotics</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduced diarrhea/vomiting; improved GI stability and compliance</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q5 · Behavior modification for escalating fence reactivity &amp; handling bites?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog with escalating fence reactivity (waiting to fight) and biting when picked up</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Behavior modification + environmental management plan</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduced fence aggression; reduced human-directed biting; improved household safety</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #F97316;padding:8px 10px;background:#FFFAF5;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q6 · Consistent crate/cage rest for naps to reduce irritability?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog becomes irritated and does not settle/nap when not crated</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Consistent crate/cage rest routine for naps and sleep</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduced irritability; improved settling behavior and rest</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- CHAFFEE TRUEBLOOD -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Chaffee</span>
-      <span style="font-size:11px;color:var(--gray-500);">Trueblood · dog · annual vaccines + lameness management (Librella)</span>
-      <span style="font-size:10px;background:#DCFCE7;color:#166534;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">2 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">3:00 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #10B981;padding:8px 10px;background:#F5FFF9;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Annual vaccines at this visit?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Adult dog presenting for annual preventive care</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Administer annual vaccines</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Prevention of vaccine-preventable diseases; maintained protective immunity</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #10B981;padding:8px 10px;background:#F5FFF9;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · Continue Librella + current pain-control pills for intermittent lameness?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Adult dog with intermittent gimpiness/lameness consistent with chronic musculoskeletal pain</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Continue Librella injection + current oral pain-control medication(s)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Improved mobility/comfort; less gimpiness; maintained activity (jumping, running, playing)</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- TINKERBELL & STAR JACKSON -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Tinkerbell &amp; Star</span>
-      <span style="font-size:11px;color:var(--gray-500);">Jackson · multi-pet household · preventive care + ear treatment</span>
-      <span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">6 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">2:52 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 (Tinkerbell) · HW test + 12-month injectable prevention (ProHeart)?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog needing HW prevention in mosquito-exposed environment; unknown HW status</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Heartworm test + 12-month injectable prevention (ProHeart)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Confirm HW-negative status; prevent HW infection for 12 months</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 (Tinkerbell) · Vaccines — DAPP + lepto + rabies?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog presenting for routine preventive care vaccination updates</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>DAPP + leptospirosis + rabies vaccine</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Maintained protective immunity; meet rabies vaccination requirements</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 (Tinkerbell) · In-clinic nail trim — very difficult at home?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog with nails needing trimming; owner reports home trimming is "next to impossible"</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Perform in-clinic nail trim</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Safe nail shortening; reduce overgrowth and trauma risk</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 (Tinkerbell) · Continue flea &amp; tick prevention (products already at home)?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog with flea/tick exposure; household already has topical/pill products</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Continue flea/tick prevention (topical or oral product already in use)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduce/avoid flea/tick infestation and associated disease/dermatitis</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q5 (Tinkerbell) · Paw licking — clinically significant; treat or work up?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Dog with mild paw licking and salivary staining noted on exam</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Assess pattern/seasonality; consider allergy/dermatologic management for underlying pruritus</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Decrease paw licking/pruritus; prevent secondary skin infection/irritation</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #6366F1;padding:8px 10px;background:#F8F7FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q6 (Star) · Treat chronic ear irritation empirically after mild swab findings?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Star — dog with chronic ear irritation; ear swab shows mild findings</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Topical ear medication (empiric treatment after ear swab)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Resolution of ear irritation; prevention of secondary infection and progression</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- SKITTLES McCORD -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Skittles</span>
-      <span style="font-size:11px;color:var(--gray-500);">McCord · 6yo Tonkinese cat · neutered male · left hip nodule FNA</span>
-      <span style="font-size:10px;background:#EDE9FE;color:#5B21B6;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">4 PICO questions</span>
-      <span style="font-size:11px;color:var(--gray-400);white-space:nowrap;">12:15 PM</span>
-    </summary>
-    <div style="padding:12px 16px;display:grid;gap:8px;">
-      <div style="border-left:3px solid #8B5CF6;padding:8px 10px;background:#FAF5FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Abscess vs. soft tissue sarcoma — FNA cytology for left hip nodule?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>6yo neutered male Tonkinese cat with firm dermal nodule over left hip</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Fine needle aspirate cytology with interpretation (+ pathologist review)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Abscess vs. soft tissue sarcoma</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Determine diagnosis (infectious/inflammatory vs neoplastic) to guide treatment and prognosis</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #8B5CF6;padding:8px 10px;background:#FAF5FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q2 · Submit to external pathologist despite abscess-leaning in-clinic result?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>In-clinic FNA shows neutrophils, macrophages, few mast cells; mass not very painful</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Submit cytology to external pathologist for review</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>Rely on in-clinic cytology alone</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Increased diagnostic certainty; reduce risk of missing soft tissue sarcoma</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #8B5CF6;padding:8px 10px;background:#FAF5FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q3 · Treat suspected abscess with cefovecin (Convenia) injection?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Left hip dermal mass tentatively diagnosed as abscess based on FNA / gross purulent material</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Administer cefovecin (Convenia)</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Resolve infection/inflammation; promote healing of suspected abscess</span>
-        </div>
-      </div>
-      <div style="border-left:3px solid #8B5CF6;padding:8px 10px;background:#FAF5FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q4 · Feliway diffusers to reduce inter-cat fighting and injury-related abscesses?</div>
-        <div style="display:grid;grid-template-columns:14px 1fr;gap:3px 8px;font-size:11px;color:var(--gray-700);">
-          <span style="font-weight:700;color:#2563EB;">P</span><span>Multi-cat household; Skittles &amp; Blue fighting — concern for wound/abscess formation</span>
-          <span style="font-weight:700;color:#059669;">I</span><span>Feliway diffusers in the home</span>
-          <span style="font-weight:700;color:#D97706;">C</span><span>—</span>
-          <span style="font-weight:700;color:#7C3AED;">O</span><span>Reduce inter-cat conflict/stress; potentially reduce injury-related abscess risk</span>
-        </div>
-      </div>
-    </div>
-  </details>
-
-  <!-- CRYSTAL (ISZEE NIXON) -->
-  <details style="border:1px solid var(--gray-200);border-radius:8px;margin-bottom:10px;overflow:hidden;">
-    <summary style="padding:12px 16px;background:#F8FAFC;cursor:pointer;display:flex;align-items:center;gap:10px;list-style:none;-webkit-appearance:none;">
-      <span style="font-size:14px;font-weight:700;color:var(--navy);">Crystal</span>
-      <span style="font-size:11px;color:var(--gray-500);">Iszee Nixon · feline patient</span>
-      <span style="font-size:10px;background:#EDE9FE;color:#5B21B6;padding:1px 8px;border-radius:10px;font-weight:600;margin-left:auto;white-space:nowrap;">PICO questions</span>
-    </summary>
-    <div style="padding:16px;display:grid;gap:10px;">
-      <div style="border-left:3px solid #3B82F6;padding:8px 10px;background:#EFF6FF;border-radius:0 6px 6px 0;">
-        <div style="font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px;">Q1 · Data pending refresh</div>
-        <div style="font-size:11px;color:var(--gray-700);">Content will be populated on next dashboard refresh.</div>
-      </div>
-    </div>
-  </details>
 
 </div>
-</div><!-- /tab-dvm -->
+<script>
+/* CLIENT_PROFILES renderer (v2): when the daily refresh writes CLIENT_PROFILES into the data file,
+   this replaces the static content above. Until then the last static snapshot stays visible. */
+(function(){
+  const D = (typeof CLIENT_PROFILES !== 'undefined') ? CLIENT_PROFILES : null;
+  if (!D || !D.profiles || !D.profiles.length) return;
+  const P = D.profiles;
+  const TYPES = {
+    analytical: {bd:'#BFDBFE', ac:'#2563EB', badge:'🔍 Analytical'},
+    anxious:    {bd:'#FED7AA', ac:'#F97316', badge:'💛 Needs Reassurance'},
+    easygoing:  {bd:'#D1FAE5', ac:'#10B981', badge:'😊 Easy-Going'},
+    decisive:   {bd:'#D1FAE5', ac:'#059669', badge:'✅ Decisive'},
+    budget:     {bd:'#FDE68A', ac:'#D97706', badge:'💰 Budget-Conscious'}
+  };
+  const t = x => TYPES[x.type] || TYPES.analytical;
+  const n = P.length;
+  const hi = P.filter(x => x.compliance === 'high').length;
+  const trust = P.filter(x => x.trust === 'high').length;
+  const cost = P.filter(x => x.price === 'high' || x.price === 'moderate').length;
+  const avg = (P.reduce((s,x) => s + (x.compliance === 'high' ? 8 : x.compliance === 'moderate' ? 6 : x.compliance === 'low' ? 4 : 6), 0) / n).toFixed(1);
+  const kpi = (v,l,s) => '<div class="card" style="margin:0;text-align:center;padding:14px 10px;"><div style="font-size:24px;font-weight:800;color:var(--navy);">' + v + '</div><div style="font-size:11px;font-weight:700;color:var(--gray-500);margin-top:2px;">' + l + '</div><div style="font-size:10px;color:var(--gray-400);">' + s + '</div></div>';
+  document.getElementById('client-live-region').innerHTML =
+    '<div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;padding:10px 16px;margin-bottom:14px;font-size:12px;color:#065F46;">✅ <strong>Live from #client-analysis — ' + (D.examDate || D.lastUpdated) + '.</strong> ' + n + ' client behavioral profiles from VetSoap exam transcripts via Q GPT-5.2. AI-generated from real exam room conversations.</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;">'
+    +   kpi(n, 'Exams Profiled', D.examDate || '') + kpi(hi, 'High Compliance', Math.round(hi/n*100) + '% of profiled')
+    +   kpi(avg + '/10', 'Avg Compliance', 'AI confidence rating') + kpi(cost, 'Cost-Aware Signals', 'price sensitivity') + kpi(trust, 'High Trust', 'strong team bond')
+    + '</div>'
+    + (D.breakdown && D.breakdown.length ? '<div class="card" style="margin-bottom:14px;"><div class="card-title">📊 Compliance Breakdown</div>' + D.breakdown.map(b => '<div style="font-size:12px;color:var(--gray-600,#4B5563);padding:3px 0;line-height:1.5;">' + b + '</div>').join('') + '</div>' : '')
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">'
+    + P.map(x => {
+        const c = t(x);
+        const pill = (l,v) => '<span style="font-size:9.5px;font-weight:700;background:var(--gray-50,#F9FAFB);border:1px solid var(--gray-200,#E5E7EB);color:var(--gray-500);padding:1px 7px;border-radius:99px;">' + l + ': ' + (v||'?') + '</span>';
+        return '<div style="border:1px solid ' + c.bd + ';border-left:4px solid ' + c.ac + ';border-radius:10px;padding:12px 14px;background:#fff;">'
+          + '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;"><strong style="color:var(--navy);">' + x.patient + '</strong><span style="font-size:10px;color:var(--gray-400);">' + (x.time||'') + '</span></div>'
+          + '<div style="font-size:11px;color:var(--gray-500);">' + x.client + (x.visit ? ' · ' + x.visit : '') + '</div>'
+          + '<div style="font-size:10.5px;font-weight:700;color:' + c.ac + ';margin:5px 0;">' + c.badge + '</div>'
+          + '<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;">' + pill('Compliance', x.compliance) + pill('Trust', x.trust) + pill('Price', x.price) + '</div>'
+          + (x.tip ? '<div style="font-size:10.5px;background:var(--gray-50,#F9FAFB);border-radius:6px;padding:6px 9px;color:var(--gray-600,#4B5563);line-height:1.45;"><strong>Tip:</strong> ' + x.tip + '</div>' : '')
+          + '</div>';
+      }).join('')
+    + '</div>';
+})();
+</script>
+<hr style="border:none;border-top:2px solid var(--gray-200,#E5E7EB);margin:26px 0 18px;">
+<div id="client-whatway-section">
 
-<!-- ═══════════════ TAB: WHAT & WAY ═══════════════ -->
-<div class="tab-panel" role="tabpanel" hidden id="tab-whatway">
 <div style="max-width:1400px;margin:0 auto;padding:20px;">
 
   <!-- Concept banner -->
@@ -4535,7 +3948,65 @@ window.publishSchedule=function(){
   </div>
 
 </div>
-</div><!-- /tab-whatway -->
+
+</div>
+</div><!-- /tab-client -->
+
+<!-- ═══ DVM TAB ═══ -->
+<div class="tab-panel" role="tabpanel" hidden id="tab-dvm">
+<div style="max-width:1400px;margin:0 auto;padding:20px;">
+
+  <!-- DR. SMILEY PRODUCTION HEADER -->
+  <div style="background:linear-gradient(135deg,#1F3864 0%,#1D4ED8 100%);border-radius:12px;padding:20px 24px;margin-bottom:20px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:4px;">Dr. Aaron Smiley, DVM · Production Summary</div>
+      <div style="font-size:22px;font-weight:800;letter-spacing:-.3px;" id="dvm-mtd-revenue">$40,326</div>
+      <div style="font-size:11px;opacity:.8;margin-top:2px;">Month-to-Date Revenue &nbsp;·&nbsp; Apr 1 – Apr 13, 2026</div>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:800;" id="dvm-visits">177</div>
+        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">Patient Visits</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:800;" id="dvm-avg-inv">$227</div>
+        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">Avg Invoice</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:800;color:#86EFAC;">▲ 8.3%</div>
+        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">vs Apr 2025</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:800;">$376K</div>
+        <div style="font-size:10px;opacity:.75;text-transform:uppercase;letter-spacing:.06em;">YTD Revenue</div>
+      </div>
+    </div>
+    <div style="font-size:10.5px;opacity:.6;text-align:right;">
+      <div>Avimark · Period Totals</div>
+      <div id="dvm-updated">Updated Apr 13, 2026 9:30 AM</div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    const d = window.DVC_LIVE;
+    if (!d) return;
+    const r = document.getElementById('dvm-mtd-revenue');
+    const v = document.getElementById('dvm-visits');
+    const a = document.getElementById('dvm-avg-inv');
+    const u = document.getElementById('dvm-updated');
+    if (r && d.mtdRevenue) r.textContent = '$' + Number(d.mtdRevenue).toLocaleString();
+    if (v && d.patientVisits) v.textContent = Number(d.patientVisits).toLocaleString();
+    if (a && d.avgInvoice) a.textContent = '$' + Number(d.avgInvoice).toLocaleString();
+    if (u && d.lastUpdated) u.textContent = 'Updated ' + d.lastUpdated;
+  })();
+  </script>
+
+  <!-- PICO section removed 2026-07-02 (channel inactive since Apr) -->
+</div>
+</div><!-- /tab-dvm -->
+
+<!-- ═══════════════ TAB: WHAT & WAY ═══════════════ -->
+<!-- whatway panel merged into Client 2026-07-02 --><!-- /tab-whatway -->
 
 <script>
 // ── What & Way tab ─────────────────────────────────────
@@ -4549,23 +4020,7 @@ window.publishSchedule=function(){
 })();
 // Visit-level "What" data — extracted from #client-analysis Q GPT-5.2 profiles (Jun 22–23, 2026)
 // staff: lowercase id matching STAFF_DATA, set only when the transcript named them. invoice: joins later from Avimark.
-const WW_VISITS=[
-  // Covers Jul 1 + Jun 29, 26, 25, 2026. Invoices pending — Avimark always-current file not reachable this run (Desktop not connected), so invoice fields null. Jul 1: only Craig profile complete at run time (9:33a); 6 other Jul 1 exams still generating in #client-analysis. (Jun 30 evening WW entries were lost when Part Z rolled back a corrupt master.)
-  // --- Jul 1 (from #client-analysis Q profiles) ---
-  {date:'Jul 1',time:'8:58a', patient:'Cindy',  client:'Craig',    profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:'allison', invoice:null, note:'Accepted recommendations without resistance, asked practical questions; friction is logistical not financial. Give concise verbal instructions + written aftercare and a clear if/then plan. Staff in room: Claire + Allison.'},
-  // --- Jun 29 (from #client-analysis Q profiles) ---
-  {date:'Jun 29',time:'8:38a', patient:'Gus',     client:'Gray',   profile:'Budget-Conscious (9/10)', compliance:'high', trust:'high', price:'high', staff:null, invoice:null, note:'High price sensitivity, spouse is shared decision authority. Explain reasoning, present estimate plainly, prioritize biggest-impact comfort items first, reinforce simple home care.'},
-  {date:'Jun 29',time:'8:01a', patient:'Aussie',  client:'Morris', profile:'Budget-Conscious (8/10)', compliance:null, trust:'high', price:'high', staff:null, invoice:null, note:'Explicit budget concerns but accepting of estimates; high attachment and trust. Vet plus tech Chrissy in room (not on roster). Q reply truncated before compliance section.'},
-  // --- Jun 26 (from #client-analysis Q profiles) ---
-  {date:'Jun 26',time:'11:59a',patient:'Smokey',  client:'Wooten', profile:'Budget-Conscious (7/10)', compliance:'high', trust:'high', price:'neutral', staff:'allison', invoice:null, note:'Seizure case; set 325 budget and asked monthly Keppra cost but accepts clear plans fast. Allison in room. Give tight stepwise plan with reminders; risk is follow-through during stressful episodes.'},
-  {date:'Jun 26',time:'11:51a',patient:'Cheyenne',client:'Berry',  profile:'Budget-Conscious (9/10)', compliance:'moderate', trust:'high', price:'high', staff:'allison', invoice:null, note:'Fixed income, paycheck-gated, declined 150 today; high trust in Dr. Smiley, does care one item at a time as budget allows. Allison in room. Stage care, confirm in-budget first.'},
-  // --- Jun 25 (from #client-analysis Q profiles) ---
-  {date:'Jun 25',time:'8:57a', patient:'Remi',    client:'Oezer',  profile:'Budget-Conscious (9/10)', compliance:'moderate', trust:'high', price:'high', staff:'jodi', invoice:null, note:'Decides on staying under a clear budget ceiling; accepts core care fast once total fits. Confirm not-to-exceed number first, present 2-tier plan. Gap = flea/tick uptake. Catherine + Jody in room'},
-  {date:'Jun 25',time:'8:55a', patient:'Poncho',  client:'Cano',   profile:'Budget-Conscious / Crisis-Driven (9/10)', compliance:'moderate', trust:'moderate', price:'high', staff:null, invoice:null, note:'Budget-threshold decision (390 kind of pushing it); resistant to higher estimates. Lead with calm concrete numbers upfront and a prioritized must-do-today vs can-delay plan. Christy in room (not on roster)'},
-  // Jul 2, 2026 — exams recorded despite the Avimark Independence Day (Obs?) all-day block, so the clinic is open. Bobby Payne (32100) profile cut off before scoring; Ace Panico (28101) still generating at run time. NOTE: a detailed 16-patient Jul 1 visit set was lost in the Jul 2 AM integrity rollback — rebuild from #client-analysis threads if needed.
-  {date:'Jul 2',time:'8:01a', patient:'Hondo', client:'Rowley', profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'neutral', staff:'kathryn', invoice:null, note:'Ear treatment plan accepted without resistance; fast decisions, strong follow-through on meds. Brief rationale + written aftercare. Transcript named Catherine — likely Kathryn.'},
-  {date:'Jul 2',time:'8:45a', patient:'Draco', client:'Sellers', profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'neutral', staff:null, invoice:null, note:'Accepted exam plan, focused questions, agreed to continue meds and bring fecal sample. Mild concern about mobility/progression — reinforce home-care monitoring in writing.'},
-];
+/* WW_VISITS moved to data/dashboard-data.js */
 function initWhatWayTab(){
   if(typeof STAFF_DATA==='undefined')return;
   const rows=STAFF_DATA.map(s=>{
@@ -4658,5 +4113,30 @@ function initWhatWayTab(){
   </div>
 </div>
 
+
+<script>
+/* Sync layer: mirrors browser-saved data (staff logs, birthdays, checklists, schedule overrides)
+   to the local API so nothing is lost if browser data is cleared. Added 2026-07-02. */
+(function(){
+  const API = 'http://localhost:8765/api/kv';
+  const SYNC = ['stafflog-','staffnote-','devBirthdays2','devChecks','devWkiv','schedOverrides','lastSchedPublish'];
+  const shouldSync = k => SYNC.some(p => k === p || k.indexOf(p) === 0);
+  const orig = Storage.prototype.setItem;
+  Storage.prototype.setItem = function(k, v){
+    orig.call(this, k, v);
+    if (this === window.localStorage && shouldSync(k)) {
+      fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({key:k, value:v})}).catch(function(){});
+    }
+  };
+  fetch(API).then(r => r.json()).then(kv => {
+    let changed = false;
+    Object.keys(kv || {}).forEach(k => {
+      if (shouldSync(k) && localStorage.getItem(k) === null) { orig.call(localStorage, k, kv[k]); changed = true; }
+    });
+    if (changed) { try { if (typeof buildBdayTable === 'function') buildBdayTable(); } catch(e){}
+                   try { if (typeof buildScheduleTab === 'function') buildScheduleTab(); } catch(e){} }
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
