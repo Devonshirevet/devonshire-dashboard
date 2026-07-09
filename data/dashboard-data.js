@@ -12,7 +12,7 @@ const DATA = {
 };
 
 // ---- INV_DATA ----
-const INV_DATA = [ // Last updated from Vetcove ordering DM: Jul 7, 2026 (no new ordering DM on Wed Jul 8 as of 9:45 AM — Mon Jul 7 Weekly Vetcove Order DM remains latest; same 7 high-volume items still URGENT/unconfirmed: Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol, Nobivac Feline. Last confirmed supplier order Jun 29: Covetrus $4,048.21 + Zoetis $430 — 9 days ago, all high-burn items past reorder) | #need-list sync: Jul 8, 2026 (20-item Moissa restock batch added)
+const INV_DATA = [ // Last updated from Vetcove ordering DM: Jul 8, 2026 Mid-Week Restock Check (arrived after the Jul 8 morning refresh; same high-volume items still URGENT/unconfirmed: Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol. Last confirmed supplier order Jun 29: Covetrus $4,048.21 + Zoetis $430 — 10 days ago, all high-burn items past reorder; no ordering DM expected Thu) | #need-list sync: Jul 9, 2026 (new: Size 6.0 ET tubes COMPLETELY OUT + 6.5 ET tubes — Kathryn Jul 8; amoxi 30ml, Zenrelia 8.4, 1ml syringes — Jul 9)
   // --- ORDER NOW (critical) — from May 27 updated ordering DM ---
   {name:'Proheart 12',code:'HW0025',cat:'flea-tick',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~16 units/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) (usage-based, no fresh TJ) — Zoetis',avg:16,order:20,cost:589,priority:'ORDER NOW',feb:0,mar:14},
   {name:'Rabies — Defensor 1 Yr',code:'VAC001',cat:'vaccine',status:'critical',pct:20,note:'URGENT per Jun 29 Mon DM — ~27 doses/wk, 14 days since Jun 15 order (Jun 22 unconfirmed) — Zoetis',avg:49,order:60,cost:358,priority:'ORDER NOW',feb:76,mar:53},
@@ -423,7 +423,7 @@ const STANDING = [
 
 // ---- WW_VISITS ----
 const WW_VISITS=[
-  // Covers Jul 1 – Jul 2, 2026 (synced Jul 8 — no new #client-analysis recordings Jul 3–8; last forwarded exam was Lucky Blake Jul 2 4:00p; Jun 25–29 entries rotated out per 5-business-day window). Invoice join marked 'n/a': the decoded ACCOUNT journal carries no client identifiers, so line items can't be matched to clients, and all entries are past the 3-business-day window. Jul 2: 12 profiles from Q threads. Egon Bell (31132) skipped — Q profile essentially "Not documented" (conf 1-2/10). Bobby Payne + Fernando Wagner: Q reply truncated before the profile score, type inferred from documented cues.
+  // Covers Jul 2, 2026 (synced Jul 9 — no new #client-analysis recordings Jul 3–9; last forwarded exam was Lucky Blake Jul 2 4:00p; Jul 1 entry rotated out per 5-business-day window). Invoice join marked 'n/a': the decoded ACCOUNT journal carries no client identifiers, so line items can't be matched to clients, and all entries are past the 3-business-day window. Jul 2: 12 profiles from Q threads. Egon Bell (31132) skipped — Q profile essentially "Not documented" (conf 1-2/10). Bobby Payne + Fernando Wagner: Q reply truncated before the profile score, type inferred from documented cues.
   // --- Jul 2 (from #client-analysis Q profiles) ---
   {date:'Jul 2',time:'7:58a', patient:'Bobby',   client:'Payne',      profile:'Decisive / Preventive (Q cut off)', compliance:'high', trust:'high', price:'low', staff:null, staffConfirmed:false, invoice:'n/a', note:'Fast preventive-care decisions, cost not a barrier; compare flea prevention options plainly and keep it efficient. Q reply truncated before the profile score.'},
   {date:'Jul 2',time:'8:01a', patient:'Hondo',   client:'Rowley',     profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:'kathryn', staffConfirmed:false, invoice:'n/a', note:'Ear treatment plan accepted without resistance; strong med follow-through. Brief rationale + written aftercare. Transcript named Catherine — likely Kathryn.'},
@@ -437,8 +437,6 @@ const WW_VISITS=[
   {date:'Jul 2',time:'3:45p', patient:'Fernando', client:'Wagner',    profile:'Information-Driven / Analytical (Q cut off)', compliance:'high', trust:'high', price:'unknown', staff:null, staffConfirmed:false, invoice:'n/a', note:'Detailed, preventive, multi-pet household; collaborative + detailed explanations, high scheduling flexibility. Q reply truncated before the profile score.'},
   {date:'Jul 2',time:'3:52p', patient:'Ching',   client:'Ellis',      profile:'Easy-Going / Low Friction (7/10)', compliance:'high', trust:'high', price:'unknown', staff:null, staffConfirmed:false, invoice:'n/a', note:'Cooperative cat owner; aloof cat means subtle changes are easy to miss — emphasize exactly what to watch at home and give written aftercare.'},
   {date:'Jul 2',time:'4:00p', patient:'Lucky',   client:'Blake',      profile:'Budget-Conscious (9/10)', compliance:'moderate', trust:'high', price:'high', staff:'jodi', staffConfirmed:true, invoice:'n/a', note:'Weighed treatment against x-ray cost and asked euthanasia pricing; chose meds first. Lead with the lowest-cost clinical priority and exact costs. Jody assisting.'},
-  // --- Jul 1 (from #client-analysis Q profiles) ---
-  {date:'Jul 1',time:'8:58a', patient:'Cindy',  client:'Craig',    profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:'allison', staffConfirmed:true, invoice:'n/a', note:'Accepted recommendations without resistance, asked practical questions; friction is logistical not financial. Give concise verbal instructions + written aftercare and a clear if/then plan. Staff in room: Claire + Allison.'},
 ];
 
 
@@ -452,7 +450,7 @@ const AUTOMATIONS = [
   "name": "☀️ Dashboard Morning Refresh",
   "schedule": "Weekdays at 7:50 AM",
   "desc": "Pulls latest Avimark TJ data, updates all revenue KPIs on this dashboard, scans for new staff eval scores, and refreshes the inventory predictor — all before Katie arrives.",
-  "lastRun": "Jul 8, 9:45 AM",
+  "lastRun": "Jul 9, 11:53 AM",
   "status": "active"
  },
  {
@@ -586,27 +584,28 @@ const AUTOMATIONS = [
 // ---- KPI_DATA: Practice Measures numbers. Morning refresh fills from Avimark Period Totals.
 // revenue growth is business-day adjusted in the dashboard: (rev/bizDays) vs (py_rev/py_bizDays) ----
 const KPI_DATA = {
- asOf: "Jul 8, 2026",
- mtd: { revenue:11590.55, py_revenue:34845.10, invoices:50, py_invoices:null,
-        avgInvoice:54.42, py_avgInvoice:66.85, newClients:null, py_newClients:null,
-        bizDays:4.5, py_bizDays:4.5 },
- qtd: { revenue:11590.55, py_revenue:34845.10, bizDays:4.5, py_bizDays:4.5 },  // Team Rewards — Q3 to date (July only)
+ asOf: "Jul 9, 2026",
+ mtd: { revenue:12201.69, py_revenue:43179.82, invoices:60, py_invoices:165,
+        avgInvoice:52.82, py_avgInvoice:66.85, newClients:null, py_newClients:null,
+        bizDays:5.5, py_bizDays:5.5 },
+ qtd: { revenue:12201.69, py_revenue:43179.82, bizDays:5.5, py_bizDays:5.5 },  // Team Rewards — Q3 to date (July only)
  ccPct: null           // controllable costs % of revenue, from Skyworld
 };
 
 // ---- INSIGHTS / ACTIONS: written fresh by the morning refresh. tone: green|blue|amber ; pri: high|med|low ----
 const INSIGHTS = [
- {icon:'📉', tone:'amber', title:'July pacing behind target', body:'MTD revenue $11,591 through 6 business days — 12.2% of the $95K target and ~$13.2K behind target-to-date. Run rate $1,932/day projects ~$44K at month-end. Only +$40 hit the ledger since yesterday — Tue Jul 7 decoded as a near-zero revenue day; worth verifying against the official Avimark TJ.'},
- {icon:'🗓️', tone:'blue', title:'Softer than last July', body:'MTD is -66.7% vs July 2025 to date ($11.6K vs $34.8K) and patient visits -57.8% (213 vs 505). Post-holiday week is historically light — watch for a mid-month rebound.'},
- {icon:'💳', tone:'green', title:'Scratch Pay drives collections', body:'Of $7,210 collected MTD, $6,101 (85%) came through Scratch Payment; Care Credit $561, cash $256, check $221. Financing awareness is landing at checkout.'},
- {icon:'📦', tone:'amber', title:'Restock pressure building', body:'No supplier order confirmed since Jun 29 (Covetrus $4,048, Zoetis $430). Moissa posted a 20-item restock batch to #need-list this morning (Librela 66-88, Simparica 44-88, Bravecto, Apoquel 16, Zenrelia 15/6.4, Vetmedin 1.25, feline combo vax, needles/syringes and more) — today is Wednesday Vetcove ordering day, noon deadline.'}
+ {icon:'📉', tone:'amber', title:'July pacing behind target', body:'MTD revenue $12,202 through 7 business days — 12.8% of the $95K target and ~$16.7K behind target-to-date. Run rate $1,743/day projects ~$40K at month-end. +$611 booked since yesterday\'s snapshot; the booked schedule stays thin through Friday but next week is heavy (100+ appointments already on the calendar Mon–Thu).'},
+ {icon:'🗓️', tone:'blue', title:'Softer than last July', body:'MTD is -71.7% vs July 2025 to date ($12.2K vs $43.2K) and patient visits -63.4% (231 vs 631). The PY compare basis in today\'s Avimark pull widened vs yesterday ($34.8K→$43.2K), which is why the YoY % looks worse — verify against the official TJ before quoting externally.'},
+ {icon:'💳', tone:'green', title:'Scratch Pay drives collections', body:'Of $8,255 collected MTD, $6,785 (82%) came through Scratch Payment; Care Credit $561, check $461, cash $256. Financing awareness is landing at checkout.'},
+ {icon:'📦', tone:'amber', title:'Restock pressure critical', body:'No supplier order confirmed since Jun 29 (Covetrus $4,048, Zoetis $430) — 10 days. Kathryn flagged Size 6.0 ET tubes COMPLETELY OUT (plus 6.5s) yesterday, and Moissa\'s 20-item restock batch is still open. New today in #need-list: amoxi 30ml, Zenrelia 8.4, 1ml syringes.'}
 ];
 const ACTIONS = [
  {pri:'high', text:'Run INSPECT query (indiana.pmpaware.net) before dispensing any controlled substance today — required by Indiana law.'},
- {pri:'high', text:'Place the Wednesday Vetcove order by NOON — fold in Moissa\'s 20-item #need-list batch from this morning plus the 7 chronic URGENT items (Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol, Nobivac Feline). Covetrus preferred. No mid-week reminder DM arrived this morning — don\'t wait on it.'},
- {pri:'high', text:'Follow up on Nova (Megan Hibbard) bloodwork — owner says she never got the promised call about possible lymph-node cancer. Get Dr. Smiley to call her today.'},
- {pri:'med', text:'New time-off in #preferred-schedule: Allison "off by 1" Monday (Jul 20) — confirm the date with her (she wrote "June 20th", which isn\'t a Monday) and enter Jul 17 requests (Kristi full day, Allison out at noon) in Dayforce.'},
- {pri:'med', text:'Check exam-audio pipeline — no new recordings hit #client-analysis on Jul 6–7; last was Lucky Blake on Jul 2.'}
+ {pri:'high', text:'Size 6.0 ET tubes are COMPLETELY OUT (Kathryn, #need-list) — get 6.0 + 6.5 ET tubes on an order today, and confirm whether Monday\'s/Wednesday\'s Vetcove order actually went out. Last confirmed supplier order is Jun 29 (10 days ago); the 6 chronic URGENT items (Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol) plus Moissa\'s 20-item batch are still unconfirmed. Covetrus preferred.'},
+ {pri:'high', text:'Dr. Smiley asked in #general this morning to keep his task list updated today — he checked off his one item and will check the list throughout the day. Add anything you need from him (e.g. Euthasol/controlled-substance sign-off, Nova/Hibbard callback).'},
+ {pri:'med', text:'Follow up on Nova (Megan Hibbard) — confirm Megan got her callback and help coordinate the South Anderson lymph-node biopsy referral per Dr. Smiley\'s plan.'},
+ {pri:'med', text:'Dayforce entries still pending from #preferred-schedule: Kristi off Jul 17, Allison out at noon Jul 17, and confirm Allison\'s "off by 1" date (posted as "Monday June 20th" — Mon Jul 20 assumed).'},
+ {pri:'med', text:'Exam-audio pipeline still quiet — no new recordings in #client-analysis since Lucky Blake on Jul 2 (5 business days). Check the recorder/forwarder if exams are happening.'}
 ];
 
 // ---- PTO_DATA: filled by the weekly Monday Dayforce pull ----
@@ -630,27 +629,27 @@ const COMPLIANCE_STATE = {
 
 // ---- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually ----
 window.DVC_LIVE = {
-  lastUpdated:        "Jul 08, 2026 9:45 AM",
-  lastTjDate:         "2026-07-08",
-  mtdRevenue:         11590.55,
-  ytdRevenue:         814790.07,
-  avgInvoice:         54.42,
-  patientVisits:      213,
+  lastUpdated:        "Jul 09, 2026 11:53 AM",
+  lastTjDate:         "2026-07-09",
+  mtdRevenue:         12201.69,
+  ytdRevenue:         815401.21,
+  avgInvoice:         52.82,
+  patientVisits:      231,
   controllableCosts:  64.2,
-  mtdRevenuePct:      -66.7,
-  ytdRevenuePct:      -17.3,
-  avgInvoicePct:      -18.6,
-  patientVisitsPct:   -57.8,
+  mtdRevenuePct:      -71.7,
+  ytdRevenuePct:      -18.0,
+  avgInvoicePct:      -21.0,
+  patientVisitsPct:   -63.4,
   comparePeriod:      "Jul 2025 to date",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
   weeklyNewClients:   1,
   weeklyPeriodTotal:  0,
   budgetTarget:       95000,
-  projectedMonthEnd:  44430.44,
-  dailyRunRate:       1931.76,
-  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-07-08 9:04 AM, reads ACCOUNT.V2$). The Desktop ALWAYS_CURRENT file is not reachable from this sandbox, so the equivalent reachable dump was used. July is 6 of 23 business days in - MTD $11,591 vs $24,783 target-to-date (12.2% of the $95K goal, ~$13.2K behind pace). Run rate $1,932/business day projects ~$44,430 at month-end. Down 66.7% vs Jul 2025 to date ($34,845 PY); patient visits 213 (-57.8%). Only +$40 booked since yesterday's snapshot - Tue Jul 7 was nearly a zero-revenue day in ACCOUNT.V2$; verify against Avimark's official TJ.",
-  businessDaysElapsed: 6,
+  projectedMonthEnd:  40091.27,
+  dailyRunRate:       1743.10,
+  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-07-09 11:32 AM, reads ACCOUNT.V2$). The Desktop ALWAYS_CURRENT file is not reachable from this sandbox, so the equivalent reachable dump was used. July is 7 of 23 business days in - MTD $12,202 vs $28,913 target-to-date (12.8% of the $95K goal, ~$16.7K behind pace). Run rate $1,743/business day projects ~$40,091 at month-end. Down 71.7% vs Jul 2025 to date ($43,180 PY); patient visits 231 (-63.4%). +$611 booked since yesterday's snapshot (Wed Jul 8); today's rows were $0 as of the 11:32 AM pull. Note: PY compare basis widened vs yesterday's file ($34.8K->$43.2K PY-to-date), so the YoY % dropped - verify against Avimark's official TJ before quoting externally.",
+  businessDaysElapsed: 7,
   businessDaysTotal:   23,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -664,8 +663,13 @@ window.DVC_LIVE = {
 
 // ---- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list ----
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jul 8, 2026 9:45 AM",
+  lastUpdated: "Jul 9, 2026 11:53 AM",
   items: [
+    {id:"nl-206",text:"amoxi 30ml",author:"Staff Computer",date:"Jul 9",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-205",text:"Zenrelia 8.4 (posted as 'Zenreilia')",author:"Triage Nurse",date:"Jul 9",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-204",text:"1ml syringes",author:"Triage Nurse",date:"Jul 9",channel:"#need-list",status:"open",priority:"medium"},
+    {id:"nl-203",text:"Size 6.5 ET tubes",author:"Kathryn",date:"Jul 8",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-202",text:"Size 6.0 ET tubes — COMPLETELY OUT",author:"Kathryn",date:"Jul 8",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-201",text:"23g butterfly",author:"Moissa",date:"Jul 8",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-200",text:"Zencollar L x2",author:"Moissa",date:"Jul 8",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-199",text:"Red tops (blood tubes)",author:"Moissa",date:"Jul 8",channel:"#need-list",status:"open",priority:"medium"},
@@ -836,7 +840,7 @@ window.STAFF_LOG_DATA = {};
 
 // ---- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack ----
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jul 8, 2026 9:45 AM",
+  lastUpdated: "Jul 9, 2026 11:53 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
     {staff:"Kristi",dates:["2026-07-17"],type:"pto",note:"Off — no sitter that day; requested Jul 7 #preferred-schedule",inDayforce:false,slackOnly:true},
@@ -853,9 +857,9 @@ window.TIME_OFF_DATA = {
 
 // ---- APPOINTMENT_COUNTS_START — updated by morning-avimark-pull ----
 window.APPT_COUNTS = {
-  lastUpdated: "Jul 8, 2026 9:45 AM",
+  lastUpdated: "Jul 9, 2026 11:53 AM",
   weekOf: "2026-07-06",
-  source: "Avimark APPOINT.V2$ decoded handoff (claude/avimark schedule CSV, gen Jul 8 9:06 AM). No schedule post in #general today. CSV still shows only 2 booked appts today (Dottie feline + Molly canine, both all-day 7:15/7:30–4:00 blocks) — clinic continues running walk-in/drop-off heavy. Thu Jul 9 also 2; Fri/Sat 0 on the books. Next week Mon Jul 13 already shows 27 booked.",
+  source: "Avimark APPOINT.V2$ decoded handoff (claude/avimark schedule CSV, gen Jul 9 11:34 AM). No schedule post in #general today. CSV shows only 2 booked appts today (Dottie feline + Molly canine, both all-day 7:15/7:30–4:00 drop-off blocks) — clinic continues running walk-in/drop-off heavy. Fri/Sat 0 on the books. Next week is HEAVY: CSV shows 50 rows on 2026-07-12 (a Sunday — likely a one-day serial offset, i.e. Mon Jul 13), then 27/31/19/15 the following days — 140+ booked next week.",
   days: [
     {day:"Mon",date:"2026-07-06",count:0,surgeries:0},
     {day:"Tue",date:"2026-07-07",count:2,surgeries:0},
@@ -870,9 +874,9 @@ window.APPT_COUNTS = {
 
 // ---- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B ----
 window.APPT_MED_FLAGS = {
-  lastUpdated: "Jul 8, 2026 9:45 AM",
-  date: "2026-07-08",
-  dateLabel: "Today — Wed Jul 8: 2 appointments on the books (Dottie, Feline; Molly, Canine) — both all-day 7:15/7:30–4:00 drop-offs, same recurring blocks as yesterday. No med-flag keywords parseable from the schedule; walk-in/drop-off exams will drive the day.",
+  lastUpdated: "Jul 9, 2026 11:53 AM",
+  date: "2026-07-09",
+  dateLabel: "Today — Thu Jul 9: 2 appointments on the books (Dottie, Feline; Molly, Canine) — both all-day 7:15/7:30–4:00 drop-offs, same recurring blocks as earlier this week. No med-flag keywords parseable from the schedule; walk-in/drop-off exams will drive the day.",
   appointments: []
 };
 // ---- APPOINTMENT_MED_FLAGS_END ----
