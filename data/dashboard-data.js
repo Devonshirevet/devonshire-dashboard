@@ -422,10 +422,25 @@ const STANDING = [
 
 // ---- WW_VISITS ----
 const WW_VISITS=[
-  // Covers Jul 13, 2026 (synced Jul 13 9:20 AM). RECORDING PIPELINE IS BACK: after 6 silent business days (Jul 3–10), two exams hit #client-analysis this morning via Audio Forwarder with full Q GPT-5.4 profiles. The Jul 2 batch (12 profiles) rotated out as planned now that fresh visits exist — they're past the 5-business-day window. Neither client appears on today's schedule CSV — walk-ins or schedule additions. Invoice join: null (same-day; also the decoded ACCOUNT journal still carries no client identifiers, so line-item matching remains unavailable — mark 'n/a' after 3 business days if unmatched). No staff named in either Q profile — both need Katie's confirmation.
+  // Covers Jul 13–14, 2026 (synced Jul 14 9:35 AM). Jul 14 so far: 1 new completed Q GPT-5.4 profile (Dexter Gerlach 7:08a); Daisy Looper 7:15a was an 'hx' history post (skipped per convention). Jul 13: 15 completed profiles. Invoice join still null (same-day; decoded ACCOUNT journal carries no client identifiers, so line-item matching is unavailable — mark 'n/a' after 3 business days if unmatched). Staff named in-room only where noted; the rest had no roster staff named.
+  // --- Jul 14 (from #client-analysis Q GPT-5.4 profiles) ---
+  {date:'Jul 14',time:'7:08a', patient:'Dexter', client:'Gerlach', profile:'Easy-Going / Low Friction (7/10)', compliance:'high', trust:'high', price:'unknown', staff:null, staffConfirmed:false, invoice:null, note:'Accepted exam + vaccination plan with no resistance; fast decisions once medical explanation clear. Multi-pet, preventive-oriented. Reinforce home monitoring in writing. Staff in room: veterinarian only (one assisting caregiver, no roster tech named).'},
   // --- Jul 13 (from #client-analysis Q GPT-5.4 profiles) ---
-  {date:'Jul 13',time:'7:45a', patient:'Ivy',     client:'Kepner',  profile:'Information-Driven / Analytical (7/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #18198. Asked multiple why/how questions (allergies, seasonality, med effects); accepted plan once reasoning explained. Barriers: cost/time/logistics — reinforce with written dosing + follow-up. Collaborative approach. No staff named in transcript profile.'},
-  {date:'Jul 13',time:'8:05a', patient:'Georgia', client:'Taylor',  profile:'Easy-Going / Low Friction (7/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #28580. Accepted recommendations, practical follow-ups, no resistance to cost-saving guidance. Preventive-oriented; confirm timing around surgery/heat cycle. Reassurance-focused approach, simple written instructions. No staff named in transcript profile.'},
+  {date:'Jul 13',time:'7:45a', patient:'Ivy',     client:'Kepner',    profile:'Information-Driven / Analytical (7/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #18198. Asked multiple why/how questions (allergies, seasonality, med effects); accepted plan once reasoning explained. Reinforce with written dosing + follow-up. No staff named.'},
+  {date:'Jul 13',time:'8:05a', patient:'Georgia', client:'Taylor',    profile:'Easy-Going / Low Friction (7/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #28580. Accepted recommendations, practical follow-ups, no resistance to cost-saving guidance. Confirm timing around surgery/heat cycle. No staff named.'},
+  {date:'Jul 13',time:'9:15a', patient:'Vada',    client:'Serf',      profile:'Budget-Conscious (9/10)', compliance:'high', trust:'moderate', price:'high', staff:null, staffConfirmed:false, invoice:null, note:'Client #25340. Raised prior $4,000 expense, questioned repeated testing, asked for lower-cost BP monitoring. Lead with priorities + summarize plan in writing. No staff named.'},
+  {date:'Jul 13',time:'9:32a', patient:'Sassy',   client:'Johnson',   profile:'Emotion-Driven / Anxious (8/10)', compliance:'high', trust:'high', price:'unknown', staff:null, staffConfirmed:false, invoice:null, note:'Client #31018. Anxious after a sister\'s dog died of a similar condition; seeks reassurance via video review. Give clear distinctions + calm next steps. No staff named.'},
+  {date:'Jul 13',time:'9:33a', patient:'Hallie',  client:'Clark',     profile:'Information-Driven / Analytical (8/10)', compliance:'high', trust:'high', price:'low', staff:null, staffConfirmed:false, invoice:null, note:'Detailed questions, references prior experience; multi-pet, emotionally invested. Stepwise explanation with written next steps. No staff named.'},
+  {date:'Jul 13',time:'9:42a', patient:'Bear',    client:'Dickinson', profile:'Budget-Conscious (9/10)', compliance:'high', trust:'high', price:'high', staff:null, staffConfirmed:false, invoice:null, note:'Client #25414. Compared yearly costs, prefers month-to-month; accepted a staged lower-burden plan. Lead with priorities + clear estimate. No staff named.'},
+  {date:'Jul 13',time:'9:56a', patient:'Eddie',   client:'Phillips',  profile:'Budget-Conscious (9/10)', compliance:'high', trust:'high', price:'high', staff:'allison', staffConfirmed:true, invoice:null, note:'Client #31496. Set a $200 budget, accepted a split-care plan. State costs early + written estimates/reminders. Allison in room (Maddie & Debbie also named — not on roster).'},
+  {date:'Jul 13',time:'10:08a', patient:'Benny',  client:'Ricks',     profile:'Budget-Conscious (8/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #26756. Compared flea/tick pricing, concerned about wasting money; multi-pet. Concise plan + written follow-up. Christy named in room (not on roster).'},
+  {date:'Jul 13',time:'10:30a', patient:'Emmie',  client:'Shanks',    profile:'Easy-Going / Low Friction (7/10)', compliance:'high', trust:'high', price:'unknown', staff:'kathryn', staffConfirmed:true, invoice:null, note:'Client #25978. Fast decisions, focused on comfort/mobility + annual care. Keep it moving, reinforce aftercare. Transcript named Catherine — mapped to Kathryn.'},
+  {date:'Jul 13',time:'10:54a', patient:'Winnie', client:'Hird',      profile:'Information-Driven / Analytical (8/10)', compliance:'high', trust:'high', price:'neutral', staff:null, staffConfirmed:false, invoice:null, note:'Client #26940. Weighs surgery vs. management; responds to the "why" + cost tradeoffs. Give clear recheck/escalate threshold. Debbie & Maddie named (not on roster).'},
+  {date:'Jul 13',time:'11:20a', patient:'Minnie', client:'Hardebeck', profile:'Budget-Conscious (8/10)', compliance:'high', trust:'high', price:'high', staff:null, staffConfirmed:false, invoice:null, note:'Asked directly about total cost, hesitated at add-ons, accepted a simpler plan. State costs early; adherence risk is med/scheduling logistics, not refusal. No staff named.'},
+  {date:'Jul 13',time:'11:41a', patient:'Mila',   client:'Brown',     profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'neutral', staff:'allison', staffConfirmed:true, invoice:null, note:'Client #31248. Accepted recommendations, brief questions, no resistance. Pair reassurance with itemized cost breakdown. Allison in room; client is Emma.'},
+  {date:'Jul 13',time:'11:55a', patient:'Buddy',  client:'Webb',      profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:null, staffConfirmed:false, invoice:null, note:'Client #21843. Attached owner, trusts the team; convenience is the barrier more than cost. Keep instructions simple + reminders. No staff named.'},
+  {date:'Jul 13',time:'12:53p', patient:'Reese',  client:'Hilbish',   profile:'Easy-Going / Low Friction (8/10)', compliance:'high', trust:'high', price:'low', staff:null, staffConfirmed:false, invoice:null, note:'Client #26448. Accepted full estimate; open to bloodwork + year-long preventives. Reinforce boarding/travel instructions in writing. No staff named.'},
+  {date:'Jul 13',time:'3:45p', patient:'Connie',  client:'Ford',      profile:'Budget-Conscious (10/10)', compliance:'moderate', trust:'high', price:'high', staff:null, staffConfirmed:false, invoice:null, note:'Feline visit. Hard $200 budget, took a lower-cost flea alternative. Lead with top medical priorities, then budget-matched options. No staff named.'},
 ];
 
 
@@ -439,7 +454,7 @@ const AUTOMATIONS = [
   "name": "☀️ Dashboard Morning Refresh",
   "schedule": "Weekdays at 7:50 AM",
   "desc": "Pulls latest Avimark TJ data, updates all revenue KPIs on this dashboard, scans for new staff eval scores, and refreshes the inventory predictor — all before Katie arrives.",
-  "lastRun": "Jul 13, 9:20 AM",
+  "lastRun": "Jul 14, 9:35 AM",
   "status": "active"
  },
  {
@@ -573,28 +588,28 @@ const AUTOMATIONS = [
 // ---- KPI_DATA: Practice Measures numbers. Morning refresh fills from Avimark Period Totals.
 // revenue growth is business-day adjusted in the dashboard: (rev/bizDays) vs (py_rev/py_bizDays) ----
 const KPI_DATA = {
- asOf: "Jul 13, 2026",
- mtd: { revenue:17053.56, py_revenue:63381.45, invoices:76, py_invoices:226,
-        avgInvoice:58.01, py_avgInvoice:66.85, newClients:null, py_newClients:null,
-        bizDays:9, py_bizDays:7 },   // py_invoices estimated pro-rata from PY July full-month 636 invoices (calendar-to-date ratio); py_avgInvoice = previous month
- qtd: { revenue:17053.56, py_revenue:63381.45, bizDays:9, py_bizDays:7 },  // Team Rewards — Q3 to date (July only)
+ asOf: "Jul 14, 2026",
+ mtd: { revenue:32980.28, py_revenue:70059.97, invoices:128, py_invoices:268,
+        avgInvoice:64.16, py_avgInvoice:66.85, newClients:null, py_newClients:null,
+        bizDays:10, py_bizDays:10 },   // py from Avimark MCP priorYearMtd (Jul 2025 to date: 268 invoices); py_avgInvoice = previous month. Overnight catch-up: MTD jumped from $17,054 to $32,980
+ qtd: { revenue:32980.28, py_revenue:70059.97, bizDays:10, py_bizDays:10 },  // Team Rewards — Q3 to date (July only)
  ccPct: null           // controllable costs % of revenue, from Skyworld
 };
 
 // ---- INSIGHTS / ACTIONS: written fresh by the morning refresh. tone: green|blue|amber ; pri: high|med|low ----
 const INSIGHTS = [
- {icon:'📉', tone:'amber', title:'July pacing behind target', body:'MTD revenue $17,054 through 9 business days — 18.0% of the $95K target and ~$20.1K behind target-to-date. Run rate $1,895/day projects ~$43.6K at month-end. +$4,395 booked since Friday\'s snapshot. Today (Mon) has 31 booked appointments — busiest day in two weeks, though lighter than the ~45 predicted last week.'},
- {icon:'🗓️', tone:'blue', title:'Softer than last July', body:'MTD is -73.1% vs July 2025 to date ($17.1K vs $63.4K) and patient visits -68.7% (294 vs 938). The gap is unusually wide and keeps widening as the PY window advances — verify against the official TJ before quoting these numbers externally.'},
- {icon:'🎙️', tone:'green', title:'Recording pipeline is BACK', body:'After 6 silent business days, two exam recordings hit #client-analysis this morning (Ivy Kepner 7:45a, Georgia Taylor 8:05a) with full Q profiles. Visit intel, coaching, and revenue analysis can resume — but Q numeric eval scoring is still down (teaching editions only since Jun 29).'},
- {icon:'💳', tone:'green', title:'Scratch Pay drives collections', body:'Of $10,197 collected MTD, $8,275 (81%) came through Scratch Payment; Care Credit $636, check $775, cash $268. Financing awareness is landing at checkout.'},
- {icon:'📦', tone:'amber', title:'Restock still unconfirmed — Monday order due by noon', body:'No supplier order confirmed since Jun 29 (Covetrus $4,048, Zoetis $430) — 14 days. Size 6.0 ET tubes still COMPLETELY OUT (day 5, 6.5s also needed), and Moissa posted 8 more items to #need-list this morning (Librela 88-132, meloxicam 10ml x2, Terramycin, methimazole 5mg, Feliway + ThunderEase refills, 25g needles, 1ml syringes). No Monday ordering DM arrived this morning — build the Vetcove cart manually.'}
+ {icon:'📈', tone:'green', title:'Big overnight revenue catch-up', body:'MTD nearly doubled from $17,054 (Jul 13) to $32,980 as Friday, Saturday and Monday rows posted to ACCOUNT.V2$. That moves July from ~$20K behind pace to ~$8.3K behind — 34.7% of the $95K target through 10 business days. Run rate $3,298/day now projects ~$75.9K at month-end (was ~$43.6K Friday). Yesterday (Mon) closed at $11,891 per the daily-total post.'},
+ {icon:'🗓️', tone:'amber', title:'Still softer than last July', body:'Even after the catch-up, MTD is -52.9% vs July 2025 to date ($33.0K vs $70.1K) and patient visits -51.5% (514 vs 1,059). The gap narrowed from -73% but stays wide — verify against the official TJ before quoting these numbers externally.'},
+ {icon:'🎙️', tone:'green', title:'Recording pipeline holding', body:'#client-analysis stayed active — 15 Q profiles landed Monday and a new exam this morning (Dexter Gerlach 7:08a, Easy-Going). Visit intel and coaching can keep running. Note: Q numeric eval scoring is still down (teaching/qualitative editions only since Jun 29), so no new staff eval scores this run.'},
+ {icon:'💳', tone:'green', title:'Scratch Pay drives collections', body:'Of $18,804 collected MTD, $14,681 (78%) came through Scratch Payment; Care Credit $1,834, check $1,314, cash $731. Financing awareness is landing at checkout.'},
+ {icon:'📦', tone:'amber', title:'Restock still unconfirmed — 14+ days since last order', body:'No supplier order confirmed since Jun 29 (Covetrus $4,048, Zoetis $430) — 15 days. Size 6.0 ET tubes still COMPLETELY OUT (day 6, 6.5s also needed). Fresh #need-list items posted Mon afternoon (Vetmedin 5mg, Zenrelia 5.4/15mg, animax 30ml, extension cord) on top of Moissa\'s Monday batch. Wednesday restock is the next window.'}
 ];
 const ACTIONS = [
  {pri:'high', text:'Run INSPECT query (indiana.pmpaware.net) before dispensing any controlled substance today — required by Indiana law.'},
- {pri:'high', text:'Place the Monday Vetcove order by NOON — the monday-ordering-reminder didn\'t DM a cart this morning, so build it manually. Must include: Size 6.0 + 6.5 ET tubes (day 5 completely out), Moissa\'s 8 items from this morning, Thursday\'s un-✅\'d items (amoxi 30ml, Zenrelia 8.4, 1ml syringes), and the 6 chronic URGENT items (Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol — controlled, Dr. Smiley sign-off). Covetrus preferred.'},
- {pri:'high', text:'Verify payroll approval actually happened — it was due Thu Jul 9, auto-approve failed, and Friday\'s list still showed it unconfirmed. Dayforce → Menu → Pay Approve Checklist. Also: Dayforce punches due 10 AM ET, supplemental pay/PTO by 11 AM ET today.'},
- {pri:'med', text:'Today runs 31 appointments with a heavy 7:15–8:45 wellness block (21 appts before 9 AM) — confirm coverage held after the Jul 13–18 schedule (v2) approval, incl. whether Kathryn stayed OFF today. Open: Saturday 7/18 rotation, Allison\'s "off Monday" = Jul 20? New: Moissa off Aug 28 (posted Sat).'},
- {pri:'med', text:'Callback backlog day 26 — 0 of 12 attempted, ~$3,216 on the table, clinical-risk cases aging (Mr. Spock/CKD, Gracie/seizure med, Theo/out of Simparica, Pearl/Phosphix labs). If Friday\'s in-person talk with Debbie didn\'t happen, today\'s the day.'}
+ {pri:'high', text:'Get the Vetcove restock placed — nothing confirmed since Jun 29 (15 days). Priorities: Size 6.0 + 6.5 ET tubes (day 6 out), Zenrelia 5.4/8.4/15mg, amoxi 30ml, Vetmedin 5mg, animax 30ml, meloxicam 10ml, plus the chronic URGENT items (Rabies Defensor, Vanguard Plus 5L4, Proheart 12, Bronchi-Shield, Propoflo, Euthasol — controlled, Dr. Smiley sign-off). Covetrus preferred. Wednesday order due by noon.'},
+ {pri:'high', text:'Confirm payroll actually posted — it was due Thu Jul 9 and prior lists flagged the auto-approve as unconfirmed. Dayforce → Menu → Pay Approve Checklist.'},
+ {pri:'med', text:'Schedule this week: Tue 34, Wed 24, Thu 21 appts. New time-off in: Allison off Sat Jul 25 AND Mon Jul 27, Debbie switching Jul 22 morning→afternoon, Kristi off Jul 17, Allison off at noon Jul 17. CSV shows no Fri Jul 17 / Sat Jul 18 rows but 23 mislabeled under "Sun Jul 19" — verify Fri/Sat against the Avimark calendar (+1-day bug).'},
+ {pri:'med', text:'Callback backlog still open — clinical-risk cases aging (Mr. Spock/CKD, Gracie/seizure med, Theo/out of Simparica, Pearl/Phosphix labs). Confirm Debbie has the list and is working it.'}
 ];
 
 // ---- PTO_DATA: filled by the weekly Monday Dayforce pull ----
@@ -618,27 +633,27 @@ const COMPLIANCE_STATE = {
 
 // ---- DVC_LIVE_DATA_START — updated automatically by dashboard-daily-refresh — do not edit manually ----
 window.DVC_LIVE = {
-  lastUpdated:        "Jul 13, 2026 9:20 AM",
-  lastTjDate:         "2026-07-13",
-  mtdRevenue:         17053.56,
-  ytdRevenue:         820253.08,
-  avgInvoice:         58.01,
-  patientVisits:      294,
+  lastUpdated:        "Jul 14, 2026 9:35 AM",
+  lastTjDate:         "2026-07-14",
+  mtdRevenue:         32980.28,
+  ytdRevenue:         836179.80,
+  avgInvoice:         64.16,
+  patientVisits:      514,
   controllableCosts:  64.2,
-  mtdRevenuePct:      -73.1,
-  ytdRevenuePct:      -19.1,
-  avgInvoicePct:      -13.2,
-  patientVisitsPct:   -68.7,
+  mtdRevenuePct:      -52.9,
+  ytdRevenuePct:      -18.1,
+  avgInvoicePct:      -4.0,
+  patientVisitsPct:   -51.5,
   comparePeriod:      "Jul 2025 to date",
   weeklyRevenue:      null,
   weeklyRevenuePct:   null,
   weeklyNewClients:   1,
   weeklyPeriodTotal:  0,
   budgetTarget:       95000,
-  projectedMonthEnd:  43581.32,
-  dailyRunRate:       1894.84,
-  pacingStatus:       "Source: live AVImark handoff (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 2026-07-13 08:59 AM, reads ACCOUNT.V2$; Desktop ALWAYS_CURRENT file still unreachable from this sandbox - same refresh, generated today). July is 9 of 23 business days in - MTD $17,054 vs $37,174 target-to-date (18.0% of the $95K goal, ~$20.1K behind pace). Run rate $1,895/business day projects ~$43,581 at month-end. Down 73.1% vs Jul 2025 to date ($63,381 PY); patient visits 294 (-68.7%). +$4,395 booked since Friday's snapshot (Fri+Sat activity); today's rows were $0 as of the 8:59 AM pull. Note: the YoY gap remains unusually wide and keeps widening as the PY window advances - verify against Avimark's official TJ before quoting externally. avgInvoicePct (-13.2) compares to previous month, not PY.",
-  businessDaysElapsed: 9,
+  projectedMonthEnd:  75854.64,
+  dailyRunRate:       3298.03,
+  pacingStatus:       "Source: live AVImark MCP (ACCOUNT.V2$, generated 2026-07-14 09:27 AM) + handoff file (claude/avimark/AVIMARK_LIVE_DATA_FOR_CLAUDE.md, generated 08:58 AM). BIG overnight catch-up: MTD nearly doubled from $17,054 (Jul 13) to $32,980 as Fri/Sat/Mon rows posted to ACCOUNT.V2$. July is 10 of 23 business days in - MTD $32,980 vs $41,304 target-to-date (34.7% of the $95K goal, ~$8,324 behind pace - much improved from ~$20K behind Friday). Run rate $3,298/business day projects ~$75,855 at month-end. Down 52.9% vs Jul 2025 to date ($70,060 PY); patient visits 514 (-51.5%). The YoY gap narrowed from -73% but is still wide - verify against Avimark's official TJ before quoting externally. avgInvoicePct (-4.0) compares to previous month, not PY.",
+  businessDaysElapsed: 10,
   businessDaysTotal:   23,
   noShowRate:         5.0,
   cancelRate:         10.0,
@@ -652,8 +667,13 @@ window.DVC_LIVE = {
 
 // ---- NEED_LIST_DATA_START — updated by dashboard-daily-refresh from Slack #need-list ----
 window.NEED_LIST_DATA = {
-  lastUpdated: "Jul 13, 2026 9:20 AM",
+  lastUpdated: "Jul 14, 2026 9:35 AM",
   items: [
+    {id:"nl-220",text:"6-foot outdoor extension cord (room 5)",author:"Jodi Dunn",date:"Jul 13",channel:"#need-list",status:"open",priority:"low"},
+    {id:"nl-219",text:"Vetmedin 5mg",author:"Maddie",date:"Jul 13",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-218",text:"Zenrelia 5.4mg",author:"Staff Computer",date:"Jul 13",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-217",text:"Animax 30ml",author:"Staff Computer",date:"Jul 13",channel:"#need-list",status:"open",priority:"high"},
+    {id:"nl-216",text:"Zenrelia 15mg",author:"Staff Computer",date:"Jul 13",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-215",text:"Librela 88-132",author:"Moissa",date:"Jul 13",channel:"#need-list",status:"open",priority:"high"},
     {id:"nl-214",text:"Thunder Ease refill x2",author:"Moissa",date:"Jul 13",channel:"#need-list",status:"open",priority:"medium"},
     {id:"nl-213",text:"Feliway multicat refill x2",author:"Moissa",date:"Jul 13",channel:"#need-list",status:"open",priority:"medium"},
@@ -838,9 +858,12 @@ window.STAFF_LOG_DATA = {};
 
 // ---- TIME_OFF_DATA_START — updated by daily refresh from Dayforce + Slack ----
 window.TIME_OFF_DATA = {
-  lastUpdated: "Jul 13, 2026 9:20 AM",
+  lastUpdated: "Jul 14, 2026 9:35 AM",
   source: "Dayforce + Slack #preferred-schedule + #general",
   entries: [
+    {staff:"Allison",dates:["2026-07-25"],type:"pto",note:"Off Sat Jul 25 — requested Jul 13 #preferred-schedule",inDayforce:false,slackOnly:true},
+    {staff:"Allison",dates:["2026-07-27"],type:"pto",note:"Off Mon Jul 27 — 'probably still in Ohio'; requested Jul 13 #preferred-schedule",inDayforce:false,slackOnly:true},
+    {staff:"Debbie",dates:["2026-07-22"],type:"shift_change",note:"Switch morning of Jul 22 to afternoon — requested Jul 13 #preferred-schedule",inDayforce:false,slackOnly:true},
     {staff:"Moissa",dates:["2026-08-28"],type:"pto",note:"Off Aug 28 — requested Jul 11 #preferred-schedule",inDayforce:false,slackOnly:true},
     {staff:"Kristi",dates:["2026-07-17"],type:"pto",note:"Off — no sitter that day; requested Jul 7 #preferred-schedule",inDayforce:false,slackOnly:true},
     {staff:"Allison",dates:["2026-07-17"],type:"early_out",note:"Off at noon; requested Jul 6 #preferred-schedule",inDayforce:false,slackOnly:true},
@@ -856,14 +879,13 @@ window.TIME_OFF_DATA = {
 
 // ---- APPOINTMENT_COUNTS_START — updated by morning-avimark-pull ----
 window.APPT_COUNTS = {
-  lastUpdated: "Jul 13, 2026 9:20 AM",
-  weekOf: "2026-07-13",
-  source: "No schedule post in #general today — counts from the fresh AVIMARK_SCHEDULE_FOR_CLAUDE.csv (generated 9:01 AM). Dates VALIDATED this run: Tuesday's CSV rows match the Jul 14 appointment-preview DM name-for-name (Doober/Ginder, Billy/Rice, Feather drop-off), so no +1-day shift in this snapshot. Monday came in at 31 booked (lighter than the ~45 predicted last week) with a heavy 7:15–8:45 AM wellness block — 21 appts before 9 AM, quiet midday, 10 in the afternoon. CAVEAT: the export has NO rows for Fri Jul 17 or Sat Jul 18, but 16 rows under SUNDAY Jul 19 (clinic closed) — those are probably mislabeled Fri/Sat rows; verify Fri/Sat against the Avimark calendar. Surgeries unknown (no reason codes in export).",
+  lastUpdated: "Jul 14, 2026 9:35 AM",
+  weekOf: "2026-07-14",
+  source: "No schedule post in #general today — counts from the fresh AVIMARK_SCHEDULE_FOR_CLAUDE.csv (generated 8:59 AM). Today (Tue Jul 14) = 34 booked incl. a 7:00–12:00 Feather RT drop-off. CAVEAT (persistent +1-day bug): the export has NO rows for Fri Jul 17 or Sat Jul 18, but 23 rows under SUNDAY Jul 19 (clinic closed) — those are almost certainly mislabeled Fri/Sat rows, so verify Fri/Sat against the Avimark calendar before trusting. Surgeries unknown (no reason codes in export).",
   days: [
-    {day:"Mon",date:"2026-07-13",count:31,surgeries:0},
-    {day:"Tue",date:"2026-07-14",count:33,surgeries:0},
-    {day:"Wed",date:"2026-07-15",count:22,surgeries:0},
-    {day:"Thu",date:"2026-07-16",count:19,surgeries:0},
+    {day:"Tue",date:"2026-07-14",count:34,surgeries:0},
+    {day:"Wed",date:"2026-07-15",count:24,surgeries:0},
+    {day:"Thu",date:"2026-07-16",count:21,surgeries:0},
     {day:"Fri",date:"2026-07-17",count:null,surgeries:0},
     {day:"Sat",date:"2026-07-18",count:null,surgeries:0}
   ]
@@ -873,9 +895,9 @@ window.APPT_COUNTS = {
 
 // ---- APPOINTMENT_MED_FLAGS_START — updated by morning-avimark-pull Part B ----
 window.APPT_MED_FLAGS = {
-  lastUpdated: "Jul 13, 2026 9:20 AM",
-  date: "2026-07-13",
-  dateLabel: "Today — Mon Jul 13: 31 appointments; front-loaded 7:15–8:45 wellness block (21 before 9 AM — likely Rabies/DAPP/Bronchi-Shield/ProHeart/4DX heavy), quiet 9–11, afternoon 2:00–3:30 (10 appts incl. Childs x2, Syed x2). The schedule export carries no notes or reason codes, so no per-appointment med keywords could be flagged — pull meds against the book in Avimark. Multi-pet: Hakala x2, Faulkenberg x2, Syed x3, Nyikos x2, Childs x2.",
+  lastUpdated: "Jul 14, 2026 9:35 AM",
+  date: "2026-07-14",
+  dateLabel: "Today — Tue Jul 14: 34 booked incl. a 7:00–12:00 Feather (feline) drop-off. Heavy early wellness block from 7:15 AM. The schedule export carries no note or reason-code text this run, so no per-appointment med keywords could be auto-flagged — pull meds against the book in Avimark (expect the usual Rabies/DAPP/Bronchi-Shield/ProHeart/vaccine + preventive mix).",
   appointments: []
 };
 // ---- APPOINTMENT_MED_FLAGS_END ----
@@ -898,27 +920,30 @@ const STAFF_ALIASES = {catherine:'kathryn', katherine:'kathryn', cathy:'kathryn'
 // Schema: {lastUpdated, examDate, breakdown:["line1",...], profiles:[{patient, client, time, visit,
 //   type:"analytical|anxious|easygoing|decisive|budget", compliance, trust, price, staff, tip}]} ----
 const CLIENT_PROFILES = {
- lastUpdated: "Jul 2, 2026 4:20 PM",
- examDate: "Jul 2, 2026",
+ lastUpdated: "Jul 13, 2026 4:05 PM",
+ examDate: "Jul 13, 2026",
  breakdown: [
-  "<b>10 of 12</b> predicted high compliance — and trust in the team was high in 11 of 12 rooms.",
-  "Cost-aware clients: Billey (Gypsy), Beechboard (Radar), Dollens (Sugarbear), Blake (Lucky) — all budget-conscious, all still high-trust.",
-  "Split day by style: 5 easy-going / low-friction, 4 budget-conscious, 2 analytical, 1 decisive.",
-  "QOL standout: Alger (Lilly) — geriatric weight loss & aging changes on a sparse, low-confidence transcript; keep it warm and reinforce next steps in writing."
+  "<b>14 of 15</b> predicted high compliance — and trust in the team was high in 14 of 15 rooms.",
+  "Cost-aware clients: Serf (Vada), Dickinson (Bear), Phillips (Eddie), Hardebeck (Minnie), Ford (Connie) — budget-conscious, mostly still high-trust.",
+  "Split day by style: 6 budget-conscious, 5 easy-going / low-friction, 3 analytical, 1 anxious.",
+  "Emotional standout: Johnson (Sassy) — anxious after a family member's dog died of a similar condition; wants reassurance and video review, so keep explanations calm and specific."
  ],
  profiles: [
-  {patient:"Bobby",   client:"Payne",      time:"7:58 AM", visit:"wellness / flea prevention", type:"decisive",   compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Fast preventive decisions, cost not a barrier — compare flea options plainly and keep it efficient. (Q reply cut off before the profile score.)"},
-  {patient:"Hondo",   client:"Rowley",     time:"8:01 AM", visit:"ear treatment plan",       type:"easygoing",  compliance:"high",     trust:"high",     price:"low",     staff:"kathryn", tip:"Accepts plans without resistance; brief rationale + written aftercare. Transcript named Catherine — likely Kathryn."},
-  {patient:"Draco",   client:"Sellers",    time:"8:45 AM", visit:"wellness / mobility",      type:"easygoing",  compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Agreed to continue meds and bring a fecal sample; reinforce mobility/home-care monitoring in writing."},
-  {patient:"Gypsy",   client:"Billey",     time:"9:55 AM", visit:"exam / staged care",       type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:null,      tip:"Hard budget and direct pricing questions, but accepts staged care once value is clear — lead with price transparency and sequence care."},
-  {patient:"Radar",   client:"Beechboard", time:"2:13 PM", visit:"parvo / GI acute care",    type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:"jodi",    tip:"Set an 'under three' limit (daughter in college); prioritize must-do items and give the total before add-ons."},
-  {patient:"Jelly & Vincent", client:"Stansberry", time:"2:35 PM", visit:"dental & diabetic mgmt", type:"analytical", compliance:"high", trust:"high", price:"neutral", staff:null,   tip:"Detailed questions (anesthesia, ketones); decisions filtered through spouse. Give clear monitor-vs-come-in thresholds. Christy in room (not on roster)."},
-  {patient:"Sugarbear", client:"Dollens",  time:"2:42 PM", visit:"sick visit / diagnostics", type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:null,      tip:"Negotiated CBC cost and accepted a lower-cost plan; state costs up front and keep it simple. Chrissy in room (not on roster)."},
-  {patient:"Lilly",   client:"Alger",      time:"3:04 PM", visit:"geriatric weight-loss exam", type:"easygoing", compliance:"unknown", trust:"moderate", price:"unknown", staff:null,   tip:"Sparse, low-confidence transcript. Geriatric weight loss — keep warm and concise, reinforce next steps in writing."},
-  {patient:"Griffin", client:"Mohler",     time:"3:13 PM", visit:"wellness / vaccines",      type:"easygoing",  compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Fast, preventive-driven, no cost pushback; mild handling anxiety (not resistance) — reassure step by step."},
-  {patient:"Fernando", client:"Wagner",    time:"3:45 PM", visit:"wellness exam",           type:"analytical", compliance:"high",     trust:"high",     price:"unknown", staff:null,      tip:"Detailed, preventive, multi-pet; collaborative + detailed explanations. (Q reply cut off before the profile score.)"},
-  {patient:"Ching",   client:"Ellis",      time:"3:52 PM", visit:"feline recheck",          type:"easygoing",  compliance:"high",     trust:"high",     price:"unknown", staff:null,      tip:"Cooperative owner, aloof cat — subtle changes are easy to miss, so emphasize exactly what to watch at home."},
-  {patient:"Lucky",   client:"Blake",      time:"4:00 PM", visit:"sick visit / senior",      type:"budget",     compliance:"moderate", trust:"high",     price:"high",    staff:"jodi",    tip:"Weighed treatment against x-ray cost and asked euthanasia pricing; chose meds first. Lead with lowest-cost clinical priority + exact costs. Jody assisting."}
+  {patient:"Ivy",     client:"Kepner",     time:"7:45 AM", visit:"allergy / seasonal exam",     type:"analytical", compliance:"high",     trust:"high",     price:"neutral", staff:null,      tip:"Asked multiple why/how questions (allergies, seasonality, med effects); accepted plan once reasoning explained. Reinforce with written dosing + follow-up. No staff named."},
+  {patient:"Georgia", client:"Taylor",     time:"8:05 AM", visit:"wellness / spay timing",       type:"easygoing",  compliance:"high",     trust:"high",     price:"neutral", staff:null,      tip:"Accepted recommendations, practical follow-ups, no resistance to cost-saving guidance. Confirm timing around surgery/heat cycle; reassurance-focused. No staff named."},
+  {patient:"Vada",    client:"Serf",       time:"9:15 AM", visit:"chronic dz recheck / BP",     type:"budget",     compliance:"high",     trust:"moderate", price:"high",    staff:null,      tip:"Raised prior $4,000 expense, questioned repeated testing, asked for lower-cost BP monitoring. Lead with priorities, explain each step, summarize in writing. No staff named."},
+  {patient:"Sassy",   client:"Johnson",    time:"9:32 AM", visit:"sick visit / reassurance",    type:"anxious",    compliance:"high",     trust:"high",     price:"unknown", staff:null,      tip:"Worried about a serious condition after a sister's dog died; seeks reassurance via video review. Give clear distinctions + calm, specific next steps. No staff named."},
+  {patient:"Hallie",  client:"Clark",      time:"9:33 AM", visit:"treatment plan / recheck",    type:"analytical", compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Detailed questions, references prior experience + outside validation; multi-pet, emotionally invested. Stepwise explanation with written next steps. No staff named."},
+  {patient:"Bear",    client:"Dickinson",  time:"9:42 AM", visit:"wellness / preventive care",  type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:null,      tip:"Explicitly compared yearly costs, prefers month-to-month spending; accepted a lower-burden staged plan. Lead with priorities + clear estimate. No staff named."},
+  {patient:"Eddie",   client:"Phillips",   time:"9:56 AM", visit:"wellness / preventive care",  type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:"allison", tip:"Set a $200 budget, accepted a split-care plan. State costs early, reinforce with written estimates + reminders. Allison in room (Maddie/Debbie also named — not on roster)."},
+  {patient:"Benny",   client:"Ricks",      time:"10:08 AM", visit:"wellness / flea-tick prev.", type:"budget",     compliance:"high",     trust:"high",     price:"neutral", staff:null,      tip:"Compared flea/tick pricing options, concerned about wasting money; multi-pet continuity. Concise plan + written follow-up. Christy in room (not on roster)."},
+  {patient:"Emmie",   client:"Shanks",     time:"10:30 AM", visit:"senior wellness / mobility", type:"easygoing",  compliance:"high",     trust:"high",     price:"unknown", staff:"kathryn", tip:"Accepts recommendations, fast decisions, focused on comfort/mobility + annual care. Keep it moving, reinforce aftercare. Transcript named Catherine — mapped to Kathryn."},
+  {patient:"Winnie",  client:"Hird",       time:"10:54 AM", visit:"ortho consult / dental",     type:"analytical", compliance:"high",     trust:"high",     price:"neutral", staff:null,      tip:"Weighs surgery vs. management, detailed follow-ups; responds to the 'why' + cost tradeoffs. Give a clear recheck/escalate threshold. Debbie & Maddie named (not on roster)."},
+  {patient:"Minnie",  client:"Hardebeck",  time:"11:20 AM", visit:"wellness / medication mgmt", type:"budget",     compliance:"high",     trust:"high",     price:"high",    staff:null,      tip:"Asked directly about total cost, hesitated at add-ons, accepted a simpler plan. State costs early; adherence risk is scheduling/med logistics, not refusal. No staff named."},
+  {patient:"Mila",    client:"Brown",      time:"11:41 AM", visit:"wellness / preventive care",  type:"easygoing",  compliance:"high",     trust:"high",     price:"neutral", staff:"allison", tip:"Accepted recommendations, brief clarifying questions, no resistance. Pair reassurance with itemized cost breakdown to avoid overwhelm. Allison in room; client is Emma."},
+  {patient:"Buddy",   client:"Webb",       time:"11:55 AM", visit:"wellness / preventive care",  type:"easygoing",  compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Attached owner, trusts the team, accepts recommendations; convenience is the barrier more than cost. Keep instructions simple with reminders. No staff named."},
+  {patient:"Reese",   client:"Hilbish",    time:"12:53 PM", visit:"wellness / boarding prep",    type:"easygoing",  compliance:"high",     trust:"high",     price:"low",     staff:null,      tip:"Accepted full estimate without resistance; open to bloodwork + year-long preventives. Reinforce boarding/travel instructions in writing. No staff named. (Client #26448.)"},
+  {patient:"Connie",  client:"Ford",       time:"3:45 PM", visit:"feline wellness / flea prev.", type:"budget",     compliance:"moderate", trust:"high",     price:"high",    staff:null,      tip:"Stated a hard $200 budget, took a lower-cost flea alternative. Lead with top medical priorities, then budget-matched options + written follow-up. No staff named."}
  ]
 };
 
